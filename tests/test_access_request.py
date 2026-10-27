@@ -112,7 +112,6 @@ def test_unverified_facts_are_reported() -> None:
     document = build_access_request(
         SYNTHETIC, MINIMAL, packs_root=PACKS, today=TODAY, jurisdiction="co"
     )
-    assert "supervisory authority" in document.unverified
     assert "recipient contact" in document.unverified  # synthetic DPO is unverified
     assert f"{len(document.unverified)} dato(s)" in document.markdown
 

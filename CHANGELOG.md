@@ -41,3 +41,10 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
   an input file, an existing file only with `--force`; exit status 0, 1 for refusals and
   unreadable inputs, 2 for usage errors. See [`docs/cli.md`](docs/cli.md).
 - Architecture decision records 001 to 007 in [`docs/adr/`](docs/adr/).
+
+### Changed
+
+- Eight more facts checked against their official sources on 2026-10-27 and marked
+  verified: the UAH coexistence rules (art. 15.3.a), UT Austin's FERPA contact, 34 CFR
+  §§ 99.20-99.22, UK Data Protection Act 2018 Sch. 2 para. 25, and the data protection
+  authorities for the EU, Spain, the UK (the Information Commission) and Colombia.

@@ -33,7 +33,9 @@ access_request:
           Answers written during an exam are exempt from access; this does not cover
           coursework or detector reports, but universities sometimes cite it.
       source_url: https://www.legislation.gov.uk/ukpga/2018/12/schedule/2/paragraph/25
-      verification: needs_verification
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "information recorded by candidates during an exam"
   response_deadline:
     value:
       amount: 1
@@ -52,8 +54,10 @@ access_request:
     value:
       name: Information Commission (ico.org.uk)
       url: https://ico.org.uk/make-a-complaint/
-    source_url: https://ico.org.uk/make-a-complaint/
-    verification: needs_verification
+    source_url: https://www.legislation.gov.uk/ukpga/2025/18/section/117
+    checked_on: 2026-10-27
+    verification: verified
+    quote: "A body corporate called the Information Commission is established"
     note: >-
       The Information Commission replaced the Information Commissioner on 30 September 2026;
       complaints still go through ico.org.uk. For the academic decision itself (not the

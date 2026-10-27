@@ -139,7 +139,9 @@ institution:
           name: Office of the Registrar (FERPA information)
           url: https://registrar.utexas.edu/staff/ferpa
         source_url: https://registrar.utexas.edu/staff/ferpa
-        verification: needs_verification
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "For students, direct general questions to the Office of the Registrar"
         note: >-
           FERPA information page. Requests go to the office that holds the record; for a
           detector report that is usually the instructor's department or Student Conduct.

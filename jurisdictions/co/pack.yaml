@@ -83,7 +83,9 @@ access_request:
       name: Superintendencia de Industria y Comercio (SIC), Delegatura para la Protección de Datos Personales
       url: https://www.sic.gov.co/
     source_url: https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=49981
-    verification: needs_verification
+    checked_on: 2026-10-27
+    verification: verified
+    quote: "La Superintendencia de Industria y Comercio, a través de una Delegatura para la Protección de Datos Personales"
     note: Ley 1581 art. 19. sic.gov.co could not be reached from the build machine on 2026-10-27.
   prerequisites:
     - value:

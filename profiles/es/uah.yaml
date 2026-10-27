@@ -86,8 +86,14 @@ institution:
           topics: [academic_integrity, data_protection]
           articles: ["art. 15.3.a"]
         source_url: https://www.uah.es/export/shared/es/conoce-la-uah/organizacion-y-gobierno/.galleries/Galeria-Secretaria-General/Reglamento-Normas-de-Convivencia-de-la-UAH.pdf
-        verification: needs_verification
-        note: Approved 16 February 2023, amended 21 March 2024. Article reference not yet checked by a human.
+        checked_on: 2026-10-27
+        verification: verified
+        quote: >-
+          Art. 15.3.a: "absteniéndose de hacer uso de fuentes no autorizadas y no incurrir en
+          plagio o engaño"
+        note: >-
+          Approved 16 February 2023, amended 21 March 2024 (BOUAH, March 2024). Art. 15.3.a also
+          bars revealing confidential documents, reports or data.
       - value:
           title: Normativa de Trabajo de Fin de Grado
           topics: [theses, academic_integrity]

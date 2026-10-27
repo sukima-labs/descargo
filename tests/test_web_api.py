@@ -113,7 +113,7 @@ def test_access_request_drafts_the_letter() -> None:
     assert "Alex Example" in result["markdown"]
     assert result["stem"] == f"access-request-{DAY}"
     assert result["summary"][0].startswith("Revisa el escrito")
-    assert result["warnings"][0].startswith("2 dato(s)")
+    assert result["warnings"][0].endswith("pendientes de verificar:")
     assert result["subject"] == "es/uah / es"
 
 

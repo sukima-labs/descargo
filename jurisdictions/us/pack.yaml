@@ -29,7 +29,13 @@ access_request:
           You can ask the institution to amend a record you believe is inaccurate or
           misleading, and to have a hearing if it refuses.
       source_url: https://www.ecfr.gov/current/title-34/subtitle-A/part-99/subpart-C
-      verification: needs_verification
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "may ask the educational agency or institution to amend the record"
+      note: >-
+        § 99.20(a); the hearing is § 99.21(a) and its minimum requirements § 99.22. Read
+        through the eCFR API (text up to date as of 2026-10-23), because ecfr.gov refuses
+        programmatic page loads.
     - value:
         citation: "U.S. Department of Education, letter to St. Thomas Aquinas College (January 2006)"
         summary: >-
@@ -38,6 +44,13 @@ access_request:
           been settled officially.
       source_url: https://studentprivacy.ed.gov/sites/default/files/resource_document/file/LettertoStThomasAquinasCollegeRegardingPlagiarismPreventionServiceJanuary2006.pdf
       verification: needs_verification
+      quote: >-
+        "student tests, papers, and other assignments are considered “education records” even
+        if they are never graded, so long as they are maintained by the institution"
+      note: >-
+        Letter of 6 January 2006. The first sentence of the summary was checked against it on
+        2026-10-27. The second is an absence (no official statement found on detector reports),
+        so the fact stays needs_verification.
   response_deadline:
     value:
       amount: 45

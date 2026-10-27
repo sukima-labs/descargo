@@ -66,9 +66,15 @@ access_request:
             2026.
       source_url: https://www.boe.es/doue/2024/1689/L00001-00144.pdf
       verification: needs_verification
+      quote: >-
+        Annex III, 3.b: "Sistemas de IA destinados a ser utilizados para evaluar los resultados
+        del aprendizaje"
       note: >-
         Regulation (EU) 2026/1744 moved the application of the high-risk rules for Annex III
-        systems to 2 December 2027. Mention only as context, never as the main basis.
+        systems to 2 December 2027. Mention only as context, never as the main basis. On
+        2026-10-27 Annex III point 3.b and Art. 86(1) were found in the Spanish text at
+        source_url; the 2026/1744 postponement was not checked (EUR-Lex refuses scripted
+        loads), so the fact stays needs_verification.
   response_deadline:
     value:
       amount: 1
@@ -94,8 +100,10 @@ access_request:
         es: la autoridad de protección de datos de tu país (lista de miembros del CEPD)
       url: https://www.edpb.europa.eu/about-edpb/about-edpb/members_en
     source_url: https://www.edpb.europa.eu/about-edpb/about-edpb/members_en
-    verification: needs_verification
-    note: GDPR Art. 77. The page loaded on 2026-10-27; its content was not reviewed.
+    checked_on: 2026-10-27
+    verification: verified
+    quote: "The EDPB is composed of representatives of the EU national data protection authorities"
+    note: GDPR Art. 77. The page lists each authority with its address and website.
   templates:
     en: access_request.en.md.j2
     es: access_request.es.md.j2

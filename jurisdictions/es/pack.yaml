@@ -43,8 +43,10 @@ access_request:
     value:
       name: Agencia Española de Protección de Datos (AEPD)
       url: https://www.aepd.es/
-    source_url: https://www.aepd.es/
-    verification: needs_verification
+    source_url: https://www.edpb.europa.eu/about-edpb/about-edpb/members_en
+    checked_on: 2026-10-27
+    verification: verified
+    quote: "Spain Agencia Española de Protección de Datos (AEPD)"
     note: >-
       Some regions have their own authority for regional public bodies (LOPDGDD art. 57),
       which may include public universities in Catalonia, the Basque Country and Andalusia.
