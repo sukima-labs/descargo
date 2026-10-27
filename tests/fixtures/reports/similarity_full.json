@@ -1,0 +1,50 @@
+{
+  "schema_version": "0.1",
+  "tool": {
+    "name": "turnitin",
+    "product": "Feedback Studio",
+    "report_kind": "similarity"
+  },
+  "provenance": {
+    "adapter": "manual",
+    "adapter_version": "0",
+    "draftwitness_version": "0.1.0.dev0",
+    "parsed_at": "2026-10-27T10:00:00Z",
+    "report_file": {
+      "filename": "synthetic-similarity-report.pdf",
+      "media_type": "application/pdf",
+      "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "size_bytes": 12345
+    }
+  },
+  "submission": {
+    "title": "SYNTHETIC: The water cycle in semi-arid basins",
+    "submission_id": "0000000001",
+    "submitted_at": "2026-10-20T18:30:00+02:00",
+    "word_count": 1000,
+    "character_count": 6200,
+    "page_count": 4
+  },
+  "similarity": {
+    "overall_percent": 23,
+    "filters": {
+      "quotes_excluded": false,
+      "bibliography_excluded": false,
+      "small_matches_excluded": false
+    },
+    "sources": [
+      {"id": "s1", "rank": 1, "label": "www.example.org", "kind": "internet", "url": "https://www.example.org/water", "percent": 9, "matched_words": 90},
+      {"id": "s2", "rank": 2, "label": "Submitted to Synthetic University", "kind": "student_paper", "percent": 8, "matched_words": 80},
+      {"id": "s3", "rank": 3, "label": "Journal of Synthetic Hydrology", "kind": "publication", "percent": 5, "matched_words": 50},
+      {"id": "s4", "rank": 4, "label": "docs.example.net", "kind": "internet", "percent": 1, "percent_is_upper_bound": true}
+    ],
+    "matches": [
+      {"id": "m1", "source_id": "s1", "text": "evapotranspiration accounts for most of the water leaving the basin", "start": 120, "end": 188, "page": 1, "word_count": 10},
+      {"id": "m2", "source_id": "s3", "text": "Smith, J. (2020). Groundwater recharge in semi-arid regions. Journal of Synthetic Hydrology, 12(3), 45-67.", "page": 4}
+    ]
+  },
+  "warnings": [],
+  "extensions": {
+    "turnitin": {"paper_id_format": "numeric"}
+  }
+}

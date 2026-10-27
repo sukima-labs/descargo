@@ -1,0 +1,853 @@
+{
+  "$defs": {
+    "AiSegment": {
+      "additionalProperties": false,
+      "description": "A stretch of text the AI-writing detector flagged.",
+      "properties": {
+        "end": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Label"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page"
+        },
+        "score": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Tool-reported score for this segment, scaled to 0-100.",
+          "title": "Score"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Start"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Text"
+        }
+      },
+      "title": "AiSegment",
+      "type": "object"
+    },
+    "AiWriting": {
+      "additionalProperties": false,
+      "description": "AI-writing section of a report.",
+      "properties": {
+        "detector_model": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Detector model or version, if the report names one.",
+          "title": "Detector Model"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Verdict label as shown, e.g. 'Likely AI-generated'.",
+          "title": "Label"
+        },
+        "overall_percent": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Share of text the tool attributes to AI, 0-100.",
+          "title": "Overall Percent"
+        },
+        "segments": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AiSegment"
+          },
+          "title": "Segments",
+          "type": "array"
+        }
+      },
+      "title": "AiWriting",
+      "type": "object"
+    },
+    "JsonValue": {},
+    "Match": {
+      "additionalProperties": false,
+      "description": "One matched passage. Most downloaded reports expose only some of these fields.",
+      "properties": {
+        "end": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "End offset (exclusive) in the submission's extracted text.",
+          "title": "End"
+        },
+        "id": {
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page"
+        },
+        "source_id": {
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Source Id",
+          "type": "string"
+        },
+        "start": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Start offset in the submission's extracted text.",
+          "title": "Start"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Matched text in the submission.",
+          "title": "Text"
+        },
+        "word_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Word Count"
+        }
+      },
+      "required": [
+        "id",
+        "source_id"
+      ],
+      "title": "Match",
+      "type": "object"
+    },
+    "Provenance": {
+      "additionalProperties": false,
+      "description": "How this report object was produced, so a third party can reproduce it.",
+      "properties": {
+        "adapter": {
+          "description": "Adapter that parsed the report, e.g. 'turnitin-pdf'.",
+          "maxLength": 64,
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "title": "Adapter",
+          "type": "string"
+        },
+        "adapter_version": {
+          "minLength": 1,
+          "title": "Adapter Version",
+          "type": "string"
+        },
+        "draftwitness_version": {
+          "minLength": 1,
+          "title": "Draftwitness Version",
+          "type": "string"
+        },
+        "parsed_at": {
+          "format": "date-time",
+          "title": "Parsed At",
+          "type": "string"
+        },
+        "report_file": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ReportFile"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Absent when the report was entered by hand."
+        }
+      },
+      "required": [
+        "adapter",
+        "adapter_version",
+        "draftwitness_version",
+        "parsed_at"
+      ],
+      "title": "Provenance",
+      "type": "object"
+    },
+    "ReportFile": {
+      "additionalProperties": false,
+      "description": "The file the student downloaded and fed to the adapter.",
+      "properties": {
+        "filename": {
+          "maxLength": 255,
+          "minLength": 1,
+          "title": "Filename",
+          "type": "string"
+        },
+        "media_type": {
+          "examples": [
+            "application/pdf",
+            "text/html"
+          ],
+          "title": "Media Type",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "size_bytes": {
+          "minimum": 0,
+          "title": "Size Bytes",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "filename",
+        "media_type",
+        "sha256",
+        "size_bytes"
+      ],
+      "title": "ReportFile",
+      "type": "object"
+    },
+    "ReportKind": {
+      "description": "What the downloaded report covers.",
+      "enum": [
+        "similarity",
+        "ai_writing",
+        "combined"
+      ],
+      "title": "ReportKind",
+      "type": "string"
+    },
+    "Similarity": {
+      "additionalProperties": false,
+      "description": "Similarity section of a report.",
+      "properties": {
+        "filters": {
+          "$ref": "#/$defs/SimilarityFilters",
+          "default": {
+            "bibliography_excluded": null,
+            "quotes_excluded": null,
+            "small_matches_excluded": null,
+            "small_matches_min_percent": null,
+            "small_matches_min_words": null
+          }
+        },
+        "matches": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Match"
+          },
+          "title": "Matches",
+          "type": "array"
+        },
+        "overall_percent": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Overall Percent",
+          "type": "number"
+        },
+        "sources": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Source"
+          },
+          "title": "Sources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "overall_percent"
+      ],
+      "title": "Similarity",
+      "type": "object"
+    },
+    "SimilarityFilters": {
+      "additionalProperties": false,
+      "description": "Exclusions the report says were applied. ``None`` means the report does not say.",
+      "properties": {
+        "bibliography_excluded": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bibliography Excluded"
+        },
+        "quotes_excluded": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Quotes Excluded"
+        },
+        "small_matches_excluded": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Small Matches Excluded"
+        },
+        "small_matches_min_percent": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Small Matches Min Percent"
+        },
+        "small_matches_min_words": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Small Matches Min Words"
+        }
+      },
+      "title": "SimilarityFilters",
+      "type": "object"
+    },
+    "Source": {
+      "additionalProperties": false,
+      "description": "One matched source in the report's source list.",
+      "properties": {
+        "id": {
+          "description": "Identifier unique within this report, e.g. 's1'.",
+          "maxLength": 64,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$",
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/SourceKind",
+          "default": "unknown"
+        },
+        "label": {
+          "description": "Source name or URL as shown on the report.",
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "matched_words": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Matched Words"
+        },
+        "percent": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Share of the submission attributed to this source.",
+          "title": "Percent"
+        },
+        "percent_is_upper_bound": {
+          "default": false,
+          "description": "True when the report shows a bound such as '<1%'; percent is then the bound.",
+          "title": "Percent Is Upper Bound",
+          "type": "boolean"
+        },
+        "rank": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Position in the tool's source list.",
+          "title": "Rank"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "id",
+        "label"
+      ],
+      "title": "Source",
+      "type": "object"
+    },
+    "SourceKind": {
+      "description": "Category of a matched source, as the tool reports it.",
+      "enum": [
+        "internet",
+        "publication",
+        "student_paper",
+        "other",
+        "unknown"
+      ],
+      "title": "SourceKind",
+      "type": "string"
+    },
+    "Submission": {
+      "additionalProperties": false,
+      "description": "The submitted work, as described by the report. No personal data.",
+      "properties": {
+        "character_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Character Count"
+        },
+        "page_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page Count"
+        },
+        "submission_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Tool-assigned submission identifier (not a student ID).",
+          "title": "Submission Id"
+        },
+        "submitted_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Submitted At"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        },
+        "word_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Word Count"
+        }
+      },
+      "title": "Submission",
+      "type": "object"
+    },
+    "Tool": {
+      "additionalProperties": false,
+      "description": "The detector that produced the report.",
+      "properties": {
+        "name": {
+          "description": "Tool identifier, e.g. 'turnitin', 'copyleaks', 'gptzero'.",
+          "maxLength": 64,
+          "pattern": "^[a-z0-9][a-z0-9_-]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "product": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Product or integration name as shown on the report.",
+          "title": "Product"
+        },
+        "report_kind": {
+          "$ref": "#/$defs/ReportKind"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Tool or report-format version, if the report shows one.",
+          "title": "Version"
+        }
+      },
+      "required": [
+        "name",
+        "report_kind"
+      ],
+      "title": "Tool",
+      "type": "object"
+    }
+  },
+  "$id": "urn:draftwitness:schema:report:0.1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "tool": {
+            "properties": {
+              "report_kind": {
+                "const": "similarity"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "similarity": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "similarity"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "tool": {
+            "properties": {
+              "report_kind": {
+                "const": "ai_writing"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ai_writing": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "ai_writing"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "tool": {
+            "properties": {
+              "report_kind": {
+                "const": "combined"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "anyOf": [
+          {
+            "properties": {
+              "similarity": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "similarity"
+            ]
+          },
+          {
+            "properties": {
+              "ai_writing": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "ai_writing"
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "description": "A detector report in DraftWitness's common format.",
+  "properties": {
+    "ai_writing": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AiWriting"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "extensions": {
+      "additionalProperties": false,
+      "default": {},
+      "description": "Tool-specific fields, namespaced by tool name.",
+      "patternProperties": {
+        "^[a-z0-9][a-z0-9_-]*$": {
+          "additionalProperties": {
+            "$ref": "#/$defs/JsonValue"
+          },
+          "type": "object"
+        }
+      },
+      "propertyNames": {
+        "maxLength": 64
+      },
+      "title": "Extensions",
+      "type": "object"
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance"
+    },
+    "schema_version": {
+      "const": "0.1",
+      "default": "0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "similarity": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Similarity"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "submission": {
+      "$ref": "#/$defs/Submission",
+      "default": {
+        "character_count": null,
+        "page_count": null,
+        "submission_id": null,
+        "submitted_at": null,
+        "title": null,
+        "word_count": null
+      }
+    },
+    "tool": {
+      "$ref": "#/$defs/Tool"
+    },
+    "warnings": {
+      "default": [],
+      "description": "What the adapter could not extract or had to interpret.",
+      "items": {
+        "type": "string"
+      },
+      "title": "Warnings",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "tool",
+    "provenance"
+  ],
+  "title": "DraftWitness report",
+  "type": "object"
+}

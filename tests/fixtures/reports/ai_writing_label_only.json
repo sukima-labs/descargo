@@ -1,0 +1,17 @@
+{
+  "schema_version": "0.1",
+  "tool": {"name": "gptzero", "report_kind": "ai_writing"},
+  "provenance": {
+    "adapter": "manual",
+    "adapter_version": "0",
+    "draftwitness_version": "0.1.0.dev0",
+    "parsed_at": "2026-10-27T10:00:00Z"
+  },
+  "ai_writing": {
+    "label": "SYNTHETIC: mixed",
+    "segments": [
+      {"text": "This sentence is synthetic test data.", "start": 0, "end": 37, "score": 71.5}
+    ]
+  },
+  "warnings": ["overall percentage not shown on the report"]
+}
