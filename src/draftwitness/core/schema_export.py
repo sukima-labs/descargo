@@ -10,12 +10,20 @@ from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
+from draftwitness.core.profiles import PROFILE_SCHEMA_VERSION, Profile
 from draftwitness.core.report_schema import SCHEMA_VERSION as REPORT_VERSION
 from draftwitness.core.report_schema import report_json_schema
+
+
+def profile_json_schema() -> dict[str, Any]:
+    """The JSON Schema for the current profile schema version."""
+    return Profile.model_json_schema(mode="validation")
+
 
 #: Published path (relative to ``schemas/``) → schema factory.
 PUBLISHED: dict[str, Callable[[], dict[str, Any]]] = {
     f"report/{REPORT_VERSION}.json": report_json_schema,
+    f"profile/{PROFILE_SCHEMA_VERSION}.json": profile_json_schema,
 }
 
 

@@ -1,0 +1,145 @@
+# yaml-language-server: $schema=../../schemas/profile/0.1.json
+#
+# The University of Texas at Austin (United States).
+# "verified" = the quote was found on the official page on `checked_on`.
+# "needs_verification" = a human still has to confirm it. Absences are always
+# needs_verification. The university's web pages show no effective dates; catalog rules
+# are cited by edition. Not legal advice.
+schema_version: "0.1"
+id: us/utexas
+country: US
+jurisdictions: [us]
+languages: [en]
+institution:
+  id: utexas
+  name: The University of Texas at Austin
+  official_url: https://www.utexas.edu/
+  policies:
+    ai_policy:
+      value:
+        stance: instructor_decides
+        summary: >-
+          Each course sets its own rule, but every syllabus must state whether AI is
+          permitted, prohibited or partially permitted, with conditions. Unauthorised or
+          uncited use may violate the Institutional Rules on academic integrity.
+      source_url: https://provost.utexas.edu/the-office/academic-affairs/office-of-academic-technology/ai-for-teaching-learning-toolkit/policy-and-recommendations/
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "Every syllabus must include a course AI policy"
+    similarity_thresholds:
+      - value: {kind: none_published}
+        source_url: https://catalog.utexas.edu/general-information/appendices/appendix-c/student-conduct-and-academic-integrity/
+        verification: needs_verification
+        note: >-
+          No percentage found in Chapter 11, the Provost's AI-detection guidance or the Dean
+          of Students' academic-integrity page (searched 2026-10-27).
+    tools:
+      - value: {tool: turnitin, features: [similarity]}
+        source_url: https://studentexperience.utexas.edu/conduct/academic-integrity-and-classroom-expectations
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "For papers, use TurnItIn or iThenticate to check for plagiarism."
+        note: >-
+          Dean of Students guidance to faculty, which also says a flag must be reviewed for "a
+          potential violation or a false flag". A current campus licence page was not found.
+      - value: {tool: turnitin, features: [ai_writing], enabled: false}
+        source_url: https://provost.utexas.edu/the-office/academic-affairs/office-of-academic-technology/ai-detection-software-guidance/
+        verification: needs_verification
+        quote: "The University prohibits the use of all third-party software"
+        note: >-
+          The quoted rule (verified 2026-10-27) bars third-party AI-detection software on
+          student work without a university contract, and the Provost says "UT does not
+          endorse AI-detection software and holds no central contract for it". Whether
+          Turnitin's own AI indicator is switched off was NOT confirmed.
+    regulations:
+      - value:
+          title: "Institutional Rules, Chapter 11: Student Conduct and Academic Integrity"
+          topics: [academic_integrity, discipline, appeals]
+          articles: ["Sec. 11-401", "Sec. 11-505", "Sec. 11-801", "Sec. 11-802", "Sec. 11-803"]
+        source_url: https://catalog.utexas.edu/general-information/appendices/appendix-c/student-conduct-and-academic-integrity/
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "excluding weekends, university holidays"
+        note: >-
+          General Information Catalog, 2026-27 edition, Appendix C. Deadlines count "days"
+          as weekdays excluding university holidays and suspended-class days.
+      - value:
+          title: "Institutional Rules, Chapter 9: Educational Records"
+          topics: [records_access, data_protection]
+        source_url: https://catalog.utexas.edu/general-information/appendices/appendix-c/educational-records/
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "should be made to the University office or agency concerned"
+        note: >-
+          General Information Catalog, 2026-27 edition. There is no central records
+          repository: inspection requests go, in writing, to the office that holds the record.
+      - value:
+          title: "Provost's guidance on AI detection software"
+          topics: [ai_use, academic_integrity]
+        source_url: https://provost.utexas.edu/the-office/academic-affairs/office-of-academic-technology/ai-detection-software-guidance/
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "may not adjust or otherwise impact the student"
+        note: >-
+          While a case is pending the instructor may not change the grade on the assessment
+          in question, and must submit an "X" if the course ends before it is resolved.
+    deadlines:
+      - value:
+          kind: misconduct_appeal
+          amount: 5
+          unit: business_days
+          from_event: receipt of the Administrative Disposition (to request a hearing and contest the finding)
+        source_url: https://catalog.utexas.edu/general-information/appendices/appendix-c/student-conduct-and-academic-integrity/
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "within five (5) days of receipt of the Administrative Disposition"
+      - value:
+          kind: misconduct_appeal
+          amount: 5
+          unit: business_days
+          from_event: notification of the disciplinary decision (written appeal to the Appellate Officer)
+        source_url: https://catalog.utexas.edu/general-information/appendices/appendix-c/student-conduct-and-academic-integrity/
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "within five (5) days from the date the appealing party was notified"
+      - value:
+          kind: records_access_response
+          amount: 45
+          unit: calendar_days
+          from_event: the university's receipt of a written request to inspect records
+        source_url: https://catalog.utexas.edu/general-information/appendices/appendix-c/educational-records/
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "normally will be made available within forty-five days"
+        note: >-
+          The university says "normally"; the binding federal maximum is 45 days under
+          34 CFR 99.10(b).
+    self_plagiarism:
+      value: >-
+        Submitting essentially the same work for two assignments without the instructor's
+        permission counts as plagiarism under Sec. 11-401.
+      source_url: https://catalog.utexas.edu/general-information/appendices/appendix-c/student-conduct-and-academic-integrity/
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "submits essentially the same work for two assignments"
+    contacts:
+      - value:
+          role: ombuds
+          name: Office of the University Ombuds for Students
+          email: utombuds@austin.utexas.edu
+          url: https://ombuds.utexas.edu/student
+          postal_address: SSB 3.200B, The University of Texas at Austin
+        source_url: https://ombuds.utexas.edu/student
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "email is to be used for scheduling purposes only"
+        note: The office asks students not to send documents or details of their concern by email.
+      - value:
+          role: records_office
+          name: Office of the Registrar (FERPA information)
+          url: https://registrar.utexas.edu/staff/ferpa
+        source_url: https://registrar.utexas.edu/staff/ferpa
+        verification: needs_verification
+        note: >-
+          FERPA information page. Requests go to the office that holds the record; for a
+          detector report that is usually the instructor's department or Student Conduct.

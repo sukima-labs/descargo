@@ -1,0 +1,15 @@
+# SYNTHETIC invalid profile: verified fact without evidence, bad threshold, wrong id.
+schema_version: "0.1"
+id: zz/not-bad
+country: ZZ
+jurisdictions: [eu]
+languages: [en]
+institution:
+  id: bad
+  name: Bad Synthetic University
+  policies:
+    ai_policy:
+      value: {stance: allowed, summary: x}
+      verification: verified
+    similarity_thresholds:
+      - value: {kind: hard}

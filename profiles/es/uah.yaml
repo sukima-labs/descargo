@@ -1,0 +1,217 @@
+# yaml-language-server: $schema=../../schemas/profile/0.1.json
+#
+# Universidad de Alcalá (Spain).
+# "verified" = the quote was found in the official document or page on `checked_on`.
+# "needs_verification" = a human still has to confirm it. Absences ("no rule found") are
+# always needs_verification: a search can miss a document.
+# Not legal advice. Regulations change; follow `source_url` before relying on a fact.
+schema_version: "0.1"
+id: es/uah
+country: ES
+jurisdictions: [eu, es]
+languages: [es]
+institution:
+  id: uah
+  name: Universidad de Alcalá
+  official_url: https://www.uah.es/
+  policies:
+    ai_policy:
+      value:
+        stance: instructor_decides
+        summary: >-
+          No university-wide rule on students' use of generative AI was found for
+          bachelor's and master's studies. The library's guide says instructors must state
+          the conditions and limits of AI use in each course.
+      source_url: https://uah-es.libguides.com/iausoacademico/uso
+      quote: "Los docentes deben dejar claro cuáles son las condiciones y limitaciones del uso de la IA"
+      verification: needs_verification
+      note: >-
+        The source is a library guide, not a regulation. No Consejo de Gobierno agreement on
+        AI use was found on the Secretaría General regulations page (searched 2026-10-27).
+    similarity_thresholds:
+      - value:
+          kind: none_published
+          applies_to: bachelor's and master's theses (TFG, TFM) and coursework
+        source_url: https://www.uah.es/export/shared/es/conoce-la-uah/organizacion-y-gobierno/.galleries/Galeria-Secretaria-General/Normativa-Trabajos-Fin-Grado.pdf
+        verification: needs_verification
+        note: >-
+          The TFG regulation's report form (Anexo II) has a blank "datos de coincidencias"
+          field and states no percentage. No threshold was found in the TFM regulation either.
+    tools:
+      - value: {tool: turnitin, features: [similarity]}
+        source_url: https://www.uah.es/es/aula-virtual/servicios/originalidad-de-documentos/
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "para la comprobación de originalidad de documentos entregados por estudiantes de TFM oficiales, Tesis y TFG"
+        note: Made available to teaching staff through the virtual campus (Blackboard).
+      - value: {tool: safeassign, features: [similarity]}
+        source_url: https://www.uah.es/es/aula-virtual/servicios/originalidad-de-documentos/
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "la originalidad de los documentos enviados por los estudiantes"
+        note: Can be enabled by teaching staff in any virtual-campus course.
+    regulations:
+      - value:
+          title: Normativa de Evaluación de los Aprendizajes
+          topics: [assessment, academic_integrity, appeals]
+          articles: ["art. 22.5", "art. 22 bis.1", "art. 25.1", "art. 27", "art. 34.3"]
+        source_url: https://www.uah.es/export/shared/es/conoce-la-uah/organizacion-y-gobierno/.galleries/Galeria-Secretaria-General/Normativa-Evaluacion-Aprendizajes.pdf
+        checked_on: 2026-10-27
+        verification: verified
+        quote: >-
+          Art. 22 bis.1: "La detección por el profesor de que un trabajo, ensayo o prueba
+          similar no ha sido elaborado por el estudiante conllevará la calificación numérica
+          de cero (0)"
+        note: >-
+          Approved by Consejo de Gobierno on 24 March 2011, last amended on 22 July 2021.
+          Art. 34.3 defines plagiarism as copying texts "sin citar su procedencia y dándolos
+          como de elaboración propia". The document states no single effective date.
+      - value:
+          title: Reglamento de Régimen Disciplinario del Estudiantado de la Universidad de Alcalá
+          topics: [discipline, academic_integrity, appeals]
+          articles: ["art. 5.2.g", "art. 5.3.d", "art. 5.5", "art. 32", "art. 33"]
+        source_url: https://www.uah.es/export/shared/es/conoce-la-uah/organizacion-y-gobierno/.galleries/Galeria-Secretaria-General/Reglamento-regimen-disciplinario-estudiantado-de-la-UAH.pdf
+        effective_date: 2023-02-25
+        checked_on: 2026-10-27
+        verification: verified
+        quote: >-
+          Art. 5.5: "Se entiende como fraude académico cualquier comportamiento premeditado
+          tendente a falsear los resultados de un examen o trabajo, propio o ajeno"
+        note: >-
+          Implements Ley 3/2022 de Convivencia Universitaria. Approved 16 February 2023,
+          published in BOUAH on 24 February 2023 and in force the following day. Plagiarism or
+          fraud in a TFG, TFM or doctoral thesis is a very serious offence (art. 5.2.g).
+      - value:
+          title: Reglamento por el que se establecen las Normas de Convivencia de la Universidad de Alcalá
+          topics: [academic_integrity, data_protection]
+          articles: ["art. 15.3.a"]
+        source_url: https://www.uah.es/export/shared/es/conoce-la-uah/organizacion-y-gobierno/.galleries/Galeria-Secretaria-General/Reglamento-Normas-de-Convivencia-de-la-UAH.pdf
+        verification: needs_verification
+        note: Approved 16 February 2023, amended 21 March 2024. Article reference not yet checked by a human.
+      - value:
+          title: Normativa de Trabajo de Fin de Grado
+          topics: [theses, academic_integrity]
+          articles: ["art. 2.4", "art. 3.7", "art. 9.1", "art. 9.9"]
+        source_url: https://www.uah.es/export/shared/es/conoce-la-uah/organizacion-y-gobierno/.galleries/Galeria-Secretaria-General/Normativa-Trabajos-Fin-Grado.pdf
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "El TFG no podrá estar plagiado, ni haber sido presentado con anterioridad, por el mismo u otro"
+        note: >-
+          Approved 22 February 2024. Art. 9.1 requires evidence "de carácter indubitado y
+          objetivo" before a disciplinary procedure on authorship (not yet checked by a human).
+      - value:
+          title: Reglamento de Trabajo de Fin de Máster Universitario
+          topics: [theses, academic_integrity, appeals]
+          articles: ["art. 7.1", "art. 9.2", "art. 10"]
+        source_url: https://www.uah.es/export/shared/es/conoce-la-uah/organizacion-y-gobierno/.galleries/Galeria-Secretaria-General/REGLAMENTO-DE-TRABAJO-DE-FIN-DE-MASTER-UNIVERSITARIO-DE-LA-UAH-CG.pdf
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "sometido el mismo a la herramienta de control de plagio"
+        note: Approved 23 February 2012, last amended 14 May 2026.
+    deadlines:
+      - value:
+          kind: grade_review
+          amount: 5
+          unit: business_days
+          from_event: publication of grades (the review takes place between business day 2 and 5)
+        source_url: https://www.uah.es/export/shared/es/conoce-la-uah/organizacion-y-gobierno/.galleries/Galeria-Secretaria-General/Normativa-Evaluacion-Aprendizajes.pdf
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "en un plazo comprendido entre los dos y los cinco días hábiles a contar desde la publicación de las calificaciones"
+        note: Normativa de Evaluación, art. 25.1.
+      - value:
+          kind: grade_appeal
+          amount: 5
+          unit: business_days
+          from_event: publication of final grades (requires a prior review)
+        source_url: https://www.uah.es/export/shared/es/conoce-la-uah/organizacion-y-gobierno/.galleries/Galeria-Secretaria-General/Normativa-Evaluacion-Aprendizajes.pdf
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "en el plazo de cinco días hábiles contados desde la publicación de las calificaciones definitivas"
+        note: >-
+          Normativa de Evaluación, art. 27.3. The decision is notified within ten business
+          days and can be appealed ("recurso de alzada") to the Rector; the regulation does not
+          state the alzada deadline (one month under Ley 39/2015, art. 122 — needs verification).
+    self_plagiarism:
+      value: >-
+        No general rule on reusing one's own work was found. For bachelor's theses, a TFG may
+        not have been "presentado con anterioridad, por el mismo u otro estudiante" (TFG
+        regulation, art. 2.4). The disciplinary regulation's definition of academic fraud
+        covers work "propio o ajeno" (art. 5.5).
+      source_url: https://www.uah.es/export/shared/es/conoce-la-uah/organizacion-y-gobierno/.galleries/Galeria-Secretaria-General/Normativa-Trabajos-Fin-Grado.pdf
+      verification: needs_verification
+      note: The absence of a general rule is a search result, not a confirmed fact.
+    contacts:
+      - value:
+          role: data_protection_officer
+          name: Delegado de Protección de Datos
+          email: protecciondedatos@uah.es
+          url: https://www.uah.es/es/conoce-la-uah/organizacion-y-gobierno/equipo-de-direccion/secretaria-general/proteccion-de-datos-de-caracter-personal/
+          postal_address: Colegio de Sto. Tomás, Plaza de Cervantes 10, 28801 Alcalá de Henares (Madrid)
+        source_url: https://www.uah.es/es/conoce-la-uah/organizacion-y-gobierno/equipo-de-direccion/secretaria-general/proteccion-de-datos-de-caracter-personal/
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "Estos derechos se ejercen de forma personal mediante una solicitud al Responsable del fichero."
+        note: >-
+          The Convivencia regulation's data clause asks requests to include a copy of the
+          DNI. A dedicated electronic-office (sede) procedure was not confirmed.
+      - value:
+          role: ombuds
+          name: Defensor Universitario
+          email: defensor@uah.es
+          url: https://www.uah.es/es/conoce-la-uah/organizacion-y-gobierno/defensor-universitario/
+          postal_address: Edificio del Rectorado, planta baja, Plaza de San Diego s/n, 28801 Alcalá de Henares
+        source_url: https://www.uah.es/es/conoce-la-uah/organizacion-y-gobierno/defensor-universitario/
+        checked_on: 2026-10-27
+        verification: verified
+  faculties:
+    - id: escuela-doctorado
+      name: Escuela de Doctorado
+      official_url: https://escuela-doctorado.uah.es/
+      policies:
+        ai_policy:
+          value:
+            stance: allowed_with_disclosure
+            summary: >-
+              Doctoral candidates may use generative AI only within the protocol and must
+              declare every use explicitly. Undeclared or unethical use counts as academic
+              fraud. Some uses may be unlawful in certain doctoral programmes.
+            disclosure_required: true
+          source_url: https://escuela-doctorado.uah.es/export/sites/doctorado/.galleries/documentos-escuela/EDUAH87.-2026_06_08.-Protocolo_uso_inteligencia-artificial-generativa_tesis-doctorales_UAH.pdf
+          effective_date: 2026-10-01
+          checked_on: 2026-10-27
+          verification: verified
+          quote: "cualquier uso de IA debe declararse explícitamente"
+          note: >-
+            Protocolo para el uso de la inteligencia artificial en tesis doctorales, approved
+            by the Doctoral School's Comité de Dirección on 2 July 2026; applies from
+            1 October 2026 according to https://escuela-doctorado.uah.es/es/tesis/elaboracion-y-defensa/
+        similarity_thresholds:
+          - value:
+              kind: indicative
+              percent: 24
+              applies_to: doctoral thesis
+            source_url: https://escuela-doctorado.uah.es/export/sites/doctorado/.galleries/documentos-tesis/PROCEDIMIENTO-TURNITIN.pdf
+            checked_on: 2026-10-27
+            verification: verified
+            quote: "En el caso de que las coincidencias detectadas superen el 24% será obligatoria una justificación del"
+            note: >-
+              Above 24 % the supervisor must justify the result; it is not an automatic
+              rejection. The procedure document is undated.
+        tools:
+          - value: {tool: turnitin, features: [similarity]}
+            source_url: https://escuela-doctorado.uah.es/es/tesis/elaboracion-y-defensa/
+            checked_on: 2026-10-27
+            verification: verified
+            quote: "todas las tesis deberán realizar un análisis de originalidad o coincidencias, mediante el programa Turnitin"
+            note: Mandatory for every doctoral thesis, except compendium theses whose articles are all already published (needs verification).
+        regulations:
+          - value:
+              title: Protocolo para el uso de la inteligencia artificial en tesis doctorales
+              topics: [ai_use, theses, academic_integrity]
+              articles: ["Anexo I"]
+            source_url: https://escuela-doctorado.uah.es/export/sites/doctorado/.galleries/documentos-escuela/EDUAH87.-2026_06_08.-Protocolo_uso_inteligencia-artificial-generativa_tesis-doctorales_UAH.pdf
+            effective_date: 2026-10-01
+            checked_on: 2026-10-27
+            verification: verified
+            quote: "se considerará fraude académico"

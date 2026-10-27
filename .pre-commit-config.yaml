@@ -8,6 +8,7 @@ repos:
       - id: check-merge-conflict
       - id: check-toml
       - id: check-yaml
+        exclude: "^tests/fixtures/.*_invalid/"  # deliberately broken fixtures
       - id: detect-private-key
       - id: end-of-file-fixer
       - id: mixed-line-ending

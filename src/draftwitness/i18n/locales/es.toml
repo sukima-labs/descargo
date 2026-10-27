@@ -1,0 +1,14 @@
+# Cadenas de la interfaz en español. Cada clave debe existir también en en.toml.
+
+[common]
+not_legal_advice = "DraftWitness no es asesoramiento legal."
+error = "Error: {message}"
+
+[profile]
+valid = "OK {path}"
+invalid = "NO VÁLIDO {path}"
+summary = "{valid} válidos, {invalid} no válidos"
+none_found = "No hay perfiles en {root}"
+unverified_header = "{profile}: {count} dato(s) pendientes de verificar"
+unverified_item = "  - {location}"
+all_verified = "{profile}: todos los datos están verificados"

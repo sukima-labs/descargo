@@ -1,0 +1,14 @@
+# English UI strings. Every key here must also exist in every other locale.
+
+[common]
+not_legal_advice = "DraftWitness is not legal advice."
+error = "Error: {message}"
+
+[profile]
+valid = "OK {path}"
+invalid = "INVALID {path}"
+summary = "{valid} valid, {invalid} invalid"
+none_found = "No profiles found under {root}"
+unverified_header = "{profile}: {count} fact(s) need verification"
+unverified_item = "  - {location}"
+all_verified = "{profile}: every fact is verified"

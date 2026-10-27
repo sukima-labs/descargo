@@ -1,0 +1,82 @@
+# yaml-language-server: $schema=../../../../schemas/profile/0.1.json
+# SYNTHETIC test profile. "ZZ" is an ISO 3166 user-assigned code; nothing here is real.
+schema_version: "0.1"
+id: zz/synthetic-university
+country: ZZ
+jurisdictions: [eu]
+languages: [en, es]
+institution:
+  id: synthetic-university
+  name: Synthetic University
+  official_url: https://university.example/
+  policies:
+    ai_policy:
+      value:
+        stance: instructor_decides
+        summary: Each instructor states in the syllabus whether generative AI is allowed.
+        disclosure_required: true
+      source_url: https://university.example/ai
+      effective_date: 2025-09-01
+      checked_on: 2026-10-01
+      verification: verified
+      quote: "Instructors decide whether generative AI may be used."
+    similarity_thresholds:
+      - value: {kind: none_published}
+        source_url: https://university.example/integrity
+    tools:
+      - value: {tool: turnitin, features: [similarity]}
+        source_url: https://university.example/tools
+        checked_on: 2026-10-01
+        verification: verified
+    regulations:
+      - value:
+          title: Synthetic Academic Integrity Regulation
+          topics: [academic_integrity, appeals]
+          articles: [art. 4, art. 9]
+        source_url: https://university.example/regulation.pdf
+        effective_date: 2024-01-15
+    deadlines:
+      - value:
+          kind: grade_review
+          amount: 10
+          unit: business_days
+          from_event: publication of provisional grades
+        source_url: https://university.example/regulation.pdf
+    contacts:
+      - value:
+          role: data_protection_officer
+          name: Data Protection Officer
+          email: dpo@university.example
+        source_url: https://university.example/privacy
+  faculties:
+    - id: science
+      name: Faculty of Science
+      policies:
+        contacts:
+          - value:
+              role: other
+              name: Faculty secretariat
+              email: science@university.example
+      degrees:
+        - id: biology
+          name: BSc Biology
+          level: bachelor
+          policies:
+            similarity_thresholds:
+              - value: {kind: indicative, percent: 20, applies_to: bachelor thesis}
+                source_url: https://university.example/science/thesis
+          courses:
+            - id: bio-thesis
+              name: Bachelor thesis in Biology
+              policies:
+                ai_policy:
+                  value:
+                    stance: allowed_with_disclosure
+                    summary: AI may be used for language editing if declared.
+                    disclosure_required: true
+                deadlines:
+                  - value:
+                      kind: grade_appeal
+                      amount: 1
+                      unit: months
+                      from_event: decision on the review
