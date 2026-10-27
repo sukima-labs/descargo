@@ -1,7 +1,7 @@
 # ADR 005: Similarity auditor — inputs, discount rules and precision
 
-- **Status:** Proposed
-- **Date:** 2026-10-27
+- **Status:** Accepted
+- **Date:** 2026-10-27 (proposed and accepted)
 
 ## Context
 
@@ -83,3 +83,34 @@ says that too.
   cases. Each rule is a separate function with its own tests, and its patterns live in data
   so that new languages and citation styles can be added without code changes.
 - The declarations file is the student's statement. Generated output labels it as such.
+
+## Implementation notes (v0)
+
+These refine the recommendation without changing it:
+
+- **When the exact method applies.** Every match in the report must be located in the
+  document. The figure recomputed from the located passages must also be within 2
+  percentage points of the report's overall figure; otherwise the report does not list every
+  match. If either condition fails, the auditor falls back to the approximate method and
+  says why.
+- **Exact formula.** The discounted points are the located percentage minus the percentage
+  of the passages kept, each computed as the union of spans ÷ the document's words. These
+  points are subtracted from the *report's* figure, so small differences between our word
+  count and the tool's do not shift the result.
+- **Approximate formula.**
+  - A source discounted whole subtracts its reported percentage.
+  - A discounted passage subtracts its words ÷ the report's word count, or the document's
+    when the report has none. The total subtracted for one source never exceeds that
+    source's percentage.
+  - A source shown as an upper bound (e.g. `<1%`) is not subtracted.
+  - When in doubt, the auditor discounts less.
+- **Locating passages.** Both texts are normalised: case, typographic quotes and dashes,
+  whitespace, soft hyphens and line-break hyphenation. The auditor tries an exact match
+  first, then a fuzzy match anchored on the passage's first and last four words and
+  checked with `difflib` (ratio ≥ 0.85). Fuzzy and ambiguous locations are reported.
+- **Citation markers** include DOCX and ODT note references and superscript runs that
+  contain only digits or note symbols, as well as the text patterns in
+  `src/draftwitness/modules/post/audit/rules.yaml`.
+- **Provenance.** The CLI records the SHA-256 of every input file (report, document,
+  declarations) in the output, because forged and edited reports exist
+  (`docs/research/2026-10-prior-art.md`).

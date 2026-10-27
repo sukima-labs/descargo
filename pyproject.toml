@@ -23,11 +23,13 @@ classifiers = [
 # Runtime dependencies must also run under Pyodide (see docs/adr/003-stack.md):
 # pure Python, or packages that Pyodide ships prebuilt.
 dependencies = [
+    "defusedxml>=0.7",
     "fpdf2>=2.8",
     "jinja2>=3.1",
     "pydantic>=2.10",
     "pypdf>=5.0",
     "pyyaml>=6.0",
+    "regex>=2024.11",
     "typer>=0.15",
 ]
 
@@ -43,8 +45,10 @@ dev = [
     "pytest-cov>=6.0",
     "pytest-socket>=0.7",
     "ruff>=0.11",
+    "types-defusedxml>=0.7.0.20260504",
     "types-jsonschema>=4.26.0.20261006",
     "types-pyyaml>=6.0.12.20260906",
+    "types-regex>=2026.9.29.20261017",
 ]
 
 [build-system]
@@ -75,7 +79,8 @@ ignore = [
 max-args = 8
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["S101", "ANN", "PLR0913"]
+# Tests use typographic quotes and dashes on purpose (RUF001).
+"tests/**" = ["S101", "ANN", "PLR0913", "RUF001"]
 # Typer maps every CLI option to a function parameter.
 "src/draftwitness/cli/**" = ["PLR0913", "PLR0917"]
 

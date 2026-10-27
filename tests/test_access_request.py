@@ -187,6 +187,7 @@ def test_pdf_is_deterministic_and_keeps_the_disclaimer() -> None:
 def test_pdf_renders_every_supported_block(tmp_path: Path) -> None:
     markdown = (
         "# H1\n## H2\n### H3\n\nLine one\\\nline two **bold**\n\n- bullet\n  continued\n"
+        "   - sub-item\n     wrapped\n"
         "1. first\n\n> quote\n> more\n>\n> - item\n>   - nested\n\n---\n\n<!-- pagebreak -->\n\nend"
     )
     data = render_pdf(markdown, PdfMetadata(title="t", language="en", created=datetime_utc(TODAY)))
@@ -196,6 +197,7 @@ def test_pdf_renders_every_supported_block(tmp_path: Path) -> None:
         "H3",
         "line two bold",
         "bullet continued",
+        "sub-item wrapped",
         "first",
         "quote more",
         "nested",

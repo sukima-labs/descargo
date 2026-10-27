@@ -1,0 +1,33 @@
+{
+  "schema_version": "0.1",
+  "tool": {"name": "turnitin", "product": "Feedback Studio", "report_kind": "similarity"},
+  "provenance": {
+    "adapter": "manual",
+    "adapter_version": "0",
+    "draftwitness_version": "0.1.0.dev0",
+    "parsed_at": "2026-10-27T10:00:00Z"
+  },
+  "submission": {"title": "SYNTHETIC: Water balance in semi-arid basins", "word_count": 206},
+  "similarity": {
+    "overall_percent": 47,
+    "filters": {"quotes_excluded": false, "bibliography_excluded": false},
+    "sources": [
+      {"id": "s1", "rank": 1, "label": "www.example.org", "kind": "internet", "percent": 5},
+      {"id": "s2", "rank": 2, "label": "Submitted to Synthetic University", "kind": "student_paper", "percent": 13},
+      {"id": "s3", "rank": 3, "label": "Journal of Synthetic Hydrology", "kind": "publication", "percent": 14},
+      {"id": "s4", "rank": 4, "label": "docs.example.net", "kind": "internet", "percent": 4},
+      {"id": "s5", "rank": 5, "label": "Synthetic University course page", "kind": "internet", "percent": 6},
+      {"id": "s6", "rank": 6, "label": "data.example.com", "kind": "internet", "percent": 5}
+    ],
+    "matches": [
+      {"id": "m0", "source_id": "s5", "text": "This assignment must be submitted through the virtual campus before the published deadline"},
+      {"id": "m1", "source_id": "s1", "text": "evapotranspiration accounts for most of the water leaving the basin"},
+      {"id": "m3", "source_id": "s4", "text": "rainfall arrives in a few intense events each year"},
+      {"id": "m4", "source_id": "s3", "text": "Groundwater recharge happens mostly in wet years, when soils are saturated for several weeks"},
+      {"id": "m5", "source_id": "s2", "text": "In an earlier essay I described how small check dams slow runoff and let water soak into the riverbed during the brief floods of late summer"},
+      {"id": "m6", "source_id": "s3", "text": "Smith, J. (2020). Groundwater recharge in semi-arid regions. Journal of Synthetic Hydrology, 12(3), 45-67."},
+      {"id": "m7", "source_id": "s6", "text": "record rainfall, soil moisture and river level every fifteen minutes"}
+    ]
+  },
+  "warnings": []
+}

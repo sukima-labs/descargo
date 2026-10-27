@@ -10,7 +10,7 @@ earlier one and says so.
 | [002](002-non-goals.md) | Non-goals: no evasion | Accepted |
 | [003](003-stack.md) | Technology stack and repository layout | Accepted |
 | [004](004-report-schema.md) | Common report schema | Accepted |
-| [005](005-similarity-auditor.md) | Similarity auditor: inputs, discount rules, precision | Proposed |
+| [005](005-similarity-auditor.md) | Similarity auditor: inputs, discount rules, precision | Accepted |
 
 To propose a decision, copy the structure of an existing ADR, number it with the next free
 number, set its status to **Proposed**, and open a pull request before implementing it.

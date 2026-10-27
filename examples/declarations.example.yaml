@@ -1,0 +1,27 @@
+# Declarations for `draftwitness audit --declarations`. SYNTHETIC EXAMPLE.
+#
+# Everything here is YOUR statement. The audit applies it and labels every discount based on
+# it as declared by you, so be accurate: say what the earlier work is and, if your rules
+# require it, who authorised reusing it.
+#
+# Keep your real copy OUTSIDE this repository.
+
+own_work:
+  # A source in the report that is your own earlier work. Use the source id from the report
+  # JSON (e.g. "s2") or its label exactly as the report shows it.
+  - source: "Submitted to Example University"
+    description: >-
+      My own essay for HIST-101, submitted in March 2026; reused with the instructor's
+      written permission of 2 October 2026.
+
+templates:
+  # Text supplied by the institution: an assignment brief, a cover page, a form you had to
+  # fill in. Give the text, a file (relative to this file), or the report source that is
+  # the template itself.
+  - description: Assignment brief published on the virtual campus
+    file: brief.txt
+  - description: Mandatory cover page
+    text: |
+      Faculty of Example Studies. Declaration of originality.
+  - description: The brief itself, matched as a source
+    source: "Example University course page"

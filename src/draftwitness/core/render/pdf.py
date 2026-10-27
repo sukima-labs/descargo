@@ -1,9 +1,9 @@
 """Render the small Markdown subset our templates use into a PDF.
 
 Supported: ``#``/``##``/``###`` headings, paragraphs (consecutive lines are joined; a
-trailing backslash forces a line break, as in CommonMark),
-``-`` bullets, ``1.`` numbered items, ``>`` quote blocks (which may contain ``-`` and
-nested ``  -`` bullets), ``---`` rules, inline ``**bold**`` and a ``<!-- pagebreak -->``
+trailing backslash forces a line break, as in CommonMark), ``-`` bullets (indented ones are
+nested), ``1.`` numbered items, ``>`` quote blocks (which may contain ``-`` and nested
+``  -`` bullets), ``---`` rules, inline ``**bold**`` and a ``<!-- pagebreak -->``
 line (invisible in Markdown viewers). Anything else is printed as plain text, so nothing is
 silently dropped.
 
@@ -137,14 +137,14 @@ def _blocks(markdown: str) -> list[tuple[str, str]]:
             blocks.append(("pagebreak", ""))
         elif line.startswith(("- ", "* ")):
             flush()
-            blocks.append(("li", line[2:]))
+            blocks.append(("li2" if raw.startswith("  ") else "li", line[2:]))
         elif numbered:
             flush()
             blocks.append((f"ol{numbered.group(1)}", numbered.group(2)))
         elif line.startswith(">"):
             flush()
             _quote_line(blocks, line[1:].removeprefix(" "))
-        elif blocks and blocks[-1][0] in {"li", "quote"} and raw.startswith("  "):
+        elif blocks and blocks[-1][0] in {"li", "li2", "quote"} and raw.startswith("  "):
             kind, text = blocks[-1]
             blocks[-1] = (kind, f"{text} {line}")
         else:
@@ -157,6 +157,7 @@ _QUOTE_KINDS: Final = {"quote", "qli", "qli2", "qbreak"}
 #: Indented kinds: (marker, indent in mm, space after).
 _INDENTED: Final = {
     "li": ("\u2022", 7.0, 0.8),
+    "li2": ("\u2013", 13.0, 0.5),
     "qli": ("\u2022", 10.0, 0.8),
     "qli2": ("\u2013", 15.0, 0.5),
     "quote": ("", 5.0, 0.5),
@@ -164,7 +165,7 @@ _INDENTED: Final = {
 
 
 def _is_list(kind: str) -> bool:
-    return kind in {"li", "qli", "qli2"} or kind.startswith("ol")
+    return kind in {"li", "li2", "qli", "qli2"} or kind.startswith("ol")
 
 
 def _quote_bar(pdf: FPDF, start_page: int, start_y: float) -> None:

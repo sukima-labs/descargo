@@ -62,6 +62,7 @@ profiles/               institution profiles (YAML), with sources
 jurisdictions/          legal-basis packs and document templates per country/region
 schemas/                generated JSON Schemas
 docs/adr/               architecture decision records
+docs/research/          surveys of prior art and reusable components
 tests/fixtures/         synthetic fixtures only
 ```
 
@@ -75,7 +76,15 @@ uv run draftwitness profile unverified          # facts a human still has to che
 # Draft a request for access to the detector report (Markdown + PDF, on your device)
 cp examples/student.example.yaml ~/my-details.yaml   # edit it OUTSIDE the repository
 uv run draftwitness access-request --profile es/uah --student ~/my-details.yaml
+
+# Audit a similarity report (in DraftWitness JSON; adapters for downloaded reports come next)
+uv run draftwitness audit report.json --document my-essay.docx \
+    --declarations ~/my-declarations.yaml --profile es/uah --format pdf --out audit.pdf
 ```
+
+The audit discounts quoted and cited passages, the reference list, institution template
+text and your declared own earlier work, and explains each discount. See
+[`docs/audit.md`](docs/audit.md) and [ADR 005](docs/adr/005-similarity-auditor.md).
 
 The interface speaks English and Spanish (`--lang es`, or `DRAFTWITNESS_LANG=es`).
 

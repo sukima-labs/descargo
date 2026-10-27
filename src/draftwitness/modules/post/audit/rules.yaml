@@ -1,0 +1,81 @@
+# Patterns used by the similarity auditor (ADR 005).
+#
+# Add languages and citation styles here rather than in code. Regular expressions use the
+# syntax of the Python `regex` package (\p{Lu} = any uppercase letter, including accented
+# ones). They are tested in tests/test_audit_rules.py: add an example there for each change.
+
+# A line counts as a reference-list heading when, after removing Markdown '#', numbering
+# ("7.", "7.1", "VII.") and a trailing colon or full stop, it equals one of these
+# (case-insensitive). The last such line in the body wins, so a table of contents earlier
+# in the document does not count.
+reference_headings:
+  - references
+  - reference list
+  - list of references
+  - bibliography
+  - works cited
+  - literature cited
+  - sources
+  - sources cited
+  - referencias
+  - referencias bibliográficas
+  - bibliografía
+  - bibliografía citada
+  - bibliografía y referencias
+  - obras citadas
+  - fuentes
+  - fuentes consultadas
+  - webgrafía
+
+# A heading like these after the reference list ends it.
+section_end_headings:
+  - appendix
+  - appendices
+  - annex
+  - annexes
+  - anexo
+  - anexos
+  - apéndice
+  - apéndices
+
+# Opening and closing quotation marks. A mark between two letters is an apostrophe, not a
+# quotation mark.
+quote_pairs:
+  - ["“", "”"]
+  - ["«", "»"]
+  - ['"', '"']
+  - ["„", "“"]
+  - ["‘", "’"]
+
+# How far (in characters) to look for a citation after a quotation, or before it for a
+# narrative citation ("Smith (2020) writes …"), within the same paragraph.
+citation_window: 160
+
+citations:
+  - name: author_year
+    example: "(Smith, 2020, p. 47) · (García y López, 2019) · (Smith et al., 2020a; Doe, 2019)"
+    pattern: '\((?=[^()]*\p{Lu})[^()]{0,160}?\b(?:1[5-9]\d{2}|20\d{2})[a-z]?\b[^()]{0,80}\)'
+  - name: author_undated
+    example: "(Smith, n.d.) · (Ministerio de Educación, s. f.)"
+    pattern: '\((?=[^()]*\p{Lu})[^()]{1,120}?(?:n\.\s?d\.|s\.\s?f\.)[^()]{0,40}\)'
+  - name: narrative
+    example: "Smith (2020) · García y López (2019, p. 12)"
+    pattern: '\b\p{Lu}[\p{L}''’-]+(?:\s+(?:et\s+al\.|(?:y|and|&|e)\s+\p{Lu}[\p{L}''’-]+))?\s+\((?:1[5-9]\d{2}|20\d{2})[a-z]?(?:[,:][^()]{0,40})?\)'
+  - name: mla
+    example: "(Smith 23) · (Smith and Lee 23-25)"
+    pattern: '\((?!(?:Table|Figure|Fig|Chapter|Section|Page|Tabla|Figura|Capítulo|Sección|Página)\b)\p{Lu}[\p{L}''’-]+(?:\s+(?:et\s+al\.|and\s+\p{Lu}[\p{L}''’-]+))?\s+\d{1,4}(?:[-–]\d{1,4})?\)'
+  - name: numeric
+    example: "[12] · [3, 7] · [4-6]"
+    pattern: '\[\d{1,3}(?:\s*[,–-]\s*\d{1,3})*\]'
+  - name: numeric_parenthetical
+    example: "”(3) · . (3-5)"
+    pattern: '(?<=[”»"’.]\s?)\(\d{1,3}(?:\s*[,–-]\s*\d{1,3})*\)'
+  - name: superscript
+    example: "”¹² (typed as superscript digits)"
+    pattern: '[¹²³⁰-⁹]+'
+  - name: note_abbreviation
+    example: "Ibid. · Ibíd. · op. cit."
+    pattern: '\b(?:[Ii]bid|[Ii]bíd|[Íí]d|op\.\s?cit|loc\.\s?cit)\.'
+  - name: doi
+    example: "doi:10.1234/abc.567"
+    pattern: '\b10\.\d{4,9}/[-._;()/:\p{L}\d]+'

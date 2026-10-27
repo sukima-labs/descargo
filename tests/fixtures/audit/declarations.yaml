@@ -1,0 +1,7 @@
+# SYNTHETIC declarations for the audit tests.
+own_work:
+  - source: "Submitted to Synthetic University"
+    description: My own essay for HYD-100, submitted in March 2026 (synthetic example).
+templates:
+  - description: Assignment brief published by the instructor
+    file: brief.txt
