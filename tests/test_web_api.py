@@ -8,8 +8,11 @@ from typing import Any
 import pytest
 
 from draftwitness import web
+from draftwitness.core.data import DataFolder
+from draftwitness.core.data import data_dir as bundled_data_dir
 from draftwitness.core.profiles import load_profile
 from draftwitness.i18n import DEFAULT_LOCALE, set_locale
+from draftwitness.web import api
 from draftwitness.web.api import _paths
 from tests.conftest import FIXTURES
 
@@ -113,8 +116,21 @@ def test_access_request_drafts_the_letter() -> None:
     assert "Alex Example" in result["markdown"]
     assert result["stem"] == f"access-request-{DAY}"
     assert result["summary"][0].startswith("Revisa el escrito")
-    assert result["warnings"][0].endswith("pendientes de verificar:")
+    assert isinstance(result["warnings"], list)
     assert result["subject"] == "es/uah / es"
+
+
+def test_access_request_warns_about_unverified_facts(monkeypatch: pytest.MonkeyPatch) -> None:
+    def data_dir(name: DataFolder) -> Path:
+        return FIXTURES / "profiles" if name == "profiles" else bundled_data_dir(name)
+
+    monkeypatch.setattr(api, "data_dir", data_dir)
+    result = _load(web.access_request(json.dumps(DETAILS), "zz/synthetic-university", on=DAY))
+    assert result["ok"] is True, result.get("error")
+    assert result["warnings"][-2:] == [
+        "1 fact(s) used in the letter still need verification:",
+        "recipient contact",
+    ]
 
 
 def test_access_request_letter_language_can_be_chosen() -> None:

@@ -45,7 +45,8 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Changed
 
-- Eight more facts checked against their official sources on 2026-10-27 and marked
+- Nine more facts checked against their official sources on 2026-10-27 and marked
   verified: the UAH coexistence rules (art. 15.3.a), UT Austin's FERPA contact, 34 CFR
   §§ 99.20-99.22, UK Data Protection Act 2018 Sch. 2 para. 25, and the data protection
-  authorities for the EU, Spain, the UK (the Information Commission) and Colombia.
+  authorities for the EU, Spain, the UK (the Information Commission) and Colombia, and the
+  AI Act entry, including its postponement by Regulation (EU) 2026/1744.

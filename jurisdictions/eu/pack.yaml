@@ -65,16 +65,20 @@ access_request:
             cuándo puede invocarse el art. 86 tras el aplazamiento del «Ómnibus digital» de
             2026.
       source_url: https://www.boe.es/doue/2024/1689/L00001-00144.pdf
-      verification: needs_verification
+      checked_on: 2026-10-27
+      verification: verified
       quote: >-
         Annex III, 3.b: "Sistemas de IA destinados a ser utilizados para evaluar los resultados
         del aprendizaje"
       note: >-
-        Regulation (EU) 2026/1744 moved the application of the high-risk rules for Annex III
-        systems to 2 December 2027. Mention only as context, never as the main basis. On
-        2026-10-27 Annex III point 3.b and Art. 86(1) were found in the Spanish text at
-        source_url; the 2026/1744 postponement was not checked (EUR-Lex refuses scripted
-        loads), so the fact stays needs_verification.
+        Regulation (EU) 2026/1744 of 8 July 2026 (OJ L of 24.7.2026, "Ómnibus digital sobre
+        IA") moved the application of Chapter III, sections 1 to 3, to 2 December 2027 for
+        systems that are high-risk under Art. 6(2), i.e. Annex III; it does not mention
+        Art. 86. Checked on EUR-Lex (CELEX 32026R1744) in a browser on 2026-10-27, together
+        with Annex III point 3.b and Art. 86(1) at source_url. Whether a detector falls under
+        Annex III, and so whether Art. 86 can be relied on before December 2027, is still a
+        matter of interpretation, as the summary says. Mention only as context, never as the
+        main basis.
   response_deadline:
     value:
       amount: 1

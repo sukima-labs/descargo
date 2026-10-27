@@ -29,8 +29,25 @@ def test_writes_markdown_and_pdf(tmp_path: Path) -> None:
     assert code == 0, output
     assert out.with_suffix(".md").read_text().count("no es asesoramiento legal") >= 2
     assert out.with_suffix(".pdf").read_bytes().startswith(b"%PDF")
-    assert "need verification" in output
     assert "DraftWitness sends nothing" in output
+
+
+def test_lists_unverified_facts(tmp_path: Path) -> None:
+    code, output = _run(
+        "--profile",
+        "zz/synthetic-university",
+        "--profiles-dir",
+        str(REPO_ROOT / "tests" / "fixtures" / "profiles"),
+        "--student",
+        STUDENT,
+        "--format",
+        "md",
+        "--out",
+        str(tmp_path / "letter"),
+    )
+    assert code == 0, output
+    assert "need verification" in output
+    assert "  - recipient contact" in output
 
 
 def test_refuses_to_overwrite_without_force(tmp_path: Path) -> None:
