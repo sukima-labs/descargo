@@ -3,6 +3,11 @@
 [common]
 not_legal_advice = "DraftWitness no es asesoramiento legal."
 error = "Error: {message}"
+exists = "no se sobrescribe {paths} (usa --force)"
+out_is_input = "--out no puede ser uno de los archivos de entrada: {path}"
+pdf_needs_out = "--format pdf necesita --out"
+invalid_date = "--date {value!r} no es válida: usa AAAA-MM-DD"
+written = "Escrito: {path}"
 
 [profile]
 valid = "OK {path}"
@@ -40,14 +45,11 @@ note_flag_unverified = " (pendiente de verificar)"
 note_unverified = "**{count} dato(s) de este escrito siguen pendientes de verificación humana.** Sigue los enlaces a las fuentes del perfil y del paquete jurisdiccional antes de confiar en ellos."
 
 [access]
-exists = "no se sobrescribe {paths} (usa --force)"
-written = "Escrito: {path}"
 no_recipient = "El perfil no tiene un contacto adecuado: completa el destinatario antes de enviarlo."
 unverified = "{count} dato(s) usados en el escrito siguen pendientes de verificar:"
 review = "Revisa el escrito, elimina la nota del principio y envíalo tú. DraftWitness no envía nada. No es asesoramiento legal."
 
 [import]
-written = "Escrito: {path}"
 summary = "{tool}: similitud general {percent} %, {sources} fuentes."
 warning = "Nota: {text}"
 
@@ -140,15 +142,12 @@ input_line = "{role}: {filename}, SHA-256 {sha256}"
 role_report = "Informe"
 role_document = "Documento"
 role_declarations = "Declaraciones"
-written = "Escrito: {path}"
 summary = "Informe {original} → tras los descuentos {adjusted} ({method})."
-pdf_needs_out = "--format pdf necesita --out"
 method_name_exact = "exacto"
 method_name_approximate = "aproximado"
 method_name_unchanged = "sin cambios"
 
 [inspect]
-out_is_input = "--out no puede ser el archivo inspeccionado"
 title = "Inspección previa a la entrega"
 intro = "**Nota para ti.** DraftWitness no ha cambiado tu archivo y no te dice qué cambiar. Enumera lo que contiene el archivo además del texto visible, con lo que suele significar cada cosa y lo que no demuestra, para que decidas tú. Si editas el archivo con tus propias herramientas, guarda una copia del original. Esto no es asesoramiento legal."
 file_line = "**Archivo:** {filename} ({format}, {size} bytes) · inspeccionado con DraftWitness el {date}."
@@ -194,9 +193,7 @@ note_pdf_locked = "El PDF está cifrado y no se puede abrir sin contraseña, as�
 note_xmp_too_large = "Los metadatos XMP del PDF son demasiado grandes para leerlos con seguridad y se han omitido."
 note_xmp_unreadable = "Los metadatos XMP del PDF no son XML bien formado y se han omitido."
 note_attachments_unreadable = "No se ha podido leer la lista de archivos adjuntos del PDF."
-written = "Escrito: {path}"
 cli_summary = "Para revisar: {review} · para tu información: {info} · campos de metadatos: {metadata}."
-pdf_needs_out = "--format pdf necesita --out"
 detail_decoded = "Texto decodificado: «{value}»"
 detail_bytes = "Bytes ocultos: {value}"
 detail_version = "Versión del envoltorio: {value}"

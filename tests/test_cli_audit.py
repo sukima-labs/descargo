@@ -77,7 +77,6 @@ def test_inputs_are_not_modified(tmp_path: Path) -> None:
 @pytest.mark.parametrize(
     ("args", "message"),
     [
-        (("--format", "docx"), "unknown format"),
         (("--format", "pdf"), "--format pdf needs --out"),
         (("--date", "yesterday"), "invalid --date"),
         (("--profile", "xx/nowhere"), "xx/nowhere"),
@@ -88,6 +87,40 @@ def test_option_errors(args: tuple[str, ...], message: str) -> None:
     code, output = _run(REPORT, *args)
     assert code == 1
     assert message in output
+
+
+@pytest.mark.parametrize(
+    ("args", "message"),
+    [
+        (("--format", "docx"), "'docx' is not one of 'md', 'json', 'pdf'"),
+        (("--language", "fr"), "'fr' is not one of 'en', 'es'"),
+    ],
+)
+def test_usage_errors(args: tuple[str, ...], message: str) -> None:
+    code, output = _run(REPORT, *args)
+    assert code == 2
+    assert message in output
+
+
+@pytest.mark.parametrize("name", ["report.json", "essay.md", "declarations.yaml"])
+def test_out_cannot_be_an_input(name: str, tmp_path: Path) -> None:
+    for path in AUDIT.iterdir():
+        (tmp_path / path.name).write_bytes(path.read_bytes())
+    target = tmp_path / name
+    before = target.read_bytes()
+    code, output = _run(
+        str(tmp_path / "report.json"),
+        "--document",
+        str(tmp_path / "essay.md"),
+        "--declarations",
+        str(tmp_path / "declarations.yaml"),
+        "--out",
+        str(target),
+        "--force",
+    )
+    assert code == 1
+    assert "must not be one of the input files" in output
+    assert target.read_bytes() == before
 
 
 def test_input_errors(tmp_path: Path) -> None:

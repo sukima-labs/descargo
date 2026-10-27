@@ -34,6 +34,8 @@ planned (see [ADR 003](docs/adr/003-stack.md)).
 - Use [Conventional Commits](https://www.conventionalcommits.org/): `feat(post): …`,
   `fix(adapters): …`, `docs(adr): …`, `test: …`, `chore: …`.
 - One logical change per commit; tests in the same commit as the code.
+- Add a line under **Unreleased** in [CHANGELOG.md](CHANGELOG.md) for every change a user
+  would notice.
 - If a design decision is not obvious, write an ADR in `docs/adr/` (options, consequences,
   recommendation) **before** implementing it.
 

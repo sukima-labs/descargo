@@ -88,8 +88,7 @@ def test_profile_without_recipient_warns(tmp_path: Path) -> None:
 @pytest.mark.parametrize(
     ("extra", "message"),
     [
-        (("--format", "docx"), "unknown format"),
-        (("--date", "27/10/2026"), "invalid --date"),
+        (("--date", "27/10/2026"), "invalid --date '27/10/2026'"),
         (("--language", "fr"), "no 'fr' template"),
         (("--jurisdiction", "xx"), "no jurisdiction pack"),
         (("--path", "nope"), "no faculty"),

@@ -124,14 +124,13 @@ def test_input_is_never_modified(sample: Path, tmp_path: Path) -> None:
 def test_out_cannot_be_the_input(sample: Path) -> None:
     code, output = _run(str(sample), "--out", str(sample), "--force")
     assert code == 1
-    assert "must not be the inspected file" in output
+    assert "must not be one of the input files" in output
     assert sample.read_text(encoding="utf-8") == SAMPLE
 
 
 @pytest.mark.parametrize(
     ("args", "message"),
     [
-        (["--format", "html"], "unknown format"),
         (["--format", "pdf"], "--format pdf needs --out"),
         (["--date", "yesterday"], "invalid --date"),
     ],

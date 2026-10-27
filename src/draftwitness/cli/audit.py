@@ -1,19 +1,20 @@
 """``draftwitness audit``: recompute a similarity percentage and explain each discount."""
 
 import hashlib
-from datetime import UTC, date, datetime
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Literal
 
 import typer
 
 from draftwitness.adapters import AdapterError, import_report
+from draftwitness.cli.common import check_targets, fail, parse_date
 from draftwitness.core.data import data_dir
 from draftwitness.core.documents import DocumentError, TextDocument, extract_text
 from draftwitness.core.profiles import Profile, ProfileError, UnknownNodeError, find_profile
 from draftwitness.core.render.pdf import PdfMetadata, render_pdf
 from draftwitness.core.report_schema import Report
-from draftwitness.i18n import get_locale, t, tr
+from draftwitness.i18n import Locale, get_locale, t, tr
 from draftwitness.modules.post.audit import (
     AuditError,
     Declarations,
@@ -24,13 +25,6 @@ from draftwitness.modules.post.audit import (
     render_markdown,
 )
 from draftwitness.modules.post.audit.render import format_percent
-
-_FORMATS = ("md", "json", "pdf")
-
-
-def _fail(message: str) -> typer.Exit:
-    typer.echo(t("common.error", message=message), err=True)
-    return typer.Exit(code=1)
 
 
 def _sha256(path: Path) -> str:
@@ -45,15 +39,15 @@ def _load(
     try:
         report = import_report(report_path, parsed_at=datetime.now(UTC).replace(microsecond=0))
     except (OSError, AdapterError) as exc:
-        raise _fail(f"{report_path}: {exc}") from exc
+        raise fail(f"{report_path}: {exc}") from exc
     try:
         document = extract_text(document_path) if document_path else None
     except (OSError, DocumentError) as exc:
-        raise _fail(f"{document_path}: {exc}") from exc
+        raise fail(f"{document_path}: {exc}") from exc
     try:
         declarations = load_declarations(declarations_path) if declarations_path else None
     except DeclarationsError as exc:
-        raise _fail(str(exc)) from exc
+        raise fail(str(exc)) from exc
     return report, document, declarations
 
 
@@ -93,13 +87,15 @@ def audit_command(
     path: Annotated[
         str | None, typer.Option("--path", help="faculty[/degree[/course]] in the profile.")
     ] = None,
-    output_format: Annotated[str, typer.Option("--format", help="md, json or pdf.")] = "md",
+    output_format: Annotated[
+        Literal["md", "json", "pdf"], typer.Option("--format", help="Output format.")
+    ] = "md",
     out: Annotated[
         Path | None,
         typer.Option("--out", help="Write to this file instead of the terminal."),
     ] = None,
     language: Annotated[
-        str | None,
+        Locale | None,
         typer.Option("--language", help="Report language. Defaults to the interface language."),
     ] = None,
     on: Annotated[
@@ -107,7 +103,13 @@ def audit_command(
     ] = None,
     force: Annotated[bool, typer.Option("--force", help="Overwrite an existing file.")] = False,
     profiles_dir: Annotated[
-        Path | None, typer.Option("--profiles-dir", file_okay=False, exists=True)
+        Path | None,
+        typer.Option(
+            "--profiles-dir",
+            help="Folder with <country>/<institution>.yaml files. Defaults to the bundled ones.",
+            file_okay=False,
+            exists=True,
+        ),
     ] = None,
 ) -> None:
     """Recompute a similarity percentage after discounting quotations, references,
@@ -116,23 +118,18 @@ def audit_command(
     Reads files on your device and writes only the output you ask for. It does not decide
     whether anything is plagiarism. Not legal advice.
     """
-    if output_format not in _FORMATS:
-        raise _fail(f"unknown format {output_format!r}")
     if output_format == "pdf" and out is None:
-        raise _fail(t("audit.pdf_needs_out"))
-    if out is not None and out.exists() and not force:
-        raise _fail(t("access.exists", paths=str(out)))
-    try:
-        today = date.fromisoformat(on) if on else date.today()
-    except ValueError as exc:
-        raise _fail(f"invalid --date: {on}") from exc
+        raise fail(t("common.pdf_needs_out"))
+    if out is not None:
+        check_targets([out], inputs=[report_path, document_path, declarations_path], force=force)
+    today = parse_date(on)
     report, document, declarations = _load(report_path, document_path, declarations_path)
     profile: Profile | None = None
     if profile_id:
         try:
             profile = find_profile(profiles_dir or data_dir("profiles"), profile_id)
         except (FileNotFoundError, ProfileError) as exc:
-            raise _fail(str(exc)) from exc
+            raise fail(str(exc)) from exc
     inputs = [
         InputFile(role=role, filename=p.name, sha256=_sha256(p))
         for role, p in (
@@ -153,7 +150,7 @@ def audit_command(
             inputs=inputs,
         )
     except (AuditError, UnknownNodeError) as exc:
-        raise _fail(str(exc)) from exc
+        raise fail(str(exc)) from exc
 
     lang = language or get_locale()
     if output_format == "json":
@@ -174,7 +171,7 @@ def audit_command(
         out.write_bytes(render_pdf(content, meta))
     else:
         out.write_text(content, encoding="utf-8")
-    typer.echo(t("audit.written", path=out))
+    typer.echo(t("common.written", path=out))
     typer.echo(
         t(
             "audit.summary",

@@ -2,11 +2,12 @@
 
 import json
 from pathlib import Path
-from typing import Annotated, Any
+from typing import Annotated, Any, Literal
 
 import typer
 import yaml
 
+from draftwitness.cli.common import fail
 from draftwitness.core.data import data_dir
 from draftwitness.core.profiles import (
     ProfileError,
@@ -19,7 +20,11 @@ from draftwitness.core.profiles import (
 )
 from draftwitness.i18n import t
 
-app = typer.Typer(help="Institution profiles.", no_args_is_help=True)
+app = typer.Typer(
+    help="List, validate and show institution profiles.",
+    no_args_is_help=True,
+    rich_markup_mode=None,
+)
 
 ProfilesDir = Annotated[
     Path | None,
@@ -34,11 +39,6 @@ ProfilesDir = Annotated[
 
 def _root(profiles_dir: Path | None) -> Path:
     return profiles_dir if profiles_dir is not None else data_dir("profiles")
-
-
-def _fail(message: str) -> typer.Exit:
-    typer.echo(t("common.error", message=message), err=True)
-    return typer.Exit(code=1)
 
 
 @app.command("list")
@@ -93,7 +93,9 @@ def show(
         str | None,
         typer.Option("--path", help="faculty[/degree[/course]] ids to resolve policies for."),
     ] = None,
-    output_format: Annotated[str, typer.Option("--format", help="yaml or json.")] = "yaml",
+    output_format: Annotated[
+        Literal["yaml", "json"], typer.Option("--format", help="Output format.")
+    ] = "yaml",
     profiles_dir: ProfilesDir = None,
 ) -> None:
     """Show the policies that apply at one level of a profile."""
@@ -101,7 +103,7 @@ def show(
         profile = find_profile(_root(profiles_dir), profile_id)
         resolved = resolve(profile, path)
     except (FileNotFoundError, ProfileError, UnknownNodeError) as exc:
-        raise _fail(str(exc)) from exc
+        raise fail(str(exc)) from exc
     document: dict[str, Any] = {
         "profile": profile.id,
         "institution": profile.institution.name,
@@ -111,10 +113,8 @@ def show(
     }
     if output_format == "json":
         typer.echo(json.dumps(document, indent=2, ensure_ascii=False))
-    elif output_format == "yaml":
-        typer.echo(yaml.safe_dump(document, allow_unicode=True, sort_keys=False).rstrip())
     else:
-        raise _fail(f"unknown format {output_format!r}")
+        typer.echo(yaml.safe_dump(document, allow_unicode=True, sort_keys=False).rstrip())
 
 
 @app.command()
@@ -133,7 +133,7 @@ def unverified(
             else [load_profile(p, root=root) for p in profile_paths(root)]
         )
     except (FileNotFoundError, ProfileError) as exc:
-        raise _fail(str(exc)) from exc
+        raise fail(str(exc)) from exc
     for profile in profiles:
         pending = unverified_facts(profile)
         if not pending:

@@ -45,7 +45,7 @@ not predict or lower detector scores, and does not remove watermarks. See
 ## Status
 
 Pre-alpha, phase 1. Not yet usable by students. The roadmap and design decisions live in
-[`docs/adr/`](docs/adr/).
+[`docs/adr/`](docs/adr/); what has changed, in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Repository layout
 
@@ -99,7 +99,9 @@ The audit discounts quoted and cited passages, the reference list, institution t
 text and your declared own earlier work, and explains each discount. See
 [`docs/audit.md`](docs/audit.md) and [ADR 005](docs/adr/005-similarity-auditor.md).
 
-The interface speaks English and Spanish (`--lang es`, or `DRAFTWITNESS_LANG=es`).
+Messages and reports are in English and Spanish (`--lang es`, or `DRAFTWITNESS_LANG=es`);
+help texts are in English. No command overwrites the files it reads. Options common to every
+command, and the exit status, are in [`docs/cli.md`](docs/cli.md).
 
 ## Development
 

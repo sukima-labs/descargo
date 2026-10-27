@@ -75,7 +75,7 @@ def test_show_json_and_errors() -> None:
     result = runner.invoke(app, ["profile", "show", "es/uah", "--format", "json"])
     assert json.loads(result.output)["profile"] == "es/uah"
     result = runner.invoke(app, ["profile", "show", "es/uah", "--format", "xml"])
-    assert result.exit_code == 1
+    assert result.exit_code == 2
     result = runner.invoke(app, ["profile", "show", "es/uah", "--path", "nope"])
     assert result.exit_code == 1
     assert "no faculty 'nope'" in result.output

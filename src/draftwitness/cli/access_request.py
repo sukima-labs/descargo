@@ -1,13 +1,14 @@
 """``draftwitness access-request``: draft a request for access to detector reports."""
 
-from datetime import UTC, date, datetime
+from datetime import UTC, datetime
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Literal
 
 import typer
 import yaml
 from pydantic import ValidationError
 
+from draftwitness.cli.common import check_targets, fail, parse_date
 from draftwitness.core.data import data_dir
 from draftwitness.core.jurisdictions import PackError
 from draftwitness.core.profiles import ProfileError, UnknownNodeError, find_profile
@@ -20,16 +21,11 @@ from draftwitness.modules.post.access_request import (
 )
 
 
-def _fail(message: str) -> typer.Exit:
-    typer.echo(t("common.error", message=message), err=True)
-    return typer.Exit(code=1)
-
-
 def _load_input(path: Path) -> AccessRequestInput:
     try:
         return AccessRequestInput.model_validate(yaml.safe_load(path.read_text("utf-8")))
     except (OSError, yaml.YAMLError, ValidationError) as exc:
-        raise _fail(f"{path}: {exc}") from exc
+        raise fail(f"{path}: {exc}") from exc
 
 
 def access_request(
@@ -50,7 +46,9 @@ def access_request(
             "--out", help="Output path without extension. Defaults to ./access-request-<date>."
         ),
     ] = None,
-    output_format: Annotated[str, typer.Option("--format", help="md, pdf or both.")] = "both",
+    output_format: Annotated[
+        Literal["md", "pdf", "both"], typer.Option("--format", help="Output format.")
+    ] = "both",
     path: Annotated[
         str | None, typer.Option("--path", help="faculty[/degree[/course]] in the profile.")
     ] = None,
@@ -62,7 +60,11 @@ def access_request(
     ] = None,
     language: Annotated[
         str | None,
-        typer.Option("--language", help="Letter language. Defaults to the institution's."),
+        typer.Option(
+            "--language",
+            help="Letter language, if the jurisdiction pack has a template in it. "
+            "Defaults to the institution's.",
+        ),
     ] = None,
     on: Annotated[
         str | None,
@@ -70,10 +72,22 @@ def access_request(
     ] = None,
     force: Annotated[bool, typer.Option("--force", help="Overwrite existing files.")] = False,
     profiles_dir: Annotated[
-        Path | None, typer.Option("--profiles-dir", file_okay=False, exists=True)
+        Path | None,
+        typer.Option(
+            "--profiles-dir",
+            help="Folder with <country>/<institution>.yaml files. Defaults to the bundled ones.",
+            file_okay=False,
+            exists=True,
+        ),
     ] = None,
     jurisdictions_dir: Annotated[
-        Path | None, typer.Option("--jurisdictions-dir", file_okay=False, exists=True)
+        Path | None,
+        typer.Option(
+            "--jurisdictions-dir",
+            help="Folder with jurisdiction packs. Defaults to the bundled ones.",
+            file_okay=False,
+            exists=True,
+        ),
     ] = None,
 ) -> None:
     """Draft a request for access to detector reports (GDPR, UK GDPR, FERPA, habeas data).
@@ -81,12 +95,7 @@ def access_request(
     Writes Markdown and/or PDF on your device. Nothing is sent: review the letter, then send
     it yourself. Not legal advice.
     """
-    if output_format not in {"md", "pdf", "both"}:
-        raise _fail(f"unknown format {output_format!r}")
-    try:
-        today = date.fromisoformat(on) if on else date.today()
-    except ValueError as exc:
-        raise _fail(f"invalid --date: {on}") from exc
+    today = parse_date(on)
     data = _load_input(student)
     try:
         profile = find_profile(profiles_dir or data_dir("profiles"), profile_id)
@@ -106,7 +115,7 @@ def access_request(
         PackError,
         AccessRequestError,
     ) as exc:
-        raise _fail(str(exc)) from exc
+        raise fail(str(exc)) from exc
 
     stem = out or Path(f"access-request-{today.isoformat()}")
     targets: list[Path] = []
@@ -114,9 +123,7 @@ def access_request(
         targets.append(stem.with_suffix(".md"))
     if output_format in {"pdf", "both"}:
         targets.append(stem.with_suffix(".pdf"))
-    existing = [p for p in targets if p.exists()]
-    if existing and not force:
-        raise _fail(t("access.exists", paths=", ".join(map(str, existing))))
+    check_targets(targets, inputs=[student], force=force)
     for target in targets:
         target.parent.mkdir(parents=True, exist_ok=True)
         if target.suffix == ".md":
@@ -129,7 +136,7 @@ def access_request(
                 subject=f"{document.profile_id} / {document.jurisdiction}",
             )
             target.write_bytes(render_pdf(document.markdown, meta))
-        typer.echo(t("access.written", path=target))
+        typer.echo(t("common.written", path=target))
     if document.recipient is None:
         typer.echo(t("access.no_recipient"))
     if document.unverified:

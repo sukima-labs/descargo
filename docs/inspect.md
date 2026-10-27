@@ -22,7 +22,7 @@ uv run draftwitness --lang es inspect my-essay.odt --format pdf --out inspection
 | `--out FILE` | Write to a file instead of the terminal (required for PDF). |
 | `--language en\|es` | Report language; defaults to the interface language. |
 | `--date YYYY-MM-DD` | Date printed on the report; defaults to today. |
-| `--force` | Overwrite an existing output file. |
+| `--force` | Overwrite an existing output file. The inspected file is never overwritten. |
 
 Supported files: `.docx` (and `.docm`), `.odt`, `.pdf`, and UTF-8 `.txt` or `.md`.
 

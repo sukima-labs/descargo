@@ -53,6 +53,14 @@ def test_import_to_file_and_overwrite(report_pdf: Path, tmp_path: Path) -> None:
     assert _run("import-report", str(report_pdf), "--out", str(out), "--force")[0] == 0
 
 
+def test_out_cannot_be_the_report(report_pdf: Path) -> None:
+    before = report_pdf.read_bytes()
+    code, output = _run("import-report", str(report_pdf), "--out", str(report_pdf), "--force")
+    assert code == 1
+    assert "must not be one of the input files" in output
+    assert report_pdf.read_bytes() == before
+
+
 def test_import_spanish_summary(report_pdf: Path, tmp_path: Path) -> None:
     code, output = _run(
         "import-report", str(report_pdf), "--out", str(tmp_path / "r.json"), lang="es"

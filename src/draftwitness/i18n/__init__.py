@@ -8,10 +8,12 @@ import os
 import tomllib
 from functools import cache
 from importlib.resources import files
-from typing import Final
+from typing import Final, Literal, get_args
+
+Locale = Literal["en", "es"]
 
 DEFAULT_LOCALE: Final = "en"
-SUPPORTED_LOCALES: Final = ("en", "es")
+SUPPORTED_LOCALES: Final[tuple[str, ...]] = get_args(Locale)
 
 _current = DEFAULT_LOCALE
 

@@ -7,13 +7,9 @@ from typing import Annotated
 import typer
 
 from draftwitness.adapters import AdapterError, import_report
+from draftwitness.cli.common import check_targets, fail
 from draftwitness.core.report_schema import dump_report
 from draftwitness.i18n import t
-
-
-def _fail(message: str) -> typer.Exit:
-    typer.echo(t("common.error", message=message), err=True)
-    return typer.Exit(code=1)
 
 
 def import_report_command(
@@ -37,19 +33,19 @@ def import_report_command(
     Records what the report says, with the SHA-256 of the file, and lists what could not be
     read. Drops the author name and file name shown on the report. The file is only read.
     """
-    if out is not None and out.exists() and not force:
-        raise _fail(t("access.exists", paths=str(out)))
+    if out is not None:
+        check_targets([out], inputs=[path], force=force)
     try:
         report = import_report(path, parsed_at=datetime.now(UTC).replace(microsecond=0))
     except (OSError, AdapterError) as exc:
-        raise _fail(f"{path}: {exc}") from exc
+        raise fail(f"{path}: {exc}") from exc
     content = dump_report(report)
     if out is None:
         typer.echo(content, nl=False)
     else:
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(content, encoding="utf-8")
-        typer.echo(t("import.written", path=out))
+        typer.echo(t("common.written", path=out))
     similarity = report.similarity
     if similarity is not None:
         typer.echo(

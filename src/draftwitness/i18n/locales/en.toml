@@ -3,6 +3,11 @@
 [common]
 not_legal_advice = "DraftWitness is not legal advice."
 error = "Error: {message}"
+exists = "refusing to overwrite {paths} (use --force)"
+out_is_input = "--out must not be one of the input files: {path}"
+pdf_needs_out = "--format pdf needs --out"
+invalid_date = "invalid --date {value!r}: use YYYY-MM-DD"
+written = "Written: {path}"
 
 [profile]
 valid = "OK {path}"
@@ -40,14 +45,11 @@ note_flag_unverified = " (needs verification)"
 note_unverified = "**{count} fact(s) in this letter still need human verification.** Follow the source links in the profile and jurisdiction pack before relying on them."
 
 [access]
-exists = "refusing to overwrite {paths} (use --force)"
-written = "Written: {path}"
 no_recipient = "The profile has no suitable contact: fill in the recipient before sending."
 unverified = "{count} fact(s) used in the letter still need verification:"
 review = "Review the letter, remove the note at the top, and send it yourself. DraftWitness sends nothing. Not legal advice."
 
 [import]
-written = "Written: {path}"
 summary = "{tool}: overall similarity {percent}%, {sources} sources."
 warning = "Note: {text}"
 
@@ -140,15 +142,12 @@ input_line = "{role}: {filename}, SHA-256 {sha256}"
 role_report = "Report"
 role_document = "Document"
 role_declarations = "Declarations"
-written = "Written: {path}"
 summary = "Reported {original} → after discounts {adjusted} ({method})."
-pdf_needs_out = "--format pdf needs --out"
 method_name_exact = "exact"
 method_name_approximate = "approximate"
 method_name_unchanged = "unchanged"
 
 [inspect]
-out_is_input = "--out must not be the inspected file"
 title = "Pre-submission inspection"
 intro = "**Note for you.** DraftWitness has not changed your file and does not tell you what to change. It lists what the file contains besides its visible text, with what each item usually means and what it does not show, so that you can decide. If you edit the file with your own tools, keep a copy of the original. This is not legal advice."
 file_line = "**File:** {filename} ({format}, {size} bytes) · inspected with DraftWitness on {date}."
@@ -194,9 +193,7 @@ note_pdf_locked = "The PDF is encrypted and cannot be opened without a password,
 note_xmp_too_large = "The PDF's XMP metadata is too large to read safely and was skipped."
 note_xmp_unreadable = "The PDF's XMP metadata is not well-formed XML and was skipped."
 note_attachments_unreadable = "The PDF's list of attached files could not be read."
-written = "Written: {path}"
 cli_summary = "Worth reviewing: {review} · for information: {info} · metadata fields: {metadata}."
-pdf_needs_out = "--format pdf needs --out"
 detail_decoded = "Decoded text: “{value}”"
 detail_bytes = "Hidden bytes: {value}"
 detail_version = "Wrapper version: {value}"
