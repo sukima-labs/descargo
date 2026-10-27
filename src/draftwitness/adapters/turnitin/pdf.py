@@ -41,6 +41,7 @@ from draftwitness.core.report_schema import (
     Submission,
     Tool,
 )
+from draftwitness.i18n import t
 
 ADAPTER_NAME: Final = "turnitin-pdf"
 ADAPTER_VERSION: Final = "0.1"
@@ -78,7 +79,7 @@ def _lines(data: bytes) -> list[str]:
             raise AdapterError("the PDF is encrypted")
         pages = [page.extract_text() or "" for page in reader.pages]
     except PdfReadError as exc:
-        raise AdapterError(f"cannot read PDF: {exc}") from exc
+        raise AdapterError(t("adapters.unreadable_pdf", error=exc)) from exc
     return normalized_lines("\n".join(pages))
 
 
@@ -507,8 +508,7 @@ def parse_pdf(data: bytes, filename: str, sha256: str, *, parsed_at: datetime) -
     detected = detect_layout(lines)
     if detected is None:
         raise AdapterError(
-            "not a Turnitin Similarity Report layout DraftWitness recognises (Feedback Studio "
-            f"or the enhanced Similarity Report, in: {', '.join(sorted(_languages(ENHANCED)))})"
+            t("adapters.not_turnitin", languages=", ".join(sorted(_languages(ENHANCED))))
         )
     layout, language = detected
     words = _languages(layout)[language]

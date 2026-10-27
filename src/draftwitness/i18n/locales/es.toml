@@ -33,7 +33,7 @@ footer = "Preparado con DraftWitness {version}, software libre (AGPL-3.0). Esto 
 note_title = "Nota para ti, no forma parte del escrito: elimina esta sección antes de enviarlo"
 note_not_legal_advice = "**DraftWitness no es asesoramiento legal.** Redacta un escrito a partir de normas publicadas. Comprueba cada fuente que cita; si hay mucho en juego, habla con la defensoría universitaria, la representación estudiantil o un abogado."
 note_send_to = "**Envíalo a:** {recipient}."
-note_send_to_unknown = "**Envíalo a:** el perfil no tiene un contacto adecuado. Busca el delegado de protección de datos o la oficina de registros de la universidad y completa el destinatario."
+note_send_to_unknown = "**Envíalo a:** no se conoce un contacto adecuado. Busca el delegado de protección de datos o la oficina de registros de la universidad y completa el destinatario."
 note_proof = "Guarda prueba de la fecha de envío (el correo enviado, el justificante de registro o el acuse de la sede electrónica). El plazo cuenta desde la recepción."
 note_deadline = "**Plazo:** {duration} desde {from_event}. Si se recibe el {sent}, la respuesta vence hacia el **{due}** (estimación; no descuenta festivos)."
 note_extension = "La universidad puede ampliarlo en {duration}: {condition}."
@@ -47,9 +47,19 @@ note_unverified = "**{count} dato(s) de este escrito siguen pendientes de verifi
 [access]
 profile_or_institution = "Indica --profile o --institution, no ambos."
 institution_needs_jurisdiction = "--institution necesita --jurisdiction, el paquete del país de la institución (p. ej. co, es, eu, uk, us)."
-no_recipient = "El perfil no tiene un contacto adecuado: completa el destinatario antes de enviarlo."
+no_recipient = "La carta aún no tiene destinatario: complétalo antes de enviarla."
+office_and_email = "Indica la oficina y su correo, o ninguno de los dos."
+office_email_invalid = "El correo de la oficina {email!r} no es una dirección válida."
+institution_missing = "Escribe el nombre de la institución."
+label_deadline = "plazo de respuesta"
+label_authority = "autoridad de control"
+label_recipient = "contacto del destinatario"
 unverified = "{count} dato(s) usados en el escrito siguen pendientes de verificar:"
 review = "Revisa el escrito, elimina la nota del principio y envíalo tú. DraftWitness no envía nada. No es asesoramiento legal."
+
+[adapters]
+unreadable_pdf = "no se puede leer el PDF: {error}"
+not_turnitin = "no es un informe de similitud de Turnitin que DraftWitness sepa leer (Feedback Studio o el Similarity Report mejorado, en: {languages}). Los informes de otros detectores, como Compilatio, todavía no se pueden leer."
 
 [import]
 summary = "{tool}: similitud general {percent} %, {sources} fuentes."

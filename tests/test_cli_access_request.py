@@ -99,7 +99,7 @@ def test_profile_without_recipient_warns(tmp_path: Path) -> None:
         str(tmp_path / "x"),
     )
     assert code == 0, output
-    assert "fill in the recipient" in output
+    assert "fill it in before sending" in output
 
 
 @pytest.mark.parametrize(
@@ -127,7 +127,7 @@ def test_unlisted_institution(tmp_path: Path) -> None:
     )  # fmt: skip
     assert code == 0, output
     assert "Instituto Sintético" in out.with_suffix(".md").read_text()
-    assert "fill in the recipient" in output
+    assert "fill it in before sending" in output
 
 
 @pytest.mark.parametrize(

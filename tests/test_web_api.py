@@ -152,10 +152,10 @@ def test_access_request_for_an_unlisted_institution() -> None:
     assert result["ok"] is True, result.get("error")
     assert result["subject"] == "co/other / co"
     assert "Instituto Sintético" in result["markdown"]
-    assert result["warnings"][-1] == "recipient contact"
+    assert result["warnings"][-1] == "contacto del destinatario"
     missing = _load(web.access_request(json.dumps(DETAILS), "", jurisdiction="co"))
     assert missing["ok"] is False
-    assert "institution" in missing["error"]
+    assert missing["error"] == "Write the name of the institution."
 
 
 def test_access_request_letter_language_can_be_chosen() -> None:

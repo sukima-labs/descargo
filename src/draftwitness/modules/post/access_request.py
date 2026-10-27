@@ -33,7 +33,7 @@ from draftwitness.core.profiles.models import (
     TimeUnit,
 )
 from draftwitness.core.render.pdf import PAGE_BREAK
-from draftwitness.i18n import tr
+from draftwitness.i18n import t, tr
 
 #: Display names for tool identifiers used in profiles and reports.
 TOOL_NAMES: Final = {
@@ -106,7 +106,8 @@ class AccessRequestDocument:
     profile_id: str
     recipient: Contact | None
     unverified: tuple[str, ...]
-    """Citations or labels of facts used in the document that still need verification."""
+    """Citations or labels (in the interface language) of facts used in the document that
+    still need verification."""
 
 
 def unlisted_profile(
@@ -125,14 +126,14 @@ def unlisted_profile(
     languages = list(dict.fromkeys([*(own.templates if own else {}), *resolved.template_files]))
     office, office_email = (office or "").strip(), (office_email or "").strip()
     if bool(office) != bool(office_email):
-        raise AccessRequestError("give both the office and its email, or neither")
+        raise AccessRequestError(t("access.office_and_email"))
     contacts: list[Fact[Contact]] = []
     if office_email:
         role = next(iter(resolved.spec.recipient_roles), ContactRole.OTHER)
         try:
             contact = Contact(role=role, name=office, email=office_email)
         except ValidationError as exc:
-            raise AccessRequestError(f"office email: {office_email!r} is not an address") from exc
+            raise AccessRequestError(t("access.office_email_invalid", email=office_email)) from exc
         contacts.append(Fact[Contact](value=contact))
     country = _PACK_COUNTRIES.get(pack_id, pack_id.upper())
     try:
@@ -146,7 +147,7 @@ def unlisted_profile(
             ),
         )
     except ValidationError as exc:
-        raise AccessRequestError(f"institution: {exc.errors()[0]['msg']}") from exc
+        raise AccessRequestError(t("access.institution_missing")) from exc
 
 
 def add_business_days(start: date, days: int) -> date:
@@ -344,11 +345,11 @@ def build_access_request(
 
     facts: list[tuple[str, Fact[Any]]] = [(b.value.citation, b) for b in resolved.spec.legal_bases]
     if resolved.spec.response_deadline is not None:
-        facts.append(("response deadline", resolved.spec.response_deadline))
+        facts.append((t("access.label_deadline"), resolved.spec.response_deadline))
     if resolved.spec.authority is not None:
-        facts.append(("supervisory authority", resolved.spec.authority))
+        facts.append((t("access.label_authority"), resolved.spec.authority))
     if recipient is not None:
-        facts.append(("recipient contact", recipient))
+        facts.append((t("access.label_recipient"), recipient))
     unverified = [
         label for label, fact in facts if fact.verification is Verification.NEEDS_VERIFICATION
     ]

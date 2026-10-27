@@ -420,7 +420,7 @@ def test_detect_layout() -> None:
 
 
 def test_unknown_layout() -> None:
-    with pytest.raises(AdapterError, match="not a Turnitin Similarity Report layout"):
+    with pytest.raises(AdapterError, match="not a Turnitin Similarity Report"):
         _parse(_pdf(["An ordinary PDF."]))
 
 

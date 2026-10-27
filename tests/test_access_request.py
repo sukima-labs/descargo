@@ -256,8 +256,8 @@ def test_unlisted_institution_office_is_flagged_unverified() -> None:
     ("institution", "office", "email", "message"),
     [
         ("Synthetic Institute", "Records", None, "both the office and its email"),
-        ("Synthetic Institute", "Records", "not-an-address", "is not an address"),
-        ("  ", None, None, "institution:"),
+        ("Synthetic Institute", "Records", "not-an-address", "is not an email address"),
+        ("  ", None, None, "name of the institution"),
     ],
 )
 def test_unlisted_institution_errors(

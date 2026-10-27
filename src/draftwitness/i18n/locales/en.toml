@@ -33,7 +33,7 @@ footer = "Prepared with DraftWitness {version}, open-source software (AGPL-3.0).
 note_title = "Note for you, not part of the letter: remove this section before sending"
 note_not_legal_advice = "**DraftWitness is not legal advice.** It drafts a letter from published rules. Check every source it cites; when the stakes are high, talk to your ombudsperson, student union or a lawyer."
 note_send_to = "**Send it to:** {recipient}."
-note_send_to_unknown = "**Send it to:** the profile has no suitable contact. Look for the university's data protection officer or records office and fill in the recipient."
+note_send_to_unknown = "**Send it to:** no suitable contact is known. Look for the university's data protection officer or records office and fill in the recipient."
 note_proof = "Keep proof of when you sent it (an email you keep, a registry receipt or the electronic office's acknowledgement). The deadline counts from receipt."
 note_deadline = "**Deadline:** {duration} from {from_event}. If it is received on {sent}, the reply is due around **{due}** (estimate; public holidays are not counted)."
 note_extension = "The university may extend it by {duration}: {condition}."
@@ -47,9 +47,19 @@ note_unverified = "**{count} fact(s) in this letter still need human verificatio
 [access]
 profile_or_institution = "Give either --profile or --institution, not both."
 institution_needs_jurisdiction = "--institution needs --jurisdiction, the pack of the institution's country (e.g. co, es, eu, uk, us)."
-no_recipient = "The profile has no suitable contact: fill in the recipient before sending."
+no_recipient = "The letter has no recipient yet: fill it in before sending."
+office_and_email = "Give both the office and its email, or neither."
+office_email_invalid = "The office email {email!r} is not an email address."
+institution_missing = "Write the name of the institution."
+label_deadline = "response deadline"
+label_authority = "supervisory authority"
+label_recipient = "recipient contact"
 unverified = "{count} fact(s) used in the letter still need verification:"
 review = "Review the letter, remove the note at the top, and send it yourself. DraftWitness sends nothing. Not legal advice."
+
+[adapters]
+unreadable_pdf = "cannot read PDF: {error}"
+not_turnitin = "not a Turnitin Similarity Report that DraftWitness can read (Feedback Studio or the enhanced Similarity Report, in: {languages}). Reports from other detectors, such as Compilatio, cannot be read yet."
 
 [import]
 summary = "{tool}: overall similarity {percent}%, {sources} sources."
