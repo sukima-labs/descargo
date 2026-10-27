@@ -10,7 +10,7 @@ from draftwitness.core.data import data_dir
 from draftwitness.core.jurisdictions import pack_ids, resolve_access_request
 from draftwitness.core.profiles import find_profile, load_profile
 from draftwitness.core.profiles.models import TimeUnit
-from draftwitness.core.render.pdf import PdfMetadata, render_pdf
+from draftwitness.core.render.pdf import PdfMetadata, drawable, render_pdf
 from draftwitness.modules.post.access_request import (
     NOT_LEGAL_ADVICE_MARKERS,
     AccessRequestError,
@@ -182,6 +182,15 @@ def test_pdf_is_deterministic_and_keeps_the_disclaimer() -> None:
     text = _pdf_text(first).lower()
     assert "not legal advice" in text
     assert "alex example" in text
+
+
+def test_pdf_writes_undrawable_characters_as_code_points() -> None:
+    assert drawable("Ñandú, Ελλάδα, Москва\n") == "Ñandú, Ελλάδα, Москва\n"
+    assert drawable("I \u2764\ufe0f it") == "I [U+2764][U+FE0F] it"
+    data = render_pdf(
+        "x \U0001f3f4", PdfMetadata(title="t", language="en", created=datetime_utc(TODAY))
+    )
+    assert "[U+1F3F4]" in _pdf_text(data)
 
 
 def test_pdf_renders_every_supported_block(tmp_path: Path) -> None:

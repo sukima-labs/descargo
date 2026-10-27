@@ -4,8 +4,8 @@ Files are only read, never written. The view keeps paragraph boundaries, which p
 are block quotations, where footnote or endnote references sit (they count as citation
 markers) and where the body ends (notes are appended after it).
 
-XML is parsed with defusedxml, and each archive member is size-checked before it is read,
-so a hostile file cannot exhaust memory.
+Archive members are read through :mod:`draftwitness.core.documents.archive`, which
+size-checks them and parses XML with defusedxml.
 """
 
 import bisect
@@ -18,21 +18,17 @@ from pathlib import Path
 from typing import Final
 from xml.etree.ElementTree import Element
 
-from defusedxml import DefusedXmlException, ElementTree
 from pypdf import PdfReader
 from pypdf.errors import PdfReadError
 
+from draftwitness.core.documents.archive import DocumentError, parse_xml, read_member
+
 PARAGRAPH_SEPARATOR: Final = "\n\n"
-MAX_MEMBER_BYTES: Final = 64 * 1024 * 1024
 TEXT_SUFFIXES: Final = frozenset({".txt", ".text", ".md", ".markdown"})
 _WORD = re.compile(r"[^\W_]+(?:['\u2019-][^\W_]+)*")
 _BLANK_LINES = re.compile(r"\n[ \t]*\n+")
 _QUOTE_PREFIX = re.compile(r"^[ \t]*> ?", re.MULTILINE)
 _MARKER_TEXT = re.compile(r"^[\s\d,;\-\u2013*\u2020\u2021\[\]()]+$")
-
-
-class DocumentError(ValueError):
-    """The file cannot be read as a supported document."""
 
 
 def count_words(text: str) -> int:
@@ -134,24 +130,6 @@ _MC_FALLBACK: Final = "{http://schemas.openxmlformats.org/markup-compatibility/2
 _QUOTE_STYLE = re.compile(r"quot|cita", re.IGNORECASE)
 
 
-def _read_member(archive: zipfile.ZipFile, name: str) -> bytes | None:
-    try:
-        info = archive.getinfo(name)
-    except KeyError:
-        return None
-    if info.file_size > MAX_MEMBER_BYTES:
-        raise DocumentError(f"{name} is larger than {MAX_MEMBER_BYTES} bytes")
-    return archive.read(info)
-
-
-def _parse(data: bytes, name: str) -> Element:
-    try:
-        root: Element = ElementTree.fromstring(data)
-    except (ElementTree.ParseError, DefusedXmlException) as exc:
-        raise DocumentError(f"{name}: {exc!r}") from exc
-    return root
-
-
 def _docx_run_is_superscript(run: Element) -> bool:
     props = run.find(f"{_W}rPr")
     align = props.find(f"{_W}vertAlign") if props is not None else None
@@ -211,16 +189,16 @@ def _docx_paragraphs(root: Element, *, note: bool = False) -> Iterator[_Para]:
 def _docx(data: bytes) -> TextDocument:
     builder = _Builder()
     with zipfile.ZipFile(io.BytesIO(data)) as archive:
-        body = _read_member(archive, "word/document.xml")
+        body = read_member(archive, "word/document.xml")
         if body is None:
             raise DocumentError("not a DOCX file: word/document.xml is missing")
-        for para in _docx_paragraphs(_parse(body, "word/document.xml")):
+        for para in _docx_paragraphs(parse_xml(body, "word/document.xml")):
             builder.add(para)
         builder.end_body()
         for part in ("word/footnotes.xml", "word/endnotes.xml"):
-            notes = _read_member(archive, part)
+            notes = read_member(archive, part)
             if notes is not None:
-                for para in _docx_paragraphs(_parse(notes, part), note=True):
+                for para in _docx_paragraphs(parse_xml(notes, part), note=True):
                     builder.add(para)
     return builder.build("docx")
 
@@ -295,12 +273,12 @@ def _odf_paragraphs(root: Element, styles: _OdfStyles, *, note: bool = False) ->
 
 def _odt(data: bytes) -> TextDocument:
     with zipfile.ZipFile(io.BytesIO(data)) as archive:
-        content = _read_member(archive, "content.xml")
+        content = read_member(archive, "content.xml")
         if content is None:
             raise DocumentError("not an ODT file: content.xml is missing")
-        root = _parse(content, "content.xml")
-        styles_xml = _read_member(archive, "styles.xml")
-        style_roots = [root] + ([_parse(styles_xml, "styles.xml")] if styles_xml else [])
+        root = parse_xml(content, "content.xml")
+        styles_xml = read_member(archive, "styles.xml")
+        style_roots = [root] + ([parse_xml(styles_xml, "styles.xml")] if styles_xml else [])
     styles = _OdfStyles.read(*style_roots)
     body = root.find(f"{_OFFICE}body")
     body_paragraphs: list[_Para] = []

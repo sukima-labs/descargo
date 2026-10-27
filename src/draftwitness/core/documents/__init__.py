@@ -1,7 +1,7 @@
 """Read-only views of a student's document (plain text, DOCX, ODT, PDF)."""
 
+from draftwitness.core.documents.archive import DocumentError
 from draftwitness.core.documents.text import (
-    DocumentError,
     Paragraph,
     TextDocument,
     count_words,

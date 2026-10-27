@@ -7,8 +7,13 @@ import pytest
 from fpdf import FPDF
 from pypdf import PdfReader, PdfWriter
 
-from draftwitness.core.documents import DocumentError, count_words, extract_text, text_document
-from draftwitness.core.documents import text as text_module
+from draftwitness.core.documents import (
+    DocumentError,
+    archive,
+    count_words,
+    extract_text,
+    text_document,
+)
 
 W = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'
 MC = 'xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"'
@@ -226,7 +231,7 @@ def test_entity_expansion_is_refused(tmp_path: Path) -> None:
 
 
 def test_oversized_member_is_refused(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setattr(text_module, "MAX_MEMBER_BYTES", 10)
+    monkeypatch.setattr(archive, "MAX_MEMBER_BYTES", 10)
     path = _docx(tmp_path / "big.docx", "<w:p><w:r><w:t>Long enough text</w:t></w:r></w:p>")
     with pytest.raises(DocumentError, match="larger than"):
         extract_text(path)

@@ -14,10 +14,12 @@ regenerate the file and compare hashes.
 import re
 from dataclasses import dataclass
 from datetime import datetime
+from functools import cache
 from importlib.resources import files
 from pathlib import Path
 from typing import Final
 
+from fontTools.ttLib import TTFont
 from fpdf import FPDF
 
 from draftwitness import __version__
@@ -46,6 +48,25 @@ class PdfMetadata:
 
 def _font_path(name: str) -> Path:
     return Path(str(files("draftwitness.core.render").joinpath("fonts", name)))
+
+
+@cache
+def _covered() -> frozenset[int]:
+    """Code points that every bundled font style can draw."""
+    sets = []
+    for filename in _FONT_FILES.values():
+        with TTFont(_font_path(filename), lazy=True) as font:
+            sets.append(frozenset(font.getBestCmap()))
+    return frozenset.intersection(*sets)
+
+
+def drawable(text: str) -> str:
+    """``text`` with each character the bundled font cannot draw written as ``[U+XXXX]``,
+    so that nothing is dropped silently from the PDF."""
+    covered = _covered()
+    return "".join(
+        ch if ord(ch) in covered or ch in "\n\t" else f"[U+{ord(ch):04X}]" for ch in text
+    )
 
 
 def _new_pdf(meta: PdfMetadata) -> FPDF:
@@ -210,7 +231,7 @@ def render_pdf(markdown: str, meta: PdfMetadata) -> bytes:
     pdf = _new_pdf(meta)
     quote_start: tuple[int, float] | None = None
     previous = ""
-    for kind, text in _blocks(markdown):
+    for kind, text in _blocks(drawable(markdown)):
         if kind in _QUOTE_KINDS and quote_start is None:
             quote_start = (pdf.page, pdf.get_y())
         elif kind not in _QUOTE_KINDS and quote_start is not None:
