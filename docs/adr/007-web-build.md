@@ -1,6 +1,6 @@
 # ADR 007: Static in-browser build
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-27
 
 ## Context
