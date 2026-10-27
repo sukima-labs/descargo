@@ -39,7 +39,7 @@ check("the CLI layer is not installed", () => {
 
 check("choices lists the bundled profiles and tools", () => {
   const { profiles, tools } = call("choices");
-  assert.deepEqual(profiles.map((p) => p.id).sort(), ["es/uah", "us/utexas"]);
+  assert.deepEqual(profiles.map((p) => p.id).sort(), ["co/luisamigo", "es/uah", "us/utexas"]);
   assert.equal(tools.turnitin, "Turnitin");
 });
 

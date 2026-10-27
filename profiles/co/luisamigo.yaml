@@ -1,0 +1,84 @@
+# yaml-language-server: $schema=../../schemas/profile/0.1.json
+#
+# Universidad Católica Luis Amigó (Colombia), Medellín and other campuses.
+# "verified" = the quote was found in the official document or page on `checked_on`.
+# "needs_verification" = a human still has to confirm it. Absences are always
+# needs_verification.
+#
+# On 2026-10-27 the university's main site (funlam.edu.co, ucatolicaluisamigo.edu.co)
+# was replaced by a temporary page "ante una alerta mundial de ciberseguridad". Facts from
+# it were read in Internet Archive copies of the official pages and stay
+# needs_verification until the site is back. Not legal advice.
+schema_version: "0.1"
+id: co/luisamigo
+country: CO
+jurisdictions: [co]
+languages: [es]
+institution:
+  id: luisamigo
+  name: Universidad Católica Luis Amigó
+  official_url: https://www.ucatolicaluisamigo.edu.co/
+  policies:
+    ai_policy:
+      value:
+        stance: unspecified
+        summary: >-
+          No rule on students' use of generative AI in coursework was found. The university's
+          ethical guidelines on AI (April 2024) cover research and editorial production: the
+          content must come from human intellect, AI output is only a reference, and its use
+          must be declared.
+      source_url: https://www.funlam.edu.co/modules/fondoeditorial/item.php?itemid=790
+      verification: needs_verification
+      quote: >-
+        "el Fondo Editorial traza las siguientes consideraciones para la creación de material
+        escrito y gráfico basado en IA"
+      note: >-
+        Quote read in the Internet Archive copy of the official page of 2026-07-13; the
+        official site was down on 2026-10-27. The student regulations (Reglamento
+        estudiantil, documentosjuridicos item 675) could not be read: no archived copy.
+    regulations:
+      - value:
+          title: >-
+            Lineamientos éticos del uso de herramientas de inteligencia artificial (IA) en la
+            investigación y la producción intelectual
+          topics: [ai_use]
+        source_url: https://www.funlam.edu.co/modules/fondoeditorial/item.php?itemid=790
+        verification: needs_verification
+        note: >-
+          Issued by the Vicerrectoría de Investigaciones and the Fondo Editorial, published in
+          April 2024. Applies to research and editorial work, not to coursework. Same
+          archived-copy caveat as ai_policy.
+      - value:
+          title: "Revista Colombiana de Ciencias Sociales: Política sobre el uso de inteligencia artificial (IA)"
+          topics: [ai_use, academic_integrity]
+        source_url: https://revistas.ucatolicaluisamigo.edu.co/index.php/RCCS/Politicasobreelusodeinteligenciaartificial
+        checked_on: 2026-10-27
+        verification: verified
+        quote: "rechazará toda obra que supere el 25 % de intervención de IA"
+        note: >-
+          A university journal's rule for manuscripts, not for coursework: rejection above
+          25 % "de acuerdo con los resultados del software que utilice para su detección",
+          that is, an AI-detector score. The page names another journal ("la revista
+          Perseitas") in that sentence, which suggests the text was copied from it.
+      - value:
+          title: >-
+            Resolución Rectoral No. 18 del 6 de marzo de 2023, Políticas de Tratamiento de
+            Datos Personales
+          topics: [data_protection, records_access]
+        source_url: https://www.funlam.edu.co/modules/atencionusuario/item.php?itemid=3
+        verification: needs_verification
+        note: >-
+          Listed on the official data-protection page (Internet Archive copy of 2026-08-04);
+          the resolution itself was not read.
+    contacts:
+      - value:
+          role: data_protection_officer
+          name: Protección de datos personales
+          email: protecciondedatos@amigo.edu.co
+          postal_address: "Transversal 51A #67B 90, Medellín, Colombia"
+        source_url: https://www.funlam.edu.co/modules/atencionusuario/item.php?itemid=3
+        verification: needs_verification
+        quote: "dirigiendo una comunicación escrita al correo electrónico protecciondedatos@amigo.edu.co"
+        note: >-
+          Quote read in the Internet Archive copy of the official page of 2026-08-04. The
+          address is the main campus's, from the footer of the same page.

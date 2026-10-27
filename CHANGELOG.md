@@ -14,7 +14,8 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 - `draftwitness profile list | show | validate | unverified`: institution profiles with
   every fact's source URL, effective date and verification status. Bundled profiles:
-  Universidad de Alcalá (`es/uah`) and The University of Texas at Austin (`us/utexas`).
+  Universidad de Alcalá (`es/uah`), The University of Texas at Austin (`us/utexas`) and
+  Universidad Católica Luis Amigó (`co/luisamigo`).
 - `draftwitness access-request`: drafts a request for access to the detector report, in
   Markdown and PDF, from jurisdiction packs for the EU (GDPR Art. 15), Spain, the United
   Kingdom (UK GDPR), the United States (FERPA) and Colombia (Ley 1581 de 2012). Nothing is

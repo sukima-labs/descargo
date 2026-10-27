@@ -39,7 +39,7 @@ def test_importing_the_web_api_does_not_import_the_cli() -> None:
 def test_choices_lists_profiles_paths_and_tools() -> None:
     choices = _load(web.choices())
     by_id = {p["id"]: p for p in choices["profiles"]}
-    assert set(by_id) == {"es/uah", "us/utexas"}
+    assert set(by_id) == {"co/luisamigo", "es/uah", "us/utexas"}
     uah = by_id["es/uah"]
     assert uah["unverified"] > 0
     assert {"path": "escuela-doctorado", "label": "Escuela de Doctorado"} in uah["paths"]

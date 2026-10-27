@@ -30,6 +30,7 @@ uv run draftwitness profile show es/uah --path escuela-doctorado
 
 | Profile | Institution | Notes |
 |---|---|---|
+| `co/luisamigo` | Universidad Católica Luis Amigó | AI guidelines for research, a journal's AI-detector rule, habeas data contact; student regulations still missing |
 | `es/uah` | Universidad de Alcalá | Doctoral School modelled as a faculty-level node |
 | `us/utexas` | The University of Texas at Austin | Campus-wide Institutional Rules, Chapters 9 and 11 |
 
