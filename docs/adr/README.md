@@ -14,7 +14,7 @@ earlier one and says so.
 | [006](006-pre-submission-inspector.md) | Pre-submission inspector: what it reports and how | Accepted |
 | [007](007-web-build.md) | Static in-browser build | Accepted |
 | [008](008-institution-facts-from-students.md) | Asking students for institution facts | Accepted |
-| [009](009-first-three-detectors.md) | The first three detectors | Proposed |
+| [009](009-first-three-detectors.md) | The first three detectors | Accepted |
 
 To propose a decision, copy the structure of an existing ADR, number it with the next free
 number, set its status to **Proposed**, and open a pull request before implementing it.

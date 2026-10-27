@@ -1,6 +1,6 @@
 # ADR 009: The first three detectors
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-27
 
 ## Context
@@ -55,7 +55,7 @@ score cannot.
 3. **Turnitin, SafeAssign, Copyleaks.** Centred on the United States. It leaves out the tool
    the Colombian testers are most likely to meet.
 
-## Decision (recommended)
+## Decision
 
 Option 2: **Turnitin, Compilatio and Copyleaks**. SafeAssign comes fourth, when there is
 demand from students.
