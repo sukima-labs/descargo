@@ -1,6 +1,6 @@
 # ADR 008: Asking students for institution facts
 
-- **Status:** Proposed
+- **Status:** Accepted
 - **Date:** 2026-10-27
 
 ## Context
@@ -29,7 +29,7 @@ sends it) and the maintainer's rule that **no personal data of students** is col
 3. **Collect through the testers' coordinator** (offline, case by case). No code, but it
    does not scale and leaves no structured record.
 
-## Decision (recommended)
+## Decision
 
 Option 2.
 
