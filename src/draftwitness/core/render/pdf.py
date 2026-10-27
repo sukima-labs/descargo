@@ -124,8 +124,10 @@ def _quote_line(blocks: list[tuple[str, str]], text: str) -> None:
         blocks.append(("quote", text.strip()))
 
 
-def _blocks(markdown: str) -> list[tuple[str, str]]:
-    """Split Markdown into (kind, text) blocks."""
+def markdown_blocks(markdown: str) -> list[tuple[str, str]]:
+    """Split Markdown into (kind, text) blocks: ``h1`` to ``h3``, ``p``, ``li``/``li2``, ``ol<n>``,
+    ``quote``, ``qli``/``qli2``, ``qbreak``, ``hr`` and ``pagebreak``. The browser build draws
+    the same blocks, so the page and the PDF show the same thing."""
     blocks: list[tuple[str, str]] = []
     paragraph: list[str] = []
 
@@ -231,7 +233,7 @@ def render_pdf(markdown: str, meta: PdfMetadata) -> bytes:
     pdf = _new_pdf(meta)
     quote_start: tuple[int, float] | None = None
     previous = ""
-    for kind, text in _blocks(drawable(markdown)):
+    for kind, text in markdown_blocks(drawable(markdown)):
         if kind in _QUOTE_KINDS and quote_start is None:
             quote_start = (pdf.page, pdf.get_y())
         elif kind not in _QUOTE_KINDS and quote_start is not None:

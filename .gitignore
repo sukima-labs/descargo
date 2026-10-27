@@ -24,3 +24,6 @@ htmlcov/
 /local/
 *.real.pdf
 *.real.docx
+
+# Web build downloads (scripts/build_web.py)
+/.cache/

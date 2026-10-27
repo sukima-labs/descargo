@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- ADR 007: the page may load only its own files. The server sends the same policy as
+       a header, which also covers the worker. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self'; form-action 'none'; base-uri 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>DraftWitness</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>DraftWitness</h1>
+      <p class="tagline" data-i18n="tagline">A witness for your drafts.</p>
+    </div>
+    <div class="languages" role="group" aria-label="Language">
+      <button type="button" data-lang="en" lang="en">English</button>
+      <button type="button" data-lang="es" lang="es">Español</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="notice">
+      <p data-i18n="local_notice">Everything runs in this browser tab. Your files and details never leave your device.</p>
+      <p data-i18n="not_legal_advice">DraftWitness is not legal advice.</p>
+    </section>
+
+    <p id="status" class="status" role="status" aria-live="polite" data-i18n="loading">Loading…</p>
+
+    <nav class="tabs" role="tablist">
+      <button type="button" role="tab" id="tab-inspect" aria-controls="panel-inspect" aria-selected="true" data-i18n="tab_inspect">Before you submit</button>
+      <button type="button" role="tab" id="tab-audit" aria-controls="panel-audit" aria-selected="false" data-i18n="tab_audit">Check a similarity report</button>
+      <button type="button" role="tab" id="tab-access" aria-controls="panel-access" aria-selected="false" data-i18n="tab_access">Ask for the report</button>
+    </nav>
+
+    <section id="panel-inspect" class="panel" role="tabpanel" aria-labelledby="tab-inspect">
+      <form id="form-inspect">
+        <p class="intro" data-i18n="inspect_intro"></p>
+        <label><span data-i18n="inspect_file"></span>
+          <input type="file" name="file" accept=".docx,.docm,.odt,.pdf,.txt,.text,.md,.markdown" required>
+        </label>
+        <button type="submit" disabled data-i18n="inspect_run">Inspect</button>
+      </form>
+    </section>
+
+    <section id="panel-audit" class="panel" role="tabpanel" aria-labelledby="tab-audit" hidden>
+      <form id="form-audit">
+        <p class="intro" data-i18n="audit_intro"></p>
+        <label><span data-i18n="audit_report"></span>
+          <input type="file" name="report" accept=".pdf,.json" required>
+          <small data-i18n="audit_report_hint"></small>
+        </label>
+        <label><span data-i18n="audit_document"></span>
+          <input type="file" name="document" accept=".docx,.docm,.odt,.pdf,.txt,.text,.md,.markdown">
+          <small data-i18n="audit_document_hint"></small>
+        </label>
+        <div class="row">
+          <label><span data-i18n="profile"></span>
+            <select name="profile" class="profiles"></select>
+          </label>
+          <label><span data-i18n="path"></span>
+            <select name="path" class="paths"></select>
+          </label>
+        </div>
+        <details>
+          <summary data-i18n="audit_declarations"></summary>
+          <label><span data-i18n="audit_declarations_file"></span>
+            <input type="file" name="declarations" accept=".yaml,.yml">
+            <small data-i18n="audit_declarations_hint"></small>
+          </label>
+        </details>
+        <button type="submit" disabled data-i18n="audit_run">Audit</button>
+      </form>
+    </section>
+
+    <section id="panel-access" class="panel" role="tabpanel" aria-labelledby="tab-access" hidden>
+      <form id="form-access">
+        <p class="intro" data-i18n="access_intro"></p>
+        <div class="row">
+          <label><span data-i18n="profile"></span>
+            <select name="profile" class="profiles" required></select>
+          </label>
+          <label><span data-i18n="path"></span>
+            <select name="path" class="paths"></select>
+          </label>
+          <label><span data-i18n="access_language"></span>
+            <select name="language">
+              <option value="" data-i18n="access_language_default"></option>
+              <option value="es" lang="es">Español</option>
+              <option value="en" lang="en">English</option>
+            </select>
+          </label>
+        </div>
+        <fieldset>
+          <legend data-i18n="student"></legend>
+          <div class="row">
+            <label><span data-i18n="name"></span> <input name="student.name" autocomplete="name" required></label>
+            <label><span data-i18n="email"></span> <input name="student.email" type="email" autocomplete="email" required></label>
+          </div>
+          <div class="row">
+            <label><span data-i18n="student_id"></span> <input name="student.student_id"></label>
+            <label><span data-i18n="identity_document"></span> <input name="student.identity_document">
+              <small data-i18n="identity_document_hint"></small></label>
+          </div>
+          <label><span data-i18n="postal_address"></span> <input name="student.postal_address" autocomplete="street-address"></label>
+          <label><span data-i18n="programme"></span> <input name="student.programme"></label>
+        </fieldset>
+        <fieldset>
+          <legend data-i18n="request"></legend>
+          <label><span data-i18n="submission_title"></span> <input name="request.submission_title"></label>
+          <div class="row">
+            <label><span data-i18n="submission_date"></span> <input name="request.submission_date" type="date"></label>
+            <label><span data-i18n="course"></span> <input name="request.course"></label>
+          </div>
+          <div class="tools">
+            <span data-i18n="tools"></span>
+            <small data-i18n="tools_hint"></small>
+            <div id="tools" class="checks"></div>
+          </div>
+          <label><span data-i18n="extra_items"></span>
+            <textarea name="request.extra_items" rows="3"></textarea>
+            <small data-i18n="extra_items_hint"></small>
+          </label>
+        </fieldset>
+        <button type="submit" disabled data-i18n="access_run">Draft the letter</button>
+      </form>
+    </section>
+
+    <section id="result" class="result" hidden aria-live="polite">
+      <div class="result-head">
+        <h2 id="result-title"></h2>
+        <div id="downloads" class="downloads"></div>
+      </div>
+      <div id="result-summary"></div>
+      <ul id="result-warnings" class="warnings"></ul>
+      <article id="result-body" class="document"></article>
+    </section>
+  </main>
+
+  <footer>
+    <p data-i18n="footer_privacy"></p>
+    <p id="build"></p>
+  </footer>
+</body>
+</html>

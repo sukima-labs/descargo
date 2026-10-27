@@ -1,0 +1,275 @@
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --text: #1d1f23;
+  --muted: #5b616b;
+  --border: #d9d6cf;
+  --accent: #1f5f8b;
+  --accent-text: #ffffff;
+  --ok: #2d6a3e;
+  --error: #a3312a;
+  --notice: #f2efe6;
+  --quote: #9aa0a8;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15171a;
+    --surface: #1d2024;
+    --text: #e7e5e0;
+    --muted: #a3a8b0;
+    --border: #3a3e44;
+    --accent: #7db3db;
+    --accent-text: #0f1215;
+    --ok: #7cc68e;
+    --error: #f08a80;
+    --notice: #23262b;
+    --quote: #6b717a;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+header.top,
+main,
+footer {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+header.top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.tagline {
+  margin: 0;
+  color: var(--muted);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 0.4rem 0.8rem;
+}
+
+button:disabled {
+  cursor: progress;
+  opacity: 0.6;
+}
+
+button[type="submit"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+  margin-top: 0.5rem;
+}
+
+.languages button[aria-pressed="true"] {
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.notice {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background: var(--notice);
+  border-radius: 8px;
+}
+
+.notice p {
+  margin: 0.2rem 0;
+}
+
+.status {
+  min-height: 1.5em;
+  color: var(--muted);
+}
+
+.status[data-kind="ok"] {
+  color: var(--ok);
+}
+
+.status[data-kind="error"] {
+  color: var(--error);
+  white-space: pre-wrap;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tabs button {
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: none;
+}
+
+.tabs button[aria-selected="true"] {
+  border-color: var(--border);
+  background: var(--surface);
+  font-weight: 600;
+  margin-bottom: -1px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  padding: 1rem;
+}
+
+form label,
+.tools {
+  display: block;
+  margin: 0.6rem 0;
+}
+
+form label > span:first-child,
+.tools > span:first-child {
+  display: block;
+  font-weight: 600;
+}
+
+input:not([type="checkbox"]),
+select,
+textarea {
+  font: inherit;
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+small {
+  display: block;
+  color: var(--muted);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0 1rem;
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+legend {
+  font-weight: 600;
+  padding: 0 0.3rem;
+}
+
+.checks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.checks label {
+  display: inline-block;
+  margin: 0.2rem 0;
+  font-weight: normal;
+}
+
+details {
+  margin: 0.6rem 0;
+}
+
+summary {
+  cursor: pointer;
+  color: var(--accent);
+}
+
+.result {
+  margin: 1.5rem 0;
+}
+
+.result-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.result-head h2 {
+  margin: 0;
+}
+
+.downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.warnings:empty {
+  display: none;
+}
+
+.warnings {
+  color: var(--error);
+}
+
+.document {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem 1.25rem 1rem;
+  overflow-wrap: anywhere;
+}
+
+.document p {
+  white-space: pre-line;
+}
+
+.document blockquote {
+  margin: 0.75rem 0;
+  padding-left: 0.9rem;
+  border-left: 3px solid var(--quote);
+}
+
+.document hr {
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+footer {
+  color: var(--muted);
+  font-size: 0.875rem;
+  padding-bottom: 2rem;
+}

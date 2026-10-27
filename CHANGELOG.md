@@ -29,10 +29,15 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 - `draftwitness inspect`: lists invisible or unusual characters, metadata, tracked changes,
   comments and hidden text in `.docx`, `.odt`, `.pdf`, `.txt` and `.md` files, with what
   each item usually means. It never changes the file and gives no score.
+- An in-browser version: `draftwitness inspect`, `audit` and `access-request` (with a form
+  instead of the YAML file) run in the browser through Pyodide, in English and Spanish,
+  with Markdown, PDF and JSON downloads. No server receives anything, and the page may
+  request only its own files. Built with `scripts/build_web.py`, served for testing with
+  `scripts/serve_web.py`. See [`docs/web.md`](docs/web.md).
 - Common report format `report_schema` v0.1, with published JSON Schemas for reports,
   profiles and jurisdiction packs in `schemas/`.
 - English and Spanish messages and reports (`--lang`, `DRAFTWITNESS_LANG`).
 - Command-line conventions shared by every command: an output file is never written over
   an input file, an existing file only with `--force`; exit status 0, 1 for refusals and
   unreadable inputs, 2 for usage errors. See [`docs/cli.md`](docs/cli.md).
-- Architecture decision records 001 to 006 in [`docs/adr/`](docs/adr/).
+- Architecture decision records 001 to 007 in [`docs/adr/`](docs/adr/).

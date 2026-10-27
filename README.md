@@ -58,6 +58,9 @@ src/draftwitness/
   modules/pre/          checks before submission
   modules/post/         defense after a flag
   cli/                  command-line interface
+  web/                  what the in-browser version calls (no CLI)
+web/                    the in-browser page (HTML, JavaScript, CSS)
+scripts/                build and serve the in-browser version
 profiles/               institution profiles (YAML), with sources
 jurisdictions/          legal-basis packs and document templates per country/region
 schemas/                generated JSON Schemas
@@ -99,6 +102,13 @@ The audit discounts quoted and cited passages, the reference list, institution t
 text and your declared own earlier work, and explains each discount. See
 [`docs/audit.md`](docs/audit.md) and [ADR 005](docs/adr/005-similarity-auditor.md).
 
+The same tools also run as a web page, entirely in your browser (no server receives
+anything). See [`docs/web.md`](docs/web.md) and [ADR 007](docs/adr/007-web-build.md):
+
+```bash
+uv run python scripts/build_web.py && uv run python scripts/serve_web.py
+```
+
 Messages and reports are in English and Spanish (`--lang es`, or `DRAFTWITNESS_LANG=es`);
 help texts are in English. No command overwrites the files it reads. Options common to every
 command, and the exit status, are in [`docs/cli.md`](docs/cli.md).
@@ -111,7 +121,7 @@ Requires [uv](https://docs.astral.sh/uv/) and Python 3.12+.
 uv sync
 uv run pre-commit install
 uv run pytest            # runs with network sockets disabled
-uv run ruff check . && uv run ruff format --check . && uv run mypy src tests
+uv run ruff check . && uv run ruff format --check . && uv run mypy src tests scripts
 uv run draftwitness --help
 ```
 
