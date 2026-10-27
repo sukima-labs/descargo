@@ -9,75 +9,23 @@ Names, identifiers and official URLs identify a node. Everything that can change
 carries its source URL, effective date and verification status.
 """
 
-from datetime import date
 from enum import StrEnum
 from typing import Annotated, Any, Final, Literal, Self
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+from draftwitness.core.facts import Fact, Url
+
 PROFILE_SCHEMA_VERSION: Final = "0.1"
 
 Percent = Annotated[float, Field(ge=0, le=100)]
 Slug = Annotated[str, Field(pattern=r"^[a-z0-9][a-z0-9-]*$", max_length=64)]
-Url = Annotated[str, Field(pattern=r"^https?://\S+$", max_length=2048)]
 CountryCode = Annotated[str, Field(pattern=r"^[A-Z]{2}$")]
 LanguageCode = Annotated[str, Field(pattern=r"^[a-z]{2,3}(-[A-Z]{2})?$")]
 
 
 class _Model(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True, str_strip_whitespace=True)
-
-
-class Verification(StrEnum):
-    """Whether a human has checked a fact against an official source."""
-
-    VERIFIED = "verified"
-    NEEDS_VERIFICATION = "needs_verification"
-
-
-def _fact_schema_extra(schema: dict[str, Any]) -> None:
-    schema["if"] = {
-        "required": ["verification"],
-        "properties": {"verification": {"const": Verification.VERIFIED.value}},
-    }
-    schema["then"] = {
-        "required": ["source_url", "checked_on"],
-        "properties": {"source_url": {"type": "string"}, "checked_on": {"type": "string"}},
-    }
-
-
-class Fact[T](_Model):
-    """A value plus where it comes from.
-
-    ``verified`` means someone checked ``value`` against the official page at
-    ``source_url`` on ``checked_on``. Anything else is ``needs_verification``.
-    """
-
-    model_config = ConfigDict(json_schema_extra=_fact_schema_extra)
-
-    value: T
-    source_url: Url | None = None
-    effective_date: date | None = Field(
-        default=None, description="Date from which the rule applies, if the source states one."
-    )
-    checked_on: date | None = Field(
-        default=None, description="Date someone last checked the value against the source."
-    )
-    verification: Verification = Verification.NEEDS_VERIFICATION
-    quote: str | None = Field(
-        default=None,
-        max_length=400,
-        description="Short verbatim excerpt from the source that supports the value.",
-    )
-    note: str | None = None
-
-    @model_validator(mode="after")
-    def _verified_needs_evidence(self) -> Self:
-        if self.verification is Verification.VERIFIED and (
-            self.source_url is None or self.checked_on is None
-        ):
-            raise ValueError("a verified fact needs source_url and checked_on")
-        return self
 
 
 class AiStance(StrEnum):

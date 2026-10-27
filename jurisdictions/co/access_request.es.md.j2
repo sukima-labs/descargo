@@ -1,0 +1,36 @@
+{#- Colombia: consulta en ejercicio del derecho de habeas data (Ley 1581 de 2012) y del
+    derecho de petición (Ley 1755 de 2015). Tono factual: es una consulta, no una acusación. -#}
+{{ student.name }}{% if student.identity_document %}, identificado/a con documento n.º {{ student.identity_document }}{% endif %}\
+{% if student.postal_address %}{{ student.postal_address }}\
+{% endif %}
+{{ student.email }}
+
+{% if recipient %}Señores: {{ recipient_block }}
+{% else %}Señores: [Área responsable del tratamiento de datos personales], {{ institution }}
+{% endif %}
+
+{{ date }}
+
+# Consulta de datos personales (habeas data) y derecho de petición
+
+Asunto: consulta en ejercicio del derecho de habeas data (artículo 15 de la Constitución Política y artículos 8 y 14 de la Ley Estatutaria 1581 de 2012) y del derecho de petición (Ley 1755 de 2015).
+
+Respetados señores:
+
+Soy estudiante de {{ institution }}{% if student.programme %}, del programa {{ student.programme }}{% endif %}{% if student.student_id %} (código estudiantil {{ student.student_id }}){% endif %}. En ejercicio de los derechos citados, solicito conocer y acceder a los datos personales que me conciernen y que la institución, o cualquier encargado que actúe por su cuenta, ha tratado con motivo de la revisión de mi trabajo{% if request.submission_title %} «{{ request.submission_title }}»{% endif %}{% if request.course %} de la asignatura {{ request.course }}{% endif %}{% if submission_date %}, entregado el {{ submission_date }}{% endif %}{% if tools %}, incluidas las verificaciones realizadas con {{ tools | join(", ") }}{% endif %}.
+
+En concreto, solicito:
+
+1. Copia completa de cada informe de similitud y de cada informe de detección de escritura con inteligencia artificial generados sobre este trabajo, en la versión completa a la que accede el profesorado, con las fuentes coincidentes, los fragmentos coincidentes y la configuración aplicada (por ejemplo, si se excluyeron las citas, la bibliografía o las coincidencias pequeñas).
+2. Cualquier nota, valoración, comunicación o decisión sobre mí que se apoye en esos informes, y constancia de quién los revisó.
+3. Si mi trabajo se ha almacenado en el repositorio de trabajos del proveedor de la herramienta, durante cuánto tiempo se conservará y con qué finalidad.
+4. La finalidad del tratamiento, los encargados y destinatarios de mis datos, incluido el proveedor de cada herramienta, y si se transfieren fuera de Colombia.
+{% for item in request.extra_items %}
+{{ loop.index + 4 }}. {{ item }}
+{% endfor %}
+
+Conforme al artículo 14 de la Ley 1581 de 2012, esta consulta debe atenderse en un término máximo de {{ duration(deadline) }} contados a partir de la fecha de su recibo. De acuerdo con el artículo 8, literal f, de la misma ley y con el artículo 21 del Decreto 1377 de 2013, el acceso es gratuito. Solicito que la respuesta se envíe al correo electrónico indicado.
+
+Atentamente,
+
+{{ student.name }}

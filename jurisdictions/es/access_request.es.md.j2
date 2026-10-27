@@ -1,0 +1,35 @@
+{#- Solicitud de acceso en España (art. 15 RGPD y art. 13 LOPDGDD). Tono factual: es una
+    solicitud, no una acusación. -#}
+{{ student.name }}{% if student.identity_document %} (DNI/NIE/pasaporte: {{ student.identity_document }}){% endif %}\
+{% if student.postal_address %}{{ student.postal_address }}\
+{% endif %}
+{{ student.email }}
+
+{% if recipient %}A la atención de: {{ recipient_block }}
+{% else %}A la atención de: [Delegado/a de Protección de Datos], {{ institution }}
+{% endif %}
+
+{{ date }}
+
+# Ejercicio del derecho de acceso (art. 15 RGPD y art. 13 LOPDGDD)
+
+Estimado/a Delegado/a de Protección de Datos:
+
+Soy estudiante de {{ institution }}{% if student.programme %}, matriculado/a en {{ student.programme }}{% endif %}{% if student.student_id %} (n.º de expediente {{ student.student_id }}){% endif %}. Al amparo del artículo 15 del Reglamento (UE) 2016/679 (RGPD) y del artículo 13 de la Ley Orgánica 3/2018 (LOPDGDD), ejerzo mi derecho de acceso a los datos personales que me conciernen y que la universidad, o cualquier encargado del tratamiento que actúe por su cuenta, ha tratado con motivo de la revisión de mi trabajo{% if request.submission_title %} «{{ request.submission_title }}»{% endif %}{% if request.course %} de la asignatura {{ request.course }}{% endif %}{% if submission_date %}, entregado el {{ submission_date }}{% endif %}{% if tools %}, incluidas las comprobaciones realizadas con {{ tools | join(", ") }}{% endif %}.
+
+Para facilitar la búsqueda (art. 13.1 LOPDGDD), concreto que solicito:
+
+1. Copia completa (art. 15.3 RGPD) de cada informe de similitud y de cada informe de detección de escritura con IA generados sobre este trabajo, en la versión completa a la que accede el profesorado, con las fuentes coincidentes, los fragmentos coincidentes y la configuración aplicada (por ejemplo, si se excluyeron las citas, la bibliografía o las coincidencias pequeñas).
+2. Cualquier nota, valoración, comunicación o decisión sobre mí que se apoye en esos informes, y constancia de quién los revisó.
+3. Si mi trabajo se ha almacenado en el repositorio de trabajos del proveedor y durante cuánto tiempo se conservará (art. 15.1.d RGPD).
+4. Los fines y la base jurídica del tratamiento y sus destinatarios, incluido el proveedor de cada herramienta y los países en los que trata los datos (art. 15.1.a y c, y art. 15.2 RGPD).
+5. Si se ha tomado alguna decisión sobre mí basada únicamente en un tratamiento automatizado y, en tal caso, información significativa sobre la lógica aplicada y sobre la importancia y las consecuencias previstas de dicho tratamiento (arts. 15.1.h y 22 RGPD).
+{% for item in request.extra_items %}
+{{ loop.index + 5 }}. {{ item }}
+{% endfor %}
+
+Les ruego que me remitan la información por medios electrónicos, en un formato de uso común (art. 12.3 RGPD). Conforme al artículo 12.3 y 12.5 del RGPD, espero respuesta sin dilación indebida y, en todo caso, en el plazo de {{ duration(deadline) }} desde la recepción de esta solicitud, de forma gratuita.
+
+Atentamente,
+
+{{ student.name }}

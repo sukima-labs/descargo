@@ -23,7 +23,10 @@ classifiers = [
 # Runtime dependencies must also run under Pyodide (see docs/adr/003-stack.md):
 # pure Python, or packages that Pyodide ships prebuilt.
 dependencies = [
+    "fpdf2>=2.8",
+    "jinja2>=3.1",
     "pydantic>=2.10",
+    "pypdf>=5.0",
     "pyyaml>=6.0",
     "typer>=0.15",
 ]
@@ -68,8 +71,13 @@ ignore = [
     "TRY003",  # long messages in exceptions are fine
 ]
 
+[tool.ruff.lint.pylint]
+max-args = 8
+
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S101", "ANN", "PLR0913"]
+# Typer maps every CLI option to a function parameter.
+"src/draftwitness/cli/**" = ["PLR0913", "PLR0917"]
 
 [tool.mypy]
 python_version = "3.12"

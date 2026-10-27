@@ -1,0 +1,769 @@
+{
+  "$defs": {
+    "AccessRequestSpec": {
+      "additionalProperties": false,
+      "description": "Everything needed to draft a request for access to a detector report.",
+      "properties": {
+        "authority": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Fact_Authority_"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "legal_bases": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Fact_LegalBasis_"
+          },
+          "title": "Legal Bases",
+          "type": "array"
+        },
+        "prerequisites": {
+          "default": [],
+          "description": "Steps required before complaining to the authority.",
+          "items": {
+            "$ref": "#/$defs/Fact_Annotated_Union_str__dict_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata___PydanticGeneralMetadata_pattern____a-z__2_3__-_A-Z__2___________Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata__MinLen_min_length_1________FieldInfo_annotation_NoneType__required_True__description__Plain_text_____"
+          },
+          "title": "Prerequisites",
+          "type": "array"
+        },
+        "recipient_roles": {
+          "default": [],
+          "description": "Profile contact roles to address, in order of preference.",
+          "items": {
+            "$ref": "#/$defs/ContactRole"
+          },
+          "title": "Recipient Roles",
+          "type": "array"
+        },
+        "response_deadline": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Fact_ResponseDeadline_"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "templates": {
+          "default": {},
+          "description": "Template file per language, relative to the pack folder.",
+          "patternProperties": {
+            "^[a-z]{2,3}(-[A-Z]{2})?$": {
+              "pattern": "^[A-Za-z0-9_.-]+\\.md\\.j2$",
+              "type": "string"
+            }
+          },
+          "title": "Templates",
+          "type": "object"
+        }
+      },
+      "title": "AccessRequestSpec",
+      "type": "object"
+    },
+    "Authority": {
+      "additionalProperties": false,
+      "description": "Where the student can complain if the request is ignored or refused.",
+      "properties": {
+        "name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "patternProperties": {
+                "^[a-z]{2,3}(-[A-Z]{2})?$": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "description": "Plain text, or text per language with English as the fallback.",
+          "title": "Name"
+        },
+        "url": {
+          "maxLength": 2048,
+          "pattern": "^https?://\\S+$",
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "url"
+      ],
+      "title": "Authority",
+      "type": "object"
+    },
+    "ContactRole": {
+      "enum": [
+        "data_protection_officer",
+        "records_office",
+        "ombuds",
+        "academic_integrity_office",
+        "other"
+      ],
+      "title": "ContactRole",
+      "type": "string"
+    },
+    "Fact_Annotated_Union_str__dict_Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata___PydanticGeneralMetadata_pattern____a-z__2_3__-_A-Z__2___________Annotated_str__FieldInfo_annotation_NoneType__required_True__metadata__MinLen_min_length_1________FieldInfo_annotation_NoneType__required_True__description__Plain_text_____": {
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "verification": {
+            "const": "verified"
+          }
+        },
+        "required": [
+          "verification"
+        ]
+      },
+      "properties": {
+        "checked_on": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Date someone last checked the value against the source.",
+          "title": "Checked On"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Date from which the rule applies, if the source states one.",
+          "title": "Effective Date"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "quote": {
+          "anyOf": [
+            {
+              "maxLength": 400,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Short verbatim excerpt from the source that supports the value.",
+          "title": "Quote"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "maxLength": 2048,
+              "pattern": "^https?://\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Url"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "patternProperties": {
+                "^[a-z]{2,3}(-[A-Z]{2})?$": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "description": "Plain text, or text per language with English as the fallback.",
+          "title": "Value"
+        },
+        "verification": {
+          "$ref": "#/$defs/Verification",
+          "default": "needs_verification"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "then": {
+        "properties": {
+          "checked_on": {
+            "type": "string"
+          },
+          "source_url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_url",
+          "checked_on"
+        ]
+      },
+      "title": "Fact[Annotated[Union[str, dict[Annotated[str, FieldInfo(annotation=NoneType, required=True, metadata=[_PydanticGeneralMetadata(pattern='^[a-z]{2,3}(-[A-Z]{2})?$')])], Annotated[str, FieldInfo(annotation=NoneType, required=True, metadata=[MinLen(min_length=1)])]]], FieldInfo(annotation=NoneType, required=True, description='Plain text, or text per language with English as the fallback.')]]",
+      "type": "object"
+    },
+    "Fact_Authority_": {
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "verification": {
+            "const": "verified"
+          }
+        },
+        "required": [
+          "verification"
+        ]
+      },
+      "properties": {
+        "checked_on": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Date someone last checked the value against the source.",
+          "title": "Checked On"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Date from which the rule applies, if the source states one.",
+          "title": "Effective Date"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "quote": {
+          "anyOf": [
+            {
+              "maxLength": 400,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Short verbatim excerpt from the source that supports the value.",
+          "title": "Quote"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "maxLength": 2048,
+              "pattern": "^https?://\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Url"
+        },
+        "value": {
+          "$ref": "#/$defs/Authority"
+        },
+        "verification": {
+          "$ref": "#/$defs/Verification",
+          "default": "needs_verification"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "then": {
+        "properties": {
+          "checked_on": {
+            "type": "string"
+          },
+          "source_url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_url",
+          "checked_on"
+        ]
+      },
+      "title": "Fact[Authority]",
+      "type": "object"
+    },
+    "Fact_LegalBasis_": {
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "verification": {
+            "const": "verified"
+          }
+        },
+        "required": [
+          "verification"
+        ]
+      },
+      "properties": {
+        "checked_on": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Date someone last checked the value against the source.",
+          "title": "Checked On"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Date from which the rule applies, if the source states one.",
+          "title": "Effective Date"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "quote": {
+          "anyOf": [
+            {
+              "maxLength": 400,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Short verbatim excerpt from the source that supports the value.",
+          "title": "Quote"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "maxLength": 2048,
+              "pattern": "^https?://\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Url"
+        },
+        "value": {
+          "$ref": "#/$defs/LegalBasis"
+        },
+        "verification": {
+          "$ref": "#/$defs/Verification",
+          "default": "needs_verification"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "then": {
+        "properties": {
+          "checked_on": {
+            "type": "string"
+          },
+          "source_url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_url",
+          "checked_on"
+        ]
+      },
+      "title": "Fact[LegalBasis]",
+      "type": "object"
+    },
+    "Fact_ResponseDeadline_": {
+      "additionalProperties": false,
+      "if": {
+        "properties": {
+          "verification": {
+            "const": "verified"
+          }
+        },
+        "required": [
+          "verification"
+        ]
+      },
+      "properties": {
+        "checked_on": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Date someone last checked the value against the source.",
+          "title": "Checked On"
+        },
+        "effective_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Date from which the rule applies, if the source states one.",
+          "title": "Effective Date"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "quote": {
+          "anyOf": [
+            {
+              "maxLength": 400,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Short verbatim excerpt from the source that supports the value.",
+          "title": "Quote"
+        },
+        "source_url": {
+          "anyOf": [
+            {
+              "maxLength": 2048,
+              "pattern": "^https?://\\S+$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Url"
+        },
+        "value": {
+          "$ref": "#/$defs/ResponseDeadline"
+        },
+        "verification": {
+          "$ref": "#/$defs/Verification",
+          "default": "needs_verification"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "then": {
+        "properties": {
+          "checked_on": {
+            "type": "string"
+          },
+          "source_url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_url",
+          "checked_on"
+        ]
+      },
+      "title": "Fact[ResponseDeadline]",
+      "type": "object"
+    },
+    "LegalBasis": {
+      "additionalProperties": false,
+      "description": "One provision the document relies on.",
+      "properties": {
+        "citation": {
+          "examples": [
+            "GDPR, Art. 15(1)(h)"
+          ],
+          "minLength": 1,
+          "title": "Citation",
+          "type": "string"
+        },
+        "summary": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "patternProperties": {
+                "^[a-z]{2,3}(-[A-Z]{2})?$": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "description": "Plain-language summary for the student.",
+          "title": "Summary"
+        }
+      },
+      "required": [
+        "citation",
+        "summary"
+      ],
+      "title": "LegalBasis",
+      "type": "object"
+    },
+    "ResponseDeadline": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "minimum": 1,
+          "title": "Amount",
+          "type": "integer"
+        },
+        "extension_amount": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extension Amount"
+        },
+        "extension_condition": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "patternProperties": {
+                    "^[a-z]{2,3}(-[A-Z]{2})?$": {
+                      "minLength": 1,
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              ],
+              "description": "Plain text, or text per language with English as the fallback."
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Extension Condition"
+        },
+        "extension_unit": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/TimeUnit"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "from_event": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "patternProperties": {
+                "^[a-z]{2,3}(-[A-Z]{2})?$": {
+                  "minLength": 1,
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          ],
+          "description": "Plain text, or text per language with English as the fallback.",
+          "title": "From Event"
+        },
+        "unit": {
+          "$ref": "#/$defs/TimeUnit"
+        }
+      },
+      "required": [
+        "amount",
+        "unit",
+        "from_event"
+      ],
+      "title": "ResponseDeadline",
+      "type": "object"
+    },
+    "TimeUnit": {
+      "enum": [
+        "calendar_days",
+        "business_days",
+        "months"
+      ],
+      "title": "TimeUnit",
+      "type": "string"
+    },
+    "Verification": {
+      "description": "Whether someone has checked a fact against an official source.",
+      "enum": [
+        "verified",
+        "needs_verification"
+      ],
+      "title": "Verification",
+      "type": "string"
+    }
+  },
+  "$id": "urn:draftwitness:schema:jurisdiction:0.1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "A jurisdiction pack. One ``pack.yaml`` per folder under ``jurisdictions/``.",
+  "properties": {
+    "access_request": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AccessRequestSpec"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "extends": {
+      "anyOf": [
+        {
+          "maxLength": 64,
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Extends"
+    },
+    "id": {
+      "maxLength": 64,
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "title": "Id",
+      "type": "string"
+    },
+    "name": {
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "0.1",
+      "default": "0.1",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "name"
+  ],
+  "title": "DraftWitness jurisdiction pack",
+  "type": "object"
+}

@@ -8,7 +8,8 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, ValidationError
 
-from draftwitness.core.profiles.models import Fact, Profile, Verification
+from draftwitness.core.facts import Fact, Verification
+from draftwitness.core.profiles.models import Profile
 
 
 class ProfileError(ValueError):

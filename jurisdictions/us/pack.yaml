@@ -1,0 +1,60 @@
+# yaml-language-server: $schema=../../schemas/jurisdiction/0.1.json
+# United States (federal). Not legal advice. State law may add rights.
+schema_version: "0.1"
+id: us
+name: United States
+access_request:
+  recipient_roles: [records_office, academic_integrity_office]
+  legal_bases:
+    - value:
+        citation: FERPA, 20 U.S.C. § 1232g(a)(1)(A); 34 CFR § 99.10
+        summary: >-
+          You can inspect and review your education records. The institution must comply
+          within a reasonable time and no later than 45 days, and must answer reasonable
+          requests for explanations of the records.
+      source_url: https://www.ecfr.gov/current/title-34/subtitle-A/part-99/subpart-B/section-99.10
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "not more than 45 days after it has received the request"
+    - value:
+        citation: 34 CFR § 99.11
+        summary: The institution may charge for copies but not for searching for or retrieving records.
+      source_url: https://www.ecfr.gov/current/title-34/subtitle-A/part-99/subpart-B/section-99.11
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "may not charge a fee to search for or to retrieve"
+    - value:
+        citation: 34 CFR §§ 99.20-99.22
+        summary: >-
+          You can ask the institution to amend a record you believe is inaccurate or
+          misleading, and to have a hearing if it refuses.
+      source_url: https://www.ecfr.gov/current/title-34/subtitle-A/part-99/subpart-C
+      verification: needs_verification
+    - value:
+        citation: "U.S. Department of Education, letter to St. Thomas Aquinas College (January 2006)"
+        summary: >-
+          A submitted paper is the student's education record once the institution collects
+          and maintains it. Whether a detector's report is itself an education record has not
+          been settled officially.
+      source_url: https://studentprivacy.ed.gov/sites/default/files/resource_document/file/LettertoStThomasAquinasCollegeRegardingPlagiarismPreventionServiceJanuary2006.pdf
+      verification: needs_verification
+  response_deadline:
+    value:
+      amount: 45
+      unit: calendar_days
+      from_event: the institution's receipt of the request
+    source_url: https://www.ecfr.gov/current/title-34/subtitle-A/part-99/subpart-B/section-99.10
+    checked_on: 2026-10-27
+    verification: verified
+    quote: "not more than 45 days after it has received the request"
+  authority:
+    value:
+      name: U.S. Department of Education, Student Privacy Policy Office
+      url: https://studentprivacy.ed.gov/file-a-complaint
+    source_url: https://studentprivacy.ed.gov/file-a-complaint
+    checked_on: 2026-10-27
+    verification: verified
+    quote: "180 days of the date of the alleged violation"
+    note: Complaints must be filed within 180 days of the violation or of when you knew of it (34 CFR § 99.64).
+  templates:
+    en: access_request.en.md.j2

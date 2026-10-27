@@ -1,0 +1,16 @@
+# Example input for `draftwitness access-request --student <file>`.
+# SYNTHETIC: replace with your own details in a copy OUTSIDE the repository.
+# DraftWitness only uses this file to fill in the letter on your device.
+student:
+  name: Alex Example
+  email: alex.example@student.example
+  student_id: "000000"
+  # identity_document: "00000000X"   # only if your university asks for it
+  # postal_address: "1 Example Street, 00000 Example City"
+  programme: Bachelor's Degree in Biology
+request:
+  submission_title: The water cycle in semi-arid basins
+  submission_date: 2026-10-20
+  course: Hydrology II
+  tools: [turnitin]              # leave empty to use the tools in the institution profile
+  extra_items: []

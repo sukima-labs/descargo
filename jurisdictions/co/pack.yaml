@@ -1,0 +1,101 @@
+# yaml-language-server: $schema=../../schemas/jurisdiction/0.1.json
+# Colombia. Not legal advice. Texts checked on Bogotá's official legal database (SISJUR)
+# because the Senate and SIC sites refused automated connections on 2026-10-27.
+schema_version: "0.1"
+id: co
+name: Colombia
+access_request:
+  recipient_roles: [data_protection_officer, records_office]
+  legal_bases:
+    - value:
+        citation: Constitución Política, art. 15; Ley Estatutaria 1581 de 2012, art. 8
+        summary:
+          en: >-
+            Habeas data: you have the right to know, update and rectify your personal data,
+            and to access it free of charge.
+          es: >-
+            Habeas data: tienes derecho a conocer, actualizar y rectificar tus datos
+            personales, y a acceder a ellos de forma gratuita.
+      source_url: https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=49981
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "Acceder en forma gratuita a sus datos personales"
+    - value:
+        citation: Ley 1581 de 2012, art. 14 (consultas)
+        summary:
+          en: >-
+            A query about your data must be answered within 10 business days of receipt,
+            extendable once by up to 5 business days with notice and reasons.
+          es: >-
+            Una consulta sobre tus datos debe responderse en un máximo de 10 días hábiles
+            desde su recibo, prorrogables una vez hasta 5 días hábiles, informándote del
+            motivo.
+      source_url: https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=49981
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "término máximo de diez (10) días hábiles contados a partir de la fecha de recibo"
+    - value:
+        citation: Decreto 1377 de 2013, art. 21 (compilado en el Decreto 1074 de 2015)
+        summary:
+          en: >-
+            Access is free at least once every calendar month; beyond that only shipping,
+            reproduction and certification costs may be charged.
+          es: >-
+            La consulta es gratuita al menos una vez cada mes calendario; por encima de eso
+            solo pueden cobrarse gastos de envío, reproducción y certificación.
+      source_url: https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=53646
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "al menos una vez cada mes calendario"
+    - value:
+        citation: Ley 1755 de 2015, arts. 14 y 32 (derecho de petición)
+        summary:
+          en: >-
+            Requests for documents and information must be answered within 10 days. The
+            right of petition also applies to private organisations to protect fundamental
+            rights, but whether this 10-day rule binds private universities is not settled.
+          es: >-
+            Las peticiones de documentos e información deben resolverse en 10 días. El
+            derecho de petición también aplica ante organizaciones privadas para garantizar
+            derechos fundamentales, pero no está claro que este plazo obligue a las
+            universidades privadas.
+      source_url: https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=62152
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "deberán resolverse dentro de los diez (10) días"
+      note: The law says "días", not "días hábiles"; read as business days only after checking.
+  response_deadline:
+    value:
+      amount: 10
+      unit: business_days
+      from_event: {en: receipt of the query, es: el recibo de la consulta}
+      extension_amount: 5
+      extension_unit: business_days
+      extension_condition:
+        en: the university must explain the delay and give the new date before the first term ends
+        es: la universidad debe informarte del motivo y de la nueva fecha antes de que venza el primer término
+    source_url: https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=49981
+    checked_on: 2026-10-27
+    verification: verified
+    quote: "cinco (5) días hábiles siguientes al vencimiento del primer término"
+  authority:
+    value:
+      name: Superintendencia de Industria y Comercio (SIC), Delegatura para la Protección de Datos Personales
+      url: https://www.sic.gov.co/
+    source_url: https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=49981
+    verification: needs_verification
+    note: Ley 1581 art. 19. sic.gov.co could not be reached from the build machine on 2026-10-27.
+  prerequisites:
+    - value:
+        en: >-
+          You can only complain to the SIC after the query or claim to the university has
+          been exhausted (Ley 1581 de 2012, art. 16).
+        es: >-
+          Solo puedes presentar una queja ante la SIC después de agotar la consulta o el
+          reclamo ante la universidad (Ley 1581 de 2012, art. 16).
+      source_url: https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=49981
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "una vez haya agotado el trámite de consulta o reclamo ante el Responsable"
+  templates:
+    es: access_request.es.md.j2

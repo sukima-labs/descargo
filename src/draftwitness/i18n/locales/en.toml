@@ -12,3 +12,36 @@ none_found = "No profiles found under {root}"
 unverified_header = "{profile}: {count} fact(s) need verification"
 unverified_item = "  - {location}"
 all_verified = "{profile}: every fact is verified"
+
+[dates]
+months = "January,February,March,April,May,June,July,August,September,October,November,December"
+long = "{day} {month} {year}"
+
+[durations]
+months_one = "one month"
+months_many = "{n} months"
+business_days = "{n} business days"
+calendar_days = "{n} calendar days"
+
+[documents]
+footer = "Prepared with DraftWitness {version}, open-source software (AGPL-3.0). This is not legal advice. DraftWitness has not modified any of your work."
+note_title = "Note for you, not part of the letter: remove this section before sending"
+note_not_legal_advice = "**DraftWitness is not legal advice.** It drafts a letter from published rules. Check every source it cites; when the stakes are high, talk to your ombudsperson, student union or a lawyer."
+note_send_to = "**Send it to:** {recipient}."
+note_send_to_unknown = "**Send it to:** the profile has no suitable contact. Look for the university's data protection officer or records office and fill in the recipient."
+note_proof = "Keep proof of when you sent it (an email you keep, a registry receipt or the electronic office's acknowledgement). The deadline counts from receipt."
+note_deadline = "**Deadline:** {duration} from {from_event}. If it is received on {sent}, the reply is due around **{due}** (estimate; public holidays are not counted)."
+note_extension = "The university may extend it by {duration}: {condition}."
+note_authority = "**If there is no answer, or it is incomplete:** {name}, {url}."
+note_prerequisite = "{text}"
+note_bases = "**Legal bases used:**"
+note_basis = "{citation}: {summary}{flag}"
+note_flag_unverified = " (needs verification)"
+note_unverified = "**{count} fact(s) in this letter still need human verification.** Follow the source links in the profile and jurisdiction pack before relying on them."
+
+[access]
+exists = "refusing to overwrite {paths} (use --force)"
+written = "Written: {path}"
+no_recipient = "The profile has no suitable contact: fill in the recipient before sending."
+unverified = "{count} fact(s) used in the letter still need verification:"
+review = "Review the letter, remove the note at the top, and send it yourself. DraftWitness sends nothing. Not legal advice."

@@ -12,3 +12,36 @@ none_found = "No hay perfiles en {root}"
 unverified_header = "{profile}: {count} dato(s) pendientes de verificar"
 unverified_item = "  - {location}"
 all_verified = "{profile}: todos los datos están verificados"
+
+[dates]
+months = "enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre"
+long = "{day} de {month} de {year}"
+
+[durations]
+months_one = "un mes"
+months_many = "{n} meses"
+business_days = "{n} días hábiles"
+calendar_days = "{n} días naturales"
+
+[documents]
+footer = "Preparado con DraftWitness {version}, software libre (AGPL-3.0). Esto no es asesoramiento legal. DraftWitness no ha modificado ninguna parte de tu trabajo."
+note_title = "Nota para ti, no forma parte del escrito: elimina esta sección antes de enviarlo"
+note_not_legal_advice = "**DraftWitness no es asesoramiento legal.** Redacta un escrito a partir de normas publicadas. Comprueba cada fuente que cita; si hay mucho en juego, habla con la defensoría universitaria, la representación estudiantil o un abogado."
+note_send_to = "**Envíalo a:** {recipient}."
+note_send_to_unknown = "**Envíalo a:** el perfil no tiene un contacto adecuado. Busca el delegado de protección de datos o la oficina de registros de la universidad y completa el destinatario."
+note_proof = "Guarda prueba de la fecha de envío (el correo enviado, el justificante de registro o el acuse de la sede electrónica). El plazo cuenta desde la recepción."
+note_deadline = "**Plazo:** {duration} desde {from_event}. Si se recibe el {sent}, la respuesta vence hacia el **{due}** (estimación; no descuenta festivos)."
+note_extension = "La universidad puede ampliarlo en {duration}: {condition}."
+note_authority = "**Si no responden, o la respuesta es incompleta:** {name}, {url}."
+note_prerequisite = "{text}"
+note_bases = "**Bases legales utilizadas:**"
+note_basis = "{citation}: {summary}{flag}"
+note_flag_unverified = " (pendiente de verificar)"
+note_unverified = "**{count} dato(s) de este escrito siguen pendientes de verificación humana.** Sigue los enlaces a las fuentes del perfil y del paquete jurisdiccional antes de confiar en ellos."
+
+[access]
+exists = "no se sobrescribe {paths} (usa --force)"
+written = "Escrito: {path}"
+no_recipient = "El perfil no tiene un contacto adecuado: completa el destinatario antes de enviarlo."
+unverified = "{count} dato(s) usados en el escrito siguen pendientes de verificar:"
+review = "Revisa el escrito, elimina la nota del principio y envíalo tú. DraftWitness no envía nada. No es asesoramiento legal."

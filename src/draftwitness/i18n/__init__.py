@@ -63,7 +63,13 @@ def get_locale() -> str:
     return _current
 
 
-def t(key: str, /, **values: object) -> str:
-    """Translate ``key`` into the current locale, falling back to English."""
-    template = catalog(_current).get(key) or catalog(DEFAULT_LOCALE)[key]
+def tr(locale: str, key: str, /, **values: object) -> str:
+    """Translate ``key`` into ``locale`` (falling back to English), e.g. for documents."""
+    strings = catalog(locale) if locale in SUPPORTED_LOCALES else {}
+    template = strings.get(key) or catalog(DEFAULT_LOCALE)[key]
     return template.format(**values)
+
+
+def t(key: str, /, **values: object) -> str:
+    """Translate ``key`` into the current interface locale, falling back to English."""
+    return tr(_current, key, **values)

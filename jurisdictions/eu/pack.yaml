@@ -1,0 +1,101 @@
+# yaml-language-server: $schema=../../schemas/jurisdiction/0.1.json
+# European Union. Not legal advice. "verified" = the quote was found in an official copy of
+# the text on `checked_on`; legislation.gov.uk's "/adopted" pages reproduce the GDPR as
+# published in the Official Journal (EUR-Lex refused automated access on 2026-10-27).
+schema_version: "0.1"
+id: eu
+name: European Union
+access_request:
+  recipient_roles: [data_protection_officer]
+  legal_bases:
+    - value:
+        citation: GDPR, Art. 15(1) and 15(3)
+        summary:
+          en: >-
+            You can obtain confirmation that your personal data is being processed, access
+            to it, and a copy of it.
+          es: >-
+            Puedes obtener confirmación de si se tratan tus datos personales, acceso a ellos
+            y una copia.
+      source_url: https://www.legislation.gov.uk/eur/2016/679/article/15/adopted
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "The controller shall provide a copy of the personal data undergoing processing."
+    - value:
+        citation: GDPR, Art. 15(1)(h) and Art. 22
+        summary:
+          en: >-
+            If a decision about you was based solely on automated processing, you can obtain
+            meaningful information about the logic involved and its consequences, and you
+            have the right to human intervention and to contest the decision.
+          es: >-
+            Si una decisión sobre ti se basó únicamente en un tratamiento automatizado,
+            puedes obtener información significativa sobre la lógica aplicada y sus
+            consecuencias, y tienes derecho a intervención humana y a impugnar la decisión.
+      source_url: https://www.legislation.gov.uk/eur/2016/679/article/15/adopted
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "meaningful information about the logic involved"
+    - value:
+        citation: GDPR, Art. 12(3) and 12(5)
+        summary:
+          en: >-
+            The university must answer without undue delay and within one month, extendable
+            by two further months for complex or numerous requests, and free of charge.
+          es: >-
+            La universidad debe responder sin dilación indebida y en el plazo de un mes,
+            prorrogable otros dos meses si la solicitud es compleja o son muchas, y de forma
+            gratuita.
+      source_url: https://www.legislation.gov.uk/eur/2016/679/article/12/adopted
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "within one month of receipt of the request"
+    - value:
+        citation: AI Act (Regulation (EU) 2024/1689), Art. 86 and Annex III, point 3
+        summary:
+          en: >-
+            AI systems used to evaluate learning outcomes are listed as high-risk, and people
+            affected by decisions based on high-risk systems get a right to an explanation.
+            Whether a detector is such a system, and from when Art. 86 can be relied on after
+            the 2026 "Digital Omnibus" postponement, is uncertain.
+          es: >-
+            Los sistemas de IA que evalúan resultados de aprendizaje figuran como de alto
+            riesgo, y quien se vea afectado por decisiones basadas en ellos tiene derecho a
+            una explicación. No está claro si un detector es uno de esos sistemas ni desde
+            cuándo puede invocarse el art. 86 tras el aplazamiento del «Ómnibus digital» de
+            2026.
+      source_url: https://www.boe.es/doue/2024/1689/L00001-00144.pdf
+      verification: needs_verification
+      note: >-
+        Regulation (EU) 2026/1744 moved the application of the high-risk rules for Annex III
+        systems to 2 December 2027. Mention only as context, never as the main basis.
+  response_deadline:
+    value:
+      amount: 1
+      unit: months
+      from_event: {en: receipt of the request, es: la recepción de la solicitud}
+      extension_amount: 2
+      extension_unit: months
+      extension_condition:
+        en: >-
+          where necessary given the complexity and number of requests; the university must
+          tell you within the first month, with reasons
+        es: >-
+          si es necesario por la complejidad y el número de solicitudes; la universidad debe
+          comunicártelo dentro del primer mes, con los motivos
+    source_url: https://www.legislation.gov.uk/eur/2016/679/article/12/adopted
+    checked_on: 2026-10-27
+    verification: verified
+    quote: "That period may be extended by two further months where necessary"
+  authority:
+    value:
+      name:
+        en: the data protection authority of your country (list of EDPB members)
+        es: la autoridad de protección de datos de tu país (lista de miembros del CEPD)
+      url: https://www.edpb.europa.eu/about-edpb/about-edpb/members_en
+    source_url: https://www.edpb.europa.eu/about-edpb/about-edpb/members_en
+    verification: needs_verification
+    note: GDPR Art. 77. The page loaded on 2026-10-27; its content was not reviewed.
+  templates:
+    en: access_request.en.md.j2
+    es: access_request.es.md.j2

@@ -1,5 +1,6 @@
 """Institution profiles: schema, loading, validation and policy resolution."""
 
+from draftwitness.core.facts import Fact, Verification
 from draftwitness.core.profiles.loader import (
     ProfileError,
     Unverified,
@@ -8,7 +9,7 @@ from draftwitness.core.profiles.loader import (
     profile_paths,
     unverified_facts,
 )
-from draftwitness.core.profiles.models import PROFILE_SCHEMA_VERSION, Fact, Profile, Verification
+from draftwitness.core.profiles.models import PROFILE_SCHEMA_VERSION, Profile
 from draftwitness.core.profiles.resolve import Resolved, UnknownNodeError, resolve
 
 __all__ = [

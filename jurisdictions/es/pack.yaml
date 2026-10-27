@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=../../schemas/jurisdiction/0.1.json
+# Spain (extends the EU pack). Not legal advice.
+schema_version: "0.1"
+id: es
+name: España
+extends: eu
+access_request:
+  recipient_roles: [data_protection_officer]
+  legal_bases:
+    - value:
+        citation: Ley Orgánica 3/2018 (LOPDGDD), art. 13
+        summary:
+          en: >-
+            The right of access is exercised under Art. 15 GDPR. If the university holds a
+            lot of data about you it may ask you to specify the data or processing you mean,
+            which is why the letter names the work, the course and the tools.
+          es: >-
+            El derecho de acceso se ejerce conforme al art. 15 RGPD. Si la universidad trata
+            muchos datos tuyos puede pedirte que concretes a qué datos o tratamientos te
+            refieres; por eso el escrito identifica el trabajo, la asignatura y las
+            herramientas.
+      source_url: https://www.boe.es/buscar/act.php?id=BOE-A-2018-16673
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "se ejercitará de acuerdo con lo establecido en el artículo 15 del Reglamento (UE) 2016/679"
+    - value:
+        citation: Ley 3/2022 de Convivencia Universitaria, art. 11.g
+        summary:
+          en: >-
+            Academic fraud is defined as premeditated conduct ("comportamiento premeditado")
+            aimed at falsifying the results of an exam or work. A similarity or AI score
+            alone says nothing about intent. Context for an appeal; not a basis for access.
+          es: >-
+            El fraude académico se define como un «comportamiento premeditado» tendente a
+            falsear los resultados de un examen o trabajo. Un porcentaje de similitud o de IA
+            no dice nada sobre la intención. Es contexto para una reclamación, no una base
+            del derecho de acceso.
+      source_url: https://www.boe.es/buscar/act.php?id=BOE-A-2022-2978
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "cualquier comportamiento premeditado tendente a falsear"
+  authority:
+    value:
+      name: Agencia Española de Protección de Datos (AEPD)
+      url: https://www.aepd.es/
+    source_url: https://www.aepd.es/
+    verification: needs_verification
+    note: >-
+      Some regions have their own authority for regional public bodies (LOPDGDD art. 57),
+      which may include public universities in Catalonia, the Basque Country and Andalusia.
+  templates:
+    es: access_request.es.md.j2  # English letters fall back to the EU template

@@ -1365,7 +1365,7 @@
       "type": "object"
     },
     "Verification": {
-      "description": "Whether a human has checked a fact against an official source.",
+      "description": "Whether someone has checked a fact against an official source.",
       "enum": [
         "verified",
         "needs_verification"

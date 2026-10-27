@@ -1,0 +1,34 @@
+{#- US request to inspect and review education records under FERPA. -#}
+{{ student.name }}\
+{% if student.postal_address %}{{ student.postal_address }}\
+{% endif %}
+{{ student.email }}
+
+{% if recipient %}{{ recipient_block }}
+{% else %}[Office that maintains the record], {{ institution }}
+{% endif %}
+
+{{ date }}
+
+# Request to inspect and review education records under FERPA
+
+To whom it may concern,
+
+I am a student at {{ institution }}{% if student.programme %}, enrolled in {{ student.programme }}{% endif %}{% if student.student_id %} (student ID {{ student.student_id }}){% endif %}. Under the Family Educational Rights and Privacy Act, 20 U.S.C. § 1232g, and 34 CFR § 99.10, I request to inspect and review the education records directly related to me that concern the checking of my work{% if request.submission_title %} "{{ request.submission_title }}"{% endif %}{% if request.course %} for {{ request.course }}{% endif %}{% if submission_date %}, submitted on {{ submission_date }}{% endif %}{% if tools %}, including any checks made with {{ tools | join(", ") }}{% endif %}.
+
+Specifically, I ask to inspect and review:
+
+1. Every similarity report and every AI-writing report generated for this work and maintained by the institution or by a party acting for it, including the matched sources, the matched passages and the settings applied.
+2. Any notes, assessments, emails or decisions concerning me that rely on those reports, including any referral to the Dean of Students or a conduct office.
+3. Any record showing whether my work was added to a vendor's repository of submitted papers.
+{% for item in request.extra_items %}
+{{ loop.index + 3 }}. {{ item }}
+{% endfor %}
+
+Under 34 CFR § 99.10(c), I also ask for a reasonable explanation and interpretation of these records, including what the reported scores mean and how they were used.
+
+Please let me know when and where I can inspect the records, or send copies electronically. FERPA requires access within a reasonable time and no later than {{ duration(deadline) }} after receipt of this request, and no fee may be charged to search for or retrieve the records (34 CFR § 99.11).
+
+Sincerely,
+
+{{ student.name }}

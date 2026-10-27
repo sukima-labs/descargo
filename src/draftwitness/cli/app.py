@@ -5,7 +5,7 @@ from typing import Annotated
 import typer
 
 from draftwitness import __version__
-from draftwitness.cli import profile
+from draftwitness.cli import access_request, profile
 from draftwitness.i18n import SUPPORTED_LOCALES, detect_locale, set_locale
 
 app = typer.Typer(
@@ -50,6 +50,7 @@ def root(
 
 
 app.add_typer(profile.app, name="profile")
+app.command("access-request")(access_request.access_request)
 
 
 def main() -> None:

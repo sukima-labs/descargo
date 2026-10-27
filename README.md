@@ -65,6 +65,20 @@ docs/adr/               architecture decision records
 tests/fixtures/         synthetic fixtures only
 ```
 
+## Usage (so far)
+
+```bash
+uv run draftwitness profile list
+uv run draftwitness profile show es/uah --path escuela-doctorado
+uv run draftwitness profile unverified          # facts a human still has to check
+
+# Draft a request for access to the detector report (Markdown + PDF, on your device)
+cp examples/student.example.yaml ~/my-details.yaml   # edit it OUTSIDE the repository
+uv run draftwitness access-request --profile es/uah --student ~/my-details.yaml
+```
+
+The interface speaks English and Spanish (`--lang es`, or `DRAFTWITNESS_LANG=es`).
+
 ## Development
 
 Requires [uv](https://docs.astral.sh/uv/) and Python 3.12+.

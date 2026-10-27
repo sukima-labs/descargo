@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=../../schemas/jurisdiction/0.1.json
+# United Kingdom. Not legal advice. Reflects the Data (Use and Access) Act 2025 changes in
+# force on 2026-10-27.
+schema_version: "0.1"
+id: uk
+name: United Kingdom
+access_request:
+  recipient_roles: [data_protection_officer]
+  legal_bases:
+    - value:
+        citation: UK GDPR, Art. 15 (as amended by the Data (Use and Access) Act 2025)
+        summary: >-
+          You can obtain a copy of your personal data. Since the 2025 Act, the university
+          only has to provide what it finds through a reasonable and proportionate search,
+          so a specific request is answered better.
+      source_url: https://www.legislation.gov.uk/eur/2016/679/article/15
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "reasonable and proportionate search"
+    - value:
+        citation: UK GDPR, Art. 12A (time limits)
+        summary: >-
+          One month, extendable by two further months for complex or numerous requests. If
+          the university reasonably needs more information to find what you asked for, the
+          clock stops until you reply.
+      source_url: https://www.legislation.gov.uk/ukpga/2025/18/section/76
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "does not count"
+    - value:
+        citation: Data Protection Act 2018, Schedule 2, paragraph 25 (exam scripts and marks)
+        summary: >-
+          Answers written during an exam are exempt from access; this does not cover
+          coursework or detector reports, but universities sometimes cite it.
+      source_url: https://www.legislation.gov.uk/ukpga/2018/12/schedule/2/paragraph/25
+      verification: needs_verification
+  response_deadline:
+    value:
+      amount: 1
+      unit: months
+      from_event: >-
+        receipt of the request (or of identity information or a fee, if the university
+        asks for them)
+      extension_amount: 2
+      extension_unit: months
+      extension_condition: complex or numerous requests; notice with reasons within the first month
+    source_url: https://www.legislation.gov.uk/ukpga/2025/18/section/76
+    checked_on: 2026-10-27
+    verification: verified
+    quote: "by two further months where that is necessary"
+  authority:
+    value:
+      name: Information Commission (ico.org.uk)
+      url: https://ico.org.uk/make-a-complaint/
+    source_url: https://ico.org.uk/make-a-complaint/
+    verification: needs_verification
+    note: >-
+      The Information Commission replaced the Information Commissioner on 30 September 2026;
+      complaints still go through ico.org.uk. For the academic decision itself (not the
+      data request), students in England and Wales can go to the OIA after a Completion of
+      Procedures Letter.
+  prerequisites:
+    - value: >-
+        OIA (England and Wales): finish the university's internal procedures first; the OIA
+        must receive your complaint within 12 months of the Completion of Procedures Letter.
+        It does not review academic judgment.
+      source_url: https://www.oiahe.org.uk/students/can-you-complain-to-us/
+      checked_on: 2026-10-27
+      verification: verified
+      quote: "We must receive your complaint within 12 months of the date of the Completion of Procedures Letter"
+  templates:
+    en: access_request.en.md.j2

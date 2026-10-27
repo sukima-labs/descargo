@@ -1,0 +1,39 @@
+{#- EU access request (GDPR Art. 15), English. Variables are documented in
+    docs/templates.md. Keep the tone factual: this is a request, not an accusation. -#}
+{{ student.name }}\
+{% if student.postal_address %}{{ student.postal_address }}\
+{% endif %}
+{{ student.email }}
+
+{% if recipient %}{{ recipient_block }}
+{% else %}[Data Protection Officer], {{ institution }}
+{% endif %}
+
+{{ date }}
+
+# Request for access to personal data under Article 15 GDPR
+
+Dear Data Protection Officer,
+
+I am a student at {{ institution }}{% if student.programme %}, enrolled in {{ student.programme }}{% endif %}{% if student.student_id %} (student ID {{ student.student_id }}){% endif %}. Under Article 15 of Regulation (EU) 2016/679 (GDPR), I request access to the personal data concerning me that the university, or any processor acting on its behalf, has processed in connection with the checking of my work{% if request.submission_title %} "{{ request.submission_title }}"{% endif %}{% if request.course %} for {{ request.course }}{% endif %}{% if submission_date %}, submitted on {{ submission_date }}{% endif %}{% if tools %}, including any checks made with {{ tools | join(", ") }}{% endif %}.
+
+In particular, please provide:
+
+1. A complete copy (Article 15(3)) of every similarity report and every AI-writing report generated for this work, in the full version available to staff, including the matched sources, the matched passages and the settings applied (for example, whether quotations, the bibliography or small matches were excluded).
+2. Any notes, assessments, messages or decisions concerning me that rely on those reports, and a record of who reviewed them.
+3. Whether my work has been stored in the provider's repository of submitted papers, and for how long it will be kept (Article 15(1)(d)).
+4. The purposes and legal basis of the processing and its recipients, including the provider of each tool and the countries where it processes the data (Article 15(1)(a) and (c), and Article 15(2)).
+5. Whether any decision about me has been based solely on automated processing and, if so, meaningful information about the logic involved and the significance and envisaged consequences of the processing (Articles 15(1)(h) and 22).
+{% for item in request.extra_items %}
+{{ loop.index + 5 }}. {{ item }}
+{% endfor %}
+
+Please send the information electronically, in a commonly used format (Article 12(3)). Under Article 12(3) and (5), I expect a reply without undue delay and in any event within {{ duration(deadline) }} of receipt, free of charge.
+
+{% if student.identity_document %}
+If you need to confirm my identity (Article 12(6)), my identity document number is {{ student.identity_document }}.
+
+{% endif %}
+Yours sincerely,
+
+{{ student.name }}
