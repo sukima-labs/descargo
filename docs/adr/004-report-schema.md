@@ -72,3 +72,29 @@ compatibility, and DraftWitness ships a migration for every older version it can
 - Modules must cope with missing fields (no offsets, no match text) and say so in their
   output.
 - The schema files are part of the public contract; changing them needs a version bump.
+
+## Implementation notes: Turnitin PDF adapter v0 (2026-10-27)
+
+These apply the decision to the first adapter without changing it:
+
+- **Layouts.** The adapter reads the two downloadable PDF layouts Turnitin documents: the
+  Feedback Studio "Current View" (paper, then an "ORIGINALITY REPORT" page) and the
+  enhanced Similarity Report (Cover Page, Integrity Overview, Submission). Anything else is
+  refused with an error rather than half-read.
+- **Labels in data.** The labels it looks for live in
+  `src/draftwitness/adapters/turnitin/labels.yaml`, per layout and language, with where
+  each was checked. A label not yet seen in a real report is marked and produces a warning
+  when it is used.
+- **No match text.** Both layouts show matched passages only as coloured highlights, so the
+  report has sources and no matches, and the auditor uses its approximate method (ADR 005).
+- **Data minimisation.** The author name and the file name shown on the report are not
+  kept. On the enhanced cover page the title and the author name appear in an order that
+  varies, so a line is kept as the title only when it equals the file name (Turnitin's
+  default title); otherwise neither is kept and a warning says so.
+- **Tool-specific facts** go under `extensions.turnitin`: the layout, the per-database
+  breakdown, and for the enhanced layout the match groups, exclusions and integrity flags.
+- **Consistency checks** only use rules that hold for every report: no single source can
+  exceed the overall figure. Per-database figures can exceed it (they overlap), so they are
+  not checked.
+- **Real reports** used to check the layouts are never committed; tests use synthetic PDFs
+  with the same line structure.

@@ -11,7 +11,7 @@ earlier one and says so.
 | [003](003-stack.md) | Technology stack and repository layout | Accepted |
 | [004](004-report-schema.md) | Common report schema | Accepted |
 | [005](005-similarity-auditor.md) | Similarity auditor: inputs, discount rules, precision | Accepted |
-| [006](006-pre-submission-inspector.md) | Pre-submission inspector: what it reports and how | Proposed |
+| [006](006-pre-submission-inspector.md) | Pre-submission inspector: what it reports and how | Accepted |
 
 To propose a decision, copy the structure of an existing ADR, number it with the next free
 number, set its status to **Proposed**, and open a pull request before implementing it.

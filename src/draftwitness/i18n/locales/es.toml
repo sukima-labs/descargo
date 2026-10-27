@@ -46,6 +46,11 @@ no_recipient = "El perfil no tiene un contacto adecuado: completa el destinatari
 unverified = "{count} dato(s) usados en el escrito siguen pendientes de verificar:"
 review = "Revisa el escrito, elimina la nota del principio y envíalo tú. DraftWitness no envía nada. No es asesoramiento legal."
 
+[import]
+written = "Escrito: {path}"
+summary = "{tool}: similitud general {percent} %, {sources} fuentes."
+warning = "Nota: {text}"
+
 [audit]
 title = "Auditoría de similitud"
 intro = "**Nota para ti.** DraftWitness no es asesoramiento legal. No decide si algo es o no es plagio: aplica al informe del detector las reglas que se enumeran al final y muestra lo que ha encontrado, para que tú, y quien tú decidas, podáis comprobar cada punto. Los descuentos basados en tus declaraciones se apoyan en tu propia afirmación."

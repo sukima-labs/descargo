@@ -1,7 +1,7 @@
 # ADR 006: Pre-submission inspector — what it reports and how
 
-- **Status:** Proposed
-- **Date:** 2026-10-27
+- **Status:** Accepted
+- **Date:** 2026-10-27 (proposed and accepted)
 
 ## Context
 

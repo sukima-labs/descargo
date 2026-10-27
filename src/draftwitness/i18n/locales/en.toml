@@ -46,6 +46,11 @@ no_recipient = "The profile has no suitable contact: fill in the recipient befor
 unverified = "{count} fact(s) used in the letter still need verification:"
 review = "Review the letter, remove the note at the top, and send it yourself. DraftWitness sends nothing. Not legal advice."
 
+[import]
+written = "Written: {path}"
+summary = "{tool}: overall similarity {percent}%, {sources} sources."
+warning = "Note: {text}"
+
 [audit]
 title = "Similarity audit"
 intro = "**Note for you.** DraftWitness is not legal advice. It does not decide whether anything is or is not plagiarism: it applies the rules listed at the end to the detector's report and shows what it found, so that you, and anyone you show this to, can check each point. Discounts based on your declarations rest on your own statement."

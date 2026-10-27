@@ -6,13 +6,13 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
-from pydantic import ValidationError
 
+from draftwitness.adapters import AdapterError, import_report
 from draftwitness.core.data import data_dir
 from draftwitness.core.documents import DocumentError, TextDocument, extract_text
 from draftwitness.core.profiles import Profile, ProfileError, UnknownNodeError, find_profile
 from draftwitness.core.render.pdf import PdfMetadata, render_pdf
-from draftwitness.core.report_schema import Report, load_report
+from draftwitness.core.report_schema import Report
 from draftwitness.i18n import get_locale, t, tr
 from draftwitness.modules.post.audit import (
     AuditError,
@@ -43,8 +43,8 @@ def _load(
     declarations_path: Path | None,
 ) -> tuple[Report, TextDocument | None, Declarations | None]:
     try:
-        report = load_report(report_path)
-    except (OSError, ValidationError) as exc:
+        report = import_report(report_path, parsed_at=datetime.now(UTC).replace(microsecond=0))
+    except (OSError, AdapterError) as exc:
         raise _fail(f"{report_path}: {exc}") from exc
     try:
         document = extract_text(document_path) if document_path else None
@@ -62,7 +62,7 @@ def audit_command(
         Path,
         typer.Argument(
             metavar="REPORT",
-            help="Report in DraftWitness JSON format.",
+            help="The detector report: a Turnitin Similarity Report PDF, or DraftWitness JSON.",
             exists=True,
             dir_okay=False,
         ),

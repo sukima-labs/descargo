@@ -1,0 +1,92 @@
+# Labels the Turnitin PDF adapter looks for, per report layout and language.
+#
+# Kept in data so that another language or a changed layout needs no code change. Each
+# layout records where its labels were checked. "verified" means the label was seen in the
+# text that pypdf extracts from a real downloaded report, or quoted in Turnitin's own guide;
+# "needs_verification" means it is taken from a secondary source and must be confirmed.
+#
+# Real reports used for checking are never committed (tests/fixtures/README.md).
+
+feedback_studio:
+  # Feedback Studio "Current View" download: the paper, then an "ORIGINALITY REPORT" page.
+  checked: 2026-10-27
+  verification: verified
+  source: >-
+    pypdf text of a Turnitin report published by a journal; layout described in
+    https://guides.turnitin.com/hc/en-us/articles/27881575386125
+  en:
+    report_heading: "ORIGINALITY REPORT"
+    overall: "SIMILARITY INDEX"
+    database_internet: "INTERNET SOURCES"
+    database_publications: "PUBLICATIONS"
+    database_student_papers: "STUDENT PAPERS"
+    sources_heading: "PRIMARY SOURCES"
+    source_kinds:
+      "Internet Source": internet
+      "Publication": publication
+      "Student Paper": student_paper
+    exclude_quotes: "Exclude quotes"
+    exclude_bibliography: "Exclude bibliography"
+    exclude_matches: "Exclude matches"
+    switch_on: "On"
+    switch_off: "Off"
+    words: "words"
+    submission_date: "Submission date:"
+    submission_id: "Submission ID:"
+    word_count: "Word count:"
+    character_count: "Character count:"
+    author_prefix: "by "
+    # Lines after the source list that start the GradeMark page ("PAGE 1", "PAGE 2"…).
+    page_marker: "PAGE"
+
+enhanced:
+  # The new, enhanced Similarity Report: Cover Page, Integrity Overview, Submission.
+  checked: 2026-10-27
+  verification: verified
+  source: >-
+    pypdf text of a Turnitin report published by a journal; sections described in
+    https://guides.turnitin.com/hc/en-us/articles/27881575386125 and match groups in
+    https://guides.turnitin.com/hc/en-us/articles/27395528629517
+  en:
+    cover_page: "Cover Page"
+    integrity_overview: "Integrity Overview"
+    document_details: "Document Details"
+    submission_id: "Submission ID"
+    submission_date: "Submission Date"
+    file_name: "File Name"
+    pages: ["Page", "Pages"]
+    words: ["Word", "Words"]
+    characters: ["Character", "Characters"]
+    overall: "Overall Similarity"
+    filtered_heading: "Filtered from the Report"
+    filters:
+      # Only "Bibliography" has been seen in a real report; the others come from a
+      # secondary source and are marked in filters_needing_verification.
+      "Bibliography": bibliography
+      "Quoted Text": quotes
+      "Cited Text": cited
+      "Small Matches": small_matches
+    filters_needing_verification: ["Quoted Text", "Cited Text", "Small Matches"]
+    exclusions_heading: "Exclusions"
+    excluded_matches: "Excluded Matches"
+    excluded_sources: "Excluded Sources"
+    match_groups_heading: "Match Groups"
+    match_groups:
+      "Not Cited or Quoted": not_cited_or_quoted
+      "Missing Quotations": missing_quotations
+      "Missing Citation": missing_citation
+      "Cited and Quoted": cited_and_quoted
+    top_sources_heading: "Top Sources"
+    top_sources_intro: "The sources with the highest number of matches within the submission."
+    # Every page ends with "Page N of M - <section>" and the submission ID.
+    page_footer: "Page {page} of {pages} - "
+    integrity_submission: "Integrity Submission"
+    databases:
+      "Internet sources": internet
+      "Publications": publications
+      "Submitted works (Student Papers)": submitted_works
+    integrity_flags: "Integrity Flags for Review"
+    source_kinds:
+      "Internet": internet
+      "Publication": publication
+      "Submitted works": student_paper

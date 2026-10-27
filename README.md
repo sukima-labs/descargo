@@ -80,14 +80,20 @@ uv run draftwitness access-request --profile es/uah --student ~/my-details.yaml
 # Before you submit: list invisible characters, metadata, tracked changes, hidden text…
 uv run draftwitness inspect my-essay.docx
 
-# Audit a similarity report (in DraftWitness JSON; adapters for downloaded reports come next)
-uv run draftwitness audit report.json --document my-essay.docx \
+# Read a downloaded Turnitin Similarity Report (PDF) into DraftWitness JSON
+uv run draftwitness import-report turnitin-report.pdf --out report.json
+
+# Audit a similarity report: the Turnitin PDF itself, or DraftWitness JSON
+uv run draftwitness audit turnitin-report.pdf --document my-essay.docx \
     --declarations ~/my-declarations.yaml --profile es/uah --format pdf --out audit.pdf
 ```
 
 The inspector reports what your file contains besides its visible text and what each item
 usually means; it never changes the file and gives no score. See
 [`docs/inspect.md`](docs/inspect.md) and [ADR 006](docs/adr/006-pre-submission-inspector.md).
+
+The Turnitin adapter reads the Feedback Studio and the enhanced Similarity Report PDFs, in
+English, and drops the author name shown on the report. See [`docs/import.md`](docs/import.md).
 
 The audit discounts quoted and cited passages, the reference list, institution template
 text and your declared own earlier work, and explains each discount. See
