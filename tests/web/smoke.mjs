@@ -89,6 +89,16 @@ check("access_request drafts a letter", () => {
   assert.match(letter.markdown, /Alex Example/);
 });
 
+check("access_request drafts a generic letter for an unlisted institution", () => {
+  const result = call("access_request", {
+    details: JSON.stringify({ student: { name: "Alex Example", email: "alex@student.example" } }),
+    profile: "", jurisdiction: "co", institution: "Instituto Sintético", on: "2026-10-27",
+  });
+  assert.equal(result.ok, true, result.error);
+  assert.equal(result.subject, "co/other / co");
+  assert.match(result.markdown, /Instituto Sintético/);
+});
+
 check("access_request reports an invalid form", () => {
   const result = call("access_request", { details: '{"student": {"name": ""}}', profile: "es/uah" });
   assert.equal(result.ok, false);

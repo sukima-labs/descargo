@@ -21,6 +21,7 @@ from draftwitness.modules.post.access_request import (
     due_date,
     format_date,
     format_duration,
+    unlisted_profile,
 )
 from tests.conftest import FIXTURES, REPO_ROOT
 
@@ -212,3 +213,55 @@ def test_pdf_renders_every_supported_block(tmp_path: Path) -> None:
         "end",
     ):
         assert expected in text
+
+
+@pytest.mark.parametrize(
+    ("pack_id", "profile_id", "language"),
+    [
+        ("co", "co/other", "es"),
+        ("es", "es/other", "es"),
+        ("eu", "eu/other", "en"),
+        ("uk", "gb/other", "en"),
+        ("us", "us/other", "en"),
+    ],
+)
+def test_unlisted_institution_uses_the_pack_alone(
+    pack_id: str, profile_id: str, language: str
+) -> None:
+    profile = unlisted_profile(PACKS, pack_id, "Synthetic Institute")
+    assert profile.id == profile_id
+    document = build_access_request(profile, MINIMAL, packs_root=PACKS, today=TODAY)
+    assert document.language == language
+    assert document.recipient is None
+    assert "Synthetic Institute" in document.markdown
+    assert NOT_LEGAL_ADVICE_MARKERS[language] in document.markdown.lower()
+
+
+def test_unlisted_institution_office_is_flagged_unverified() -> None:
+    profile = unlisted_profile(
+        PACKS,
+        "co",
+        "Instituto Sintético",
+        office="Datos personales",
+        office_email="datos@x.example",
+    )
+    document = build_access_request(profile, MINIMAL, packs_root=PACKS, today=TODAY)
+    assert document.recipient is not None
+    assert document.recipient.role.value == "data_protection_officer"
+    assert "Señores: Datos personales, Instituto Sintético" in document.markdown
+    assert "recipient contact" in document.unverified
+
+
+@pytest.mark.parametrize(
+    ("institution", "office", "email", "message"),
+    [
+        ("Synthetic Institute", "Records", None, "both the office and its email"),
+        ("Synthetic Institute", "Records", "not-an-address", "is not an address"),
+        ("  ", None, None, "institution:"),
+    ],
+)
+def test_unlisted_institution_errors(
+    institution: str, office: str | None, email: str | None, message: str
+) -> None:
+    with pytest.raises(AccessRequestError, match=message):
+        unlisted_profile(PACKS, "us", institution, office=office, office_email=email)

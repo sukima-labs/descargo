@@ -13,14 +13,25 @@ from typing import Any, Final
 
 from jinja2 import FileSystemLoader, StrictUndefined
 from jinja2.sandbox import SandboxedEnvironment
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from draftwitness import __version__
 from draftwitness.core.facts import Fact, Verification
-from draftwitness.core.jurisdictions import ResolvedAccessRequest, resolve_access_request
+from draftwitness.core.jurisdictions import (
+    ResolvedAccessRequest,
+    load_pack,
+    resolve_access_request,
+)
 from draftwitness.core.jurisdictions.models import ResponseDeadline, localized
 from draftwitness.core.profiles import Profile, resolve
-from draftwitness.core.profiles.models import Contact, Slug, TimeUnit
+from draftwitness.core.profiles.models import (
+    Contact,
+    ContactRole,
+    Institution,
+    Policies,
+    Slug,
+    TimeUnit,
+)
 from draftwitness.core.render.pdf import PAGE_BREAK
 from draftwitness.i18n import tr
 
@@ -37,6 +48,13 @@ TOOL_NAMES: Final = {
     "ouriginal": "Ouriginal",
     "ithenticate": "iThenticate",
 }
+
+
+UNLISTED_ID: Final = "other"
+"""Institution id of the profile built for an institution DraftWitness has no profile for."""
+
+_PACK_COUNTRIES: Final = {"uk": "GB"}
+"""Country code of packs whose id is not one."""
 
 
 class _Input(BaseModel):
@@ -89,6 +107,46 @@ class AccessRequestDocument:
     recipient: Contact | None
     unverified: tuple[str, ...]
     """Citations or labels of facts used in the document that still need verification."""
+
+
+def unlisted_profile(
+    packs_root: Path,
+    pack_id: str,
+    institution: str,
+    *,
+    office: str | None = None,
+    office_email: str | None = None,
+) -> Profile:
+    """A minimal profile for an institution with no bundled profile: the letter then relies on
+    the jurisdiction pack alone. ``office`` and ``office_email`` are the recipient the student
+    found; they are used as given and flagged as unverified."""
+    resolved = resolve_access_request(packs_root, pack_id)
+    own = load_pack(packs_root, pack_id).access_request
+    languages = list(dict.fromkeys([*(own.templates if own else {}), *resolved.template_files]))
+    office, office_email = (office or "").strip(), (office_email or "").strip()
+    if bool(office) != bool(office_email):
+        raise AccessRequestError("give both the office and its email, or neither")
+    contacts: list[Fact[Contact]] = []
+    if office_email:
+        role = next(iter(resolved.spec.recipient_roles), ContactRole.OTHER)
+        try:
+            contact = Contact(role=role, name=office, email=office_email)
+        except ValidationError as exc:
+            raise AccessRequestError(f"office email: {office_email!r} is not an address") from exc
+        contacts.append(Fact[Contact](value=contact))
+    country = _PACK_COUNTRIES.get(pack_id, pack_id.upper())
+    try:
+        return Profile(
+            id=f"{country.lower()}/{UNLISTED_ID}",
+            country=country,
+            jurisdictions=list(reversed(resolved.chain)),
+            languages=languages,
+            institution=Institution(
+                id=UNLISTED_ID, name=institution, policies=Policies(contacts=contacts)
+            ),
+        )
+    except ValidationError as exc:
+        raise AccessRequestError(f"institution: {exc.errors()[0]['msg']}") from exc
 
 
 def add_business_days(start: date, days: int) -> date:

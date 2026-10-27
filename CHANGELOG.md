@@ -19,7 +19,8 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 - `draftwitness access-request`: drafts a request for access to the detector report, in
   Markdown and PDF, from jurisdiction packs for the EU (GDPR Art. 15), Spain, the United
   Kingdom (UK GDPR), the United States (FERPA) and Colombia (Ley 1581 de 2012). Nothing is
-  sent.
+  sent. `--institution` with `--jurisdiction` drafts a generic letter for an institution
+  with no profile.
 - `draftwitness import-report`: reads a downloaded Turnitin Similarity Report PDF (classic
   Feedback Studio and enhanced layouts, in English) into the common report format, and
   drops the author name shown on it.

@@ -8,7 +8,8 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
 let strings = {};
 let lang = "en";
-let choices = { profiles: [], tools: {} };
+let choices = { profiles: [], countries: [], tools: {} };
+const UNLISTED = "other:"; // value prefix of the "not listed" options, followed by a pack id
 let current = null; // the result on screen, kept only in memory
 
 function rememberLanguage(value) {
@@ -92,7 +93,13 @@ function setStatus(text, kind = "") {
 
 // --- Forms ----------------------------------------------------------------------------
 
-function fillProfiles(select, optional) {
+function countryName(country) {
+  const key = `country_${country.id}`;
+  return strings[lang]?.[key] ?? strings.en?.[key] ?? country.name;
+}
+
+// The access form also offers a generic letter per country, for institutions with no profile.
+function fillProfiles(select, optional, unlisted = false) {
   const chosen = select.value;
   select.replaceChildren();
   if (optional) select.append(new Option(t("none"), ""));
@@ -102,7 +109,23 @@ function fillProfiles(select, optional) {
       : profile.name;
     select.append(new Option(label, profile.id));
   }
+  if (unlisted && choices.countries.length) {
+    const group = document.createElement("optgroup");
+    group.label = t("other_institutions");
+    for (const country of choices.countries) {
+      group.append(new Option(t("other_in", { country: countryName(country) }), UNLISTED + country.id));
+    }
+    select.append(group);
+  }
   if (chosen) select.value = chosen;
+}
+
+function showUnlisted(form) {
+  const box = $("#unlisted", form);
+  if (!box) return;
+  const unlisted = $("select.profiles", form).value.startsWith(UNLISTED);
+  box.hidden = !unlisted;
+  box.disabled = !unlisted; // a disabled fieldset's required field is not checked
 }
 
 function fillPaths(form) {
@@ -114,6 +137,7 @@ function fillPaths(form) {
   select.value = chosen;
   if (select.value !== chosen) select.value = "";
   select.disabled = !profile;
+  showUnlisted(form);
 }
 
 function fillTools() {
@@ -134,7 +158,7 @@ function fillTools() {
 
 function fillChoices() {
   fillProfiles($("#form-audit select.profiles"), true);
-  fillProfiles($("#form-access select.profiles"), false);
+  fillProfiles($("#form-access select.profiles"), false, true);
   fillPaths($("#form-audit"));
   fillPaths($("#form-access"));
   fillTools();
@@ -213,14 +237,24 @@ $("#form-audit").addEventListener("submit", (event) => {
 $("#form-access").addEventListener("submit", (event) => {
   event.preventDefault();
   const form = event.currentTarget;
+  const chosen = form.elements.profile.value;
+  const unlisted = chosen.startsWith(UNLISTED)
+    ? {
+        jurisdiction: chosen.slice(UNLISTED.length),
+        institution: form.elements["unlisted.institution"].value,
+        office: form.elements["unlisted.office"].value || null,
+        office_email: form.elements["unlisted.office_email"].value || null,
+      }
+    : {};
   void submit(form, async () =>
     call("access_request", {
       details: JSON.stringify(accessDetails(form)),
-      profile: form.elements.profile.value,
+      profile: unlisted.jurisdiction ? "" : chosen,
       path: form.elements.path.value || null,
       language: form.elements.language.value || null,
       interface: lang,
       on: today(),
+      ...unlisted,
     }),
   );
 });

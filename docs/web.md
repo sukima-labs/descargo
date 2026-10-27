@@ -11,7 +11,7 @@ It offers three of the CLI's commands, in English and Spanish:
 |---|---|
 | Before you submit | `draftwitness inspect` |
 | Check a similarity report | `draftwitness audit` (and `import-report`: download the report as JSON) |
-| Ask for the report | `draftwitness access-request`, with a form instead of the YAML file |
+| Ask for the report | `draftwitness access-request`, with a form instead of the YAML file; "not listed" options per country draft the generic letter (`--institution`) |
 
 Every result can be downloaded as Markdown and PDF (the same PDF the CLI writes), and the
 inspection and audit also as JSON.

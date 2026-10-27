@@ -47,6 +47,9 @@ def test_choices_lists_profiles_paths_and_tools() -> None:
     assert uah["unverified"] > 0
     assert {"path": "escuela-doctorado", "label": "Escuela de Doctorado"} in uah["paths"]
     assert choices["tools"]["turnitin"] == "Turnitin"
+    countries = {c["id"]: c for c in choices["countries"]}
+    assert set(countries) == {"co", "es", "eu", "uk", "us"}
+    assert countries["co"] == {"id": "co", "name": "Colombia", "languages": ["es"]}
 
 
 def test_paths_cover_every_level() -> None:
@@ -131,6 +134,28 @@ def test_access_request_warns_about_unverified_facts(monkeypatch: pytest.MonkeyP
         "1 fact(s) used in the letter still need verification:",
         "recipient contact",
     ]
+
+
+def test_access_request_for_an_unlisted_institution() -> None:
+    result = _load(
+        web.access_request(
+            json.dumps(DETAILS),
+            "",
+            interface="es",
+            on=DAY,
+            jurisdiction="co",
+            institution="Instituto Sintético",
+            office="Datos personales",
+            office_email="datos@x.example",
+        )
+    )
+    assert result["ok"] is True, result.get("error")
+    assert result["subject"] == "co/other / co"
+    assert "Instituto Sintético" in result["markdown"]
+    assert result["warnings"][-1] == "recipient contact"
+    missing = _load(web.access_request(json.dumps(DETAILS), "", jurisdiction="co"))
+    assert missing["ok"] is False
+    assert "institution" in missing["error"]
 
 
 def test_access_request_letter_language_can_be_chosen() -> None:

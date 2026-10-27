@@ -22,6 +22,9 @@ them uses the network. `draftwitness COMMAND --help` lists every option.
 - `audit --language` and `inspect --language` set the report language alone.
   `access-request --language` sets the letter language, which needs a template in that
   language in the jurisdiction pack; by default it is the institution's language.
+- `access-request --institution NAME --jurisdiction PACK` drafts a generic letter for an
+  institution with no profile, from the pack alone. `--office` and `--office-email`
+  address it to an office the student found; that recipient is reported as unverified.
 - Help texts and usage errors (an unknown option, a missing file) are in English for now.
 
 ## Output files

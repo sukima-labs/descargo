@@ -96,6 +96,16 @@
             </select>
           </label>
         </div>
+        <fieldset id="unlisted" hidden disabled>
+          <legend data-i18n="unlisted"></legend>
+          <p class="intro" data-i18n="unlisted_intro"></p>
+          <label><span data-i18n="unlisted_name"></span> <input name="unlisted.institution" required></label>
+          <div class="row">
+            <label><span data-i18n="unlisted_office"></span> <input name="unlisted.office"></label>
+            <label><span data-i18n="unlisted_office_email"></span> <input name="unlisted.office_email" type="email"></label>
+          </div>
+          <small data-i18n="unlisted_office_hint"></small>
+        </fieldset>
         <fieldset>
           <legend data-i18n="student"></legend>
           <div class="row">

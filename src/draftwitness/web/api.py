@@ -18,7 +18,7 @@ from pydantic import ValidationError
 from draftwitness.adapters import AdapterError, import_report
 from draftwitness.core.data import data_dir
 from draftwitness.core.documents import DocumentError, extract_text
-from draftwitness.core.jurisdictions import PackError
+from draftwitness.core.jurisdictions import PackError, load_pack, pack_ids, resolve_access_request
 from draftwitness.core.profiles import (
     ProfileError,
     UnknownNodeError,
@@ -36,6 +36,7 @@ from draftwitness.modules.post.access_request import (
     AccessRequestError,
     AccessRequestInput,
     build_access_request,
+    unlisted_profile,
 )
 from draftwitness.modules.post.audit import (
     AuditError,
@@ -120,9 +121,25 @@ def _paths(node: Node, prefix: str, label: str) -> list[dict[str, str]]:
     return found
 
 
+def _countries() -> list[dict[str, object]]:
+    """Jurisdiction packs a letter can be drafted with when the institution has no profile."""
+    root = data_dir("jurisdictions")
+    countries: list[dict[str, object]] = []
+    for pack_id in pack_ids(root):
+        try:
+            languages = list(resolve_access_request(root, pack_id).template_files)
+        except PackError:
+            continue
+        countries.append(
+            {"id": pack_id, "name": load_pack(root, pack_id).name, "languages": languages}
+        )
+    return countries
+
+
 def choices() -> str:
     """What the forms offer: the bundled institution profiles, with the
-    faculty/degree/course paths of each, and the detector names a letter can mention."""
+    faculty/degree/course paths of each; the countries whose packs can draft a letter for an
+    institution with no profile; and the detector names a letter can mention."""
     root = data_dir("profiles")
     listed = []
     for path in profile_paths(root):
@@ -136,7 +153,9 @@ def choices() -> str:
                 "paths": _paths(profile.institution, "", ""),
             }
         )
-    return json.dumps({"profiles": listed, "tools": TOOL_NAMES}, ensure_ascii=False)
+    return json.dumps(
+        {"profiles": listed, "countries": _countries(), "tools": TOOL_NAMES}, ensure_ascii=False
+    )
 
 
 def inspect(path: str, language: str = "en", on: str | None = None) -> str:
@@ -239,17 +258,23 @@ def audit(
     )
 
 
-def access_request(
+def access_request(  # noqa: PLR0913
     details: str,
     profile: str,
     path: str | None = None,
     language: str | None = None,
     interface: str = "en",
     on: str | None = None,
+    *,
+    jurisdiction: str | None = None,
+    institution: str | None = None,
+    office: str | None = None,
+    office_email: str | None = None,
 ) -> str:
     """``draftwitness access-request``. ``details`` is the JSON form of the student YAML
     file; ``language`` is the letter's (default: the institution's), ``interface`` the
-    language of messages."""
+    language of messages. With an empty ``profile``, the letter is for ``institution`` in
+    the country of pack ``jurisdiction``, optionally addressed to ``office``."""
     lang = _language(interface)
     today = _today(on)
     try:
@@ -257,10 +282,22 @@ def access_request(
     except ValidationError as exc:
         return _error(_problems(exc))
     try:
+        packs_root = data_dir("jurisdictions")
+        chosen = (
+            find_profile(data_dir("profiles"), profile)
+            if profile
+            else unlisted_profile(
+                packs_root,
+                jurisdiction or "",
+                institution or "",
+                office=office,
+                office_email=office_email,
+            )
+        )
         document = build_access_request(
-            find_profile(data_dir("profiles"), profile),
+            chosen,
             data,
-            packs_root=data_dir("jurisdictions"),
+            packs_root=packs_root,
             today=today,
             path=path or None,
             language=language or None,

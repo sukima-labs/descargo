@@ -18,6 +18,7 @@ from draftwitness.modules.post.access_request import (
     AccessRequestError,
     AccessRequestInput,
     build_access_request,
+    unlisted_profile,
 )
 
 
@@ -29,7 +30,6 @@ def _load_input(path: Path) -> AccessRequestInput:
 
 
 def access_request(
-    profile_id: Annotated[str, typer.Option("--profile", help="Profile id, e.g. 'es/uah'.")],
     student: Annotated[
         Path,
         typer.Option(
@@ -40,6 +40,9 @@ def access_request(
             dir_okay=False,
         ),
     ],
+    profile_id: Annotated[
+        str | None, typer.Option("--profile", help="Profile id, e.g. 'es/uah'.")
+    ] = None,
     out: Annotated[
         Path | None,
         typer.Option(
@@ -49,6 +52,21 @@ def access_request(
     output_format: Annotated[
         Literal["md", "pdf", "both"], typer.Option("--format", help="Output format.")
     ] = "both",
+    institution: Annotated[
+        str | None,
+        typer.Option(
+            "--institution",
+            help="Name of an institution with no profile, instead of --profile. "
+            "Needs --jurisdiction.",
+        ),
+    ] = None,
+    office: Annotated[
+        str | None,
+        typer.Option("--office", help="With --institution: the office to write to, if known."),
+    ] = None,
+    office_email: Annotated[
+        str | None, typer.Option("--office-email", help="With --office: that office's email.")
+    ] = None,
     path: Annotated[
         str | None, typer.Option("--path", help="faculty[/degree[/course]] in the profile.")
     ] = None,
@@ -95,14 +113,29 @@ def access_request(
     Writes Markdown and/or PDF on your device. Nothing is sent: review the letter, then send
     it yourself. Not legal advice.
     """
+    if (profile_id is None) == (institution is None):
+        raise fail(t("access.profile_or_institution"))
+    if institution is not None and jurisdiction is None:
+        raise fail(t("access.institution_needs_jurisdiction"))
     today = parse_date(on)
     data = _load_input(student)
+    packs_root = jurisdictions_dir or data_dir("jurisdictions")
     try:
-        profile = find_profile(profiles_dir or data_dir("profiles"), profile_id)
+        profile = (
+            find_profile(profiles_dir or data_dir("profiles"), profile_id)
+            if profile_id is not None
+            else unlisted_profile(
+                packs_root,
+                jurisdiction or "",
+                institution or "",
+                office=office,
+                office_email=office_email,
+            )
+        )
         document = build_access_request(
             profile,
             data,
-            packs_root=jurisdictions_dir or data_dir("jurisdictions"),
+            packs_root=packs_root,
             today=today,
             path=path,
             jurisdiction=jurisdiction,

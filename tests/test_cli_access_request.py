@@ -119,6 +119,32 @@ def test_errors(extra: tuple[str, ...], message: str, tmp_path: Path) -> None:
     assert message in output
 
 
+def test_unlisted_institution(tmp_path: Path) -> None:
+    out = tmp_path / "letter"
+    code, output = _run(
+        "--institution", "Instituto Sintético", "--jurisdiction", "co", "--student", STUDENT,
+        "--format", "md", "--date", "2026-10-27", "--out", str(out),
+    )  # fmt: skip
+    assert code == 0, output
+    assert "Instituto Sintético" in out.with_suffix(".md").read_text()
+    assert "fill in the recipient" in output
+
+
+@pytest.mark.parametrize(
+    ("args", "message"),
+    [
+        ((), "either --profile or --institution"),
+        (("--profile", "es/uah", "--institution", "X"), "either --profile or --institution"),
+        (("--institution", "X"), "--institution needs --jurisdiction"),
+        (("--institution", "X", "--jurisdiction", "co", "--office", "Y"), "both the office"),
+    ],
+)
+def test_profile_or_institution(args: tuple[str, ...], message: str) -> None:
+    code, output = _run("--student", STUDENT, *args)
+    assert code == 1
+    assert message in output
+
+
 def test_bad_student_file_and_unknown_profile(tmp_path: Path) -> None:
     bad = tmp_path / "student.yaml"
     bad.write_text("student: {name: Sam}\n")

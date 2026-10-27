@@ -79,6 +79,9 @@ uv run draftwitness profile unverified          # facts a human still has to che
 # Draft a request for access to the detector report (Markdown + PDF, on your device)
 cp examples/student.example.yaml ~/my-details.yaml   # edit it OUTSIDE the repository
 uv run draftwitness access-request --profile es/uah --student ~/my-details.yaml
+# No profile for your institution: a generic letter from the country's pack (co, es, eu, uk, us)
+uv run draftwitness access-request --institution "Universidad Ejemplo" --jurisdiction co \
+    --student ~/my-details.yaml
 
 # Before you submit: list invisible characters, metadata, tracked changes, hidden text…
 uv run draftwitness inspect my-essay.docx
