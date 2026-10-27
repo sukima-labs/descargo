@@ -59,13 +59,22 @@ review = "Revisa el escrito, elimina la nota del principio y envíalo tú. Draft
 
 [adapters]
 unreadable_pdf = "no se puede leer el PDF: {error}"
-not_turnitin = "no es un informe de similitud de Turnitin que DraftWitness sepa leer (Feedback Studio o el Similarity Report mejorado, en: {languages}). Los informes de otros detectores, como Compilatio, todavía no se pueden leer."
+not_turnitin = "no es un informe de similitud de Turnitin que DraftWitness sepa leer (Feedback Studio o el Similarity Report mejorado, en: {languages})."
+unknown_pdf = "no es un informe que DraftWitness sepa leer. Lee informes de similitud de Turnitin (Feedback Studio o mejorado, en inglés) e informes de análisis de Compilatio (Magister, en español). Otros detectores e idiomas todavía no."
 
 [import]
 summary = "{tool}: similitud general {percent} %, {sources} fuentes."
 warning = "Nota: {text}"
 
 [audit]
+ai_heading = "Lo que dice el detector sobre escritura con IA"
+ai_percent = "**{tool}** atribuye a IA el **{percent}** del texto."
+ai_label = "Veredicto que muestra el informe: {label}."
+ai_passages = "Marca {count} pasaje(s), unas {words} palabras en total."
+ai_no_passages = "No se pudieron leer del informe los pasajes que marca; revísalos en el propio informe."
+ai_not_recomputed = "DraftWitness muestra este resultado tal como lo da la herramienta. No lo recalcula ni lo descuenta. Una puntuación de escritura con IA es una estimación de la herramienta: por sí sola no demuestra quién escribió el texto."
+ai_passage = "pág. {page}: «{text}»"
+ai_more = "…y {count} pasaje(s) más en el informe."
 title = "Auditoría de similitud"
 intro = "**Nota para ti.** DraftWitness no es asesoramiento legal. No decide si algo es o no es plagio: aplica al informe del detector las reglas que se enumeran al final y muestra lo que ha encontrado, para que tú, y quien tú decidas, podáis comprobar cada punto. Los descuentos basados en tus declaraciones se apoyan en tu propia afirmación."
 report_line = "**Informe:** {tool} · {title} · auditado con DraftWitness el {date}."
@@ -327,7 +336,7 @@ inspect_file = "Tu archivo (.docx, .odt, .pdf, .txt o .md)"
 inspect_run = "Inspeccionar"
 audit_intro = "Recalcula el porcentaje de similitud descontando los pasajes citados con su referencia, la bibliografía, las plantillas de la institución y tu trabajo anterior declarado, y explica cada descuento. No decide si algo es plagio."
 audit_report = "Informe del detector"
-audit_report_hint = "El PDF del Similarity Report de Turnitin que descargaste, o un informe ya en JSON de DraftWitness."
+audit_report_hint = "El PDF del informe que descargaste (Similarity Report de Turnitin en inglés o informe de análisis de Compilatio en español), o un informe ya en JSON de DraftWitness."
 audit_document = "Tu trabajo entregado (opcional)"
 audit_document_hint = "Permite localizar cada coincidencia en tu texto y comprobar sus comillas y citas."
 profile = "Institución"

@@ -14,9 +14,7 @@ value it could not read, adds a warning instead, and drops the author name and f
 shown on the report.
 """
 
-import io
 import re
-import unicodedata
 from dataclasses import dataclass, field
 from datetime import UTC, datetime, timedelta, timezone
 from functools import cache
@@ -24,11 +22,10 @@ from importlib.resources import files
 from typing import Any, Final
 
 import yaml
-from pypdf import PdfReader
-from pypdf.errors import PdfReadError
 
 from draftwitness import __version__
 from draftwitness.adapters.base import AdapterError
+from draftwitness.adapters.pdftext import pdf_lines
 from draftwitness.core.report_schema import (
     Provenance,
     Report,
@@ -70,24 +67,6 @@ def labels() -> dict[str, Any]:
     text = files("draftwitness.adapters.turnitin").joinpath("labels.yaml").read_text("utf-8")
     data: dict[str, Any] = yaml.safe_load(text)
     return data
-
-
-def _lines(data: bytes) -> list[str]:
-    try:
-        reader = PdfReader(io.BytesIO(data))
-        if reader.is_encrypted:
-            raise AdapterError("the PDF is encrypted")
-        pages = [page.extract_text() or "" for page in reader.pages]
-    except PdfReadError as exc:
-        raise AdapterError(t("adapters.unreadable_pdf", error=exc)) from exc
-    return normalized_lines("\n".join(pages))
-
-
-def normalized_lines(text: str) -> list[str]:
-    """Non-empty lines with ligatures expanded (NFKC: "Oﬀ" becomes "Off") and whitespace
-    collapsed."""
-    text = unicodedata.normalize("NFKC", text)
-    return [" ".join(line.split()) for line in text.splitlines() if line.strip()]
 
 
 def _languages(layout: str) -> dict[str, dict[str, Any]]:
@@ -502,9 +481,17 @@ def _check(parsed: _Parsed) -> None:
             )
 
 
-def parse_pdf(data: bytes, filename: str, sha256: str, *, parsed_at: datetime) -> Report:
-    """Turn a downloaded Turnitin PDF report into a :class:`Report`."""
-    lines = _lines(data)
+def parse_pdf(
+    data: bytes,
+    filename: str,
+    sha256: str,
+    *,
+    parsed_at: datetime,
+    lines: list[str] | None = None,
+) -> Report:
+    """Turn a downloaded Turnitin PDF report into a :class:`Report`. ``lines`` are the
+    report's :func:`~draftwitness.adapters.pdftext.pdf_lines`, if already extracted."""
+    lines = pdf_lines(data) if lines is None else lines
     detected = detect_layout(lines)
     if detected is None:
         raise AdapterError(

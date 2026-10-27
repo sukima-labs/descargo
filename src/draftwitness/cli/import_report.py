@@ -17,7 +17,8 @@ def import_report_command(
         Path,
         typer.Argument(
             metavar="REPORT",
-            help="The report you downloaded (for now, a Turnitin Similarity Report PDF).",
+            help="The report you downloaded: a Turnitin Similarity Report or a Compilatio "
+            "analysis report, as PDF.",
             exists=True,
             dir_okay=False,
         ),

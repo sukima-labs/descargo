@@ -12,14 +12,10 @@ from fpdf import FPDF
 from pypdf import PdfReader, PdfWriter
 
 from draftwitness.adapters import AdapterError, import_report
+from draftwitness.adapters.pdftext import normalized_lines
 from draftwitness.adapters.turnitin import detect_layout, parse_pdf
 from draftwitness.adapters.turnitin import pdf as turnitin_pdf
-from draftwitness.adapters.turnitin.pdf import (
-    labels,
-    normalized_lines,
-    parse_classic_date,
-    parse_enhanced_date,
-)
+from draftwitness.adapters.turnitin.pdf import labels, parse_classic_date, parse_enhanced_date
 from draftwitness.core.render.pdf import _font_path
 from draftwitness.core.report_schema import Report, SourceKind, dump_report
 

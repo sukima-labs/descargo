@@ -231,6 +231,42 @@ def test_ai_writing_only_report_cannot_be_audited() -> None:
         audit(report, today=TODAY)
 
 
+def _combined(ai_writing: dict[str, Any]) -> Report:
+    base = _report({"overall_percent": 3}).model_dump(mode="json")
+    base["tool"] = {"name": "compilatio", "report_kind": "combined"}
+    return Report.model_validate({**base, "ai_writing": ai_writing})
+
+
+@pytest.mark.parametrize("language", ["en", "es"])
+def test_ai_result_is_stated_not_recomputed(language: str) -> None:
+    segments = [{"text": "word " * 80, "page": 2}]
+    segments += [{"text": f"Synthetic **passage** {n}.", "page": 3} for n in range(31)]
+    result = audit(_combined({"overall_percent": 52, "segments": segments}), today=TODAY)
+    assert result.ai_writing is not None
+    assert result.ai_writing.flagged_words == 80 + 31 * 3
+    assert result.adjusted_percent == 3
+    markdown = render_markdown(result, language)
+    assert "**Compilatio**" in markdown
+    assert format_percent(52, language) in markdown
+    assert "**passage**" not in markdown
+    assert ("2 more passage(s)" if language == "en" else "2 pasaje(s) más") in markdown
+    assert "word word" in markdown
+    assert "…" in markdown
+
+
+def test_ai_result_without_readable_passages() -> None:
+    result = audit(_combined({"label": "Likely AI", "segments": []}), today=TODAY)
+    markdown = render_markdown(result, "en")
+    assert "Verdict shown on the report: Likely AI." in markdown
+    assert "could not be read from the report" in markdown
+    assert (
+        render_markdown(audit(_report({"overall_percent": 3}), today=TODAY), "en").count(
+            "AI writing"
+        )
+        == 0
+    )
+
+
 def test_thresholds_and_self_plagiarism_rule(report: Report) -> None:
     profile = find_profile(REPO_ROOT / "profiles", "es/uah")
     result = audit(

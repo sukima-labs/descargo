@@ -7,6 +7,7 @@ design is in [ADR 004](adr/004-report-schema.md).
 
 ```bash
 uv run draftwitness import-report turnitin-report.pdf --out report.json
+uv run draftwitness import-report informe-compilatio.pdf --out report.json
 uv run draftwitness audit turnitin-report.pdf --document my-essay.docx --profile es/uah
 ```
 
@@ -55,10 +56,38 @@ Every import says what it could not read. In particular:
   by", paper size, software, fonts and a count of American and British spellings
   ([Submission Details and Document Details](https://guides.turnitin.com/hc/en-us/articles/30872471895821)).
 
+## Compilatio
+
+DraftWitness reads the analysis report PDF of Compilatio Magister, in Spanish ("INFORME DE
+ANÁLISIS"). The layout was learned from a real report of October 2025, read on the
+maintainer's machine only ([ADR 009](adr/009-first-three-detectors.md)).
+
+| Part of the report | What is read |
+|---|---|
+| Results on the first page | similarity (the overall figure); "Textos potencialmente generados por la IA"; also, kept as extensions, suspicious text, similarity in quotes, similarity with cited sources and unrecognised languages |
+| Document details | document name (as the title, without its extension), word and character counts, deposit and analysis dates |
+| "Fuentes principales detectadas" and "Fuentes con similitudes fortuitas" | each source with its label, URL (when not shortened), percentage and identical words; which table it came from |
+| "Fuentes mencionadas" | the URLs the document cites without any similarity |
+| The document pages | the passages drawn in the colour Compilatio uses for AI, with their page |
+
+Not kept: the depositor's name, the document ID, the original file size and the upload type.
+
+What it cannot read:
+
+- **No matched text.** Matched passages are highlighted behind the text, which the PDF's text
+  does not expose, so the audit uses its approximate method, as with Turnitin.
+- **AI passages come from a colour.** They are the runs of text in Compilatio's AI colour.
+  Check them against the report; the import says so.
+- **Bounds.** "< 1 %" is kept as 1 % with the upper-bound flag.
+
+The audit shows the AI figure and the passages as the tool's statement. It does not
+recompute or discount them.
+
 ## Adding a layout or a language
 
-The labels the adapter looks for are in
-[`labels.yaml`](../src/draftwitness/adapters/turnitin/labels.yaml). To support a Turnitin
-report in another language, add its labels under a new language key and a synthetic test
-in `tests/test_turnitin_adapter.py`. Never commit a real report: check it on your own
+The labels the adapters look for are in `labels.yaml` next to each adapter
+([Turnitin](../src/draftwitness/adapters/turnitin/labels.yaml),
+[Compilatio](../src/draftwitness/adapters/compilatio/labels.yaml)). To support a report in
+another language, add its labels under a new language key and a synthetic test in
+`tests/test_<tool>_adapter.py`. Never commit a real report: check it on your own
 machine and describe in the pull request which labels you saw.

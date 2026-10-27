@@ -7,16 +7,19 @@ from typing import Final
 
 from pydantic import ValidationError
 
-from draftwitness.adapters import turnitin
+from draftwitness.adapters import compilatio, turnitin
 from draftwitness.adapters.base import AdapterError
+from draftwitness.adapters.pdftext import pdf_lines
 from draftwitness.core.report_schema import Report
+from draftwitness.i18n import t
 
 REPORT_SUFFIXES: Final = (".json", ".pdf")
 
 
 def import_report(path: Path, *, parsed_at: datetime) -> Report:
     """Read ``path``: a report already in DraftWitness JSON, or a downloaded report that an
-    adapter recognises (for now, a Turnitin Similarity Report PDF). The file is only read."""
+    adapter recognises (a Turnitin Similarity Report or a Compilatio analysis report, as
+    PDF). The file is only read."""
     data = path.read_bytes()
     suffix = path.suffix.lower()
     if suffix == ".json":
@@ -26,5 +29,10 @@ def import_report(path: Path, *, parsed_at: datetime) -> Report:
             raise AdapterError(f"not a valid DraftWitness report: {exc}") from exc
     if suffix == ".pdf":
         sha256 = hashlib.sha256(data).hexdigest()
-        return turnitin.parse_pdf(data, path.name, sha256, parsed_at=parsed_at)
+        lines = pdf_lines(data)
+        if compilatio.detect_language(lines) is not None:
+            return compilatio.parse_pdf(data, path.name, sha256, parsed_at=parsed_at, lines=lines)
+        if turnitin.detect_layout(lines) is not None:
+            return turnitin.parse_pdf(data, path.name, sha256, parsed_at=parsed_at, lines=lines)
+        raise AdapterError(t("adapters.unknown_pdf"))
     raise AdapterError(f"unsupported report type {suffix!r}; use {' or '.join(REPORT_SUFFIXES)}")

@@ -59,13 +59,22 @@ review = "Review the letter, remove the note at the top, and send it yourself. D
 
 [adapters]
 unreadable_pdf = "cannot read PDF: {error}"
-not_turnitin = "not a Turnitin Similarity Report that DraftWitness can read (Feedback Studio or the enhanced Similarity Report, in: {languages}). Reports from other detectors, such as Compilatio, cannot be read yet."
+not_turnitin = "not a Turnitin Similarity Report that DraftWitness can read (Feedback Studio or the enhanced Similarity Report, in: {languages})."
+unknown_pdf = "not a report DraftWitness can read. It reads Turnitin Similarity Reports (Feedback Studio or enhanced, in English) and Compilatio analysis reports (Magister, in Spanish). Other detectors and languages are not supported yet."
 
 [import]
 summary = "{tool}: overall similarity {percent}%, {sources} sources."
 warning = "Note: {text}"
 
 [audit]
+ai_heading = "What the detector says about AI writing"
+ai_percent = "**{tool}** attributes **{percent}** of the text to AI."
+ai_label = "Verdict shown on the report: {label}."
+ai_passages = "It marks {count} passage(s), about {words} words in all."
+ai_no_passages = "The passages it marks could not be read from the report; check them on the report itself."
+ai_not_recomputed = "DraftWitness shows this result as the tool states it. It does not recompute or discount it. An AI-writing score is the tool's estimate: on its own, it does not show who wrote the text."
+ai_passage = "p. {page}: “{text}”"
+ai_more = "…and {count} more passage(s) on the report."
 title = "Similarity audit"
 intro = "**Note for you.** DraftWitness is not legal advice. It does not decide whether anything is or is not plagiarism: it applies the rules listed at the end to the detector's report and shows what it found, so that you, and anyone you show this to, can check each point. Discounts based on your declarations rest on your own statement."
 report_line = "**Report:** {tool} · {title} · audited with DraftWitness on {date}."
@@ -327,7 +336,7 @@ inspect_file = "Your file (.docx, .odt, .pdf, .txt or .md)"
 inspect_run = "Inspect"
 audit_intro = "Recomputes the similarity percentage after discounting quoted and cited passages, the reference list, institution templates and your declared own earlier work, and explains every discount. It does not decide whether anything is plagiarism."
 audit_report = "Detector report"
-audit_report_hint = "The Turnitin Similarity Report PDF you downloaded, or a report already in DraftWitness JSON."
+audit_report_hint = "The report PDF you downloaded (Turnitin Similarity Report in English, or Compilatio analysis report in Spanish), or a report already in DraftWitness JSON."
 audit_document = "Your submitted work (optional)"
 audit_document_hint = "Lets the audit find each match in your text and check its quotation marks and citations."
 profile = "Institution"

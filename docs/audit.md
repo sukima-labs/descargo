@@ -11,7 +11,7 @@ own figure. The design is in [ADR 005](adr/005-similarity-auditor.md).
 
 | Input | Required | What it is for |
 |---|---|---|
-| `REPORT` | yes | The detector report: a Turnitin Similarity Report PDF as downloaded (see [`import.md`](import.md)), or DraftWitness JSON ([report schema](../schemas/report/0.1.json)). |
+| `REPORT` | yes | The detector report: a Turnitin Similarity Report or Compilatio analysis report PDF as downloaded (see [`import.md`](import.md)), or DraftWitness JSON ([report schema](../schemas/report/0.1.json)). |
 | `--document` | no | Your submitted work (`.docx`, `.odt`, `.pdf`, `.txt`, `.md`). It is used to find each matched passage in context. Without it, only declaration-based rules apply. |
 | `--declarations` | no | Your statements: your own earlier work and institution template text. See [`examples/declarations.example.yaml`](../examples/declarations.example.yaml). |
 | `--profile`, `--path` | no | Institution profile used for the threshold comparison and the rule on reusing your own work. |

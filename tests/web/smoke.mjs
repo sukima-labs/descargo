@@ -119,12 +119,42 @@ check("pdf renders, and the inspector reads the PDF back", () => {
   api.discard(dir);
 });
 
-check("a PDF that is not a Turnitin report is refused, not crashed on", () => {
+check("a PDF that is not a report DraftWitness reads is refused, not crashed on", () => {
   const dir = api.workdir();
   api.pdf.callKwargs({ markdown: "# Hello", out: `${dir}/other.pdf`, title: "x", language: "en" });
   const result = call("audit", { report: `${dir}/other.pdf` });
   assert.equal(result.ok, false);
+  assert.match(result.error, /Compilatio/);
   api.discard(dir);
+});
+
+check("audit reads a synthetic Compilatio report and states its AI result", () => {
+  const dir = api.workdir();
+  // fpdf2 is in the build: draw the report's first page and one passage in the AI colour.
+  pyodide.runPython(`
+from fpdf import FPDF
+from draftwitness.core.render.pdf import _font_path
+pdf = FPDF()
+pdf.add_font("L", fname=_font_path("LiberationSerif-Regular.ttf"))
+pdf.set_font("L", size=8)
+pdf.add_page()
+for line in ["INFORME DE ANÁLISIS", "magister", "12%Similitudes",
+             "40%Textos potencialmente generados por la IA",
+             "Fuentes principales detectadas",
+             "1 www.example.org 12% Palabras idénticas:12%(30 palabras)"]:
+    pdf.cell(text=line)
+    pdf.ln()
+pdf.add_page()
+pdf.set_text_color(0, 191, 255)
+pdf.cell(text="Un pasaje sintético en el color de la IA.")
+pdf.output("${dir}/informe.pdf")
+`);
+  const result = call("audit", { report: `${dir}/informe.pdf`, language: "es", on: "2026-10-27" });
+  api.discard(dir);
+  assert.equal(result.ok, true, result.error);
+  assert.match(result.markdown, /Compilatio\*\* atribuye a IA el \*\*40/);
+  assert.match(result.markdown, /Un pasaje sintético en el color de la IA/);
+  assert.equal(JSON.parse(result.report_json).tool.name, "compilatio");
 });
 
 let failed = 0;

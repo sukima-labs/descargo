@@ -86,7 +86,7 @@ uv run draftwitness access-request --institution "Universidad Ejemplo" --jurisdi
 # Before you submit: list invisible characters, metadata, tracked changes, hidden text…
 uv run draftwitness inspect my-essay.docx
 
-# Read a downloaded Turnitin Similarity Report (PDF) into DraftWitness JSON
+# Read a downloaded Turnitin or Compilatio report (PDF) into DraftWitness JSON
 uv run draftwitness import-report turnitin-report.pdf --out report.json
 
 # Audit a similarity report: the Turnitin PDF itself, or DraftWitness JSON
@@ -98,8 +98,10 @@ The inspector reports what your file contains besides its visible text and what 
 usually means; it never changes the file and gives no score. See
 [`docs/inspect.md`](docs/inspect.md) and [ADR 006](docs/adr/006-pre-submission-inspector.md).
 
-The Turnitin adapter reads the Feedback Studio and the enhanced Similarity Report PDFs, in
-English, and drops the author name shown on the report. See [`docs/import.md`](docs/import.md).
+The adapters read Turnitin's Feedback Studio and enhanced Similarity Report PDFs, in
+English, and Compilatio's analysis report PDF (Magister), in Spanish, including the passages
+it attributes to AI. They drop the author or depositor name shown on the report. See
+[`docs/import.md`](docs/import.md) and [ADR 009](docs/adr/009-first-three-detectors.md).
 
 The audit discounts quoted and cited passages, the reference list, institution template
 text and your declared own earlier work, and explains each discount. See

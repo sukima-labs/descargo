@@ -22,12 +22,15 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
   sent. `--institution` with `--jurisdiction` drafts a generic letter for an institution
   with no profile.
 - `draftwitness import-report`: reads a downloaded Turnitin Similarity Report PDF (classic
-  Feedback Studio and enhanced layouts, in English) into the common report format, and
-  drops the author name shown on it.
+  Feedback Studio and enhanced layouts, in English) or a Compilatio Magister analysis report
+  PDF (in Spanish, with its AI result and the passages it attributes to AI) into the common
+  report format, and drops the author or depositor name shown on it.
 - `draftwitness audit`: recomputes a similarity percentage after discounting quoted and
   cited passages, the reference list, institution template text and declared own earlier
   work, explains every discount, and compares the result with the institution's published
-  threshold. Reads `.docx`, `.odt`, `.pdf`, `.txt` and `.md` documents.
+  threshold. Reads `.docx`, `.odt`, `.pdf`, `.txt` and `.md` documents. When the report has
+  an AI-writing result, the audit states it as the tool's, with the flagged passages,
+  without recomputing it.
 - `draftwitness inspect`: lists invisible or unusual characters, metadata, tracked changes,
   comments and hidden text in `.docx`, `.odt`, `.pdf`, `.txt` and `.md` files, with what
   each item usually means. It never changes the file and gives no score.

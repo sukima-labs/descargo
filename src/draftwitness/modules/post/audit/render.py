@@ -5,6 +5,8 @@ shows the original figure, every discount with its evidence, what was *not* disc
 and why, and the "not legal advice" statement (added here, not by a template).
 """
 
+from typing import Final
+
 from draftwitness import __version__
 from draftwitness.core.facts import Verification
 from draftwitness.core.profiles.models import ThresholdKind
@@ -178,6 +180,47 @@ def _header(result: AuditResult, language: str) -> list[str]:
     return lines
 
 
+AI_PASSAGES_SHOWN: Final = 30
+AI_PASSAGE_CHARACTERS: Final = 200
+
+
+def _short(text: str) -> str:
+    text = " ".join(text.replace("**", "").split())
+    if len(text) <= AI_PASSAGE_CHARACTERS:
+        return text
+    return text[: AI_PASSAGE_CHARACTERS - 1].rstrip() + "…"
+
+
+def _ai(result: AuditResult, language: str) -> list[str]:
+    """The detector's AI result, stated as the tool's and not recomputed (ADR 009)."""
+    ai = result.ai_writing
+    if ai is None:
+        return []
+    tool = TOOL_NAMES.get(result.tool, result.tool)
+    lines = [f"## {tr(language, 'audit.ai_heading')}", ""]
+    if ai.overall_percent is not None:
+        percent = format_percent(ai.overall_percent, language)
+        lines.append("- " + tr(language, "audit.ai_percent", tool=tool, percent=percent))
+    if ai.label:
+        lines.append("- " + tr(language, "audit.ai_label", label=ai.label))
+    if ai.flagged_words is not None:
+        lines.append(
+            "- " + tr(language, "audit.ai_passages", count=len(ai.passages), words=ai.flagged_words)
+        )
+    else:
+        lines.append("- " + tr(language, "audit.ai_no_passages"))
+    lines += ["", tr(language, "audit.ai_not_recomputed")]
+    if ai.passages:
+        lines.append("")
+        for passage in ai.passages[:AI_PASSAGES_SHOWN]:
+            text = _short(passage.text)
+            lines.append("- " + tr(language, "audit.ai_passage", page=passage.page, text=text))
+        if len(ai.passages) > AI_PASSAGES_SHOWN:
+            more = len(ai.passages) - AI_PASSAGES_SHOWN
+            lines.append("- " + tr(language, "audit.ai_more", count=more))
+    return lines
+
+
 def _thresholds(result: AuditResult, language: str) -> list[str]:
     lines = [f"## {tr(language, 'audit.thresholds')}", ""]
     if result.profile_id is None:
@@ -255,6 +298,7 @@ def render_markdown(result: AuditResult, language: str) -> str:
     """The audit as Markdown, ending with the "not legal advice" footer."""
     sections = [
         _header(result, language),
+        *([section] if (section := _ai(result, language)) else []),
         _thresholds(result, language),
         _discounts(result, language),
         _findings(result, language),

@@ -135,6 +135,42 @@ class InputFile(_Out):
     sha256: str
 
 
+class AiPassage(_Out):
+    page: int | None
+    text: str
+    words: int
+
+
+class AiStatement(_Out):
+    """The report's AI-writing result, as the tool states it. Nothing here is recomputed
+    (ADR 009) until ADR 010 decides how DraftWitness explains it."""
+
+    overall_percent: float | None
+    label: str | None
+    detector_model: str | None
+    flagged_words: int | None
+    """Words in the passages read from the report; ``None`` when none could be read."""
+    passages: list[AiPassage]
+
+
+def _ai_statement(report: Report) -> AiStatement | None:
+    ai = report.ai_writing
+    if ai is None:
+        return None
+    passages = [
+        AiPassage(page=s.page, text=s.text, words=len(s.text.split()))
+        for s in ai.segments
+        if s.text
+    ]
+    return AiStatement(
+        overall_percent=ai.overall_percent,
+        label=ai.label,
+        detector_model=ai.detector_model,
+        flagged_words=sum(p.words for p in passages) if passages else None,
+        passages=passages,
+    )
+
+
 class AuditResult(_Out):
     audit_format: str = AUDIT_FORMAT_VERSION
     draftwitness_version: str = __version__
@@ -162,6 +198,7 @@ class AuditResult(_Out):
     self_plagiarism_verification: Verification | None = None
     notes: list[Note] = []
     inputs: list[InputFile] = []
+    ai_writing: AiStatement | None = None
 
 
 @dataclass(frozen=True)
@@ -572,4 +609,5 @@ def audit(
         self_plagiarism_verification=self_plagiarism.verification if self_plagiarism else None,
         notes=auditor.notes,
         inputs=inputs or [],
+        ai_writing=_ai_statement(report),
     )
