@@ -1,25 +1,70 @@
-# Labels of the Compilatio "analysis report" PDF (Magister and Magister+), by language.
-# Learned from a real Spanish Compilatio Magister report of October 2025, read on the
+# Labels of the Compilatio "analysis report" PDF, by layout and language. Read on the
 # maintainer's machine only (ADR 009). Add a language only from a real report in it.
-es:
-  heading: INFORME DE ANÁLISIS
-  suspicious: Textos sospechosos
-  similarity: Similitudes
-  quoted: similitudes entre comillas
-  cited: entre las fuentes mencionadas
-  unrecognised_languages: Idiomas no reconocidos
-  ai: Textos potencialmente generados por la IA
-  document_name: "Nombre del documento:"
-  deposited_on: "Fecha de depósito:"
-  analysed_on: "fecha de fin de análisis:"
-  word_count: "Número de palabras:"
-  character_count: "Número de caracteres:"
-  main_sources: Fuentes principales detectadas
-  incidental_sources: Fuentes con similitudes fortuitas
-  mentioned_sources: Fuentes mencionadas
-  table_header: N° Descripciones
-  points_of_interest: Puntos de interés
-  identical_words: "Palabras idénticas:"
-  words: palabras
-  similar_sources: fuentes? similar(?:es)?
-  other_user_document: Documento de otro usuario
+#
+# magister: the layout until 2025, learned from a real Spanish Compilatio Magister report of
+# October 2025 and two of September and December 2025.
+magister:
+  es:
+    heading: INFORME DE ANÁLISIS
+    suspicious: Textos sospechosos
+    similarity: Similitudes
+    quoted: similitudes entre comillas
+    cited: entre las fuentes mencionadas
+    unrecognised_languages: Idiomas no reconocidos
+    ai: Textos potencialmente generados por la IA
+    ignored: (ignorado)
+    document_name: "Nombre del documento:"
+    document_id: "ID del documento:"
+    deposited_on: "Fecha de depósito:"
+    analysed_on: "fecha de fin de análisis:"
+    word_count: "Número de palabras:"
+    character_count: "Número de caracteres:"
+    main_sources: Fuentes principales detectadas
+    incidental_sources: Fuentes con similitudes fortuitas
+    mentioned_sources: Fuentes mencionadas
+    table_header: N° Descripciones
+    points_of_interest: Puntos de interés
+    identical_words: "Palabras idénticas:"
+    words: palabras
+    similar_sources: fuentes? similar(?:es)?
+    other_user_document: Documento de otro usuario
+
+# magister_plus: the Compilatio Magister+ layout of 2026, learned from five real Spanish
+# analysis reports and one analysis certificate of March to July 2026.
+magister_plus:
+  es:
+    report: Informe de análisis
+    certificate: Certificado de análisis
+    product: Compilatio Magister+
+    suspicious: Textos sospechosos
+    file_name: "Nombre del fichero :"
+    file_size: "Tamaño del archivo original :"
+    deposited_on: "Fecha de depósito :"
+    analysed_on: "fecha de fin de análisis :"
+    word_count: "Número de palabras :"
+    character_count: "Número de caracteres :"
+    included: "Incluido en el porcentaje de textos sospechosos :"
+    not_included: "No incluido en el porcentaje de textos sospechosos :"
+    similarity: Similitudes
+    ai: Detección de IA
+    unrecognised_languages: Idiomas no reconocidos
+    quoted: Textos entre comillas
+    syntactic: Sintáctica
+    semantic: Semántica
+    not_measured: No medido
+    sources_section: Fuentes de similitudes
+    points_of_interest: Puntos de interés
+    main_sources: Fuente principal detectada
+    incidental_sources: Fuente con similitudes fortuitas
+    mentioned_sources: Fuente mencionada (sin similitudes detectadas)
+    number_column: N°
+    descriptions_column: Descripciones
+    similarity_column: Similitudes
+    locations_column: Ubicaciones
+    other_user_document: Documento de otro usuario
+    from_my_library: Viene de de mi biblioteca
+    from_another_group: Viene de de otro grupo
+    semantic_detection: Detección semántica
+    locked: Lock
+    months: [enero, febrero, marzo, abril, mayo, junio, julio, agosto, septiembre, octubre,
+      noviembre, diciembre]

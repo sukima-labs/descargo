@@ -30,7 +30,7 @@ def import_report(path: Path, *, parsed_at: datetime) -> Report:
     if suffix == ".pdf":
         sha256 = hashlib.sha256(data).hexdigest()
         lines = pdf_lines(data)
-        if compilatio.detect_language(lines) is not None:
+        if compilatio.detect_layout(lines) is not None:
             return compilatio.parse_pdf(data, path.name, sha256, parsed_at=parsed_at, lines=lines)
         if turnitin.detect_layout(lines) is not None:
             return turnitin.parse_pdf(data, path.name, sha256, parsed_at=parsed_at, lines=lines)

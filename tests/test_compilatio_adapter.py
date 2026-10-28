@@ -11,7 +11,7 @@ import pytest
 from fpdf import FPDF
 
 from draftwitness.adapters import AdapterError, import_report
-from draftwitness.adapters.compilatio import detect_language, parse_pdf
+from draftwitness.adapters.compilatio import detect_layout, parse_pdf
 from draftwitness.adapters.pdftext import pdf_lines
 from draftwitness.core.render.pdf import _font_path
 from draftwitness.core.report_schema import Report, SourceKind, dump_report
@@ -166,7 +166,7 @@ def test_registry_picks_the_compilatio_adapter(tmp_path: Path) -> None:
     path = tmp_path / "informe.pdf"
     path.write_bytes(_report())
     assert import_report(path, parsed_at=NOW).tool.name == "compilatio"
-    assert detect_language(pdf_lines(_report())) == "es"
+    assert detect_layout(pdf_lines(_report())) == ("magister", "es")
 
 
 def test_registry_names_what_it_can_read(tmp_path: Path) -> None:
@@ -189,7 +189,9 @@ def test_overall_similarity_is_required() -> None:
 
 def test_bounds_odd_rows_and_missing_parts() -> None:
     header = [
-        "3%Similitudes" if line == "12%Similitudes" else line.replace("05/10/2026", "31/02/2026")
+        {"12%Similitudes": "3%Similitudes", "64%": "4%"}.get(line, line).replace(
+            "05/10/2026", "31/02/2026"
+        )
         for line in HEADER
         if "IA" not in line
     ]
@@ -207,7 +209,7 @@ def test_bounds_odd_rows_and_missing_parts() -> None:
     assert report.extensions["compilatio"]["deposited_on"] is None
     warnings = " ".join(report.warnings)
     for expected in (
-        "more than the overall",
+        "more than the suspicious-text 4%",
         "appears twice",
         "was not understood",
         "not recognised as a source",
@@ -227,3 +229,45 @@ def test_ai_percentage_without_coloured_passages() -> None:
     assert "no passage drawn in Compilatio's AI colour" in warnings
     assert "No source table was found" in warnings
     assert "“<1%”" in warnings
+
+
+def test_wrapped_labels_and_ignored_results() -> None:
+    """The 2025 reports wrap long labels over several lines and may end a result in
+    "(ignorado)"; their dates may have one-digit days and months."""
+    header = [
+        "INFORME DE ANÁLISIS",
+        "magister",
+        "SYNTHETIC Trabajo 16%Textos",
+        "sospechosos",
+        "16%Similitudes",
+        "2%similitudes",
+        "entre comillas",
+        "< 1%entre las",
+        "fuentes",
+        "mencionadas",
+        "0%Idiomas no",
+        "reconocidos",
+        "(ignorado)",
+        "25%Textos",
+        "potencialmente",
+        "generados por",
+        "la IA (ignorado)",
+        "Nombre del documento:SYNTHETIC Trabajo con un nombre",
+        "largo.docx",
+        "ID del documento:0000000000000000000000000000000000000000",
+        "Fecha de depósito:5/9/2025",
+        "fecha de fin de análisis:5/9/2025",
+        "Número de palabras:1.000",
+    ]
+    report = _parse(_pdf([*header, *MAIN], BODY))
+    assert report.similarity is not None
+    assert report.similarity.overall_percent == 16
+    assert report.ai_writing is not None
+    assert report.ai_writing.overall_percent == 25
+    assert report.submission.title == "SYNTHETIC Trabajo con un nombre largo"
+    extensions = report.extensions["compilatio"]
+    assert extensions["marked_ignored"] == ["unrecognised_languages", "ai"]
+    assert (extensions["suspicious_percent"], extensions["cited_percent"]) == (16, 1)
+    assert extensions["deposited_on"] == "2025-09-05"
+    assert any("“(ignorado)”" in w for w in report.warnings)
+    assert not any("more than" in w for w in report.warnings)

@@ -60,7 +60,7 @@ review = "Review the letter, remove the note at the top, and send it yourself. D
 [adapters]
 unreadable_pdf = "cannot read PDF: {error}"
 not_turnitin = "not a Turnitin Similarity Report that DraftWitness can read (Feedback Studio or the enhanced Similarity Report, in: {languages})."
-unknown_pdf = "not a report DraftWitness can read. It reads Turnitin Similarity Reports (Feedback Studio or enhanced, in English) and Compilatio analysis reports (Magister, in Spanish). Other detectors and languages are not supported yet."
+unknown_pdf = "not a report DraftWitness can read. It reads Turnitin Similarity Reports (Feedback Studio or enhanced, in English) and Compilatio analysis reports and certificates (Magister and Magister+, in Spanish). Other detectors and languages are not supported yet."
 
 [import]
 summary = "{tool}: overall similarity {percent}%, {sources} sources."

@@ -60,7 +60,7 @@ review = "Revisa el escrito, elimina la nota del principio y envíalo tú. Draft
 [adapters]
 unreadable_pdf = "no se puede leer el PDF: {error}"
 not_turnitin = "no es un informe de similitud de Turnitin que DraftWitness sepa leer (Feedback Studio o el Similarity Report mejorado, en: {languages})."
-unknown_pdf = "no es un informe que DraftWitness sepa leer. Lee informes de similitud de Turnitin (Feedback Studio o mejorado, en inglés) e informes de análisis de Compilatio (Magister, en español). Otros detectores e idiomas todavía no."
+unknown_pdf = "no es un informe que DraftWitness sepa leer. Lee informes de similitud de Turnitin (Feedback Studio o mejorado, en inglés) e informes y certificados de análisis de Compilatio (Magister y Magister+, en español). Otros detectores e idiomas todavía no."
 
 [import]
 summary = "{tool}: similitud general {percent} %, {sources} fuentes."

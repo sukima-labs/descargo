@@ -99,12 +99,13 @@ usually means; it never changes the file and gives no score. See
 [`docs/inspect.md`](docs/inspect.md) and [ADR 006](docs/adr/006-pre-submission-inspector.md).
 
 The adapters read Turnitin's Feedback Studio and enhanced Similarity Report PDFs, in
-English, and Compilatio's analysis report PDF (Magister), in Spanish, including the passages
-it attributes to AI. They drop the author or depositor name shown on the report. See
+English, and Compilatio's analysis report and certificate PDFs (Magister until 2025 and
+Magister+ from 2026), in Spanish, including the passages Compilatio attributes to AI. They
+drop the author or depositor name shown on the report. See
 [`docs/import.md`](docs/import.md) and [ADR 009](docs/adr/009-first-three-detectors.md).
 **Known gap:** the Turnitin adapter was written from Turnitin's documentation and read none
-of the real Turnitin reports checked in October 2026, and the newer Compilatio Magister+
-layout is not read yet. Both are being rebuilt against real reports.
+of the real Turnitin reports checked in October 2026. It is being rebuilt against real
+reports.
 
 The audit discounts quoted and cited passages, the reference list, institution template
 text and your declared own earlier work, and explains each discount. See
