@@ -22,7 +22,8 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
   sent. `--institution` with `--jurisdiction` drafts a generic letter for an institution
   with no profile.
 - `draftwitness import-report`: reads a downloaded Turnitin Similarity Report PDF (classic
-  Feedback Studio and enhanced layouts, in English) or a Compilatio analysis report or
+  Feedback Studio layout in English; enhanced layout in English and Spanish, with its
+  integrity flags) or a Compilatio analysis report or
   certificate PDF (Magister until 2025 and Magister+ from 2026, in Spanish, with its AI
   result and the passages it attributes to AI) into the common report format, and drops the
   author or depositor name shown on it. For Magister+ it also records which results count

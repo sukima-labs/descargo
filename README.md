@@ -98,14 +98,13 @@ The inspector reports what your file contains besides its visible text and what 
 usually means; it never changes the file and gives no score. See
 [`docs/inspect.md`](docs/inspect.md) and [ADR 006](docs/adr/006-pre-submission-inspector.md).
 
-The adapters read Turnitin's Feedback Studio and enhanced Similarity Report PDFs, in
-English, and Compilatio's analysis report and certificate PDFs (Magister until 2025 and
+The adapters read Turnitin's Feedback Studio Similarity Report PDF, in English, its
+enhanced Similarity Report PDF, in English and Spanish, and Compilatio's analysis report and certificate PDFs (Magister until 2025 and
 Magister+ from 2026), in Spanish, including the passages Compilatio attributes to AI. They
 drop the author or depositor name shown on the report. See
 [`docs/import.md`](docs/import.md) and [ADR 009](docs/adr/009-first-three-detectors.md).
-**Known gap:** the Turnitin adapter was written from Turnitin's documentation and read none
-of the real Turnitin reports checked in October 2026. It is being rebuilt against real
-reports.
+**Known gap:** Turnitin's AI writing report and the Spanish Feedback Studio layout are not
+read yet; both are being built against real reports.
 
 The audit discounts quoted and cited passages, the reference list, institution template
 text and your declared own earlier work, and explains each discount. See

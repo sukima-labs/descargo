@@ -41,32 +41,38 @@ feedback_studio:
 
 enhanced:
   # The new, enhanced Similarity Report: Cover Page, Integrity Overview, Submission.
-  checked: 2026-10-27
+  checked: 2026-10-28
   verification: verified
   source: >-
-    pypdf text of a Turnitin report published by a journal; sections described in
-    https://guides.turnitin.com/hc/en-us/articles/27881575386125 and match groups in
-    https://guides.turnitin.com/hc/en-us/articles/27395528629517
+    pypdf text of real reports: one in English of February 2025, four in Spanish of January
+    and November 2025 (one full, three excerpts, one of them reprinted through Word), read on
+    the maintainer's machine only; and a Turnitin report published by a journal. Sections
+    described in https://guides.turnitin.com/hc/en-us/articles/27881575386125 and match
+    groups in https://guides.turnitin.com/hc/en-us/articles/27395528629517
   en:
     cover_page: "Cover Page"
     integrity_overview: "Integrity Overview"
     document_details: "Document Details"
     submission_id: "Submission ID"
     submission_date: "Submission Date"
-    file_name: "File Name"
+    file_name: ["File Name"]
     pages: ["Page", "Pages"]
     words: ["Word", "Words"]
     characters: ["Character", "Characters"]
+    # "Page 2 of 13 - Integrity Overview"
+    page_footer: ["Page"]
+    page_of: ["of"]
+    months: [jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec]
     overall: "Overall Similarity"
     filtered_heading: "Filtered from the Report"
     filters:
-      # Only "Bibliography" has been seen in a real report; the others come from a
-      # secondary source and are marked in filters_needing_verification.
+      # "Bibliography" and "Quoted Text" have been seen in real reports; the others come
+      # from a secondary source and are marked in filters_needing_verification.
       "Bibliography": bibliography
       "Quoted Text": quotes
       "Cited Text": cited
       "Small Matches": small_matches
-    filters_needing_verification: ["Quoted Text", "Cited Text", "Small Matches"]
+    filters_needing_verification: ["Cited Text", "Small Matches"]
     exclusions_heading: "Exclusions"
     excluded_matches: "Excluded Matches"
     excluded_sources: "Excluded Sources"
@@ -78,15 +84,57 @@ enhanced:
       "Cited and Quoted": cited_and_quoted
     top_sources_heading: "Top Sources"
     top_sources_intro: "The sources with the highest number of matches within the submission."
-    # Every page ends with "Page N of M - <section>" and the submission ID.
-    page_footer: "Page {page} of {pages} - "
     integrity_submission: "Integrity Submission"
     databases:
       "Internet sources": internet
       "Publications": publications
       "Submitted works (Student Papers)": submitted_works
+    integrity_flags_heading: "Integrity Flags"
     integrity_flags: "Integrity Flags for Review"
+    no_integrity_flags: "No suspicious text manipulations found."
+    integrity_flags_end: "Our system's algorithms"
     source_kinds:
       "Internet": internet
       "Publication": publication
+      "Student papers": student_paper
       "Submitted works": student_paper
+  es:
+    cover_page: "Portada"
+    integrity_overview: "Descripción general de integridad"
+    document_details: "Detalles del documento"
+    submission_id: "Identificador de la entrega"
+    submission_date: "Fecha de entrega"
+    file_name: ["Nombre de archivo", "Nombre del archivo"]
+    pages: ["Página", "Páginas"]
+    words: ["Palabra", "Palabras"]
+    characters: ["Carácter", "Caracteres"]
+    # "Página 2 of 33 - Descripción general de integridad", or "Página 2 de 78 - …"
+    page_footer: ["Página"]
+    page_of: ["of", "de"]
+    months: [ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic]
+    overall: "Similitud general"
+    filtered_heading: "Filtrado desde el informe"
+    filters:
+      "Bibliografía": bibliography
+    filters_needing_verification: []
+    exclusions_heading: "Exclusiones"
+    # The Spanish reports print "N.º de coincidencias excluidas", without the number.
+    excluded_matches: "coincidencias excluidas"
+    excluded_sources: "fuentes excluidas"
+    match_groups_heading: "Grupos de coincidencias"
+    match_groups: {}
+    top_sources_heading: "Fuentes principales"
+    top_sources_intro: >-
+      Las fuentes con el mayor número de coincidencias dentro de la entrega.
+    integrity_submission: "Integrity Submission"
+    databases:
+      "Fuentes de Internet": internet
+      "Publicaciones": publications
+      "Trabajos entregados (trabajos del estudiante)": submitted_works
+    integrity_flags_heading: "Marcas de integridad"
+    integrity_flags: "alertas de integridad para revisión"
+    no_integrity_flags: "No se han detectado manipulaciones de texto sospechosas."
+    integrity_flags_end: "Los algoritmos de nuestro sistema"
+    source_kinds:
+      "Internet": internet
+      "Publicación": publication

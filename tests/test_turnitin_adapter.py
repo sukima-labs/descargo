@@ -339,6 +339,9 @@ def test_enhanced_report() -> None:
         },
         "databases": {"internet": 21, "publications": 18, "submitted_works": 2},
         "integrity_flags": 1,
+        "integrity_flag_notes": [],
+        "sections": ["Cover Page", "Integrity Overview", "Integrity Submission"],
+        "report_pages": 4,
     }
     joined = " ".join(report.warnings)
     assert "has not yet been checked" in joined  # "Small Matches" label
@@ -508,3 +511,128 @@ def test_a_new_language_needs_only_labels(monkeypatch: pytest.MonkeyPatch) -> No
     assert report.extensions["turnitin"]["language"] == "xx"
     assert report.similarity is not None
     assert report.similarity.overall_percent == 24
+
+
+# --- Enhanced, in Spanish -----------------------------------------------------------------
+
+SPANISH_ID = "trn:oid:::0000:00000001"
+SPANISH_COVER = [
+    "SYNTHETIC Informe de bachillerato de",
+    "dos lineas.pdf",
+    AUTHOR,
+    "Detalles del documento",
+    "Identificador de la entrega",
+    SPANISH_ID,
+    "Fecha de entrega",
+    "29 ene 2026, 9:02 p.m. GMT-5",
+    "Fecha de descarga",
+    "29 ene 2026, 9:07 p.m. GMT-5",
+    "Nombre de archivo",
+    "SYNTHETIC Informe de bachillerato de dos lineas.pdf",
+    "Tamaño de archivo",
+    "486.3 KB",
+    "28 Páginas",
+    "6,588 Palabras",
+    "37,494 Caracteres",
+    f"Página 1 of 4 - Portada Identificador de la entrega {SPANISH_ID}",
+]
+SPANISH_OVERVIEW = [
+    "19% Similitud general",
+    "El total combinado de todas las coincidencias, incluidas las fuentes superpuestas.",
+    "Filtrado desde el informe",
+    "Bibliografía",
+    "Exclusiones",
+    "N.º de coincidencias excluidas",
+    "Fuentes principales",
+    "19% Fuentes de Internet",
+    "3%",
+    "Publicaciones",
+    "0%",
+    "Trabajos entregados (trabajos del estudiante)",
+    "Marcas de integridad",
+    "N.º de alerta de integridad para revisión",
+    "Texto oculto",
+    "4 caracteres sospechosos en N.º de páginas",
+    "El texto es alterado para mezclarse con el fondo blanco del documento.",
+    "Los algoritmos de nuestro sistema analizan un documento en profundidad.",
+    "Página 2 de 4 - Descripción general de integridad",
+    "Identificador de la entrega",
+    SPANISH_ID,
+]
+SPANISH_SOURCES = [
+    "Fuentes principales",
+    "Las fuentes con el mayor número de coincidencias dentro de la entrega. Las fuentes "
+    "superpuestas no se mostrarán.",
+    "1",
+    "Internet",
+    "www.example.org",
+    "6%",
+    "2",
+    "Publicación",
+    'A. Autora. "Un título sintético largo…',
+    "<1%",
+    "3",
+    "Trabajos del estudiante",
+    "Synthetic University",
+    "<1%",
+    "Página 3 de 4 - Descripción general de integridad",
+    f"Identificador de la entrega {SPANISH_ID}",
+]
+SPANISH_PAPER = ["1", "Texto del trabajo.", "Página 4 de 4 - Integrity Submission"]
+
+
+def test_enhanced_report_in_spanish() -> None:
+    report = _parse(_pdf(SPANISH_COVER, SPANISH_OVERVIEW, SPANISH_SOURCES, SPANISH_PAPER))
+    extensions = report.extensions["turnitin"]
+    assert extensions["language"] == "es"
+    assert report.submission.title == "SYNTHETIC Informe de bachillerato de dos lineas.pdf"
+    assert report.submission.submission_id == SPANISH_ID
+    assert report.submission.submitted_at == datetime(
+        2026, 1, 29, 21, 2, tzinfo=timezone(timedelta(hours=-5))
+    )
+    assert (report.submission.page_count, report.submission.word_count) == (28, 6588)
+    assert report.similarity is not None
+    assert report.similarity.overall_percent == 19
+    assert report.similarity.filters.bibliography_excluded is True
+    assert extensions["databases"] == {"internet": 19, "publications": 3, "submitted_works": 0}
+    assert extensions["sections"] == [
+        "Portada",
+        "Descripción general de integridad",
+        "Integrity Submission",
+    ]
+    assert extensions["integrity_flag_notes"] == [
+        "Texto oculto",
+        "4 caracteres sospechosos en N.o de páginas",
+        "El texto es alterado para mezclarse con el fondo blanco del documento.",
+    ]
+    rows = [(s.rank, s.kind, s.percent, s.label) for s in report.similarity.sources]
+    assert rows == [
+        (1, SourceKind.INTERNET, 6, "www.example.org"),
+        (2, SourceKind.PUBLICATION, 1, 'A. Autora. "Un título sintético largo...'),
+        (3, SourceKind.UNKNOWN, 1, "Synthetic University"),
+    ]
+    warnings = " ".join(report.warnings)
+    assert "integrity flags: Texto oculto" in warnings
+    assert "a type the adapter does not know: “Trabajos del estudiante”" in warnings
+    assert AUTHOR not in dump_report(report)
+
+
+def test_enhanced_extract_and_unreadable_source_list() -> None:
+    overview = [line.replace("de 4", "de 40") for line in SPANISH_OVERVIEW]
+    sources = [*SPANISH_SOURCES[:2], "www.example.org 6%"]
+    report = _parse(_pdf(overview, sources))
+    warnings = " ".join(report.warnings)
+    assert "The cover page was not found." in warnings
+    assert "report has 40 pages but this PDF has 2" in warnings
+    assert "saved again through another program" in warnings
+    assert "No source list was read" not in warnings
+    assert report.submission.submission_id == SPANISH_ID
+
+
+def test_parse_enhanced_date_in_spanish() -> None:
+    months = labels()["enhanced"]["es"]["months"]
+    assert parse_enhanced_date("1 nov 2025, 3:18 a.m. GMT+5", months) == datetime(
+        2025, 11, 1, 3, 18, tzinfo=timezone(timedelta(hours=5))
+    )
+    assert parse_enhanced_date("31 feb 2025, 3:18 a.m. GMT", months) is None
+    assert parse_enhanced_date("1 xyz 2025, 3:18 a.m. GMT", months) is None

@@ -60,7 +60,7 @@ review = "Revisa el escrito, elimina la nota del principio y envíalo tú. Draft
 [adapters]
 unreadable_pdf = "no se puede leer el PDF: {error}"
 not_turnitin = "no es un informe de similitud de Turnitin que DraftWitness sepa leer (Feedback Studio o el Similarity Report mejorado, en: {languages})."
-unknown_pdf = "no es un informe que DraftWitness sepa leer. Lee informes de similitud de Turnitin (Feedback Studio o mejorado, en inglés) e informes y certificados de análisis de Compilatio (Magister y Magister+, en español). Otros detectores e idiomas todavía no."
+unknown_pdf = "no es un informe que DraftWitness sepa leer. Lee informes de similitud de Turnitin (Feedback Studio en inglés; el mejorado, en inglés y en español) e informes y certificados de análisis de Compilatio (Magister y Magister+, en español). Otros detectores e idiomas todavía no."
 
 [import]
 summary = "{tool}: similitud general {percent} %, {sources} fuentes."
@@ -336,7 +336,7 @@ inspect_file = "Tu archivo (.docx, .odt, .pdf, .txt o .md)"
 inspect_run = "Inspeccionar"
 audit_intro = "Recalcula el porcentaje de similitud descontando los pasajes citados con su referencia, la bibliografía, las plantillas de la institución y tu trabajo anterior declarado, y explica cada descuento. No decide si algo es plagio."
 audit_report = "Informe del detector"
-audit_report_hint = "El PDF del informe que descargaste (Similarity Report de Turnitin en inglés o informe de análisis de Compilatio en español), o un informe ya en JSON de DraftWitness."
+audit_report_hint = "El PDF del informe que descargaste (Similarity Report de Turnitin en inglés o en español, o informe de análisis de Compilatio en español), o un informe ya en JSON de DraftWitness."
 audit_document = "Tu trabajo entregado (opcional)"
 audit_document_hint = "Permite localizar cada coincidencia en tu texto y comprobar sus comillas y citas."
 profile = "Institución"

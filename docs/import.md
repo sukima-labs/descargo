@@ -18,12 +18,12 @@ refers to the same file. **Not legal advice.**
 
 Turnitin's guide
 ([Downloading and sharing the Similarity Report](https://guides.turnitin.com/hc/en-us/articles/27881575386125))
-describes the PDF downloads. DraftWitness reads two of them, in English:
+describes the PDF downloads. DraftWitness reads two of them:
 
 | Layout | How to recognise it | What is read |
 |---|---|---|
-| Feedback Studio ("Current View") | the paper, then a page headed "ORIGINALITY REPORT" | similarity index; Internet, publication and student-paper figures; the primary sources with their percentages; "Exclude quotes / bibliography / matches"; submission date, ID, word and character counts |
-| Enhanced Similarity Report | a Cover Page, then an "Integrity Overview" | overall similarity; filters; exclusions; the four match groups; database figures; integrity flags; the top sources; submission ID, date, pages, words and characters |
+| Feedback Studio ("Current View"), in English | the paper, then a page headed "ORIGINALITY REPORT" | similarity index; Internet, publication and student-paper figures; the primary sources with their percentages; "Exclude quotes / bibliography / matches"; submission date, ID, word and character counts |
+| Enhanced Similarity Report, in English and Spanish | a Cover Page ("Portada"), then an "Integrity Overview" ("Descripción general de integridad") | overall similarity; filters; exclusions; the four match groups (English only); database figures; integrity flags and what the report says about each, such as hidden text; the top sources; submission ID, date, pages, words and characters; the sections the PDF contains |
 
 Not kept: the author name and the file name shown on the report. On the enhanced cover
 page, the title is kept only when it is the file name (Turnitin's default), because the
@@ -38,10 +38,21 @@ Every import says what it could not read. In particular:
 - **Unchecked labels.** Filter names that have not yet been seen in a real report produce
   a warning when they appear.
 
-**Known gap.** This adapter was written from Turnitin's documentation, not from real
-reports. In October 2026 it read none of the twelve real Turnitin PDFs checked on the
-maintainer's machine, in English or Spanish, so it is being rebuilt against real layouts
-([ADR 009](adr/009-first-three-detectors.md)). Until then, expect "not a Turnitin report".
+- **Extracts.** When the PDF has fewer pages than the report's footers say ("Page 2 of
+  13"), the import says it is an extract and that parts may be missing.
+- **Reprints.** A report saved again through another program, such as Word, may lose the
+  numbers of its source list; the import says so. Use the PDF downloaded from Turnitin.
+- **Spanish reports print no counts** for excluded matches and integrity flags
+  ("N.º de coincidencias excluidas"), so those counts stay empty.
+
+The enhanced layout was checked in October 2026 against five real reports read on the
+maintainer's machine only ([ADR 009](adr/009-first-three-detectors.md)): one in English and
+four in Spanish (one full, three extracts, one of them reprinted through Word).
+
+**Known gap.** Turnitin's AI writing report ("detected as AI", "detectado como IA") and the
+Spanish Feedback Studio layout ("Fecha de entrega", "Identificador de la entrega") are not
+read yet ([ADR 009](adr/009-first-three-detectors.md)). Scanned or image-only copies of a
+report have no text to read.
 
 ### Facts from Turnitin's documentation worth knowing
 

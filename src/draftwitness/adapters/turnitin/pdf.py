@@ -25,7 +25,7 @@ import yaml
 
 from draftwitness import __version__
 from draftwitness.adapters.base import AdapterError
-from draftwitness.adapters.pdftext import pdf_lines
+from draftwitness.adapters.pdftext import open_pdf, pdf_lines
 from draftwitness.core.report_schema import (
     Provenance,
     Report,
@@ -60,6 +60,11 @@ _ENHANCED_DATE = re.compile(
     r"([A-Za-z]{3}) (\d{1,2}), (\d{4}),? (\d{1,2}):(\d{2})\s*([AP]M)\s*"
     r"(?:GMT|UTC)(?:([+-])(\d{1,2})(?::?(\d{2}))?)?"
 )
+_ENHANCED_DATE_DMY = re.compile(
+    r"(\d{1,2}) ([^\W\d_]{3})\.? (\d{4}),? (\d{1,2}):(\d{2})\s*([ap])\.?\s?m\.?\s*"
+    r"(?:GMT|UTC)(?:([+-])(\d{1,2})(?::?(\d{2}))?)?"
+)
+_SUBMISSION_ID = re.compile(r"trn:oid:\S+")
 
 
 @cache
@@ -81,7 +86,8 @@ def detect_layout(lines: list[str]) -> tuple[str, str] | None:
         if {fs["report_heading"], fs["overall"], fs["sources_heading"]} <= present:
             return FEEDBACK_STUDIO, language
     for language, en in _languages(ENHANCED).items():
-        if en["overall"] in present and any(en["integrity_overview"] in line for line in lines):
+        overall = any(line == en["overall"] or line.endswith(f" {en['overall']}") for line in lines)
+        if overall and en["integrity_overview"] in {section for section, _ in _footers(lines, en)}:
             return ENHANCED, language
     return None
 
@@ -120,15 +126,26 @@ def parse_classic_date(text: str) -> datetime | None:
     return datetime(year, month, day, hour, minute, tzinfo=zone)
 
 
-def parse_enhanced_date(text: str) -> datetime | None:
-    """``Jul 11, 2026, 8:04 AM GMT+7`` as an aware datetime."""
+def parse_enhanced_date(text: str, months: list[str] | None = None) -> datetime | None:
+    """``Jul 11, 2026, 8:04 AM GMT+7`` as an aware datetime; with the language's ``months``,
+    also ``29 ene 2025, 9:02 a.m. GMT-5``."""
     match = _ENHANCED_DATE.search(text)
-    if match is None or match.group(1).lower() not in _MONTHS:
+    if match is not None and match.group(1).lower() in _MONTHS:
+        month, day, year = _MONTHS[match.group(1).lower()], int(match.group(2)), int(match.group(3))
+    elif months and (match := _ENHANCED_DATE_DMY.search(text)) and match.group(2).lower() in months:
+        day, month, year = (
+            int(match.group(1)),
+            months.index(match.group(2).lower()) + 1,
+            int(match.group(3)),
+        )
+    else:
         return None
-    month, day, year = _MONTHS[match.group(1).lower()], int(match.group(2)), int(match.group(3))
-    hour, minute = _clock(match.group(4), match.group(5), match.group(6))
+    hour, minute = _clock(match.group(4), match.group(5), match.group(6)[0] + "M")
     zone = _offset(match.group(7), match.group(8), match.group(9))
-    return datetime(year, month, day, hour, minute, tzinfo=zone)
+    try:
+        return datetime(year, month, day, hour, minute, tzinfo=zone)
+    except ValueError:
+        return None
 
 
 @dataclass
@@ -148,6 +165,17 @@ def _value_before(lines: list[str], label: str, *, last: bool = False) -> tuple[
         return None
     index = indexes[-1] if last else indexes[0]
     return _percent(lines[index - 1]) if index > 0 else None
+
+
+def _labelled_percent(lines: list[str], label: str) -> tuple[float, bool] | None:
+    """The percentage shown with ``label``: on the line before it, or at the start of its
+    line ("23% Overall Similarity")."""
+    for index, line in enumerate(lines):
+        if line == label and index > 0 and (value := _percent(lines[index - 1])) is not None:
+            return value
+        if line.endswith(f" {label}") and (value := _percent(line[: -len(label)].strip())):
+            return value
+    return None
 
 
 def _after_prefix(lines: list[str], prefix: str) -> str | None:
@@ -294,10 +322,49 @@ def _feedback_studio(lines: list[str], words: dict[str, Any]) -> _Parsed:
 # --- Enhanced Similarity Report -----------------------------------------------------------
 
 
+def _footer(words: dict[str, Any]) -> re.Pattern[str]:
+    pages = "|".join(map(re.escape, words["page_footer"]))
+    of = "|".join(map(re.escape, words["page_of"]))
+    return re.compile(rf"^(?:{pages}) \d+ (?:{of}) (\d+) - (.+)$")
+
+
+def _footers(lines: list[str], words: dict[str, Any]) -> list[tuple[str, int]]:
+    """``(section, pages)`` of each page footer such as "Page 2 of 13 - Integrity Overview"
+    (the submission ID may follow on the same line)."""
+    footer, label = _footer(words), f" {words['submission_id']}"
+    found = []
+    for line in lines:
+        match = footer.match(line)
+        if match:
+            section = match.group(2)
+            section = section.split(label)[0] if _SUBMISSION_ID.search(section) else section
+            found.append((section.strip(), int(match.group(1))))
+    return found
+
+
+def _without_footers(lines: list[str], words: dict[str, Any]) -> list[str]:
+    """The lines without the footer every page repeats: "Page 2 of 13 - Integrity Overview",
+    then the submission ID on the same line or on the next one or two."""
+    footer, label = _footer(words), words["submission_id"]
+    kept: list[str] = []
+    after_footer = False
+    for line in lines:
+        if footer.match(line):
+            after_footer = True
+        elif after_footer and (
+            line == label or _SUBMISSION_ID.fullmatch(line.removeprefix(label).strip())
+        ):
+            continue
+        else:
+            after_footer = False
+            kept.append(line)
+    return kept
+
+
 def _count(lines: list[str], suffixes: list[str]) -> int | None:
     for line in lines:
         for suffix in suffixes:
-            match = re.match(rf"^([\d.,]+) {re.escape(suffix)}$", line)
+            match = re.match(rf"^([\d.,]+) {re.escape(suffix)}$", line, re.IGNORECASE)
             if match:
                 return _number(match.group(1))
     return None
@@ -310,6 +377,18 @@ def _next_value(lines: list[str], label: str) -> str | None:
     return None
 
 
+def _cover_title(before: list[str], file_name: str) -> str | None:
+    """The title above "Document Details", only if it is the file name (Turnitin's default
+    title), on one line or wrapped over two; the author name is never kept."""
+    names = {file_name, file_name.rsplit(".", 1)[0]} - {""}
+    for index, line in enumerate(before):
+        if line in names:
+            return line
+        if index + 1 < len(before) and f"{line} {before[index + 1]}" in names:
+            return f"{line} {before[index + 1]}"
+    return None
+
+
 def _enhanced_cover(lines: list[str], words: dict[str, Any], parsed: _Parsed) -> None:
     try:
         details = lines.index(words["document_details"])
@@ -317,23 +396,21 @@ def _enhanced_cover(lines: list[str], words: dict[str, Any], parsed: _Parsed) ->
         parsed.warnings.append("The cover page was not found.")
         return
     cover = lines[details : details + 30]
-    # The title and the author name come before "Document Details", in an order that varies
-    # between reports. Only a line that equals the file name (Turnitin's default title) is
-    # kept as the title; the author name is never kept.
-    file_name = _next_value(cover, words["file_name"]) or ""
-    names = {file_name, file_name.rsplit(".", 1)[0]} - {""}
-    title = next((line for line in lines[:details] if line in names), None)
+    file_name = next(
+        (value for label in words["file_name"] if (value := _next_value(cover, label))), ""
+    )
+    title = _cover_title(lines[max(0, details - 6) : details], file_name)
     if title is None:
         parsed.warnings.append(
             "The submission title could not be told apart from the author name on the cover "
             "page, so neither was kept."
         )
     date_text = _next_value(cover, words["submission_date"])
-    submitted = parse_enhanced_date(date_text) if date_text else None
+    submitted = parse_enhanced_date(date_text, words["months"]) if date_text else None
     if date_text and submitted is None:
         parsed.warnings.append("The submission date could not be read.")
     parsed.submission = Submission(
-        title=title or None,
+        title=title,
         submission_id=_next_value(cover, words["submission_id"]),
         submitted_at=submitted,
         page_count=_count(cover, words["pages"]),
@@ -353,7 +430,11 @@ def _section(lines: list[str], heading: str, ends: set[str]) -> list[str]:
 
 
 def _enhanced_filters(lines: list[str], words: dict[str, Any], parsed: _Parsed) -> None:
-    ends = {words["exclusions_heading"], words["match_groups_heading"]}
+    ends = {
+        words["exclusions_heading"],
+        words["match_groups_heading"],
+        words["top_sources_heading"],
+    }
     if words["filtered_heading"] not in lines:
         return
     found: dict[str, bool] = {}
@@ -382,16 +463,37 @@ def _enhanced_filters(lines: list[str], words: dict[str, Any], parsed: _Parsed) 
     parsed.extensions["cited_text_excluded"] = found.get("cited", False)
 
 
+def _integrity_flags(lines: list[str], words: dict[str, Any], parsed: _Parsed) -> None:
+    """How many integrity flags the report raises (the Spanish reports print no number) and
+    what it says about each, such as hidden text."""
+    flags = _count(lines, [words["integrity_flags"]])
+    if flags is not None:
+        parsed.extensions["integrity_flags"] = flags
+    if words["integrity_flags_heading"] not in lines:
+        return
+    start = lines.index(words["integrity_flags_heading"]) + 2
+    stops = {words["top_sources_heading"], words["match_groups_heading"], words["overall"]}
+    notes = []
+    for line in lines[start : start + 12]:
+        if line.startswith(words["integrity_flags_end"]) or line in stops:
+            break
+        if line != words["no_integrity_flags"]:
+            notes.append(line)
+    parsed.extensions["integrity_flag_notes"] = notes
+    if notes:
+        parsed.warnings.append(
+            "The report raises integrity flags: " + " ".join(notes) + " Check them with "
+            "`draftwitness inspect` on your own file."
+        )
+
+
 def _enhanced_overview(lines: list[str], words: dict[str, Any], parsed: _Parsed) -> None:
-    overall = _value_before(lines, words["overall"])
+    overall = _labelled_percent(lines, words["overall"])
     parsed.overall = overall[0] if overall else None
     _enhanced_filters(lines, words, parsed)
     exclusions = _section(lines, words["exclusions_heading"], {words["match_groups_heading"]})
-    for key, label in (
-        ("excluded_matches", "excluded_matches"),
-        ("excluded_sources", "excluded_sources"),
-    ):
-        count = _count(exclusions, [words[label]])
+    for key in ("excluded_matches", "excluded_sources"):
+        count = _count(exclusions, [words[key]])
         if count is not None:
             parsed.extensions[key] = count
     groups: dict[str, dict[str, float | int]] = {}
@@ -405,65 +507,72 @@ def _enhanced_overview(lines: list[str], words: dict[str, Any], parsed: _Parsed)
     parsed.extensions["match_groups"] = groups
     databases = {}
     for label, key in words["databases"].items():
-        value = _value_before(lines, label)
+        value = _labelled_percent(lines, label)
         if value is not None:
             databases[key] = value[0]
     parsed.extensions["databases"] = databases
-    flags = _count(lines, [words["integrity_flags"]])
-    if flags is not None:
-        parsed.extensions["integrity_flags"] = flags
+    _integrity_flags(lines, words, parsed)
+
+
+def _source_row(lines: list[str], index: int) -> tuple[str, list[str], tuple[float, bool]] | None:
+    """The row starting at ``lines[index]`` (its rank): its kind line, its name lines and its
+    percentage, which ends it within a few lines; or ``None``."""
+    for end in range(index + 3, min(index + 7, len(lines))):
+        value = _percent(lines[end])
+        if value is not None:
+            return lines[index + 1], lines[index + 2 : end], value
+    return None
 
 
 def _enhanced_sources(lines: list[str], words: dict[str, Any], parsed: _Parsed) -> None:
+    """The Top Sources rows: rank, kind ("Internet", "Publication"…), name, percentage. Rows
+    are numbered 1, 2, 3…, which is how the list is told apart from the paper after it."""
     intro = [i for i, line in enumerate(lines) if line.startswith(words["top_sources_intro"])]
     if not intro:
         return
-    footer = re.compile(
-        "^"
-        + re.escape(words["page_footer"]).replace(r"\{page\}", r"\d+").replace(r"\{pages\}", r"\d+")
-        + "(.+)$"
-    )
     kinds: dict[str, str] = words["source_kinds"]
-    index, end = intro[0] + 1, len(lines)
+    index = intro[0] + 1
     truncated = False
-    while index < end:
-        line = lines[index]
-        section = footer.match(line)
-        if section:
-            if section.group(1) != words["integrity_overview"]:
-                break
-            index += 1
-        elif line == words["submission_id"]:
-            index += 2
-        elif line.isdigit() and index + 1 < end and lines[index + 1] in kinds:
-            rank, kind = int(line), SourceKind(kinds[lines[index + 1]])
-            index += 2
-            label: list[str] = []
-            while index < end and _percent(lines[index]) is None and len(label) < 4:
-                label.append(lines[index])
-                index += 1
-            value = _percent(lines[index]) if index < end else None
-            name = " ".join(label)
-            truncated = truncated or name.endswith("...")
-            if name:
-                parsed.sources.append(_source(rank, name, kind, value))
-            index += 1
-        else:
+    while index < len(lines) and lines[index] == str(len(parsed.sources) + 1):
+        row = _source_row(lines, index)
+        if row is None:
             break
+        kind_label, name_lines, value = row
+        if kind_label not in kinds:
+            parsed.warnings.append(
+                f"Source {lines[index]} has a type the adapter does not know: “{kind_label}”."
+            )
+        name = " ".join(name_lines)
+        truncated = truncated or name.endswith(("...", "…"))
+        kind = SourceKind(kinds.get(kind_label, "unknown"))
+        parsed.sources.append(_source(len(parsed.sources) + 1, name or kind_label, kind, value))
+        index += 2 + len(name_lines) + 1
     if truncated:
         parsed.warnings.append("The report shortens long source names; they end in “...”.")
-    ranks = [source.rank for source in parsed.sources]
-    if ranks != list(range(1, len(ranks) + 1)):
+    if index < len(lines) and lines[index].isdigit() and _source_row(lines, index):
         parsed.warnings.append(
-            "The source list is not numbered 1, 2, 3…; some rows may be missing."
+            "The source list is not numbered 1, 2, 3…; the rows after the gap were not read."
+        )
+    if not parsed.sources:
+        parsed.warnings.append(
+            "The report's source list could not be read. If this PDF was saved again through "
+            "another program, such as Word, use the PDF downloaded from Turnitin instead."
         )
 
 
 def _enhanced(lines: list[str], words: dict[str, Any]) -> _Parsed:
     parsed = _Parsed(product="Similarity Report")
+    footers = _footers(lines, words)
+    text = " ".join(lines)  # the footers carry the submission ID when the cover is missing
+    lines = _without_footers(lines, words)
     _enhanced_cover(lines, words, parsed)
     _enhanced_overview(lines, words, parsed)
     _enhanced_sources(lines, words, parsed)
+    if parsed.submission.submission_id is None and (found := _SUBMISSION_ID.search(text)):
+        parsed.submission = parsed.submission.model_copy(update={"submission_id": found.group(0)})
+    parsed.extensions["sections"] = list(dict.fromkeys(section for section, _ in footers))
+    if footers:
+        parsed.extensions["report_pages"] = footers[0][1]
     return parsed
 
 
@@ -508,8 +617,14 @@ def parse_pdf(
         "Turnitin PDF reports show matched passages only as coloured highlights, so the "
         "report has sources but no matched text; the audit uses its approximate method."
     )
-    if not parsed.sources:
+    if not parsed.sources and not any("source list" in w for w in parsed.warnings):
         parsed.warnings.append("No source list was read from the report.")
+    pages = parsed.extensions.get("report_pages")
+    if isinstance(pages, int) and pages > len(open_pdf(data).pages):
+        parsed.warnings.append(
+            f"The report has {pages} pages but this PDF has {len(open_pdf(data).pages)}: it is an "
+            "extract, so some of the report may be missing."
+        )
     turnitin: dict[str, Any] = {"layout": layout, "language": language, **parsed.extensions}
     return Report(
         tool=Tool(name="turnitin", product=parsed.product, report_kind=ReportKind.SIMILARITY),
