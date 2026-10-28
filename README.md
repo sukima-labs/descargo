@@ -102,6 +102,9 @@ The adapters read Turnitin's Feedback Studio and enhanced Similarity Report PDFs
 English, and Compilatio's analysis report PDF (Magister), in Spanish, including the passages
 it attributes to AI. They drop the author or depositor name shown on the report. See
 [`docs/import.md`](docs/import.md) and [ADR 009](docs/adr/009-first-three-detectors.md).
+**Known gap:** the Turnitin adapter was written from Turnitin's documentation and read none
+of the real Turnitin reports checked in October 2026, and the newer Compilatio Magister+
+layout is not read yet. Both are being rebuilt against real reports.
 
 The audit discounts quoted and cited passages, the reference list, institution template
 text and your declared own earlier work, and explains each discount. See

@@ -38,6 +38,11 @@ Every import says what it could not read. In particular:
 - **Unchecked labels.** Filter names that have not yet been seen in a real report produce
   a warning when they appear.
 
+**Known gap.** This adapter was written from Turnitin's documentation, not from real
+reports. In October 2026 it read none of the twelve real Turnitin PDFs checked on the
+maintainer's machine, in English or Spanish, so it is being rebuilt against real layouts
+([ADR 009](adr/009-first-three-detectors.md)). Until then, expect "not a Turnitin report".
+
 ### Facts from Turnitin's documentation worth knowing
 
 - When the same words match several sources, the report shows **one top source** for them,
@@ -79,6 +84,10 @@ What it cannot read:
 - **AI passages come from a colour.** They are the runs of text in Compilatio's AI colour.
   Check them against the report; the import says so.
 - **Bounds.** "< 1 %" is kept as 1 % with the upper-bound flag.
+
+Not read yet: the Compilatio Magister+ layout of 2026 (with "Detección de IA" and
+"Sintáctica" / "Semántica" similarity), and the older layout where the AI line ends in
+"(ignorado)", whose AI figure is left empty with a warning.
 
 The audit shows the AI figure and the passages as the tool's statement. It does not
 recompute or discount them.
