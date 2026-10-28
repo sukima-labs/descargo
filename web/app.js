@@ -40,6 +40,7 @@ function applyLanguage() {
     button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
   }
   fillChoices();
+  updateFeedback();
 }
 
 // --- The worker -----------------------------------------------------------------------
@@ -263,6 +264,64 @@ for (const form of $$("#form-audit, #form-access")) {
   $("select.profiles", form).addEventListener("change", () => fillPaths(form));
 }
 
+// --- Feedback -------------------------------------------------------------------------
+
+// Where the message can be e-mailed. Empty: the student copies it and sends it to whoever
+// shared the page with them.
+const FEEDBACK_EMAIL = "";
+let buildInfo = "";
+
+function feedbackMessage(form) {
+  const answer = (value) => (value.startsWith("feedback_") ? t(value) : value);
+  const lines = [t("feedback_subject"), ""];
+  const add = (label, value) => {
+    if (value) lines.push(`${t(label)}: ${value}`);
+  };
+  add("feedback_used", $$("input[name=used]:checked", form).map((i) => t(i.value)).join(", "));
+  add("feedback_tool", answer(form.elements.tool.value));
+  add("feedback_worked", answer(form.elements.worked.value));
+  for (const field of ["problem", "wish"]) {
+    const text = form.elements[field].value.trim();
+    if (text) lines.push("", `${t(`feedback_${field}`)}`, text);
+  }
+  lines.push("");
+  add("feedback_context", form.elements.context.value.trim());
+  if (form.elements.status.checked) add("feedback_page_status", $("#status").textContent.trim());
+  add("feedback_version", buildInfo);
+  add("feedback_page_language", lang);
+  return lines.join("\n").trim();
+}
+
+function updateFeedback() {
+  const form = $("#form-feedback");
+  const message = feedbackMessage(form);
+  $("#feedback-message").value = message;
+  const mail = $("#feedback-mail");
+  mail.hidden = !FEEDBACK_EMAIL;
+  if (FEEDBACK_EMAIL) {
+    const query = `subject=${encodeURIComponent(t("feedback_subject"))}&body=${encodeURIComponent(message)}`;
+    mail.href = `mailto:${FEEDBACK_EMAIL}?${query}`;
+  }
+  $("#feedback-hint").textContent = FEEDBACK_EMAIL
+    ? t("feedback_send_email", { email: FEEDBACK_EMAIL })
+    : t("feedback_send_shared");
+}
+
+$("#form-feedback").addEventListener("input", updateFeedback);
+$("#feedback-mail").addEventListener("click", updateFeedback); // runs before the link opens
+$("#form-feedback").addEventListener("submit", (event) => event.preventDefault());
+$("#feedback-copy").addEventListener("click", async () => {
+  updateFeedback();
+  const box = $("#feedback-message");
+  try {
+    await navigator.clipboard.writeText(box.value);
+    $("#feedback-hint").textContent = t("feedback_copied");
+  } catch {
+    box.select();
+    $("#feedback-hint").textContent = t("feedback_copy_failed");
+  }
+});
+
 // --- Tabs and language ----------------------------------------------------------------
 
 for (const tab of $$("[role=tab]")) {
@@ -435,6 +494,8 @@ async function start() {
     commit: build.commit.slice(0, 7),
     pyodide: build.pyodide,
   });
+  buildInfo = `${build.draftwitness} (${build.commit.slice(0, 7)})`;
+  updateFeedback();
   setStatus(loaded ? t("ready") : t("loading"), loaded ? "ok" : "");
 }
 

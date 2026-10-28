@@ -39,7 +39,8 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
   each item usually means. It never changes the file and gives no score.
 - An in-browser version: `draftwitness inspect`, `audit` and `access-request` (with a form
   instead of the YAML file) run in the browser through Pyodide, in English and Spanish,
-  with Markdown, PDF and JSON downloads. No server receives anything, and the page may
+  with Markdown, PDF and JSON downloads, an introduction to what the tool does and does not
+  do, and a feedback form that prepares a message for the student to send themselves. No server receives anything, and the page may
   request only its own files. Built with `scripts/build_web.py`, served for testing with
   `scripts/serve_web.py`. See [`docs/web.md`](docs/web.md).
 - Common report format `report_schema` v0.1, with published JSON Schemas for reports,

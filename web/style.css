@@ -273,3 +273,48 @@ footer {
   font-size: 0.875rem;
   padding-bottom: 2rem;
 }
+
+.about h2 {
+  margin: 1.25rem 0 0.25rem;
+  font-size: 1.25rem;
+}
+
+.about h3 {
+  margin: 0.9rem 0 0.2rem;
+  font-size: 1rem;
+}
+
+.about ol,
+.about ul {
+  margin: 0.3rem 0;
+  padding-left: 1.4rem;
+}
+
+.about .beta {
+  color: var(--muted);
+  font-size: 0.925rem;
+}
+
+label.inline {
+  display: block;
+  margin: 0.5rem 0;
+}
+
+textarea.message {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.875rem;
+}
+
+a.button {
+  display: inline-block;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-text);
+  padding: 0.4rem 0.8rem;
+  text-decoration: none;
+}
+
+a.button[hidden] {
+  display: none;
+}
