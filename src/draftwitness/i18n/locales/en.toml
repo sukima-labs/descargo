@@ -60,7 +60,7 @@ review = "Review the letter, remove the note at the top, and send it yourself. D
 [adapters]
 unreadable_pdf = "cannot read PDF: {error}"
 not_turnitin = "not a Turnitin report that DraftWitness can read (the Feedback Studio or enhanced Similarity Report, or the AI Writing Report, in: {languages})."
-unknown_pdf = "not a report DraftWitness can read. It reads Turnitin Similarity Reports (Feedback Studio in English; enhanced, in English and Spanish), Turnitin AI Writing Reports (in English and Spanish) and Compilatio analysis reports and certificates (Magister and Magister+, in Spanish). Other detectors and languages are not supported yet."
+unknown_pdf = "not a report DraftWitness can read. It reads Turnitin Similarity Reports (Feedback Studio and enhanced, in English and Spanish), Turnitin AI Writing Reports (in English and Spanish) and Compilatio analysis reports and certificates (Magister and Magister+, in Spanish). Other detectors and languages are not supported yet."
 
 [import]
 summary = "{tool}: overall similarity {percent}%, {sources} sources."
@@ -400,10 +400,10 @@ about_step_2 = "If you are flagged for similarity or AI: upload the report PDF a
 about_step_3 = "If you are not shown the report: draft a letter asking for it under your country's data protection law. Nothing is sent: you review it and send it yourself."
 about_more = "More: what it reads, what it does not do, and your data"
 about_reads_title = "Which reports it reads today"
-about_reads_1 = "Turnitin: the new Similarity Report (\"Overall Similarity\") and the AI writing report (\"detected as AI\"), with the passages it flags, in English and Spanish; and the classic Feedback Studio report, in English."
+about_reads_1 = "Turnitin: the new Similarity Report (\"Overall Similarity\") and the AI writing report (\"detected as AI\"), with the passages it flags, and the classic Feedback Studio report (\"Originality report\"), all in English and Spanish."
 about_reads_2 = "Compilatio: Magister and Magister+ analysis reports and certificates, in Spanish, with the AI percentage and the passages it flags."
 about_reads_3 = "Use the PDF exactly as you downloaded it from the detector. A scan, a copy pasted into another document, or a PDF saved again from Word may not read well."
-about_reads_4 = "Not yet: the classic Turnitin report in Spanish, and Copyleaks. If you have one of those, tell us under \"Send feedback\"."
+about_reads_4 = "Not yet: Copyleaks. If you have one of its reports, tell us under \"Send feedback\"."
 about_not_title = "What it does not do"
 about_not_1 = "It does not rewrite or \"humanise\" text, and does not teach how to get past a detector."
 about_not_2 = "It does not predict the score a detector would give."

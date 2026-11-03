@@ -9,11 +9,13 @@
 
 feedback_studio:
   # Feedback Studio "Current View" download: the paper, then an "ORIGINALITY REPORT" page.
-  checked: 2026-10-27
+  checked: 2026-11-04
   verification: verified
   source: >-
     pypdf text of a Turnitin report published by a journal; layout described in
-    https://guides.turnitin.com/hc/en-us/articles/27881575386125
+    https://guides.turnitin.com/hc/en-us/articles/27881575386125. Spanish: pypdf text of three
+    real reports of May, June and August 2026 ("INFORME DE ORIGINALIDAD"), read on the
+    maintainer's machine only.
   en:
     report_heading: "ORIGINALITY REPORT"
     overall: "SIMILARITY INDEX"
@@ -38,6 +40,34 @@ feedback_studio:
     author_prefix: "by "
     # Lines after the source list that start the GradeMark page ("PAGE 1", "PAGE 2"…).
     page_marker: "PAGE"
+  es:
+    report_heading: "INFORME DE ORIGINALIDAD"
+    overall: "INDICE DE SIMILITUD"
+    database_internet: "FUENTES DE INTERNET"
+    database_publications: "PUBLICACIONES"
+    # On one line, or over two ("TRABAJOS DEL" / "ESTUDIANTE"); the figure comes before it.
+    database_student_papers: ["TRABAJOS DEL ESTUDIANTE", "TRABAJOS DEL"]
+    sources_heading: "FUENTES PRIMARIAS"
+    source_kinds:
+      "Fuente de Internet": internet
+      "Publicación": publication
+      "Trabajo del estudiante": student_paper
+    exclude_quotes: "Excluir citas"
+    exclude_bibliography: "Excluir bibliografía"
+    exclude_matches: "Excluir coincidencias"
+    switch_on: "Activo"
+    switch_off: "Apagado"
+    words: "palabras"
+    submission_date: "Fecha de entrega:"
+    submission_id: "Identificador de la entrega:"
+    word_count: "Total de palabras:"
+    character_count: "Total de caracteres:"
+    author_prefix: "por "
+    # "09-jun-2026 07:28p. m. (UTC+0100)"
+    months: [ene, feb, mar, abr, may, jun, jul, ago, sep, oct, nov, dic]
+    # No Spanish report with its GradeMark pages has been seen; "PÁGINA" is assumed. It only
+    # tells where the source list ends, which the rank numbers also show.
+    page_marker: "PÁGINA"
 
 enhanced:
   # The new, enhanced Similarity Report: Cover Page, Integrity Overview, Submission.

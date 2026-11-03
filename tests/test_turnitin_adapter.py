@@ -636,3 +636,112 @@ def test_parse_enhanced_date_in_spanish() -> None:
     )
     assert parse_enhanced_date("31 feb 2025, 3:18 a.m. GMT", months) is None
     assert parse_enhanced_date("1 xyz 2025, 3:18 a.m. GMT", months) is None
+
+
+# --- Feedback Studio, in Spanish ----------------------------------------------------------
+
+SPANISH_CLASSIC_COVER = [
+    "SYNTHETIC INFORME DE",
+    "BACHILLER-RIOS",
+    "Fecha de entrega: 09-jun-2026 07:28p. m. (UTC+0100)",
+    "Identificador de la entrega: 0000000002",
+    "Nombre del archivo: SYNTHETIC_INFORME.pdf (709.73K)",
+    "Total de palabras: 9173",
+    "Total de caracteres: 53595",
+    f"por {AUTHOR}",
+    "1",
+    "2",
+]
+SPANISH_CLASSIC_REPORT = [
+    "20%",
+    "INDICE DE SIMILITUD",
+    "21%",
+    "FUENTES DE INTERNET",
+    "4%",
+    "PUBLICACIONES",
+    "1%",
+    "TRABAJOS DEL",
+    "ESTUDIANTE",
+    "1 13%",
+    "2 7%",
+    "3 <1%",
+    "Excluir citas Apagado Excluir coincidencias < 3%",
+    "SYNTHETIC INFORME DE BACHILLER-RIOS",
+    "INFORME DE ORIGINALIDAD",
+    "FUENTES PRIMARIAS",
+    "www.example.org",
+    "Fuente de Internet",
+    "Submitted to Universidad Sintética",
+    "del Ejemplo",
+    "Trabajo del estudiante",
+    'A. Autora. "Un título sintético", Revista de Ejemplos, 2024',
+    "Excluir bibliografía Activo",
+    "Publicación",
+]
+
+
+def test_feedback_studio_report_in_spanish() -> None:
+    report = _parse(_pdf(SPANISH_CLASSIC_COVER, ["Cuerpo del trabajo."], SPANISH_CLASSIC_REPORT))
+    extensions = report.extensions["turnitin"]
+    assert (extensions["layout"], extensions["language"]) == ("feedback_studio", "es")
+    assert report.submission.title == "SYNTHETIC INFORME DE BACHILLER-RIOS"
+    assert report.submission.submission_id == "0000000002"
+    assert report.submission.submitted_at == datetime(
+        2026, 6, 9, 19, 28, tzinfo=timezone(timedelta(hours=1))
+    )
+    assert (report.submission.word_count, report.submission.character_count) == (9173, 53595)
+    assert report.similarity is not None
+    assert report.similarity.overall_percent == 20
+    filters = report.similarity.filters
+    assert (filters.quotes_excluded, filters.bibliography_excluded) == (False, True)
+    assert (filters.small_matches_excluded, filters.small_matches_min_percent) == (True, 3)
+    assert extensions["databases"] == {"internet": 21, "publications": 4, "student_papers": 1}
+    rows = [(s.rank, s.kind, s.percent, s.label) for s in report.similarity.sources]
+    assert rows == [
+        (1, SourceKind.INTERNET, 13, "www.example.org"),
+        (2, SourceKind.STUDENT_PAPER, 7, "Submitted to Universidad Sintética del Ejemplo"),
+        (
+            3,
+            SourceKind.PUBLICATION,
+            1,
+            'A. Autora. "Un título sintético", Revista de Ejemplos, 2024',
+        ),
+    ]
+    assert report.similarity.sources[2].percent_is_upper_bound is True
+    assert not any("misaligned" in w or "date" in w for w in report.warnings)
+    assert AUTHOR not in dump_report(report)
+
+
+def test_feedback_studio_in_spanish_with_author_first_and_one_line_label() -> None:
+    cover = [*SPANISH_CLASSIC_COVER[:2], f"por {AUTHOR}", *SPANISH_CLASSIC_COVER[2:7]]
+    lines = [
+        "TRABAJOS DEL ESTUDIANTE" if line == "TRABAJOS DEL" else line
+        for line in SPANISH_CLASSIC_REPORT
+        if line != "ESTUDIANTE"
+    ]
+    lines = [line.replace("BACHILLER-RIOS", "OTRO TÍTULO") for line in lines]
+    report = _parse(_pdf(cover, lines))
+    assert report.submission.title is None
+    databases = report.extensions["turnitin"]["databases"]
+    assert isinstance(databases, dict)
+    assert databases["student_papers"] == 1
+    assert AUTHOR not in dump_report(report)
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        (
+            "09-jun-2026 07:28p. m. (UTC+0100)",
+            datetime(2026, 6, 9, 19, 28, tzinfo=timezone(timedelta(hours=1))),
+        ),
+        (
+            "14-ago-2026 03:29a. m. (UTC-0500)",
+            datetime(2026, 8, 14, 3, 29, tzinfo=timezone(timedelta(hours=-5))),
+        ),
+        ("31-feb-2026 03:29a. m. (UTC-0500)", None),
+        ("14-xyz-2026 03:29a. m. (UTC-0500)", None),
+    ],
+)
+def test_parse_classic_date_in_spanish(text: str, expected: datetime | None) -> None:
+    assert parse_classic_date(text, labels()["feedback_studio"]["es"]["months"]) == expected

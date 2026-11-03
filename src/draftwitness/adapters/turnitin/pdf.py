@@ -59,7 +59,8 @@ _MONTHS: Final = {
     )
 }
 _CLASSIC_DATE = re.compile(
-    r"(\d{1,2})-([A-Za-z]{3})-(\d{4}) (\d{1,2}):(\d{2})\s*([AP]M)\s*\(UTC([+-])(\d{2}):?(\d{2})\)"
+    r"(\d{1,2})-([^\W\d_]{3})-(\d{4}) (\d{1,2}):(\d{2})\s*([AaPp])\.?\s?[Mm]\.?\s*"
+    r"\(UTC([+-])(\d{2}):?(\d{2})\)"
 )
 _ENHANCED_DATE = re.compile(
     r"([A-Za-z]{3}) (\d{1,2}), (\d{4}),? (\d{1,2}):(\d{2})\s*([AP]M)\s*"
@@ -142,15 +143,25 @@ def _clock(hour: str, minute: str, half: str) -> tuple[int, int]:
     return value, int(minute)
 
 
-def parse_classic_date(text: str) -> datetime | None:
-    """``22-Sep-2023 04:02PM (UTC+0800)`` as an aware datetime."""
+def parse_classic_date(text: str, months: list[str] | None = None) -> datetime | None:
+    """``22-Sep-2023 04:02PM (UTC+0800)`` as an aware datetime; with the language's
+    ``months``, also ``09-jun-2026 07:28p. m. (UTC+0100)``."""
     match = _CLASSIC_DATE.search(text)
-    if match is None or match.group(2).lower() not in _MONTHS:
+    if match is None:
         return None
-    day, month, year = int(match.group(1)), _MONTHS[match.group(2).lower()], int(match.group(3))
-    hour, minute = _clock(match.group(4), match.group(5), match.group(6))
-    zone = _offset(match.group(7), match.group(8), match.group(9))
-    return datetime(year, month, day, hour, minute, tzinfo=zone)
+    name = match.group(2).lower()
+    if name in _MONTHS:
+        month = _MONTHS[name]
+    elif months and name in months:
+        month = months.index(name) + 1
+    else:
+        return None
+    day, year = int(match.group(1)), int(match.group(3))
+    hour, minute = _clock(match.group(4), match.group(5), match.group(6) + "M")
+    try:
+        return datetime(year, month, day, hour, minute, tzinfo=_offset(*match.group(7, 8, 9)))
+    except ValueError:
+        return None
 
 
 def parse_enhanced_date(text: str, months: list[str] | None = None) -> datetime | None:
@@ -227,19 +238,38 @@ def _source(rank: int, label: str, kind: SourceKind, value: tuple[float, bool] |
 # --- Feedback Studio ----------------------------------------------------------------------
 
 
+def _letters(text: str) -> str:
+    return "".join(character for character in text.lower() if character.isalnum())
+
+
+def _fs_title(lines: list[str], words: dict[str, Any]) -> str | None:
+    """The submission title at the top of the cover, never the author name ("by …"). A
+    title wrapped over several lines is kept as Turnitin prints it again, on one line, just
+    above the report heading."""
+    head = lines[:20]
+    if len(head) > 1 and head[1].startswith(words["author_prefix"]):
+        return head[0]
+    fields = tuple(
+        words[key] for key in ("author_prefix", "submission_date", "submission_id", "word_count")
+    )
+    end = next((i for i, line in enumerate(head) if line.startswith(fields)), 0)
+    wrapped = _letters(" ".join(head[:end]))
+    for index, line in enumerate(lines[1:], start=1):
+        if line == words["report_heading"] and wrapped and _letters(lines[index - 1]) == wrapped:
+            return lines[index - 1]
+    return None
+
+
 def _fs_submission(lines: list[str], words: dict[str, Any], parsed: _Parsed) -> None:
     head = lines[:20]
     date_text = _after_prefix(head, words["submission_date"])
-    submitted = parse_classic_date(date_text) if date_text else None
+    submitted = parse_classic_date(date_text, words.get("months")) if date_text else None
     if date_text and submitted is None:
         parsed.warnings.append("The submission date could not be read.")
     word_count = _after_prefix(head, words["word_count"])
     characters = _after_prefix(head, words["character_count"])
-    title = None
-    if len(head) > 1 and head[1].startswith(words["author_prefix"]):
-        title = head[0]  # head[1] is the author name, which is not kept
     parsed.submission = Submission(
-        title=title,
+        title=_fs_title(lines, words),
         submission_id=_after_prefix(head, words["submission_id"]),
         submitted_at=submitted,
         word_count=_number(word_count) if word_count and word_count[0].isdigit() else None,
@@ -319,16 +349,25 @@ def _fs_names(
     return names
 
 
+def _split_switches(lines: list[str], words: dict[str, Any]) -> list[str]:
+    """The lines with each "Exclude …" switch on a line of its own: some reports print two
+    on one line ("Excluir citas Apagado Excluir coincidencias Apagado")."""
+    labels = (words["exclude_quotes"], words["exclude_bibliography"], words["exclude_matches"])
+    starts = re.compile("(?=" + "|".join(map(re.escape, labels)) + ")")
+    return [part.strip() for line in lines for part in starts.split(line) if part.strip()]
+
+
 def _feedback_studio(lines: list[str], words: dict[str, Any]) -> _Parsed:
     parsed = _Parsed(product="Feedback Studio")
     _fs_submission(lines, words, parsed)
     starts = [i for i, line in enumerate(lines) if line == words["overall"]]
-    report = lines[starts[-1] - 1 :]
+    report = _split_switches(lines[starts[-1] - 1 :], words)
     overall = _percent(report[0])
     parsed.overall = overall[0] if overall else None
     databases = {}
     for key in ("database_internet", "database_publications", "database_student_papers"):
-        value = _value_before(report, words[key])
+        labels_ = words[key] if isinstance(words[key], list) else [words[key]]
+        value = next((found for label in labels_ if (found := _value_before(report, label))), None)
         if value is not None:
             databases[key.removeprefix("database_")] = value[0]
     parsed.extensions["databases"] = databases

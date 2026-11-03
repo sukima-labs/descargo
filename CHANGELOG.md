@@ -22,7 +22,7 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
   sent. `--institution` with `--jurisdiction` drafts a generic letter for an institution
   with no profile.
 - `draftwitness import-report`: reads a downloaded Turnitin Similarity Report PDF (classic
-  Feedback Studio layout in English; enhanced layout in English and Spanish, with its
+  Feedback Studio layout and enhanced layout, in English and Spanish, with its
   integrity flags), a Turnitin AI Writing Report PDF (in English and Spanish, on its own or
   after the Similarity Report, with the passages it highlights as AI and its "*%" result
   under the 20 % threshold) or a Compilatio analysis report or

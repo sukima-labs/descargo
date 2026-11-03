@@ -22,7 +22,7 @@ describes the PDF downloads. DraftWitness reads three of them:
 
 | Layout | How to recognise it | What is read |
 |---|---|---|
-| Feedback Studio ("Current View"), in English | the paper, then a page headed "ORIGINALITY REPORT" | similarity index; Internet, publication and student-paper figures; the primary sources with their percentages; "Exclude quotes / bibliography / matches"; submission date, ID, word and character counts |
+| Feedback Studio ("Current View"), in English and Spanish | the paper, then a page headed "ORIGINALITY REPORT" ("INFORME DE ORIGINALIDAD") | similarity index; Internet, publication and student-paper figures; the primary sources with their percentages; "Exclude quotes / bibliography / matches"; submission date, ID, word and character counts |
 | Enhanced Similarity Report, in English and Spanish | a Cover Page ("Portada"), then an "Integrity Overview" ("Descripción general de integridad") | overall similarity; filters; exclusions; the four match groups (English only); database figures; integrity flags and what the report says about each, such as hidden text; the top sources; submission ID, date, pages, words and characters; the sections the PDF contains |
 | AI Writing Report, in English and Spanish, on its own or after the Similarity Report in the same PDF | an "AI Writing Overview" ("Descripción general de la escritura con IA") opening with "23% detected as AI" ("detectado como IA") | the share of text attributed to AI, or "*%" when it is under Turnitin's 20 % threshold; the two detection groups (English only); the passages highlighted in cyan, page by page; the same submission details as the Similarity Report |
 
@@ -70,9 +70,16 @@ lists and references. About the AI Writing Report:
 - **In a PDF with both reports,** only the AI Writing Report's own pages are searched for
   highlights, told apart by the page total in their footers.
 
-**Known gap.** The Spanish Feedback Studio layout ("Fecha de entrega", "Identificador de la
-entrega") is not read yet ([ADR 009](adr/009-first-three-detectors.md)). Scanned or
-image-only copies of a report have no text to read.
+The Spanish Feedback Studio layout was checked in November 2026 against three real reports of
+May, June and August 2026, read on the maintainer's machine only. All three read with
+every source paired with its percentage (2, 50 and 61 sources). The reports wrap the
+title over two lines and print the author further down ("por …"); the title is kept as
+Turnitin prints it again on one line above "INFORME DE ORIGINALIDAD", and the author is
+dropped. Some print two switches on one line ("Excluir citas Apagado Excluir coincidencias
+Apagado"), and "TRABAJOS DEL ESTUDIANTE" on one line or two; both are read. A fourth
+Spanish report, reprinted through Word as images, has no text to read.
+
+**Known gap.** Scanned or image-only copies of a report have no text to read.
 
 ### Facts from Turnitin's documentation worth knowing
 

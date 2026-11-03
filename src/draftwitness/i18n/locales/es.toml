@@ -60,7 +60,7 @@ review = "Revisa el escrito, elimina la nota del principio y envíalo tú. Draft
 [adapters]
 unreadable_pdf = "no se puede leer el PDF: {error}"
 not_turnitin = "no es un informe de Turnitin que DraftWitness sepa leer (el de similitud de Feedback Studio o el mejorado, o el de escritura con IA, en: {languages})."
-unknown_pdf = "no es un informe que DraftWitness sepa leer. Lee informes de similitud de Turnitin (Feedback Studio en inglés; el mejorado, en inglés y en español), informes de escritura con IA de Turnitin (en inglés y en español) e informes y certificados de análisis de Compilatio (Magister y Magister+, en español). Otros detectores e idiomas todavía no."
+unknown_pdf = "no es un informe que DraftWitness sepa leer. Lee informes de similitud de Turnitin (Feedback Studio y el mejorado, en inglés y en español), informes de escritura con IA de Turnitin (en inglés y en español) e informes y certificados de análisis de Compilatio (Magister y Magister+, en español). Otros detectores e idiomas todavía no."
 
 [import]
 summary = "{tool}: similitud general {percent} %, {sources} fuentes."
@@ -400,10 +400,10 @@ about_step_2 = "Si te marcan similitud o IA: sube el PDF del informe y, si quier
 about_step_3 = "Si no te dejan ver el informe: prepara una carta para pedirlo según la ley de protección de datos de tu país. No se envía nada: la revisas y la envías tú."
 about_more = "Más información: qué lee, qué no hace y tus datos"
 about_reads_title = "Qué informes lee hoy"
-about_reads_1 = "Turnitin: el informe de similitud nuevo («Similitud general») y el de escritura con IA («detectado como IA»), con los pasajes que marca, en inglés y en español; y el clásico de Feedback Studio, en inglés."
+about_reads_1 = "Turnitin: el informe de similitud nuevo («Similitud general») y el de escritura con IA («detectado como IA»), con los pasajes que marca, y el clásico de Feedback Studio («Informe de originalidad»), todos en inglés y en español."
 about_reads_2 = "Compilatio: informes y certificados de análisis de Magister y Magister+, en español, con el porcentaje de IA y los pasajes que marca."
 about_reads_3 = "Usa el PDF tal como lo descargaste del detector. Si se escaneó, se pegó dentro de otro documento o se volvió a guardar desde Word, puede no leerse bien."
-about_reads_4 = "Todavía no lee el clásico de Turnitin en español ni Copyleaks. Si tienes uno de esos, cuéntanoslo en «Enviar comentarios»."
+about_reads_4 = "Todavía no lee Copyleaks. Si tienes uno de sus informes, cuéntanoslo en «Enviar comentarios»."
 about_not_title = "Qué no hace"
 about_not_1 = "No reescribe ni «humaniza» textos y no enseña a esquivar un detector."
 about_not_2 = "No predice qué puntuación te daría un detector."
