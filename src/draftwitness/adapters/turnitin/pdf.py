@@ -1,20 +1,23 @@
-"""Read a Turnitin Similarity Report downloaded as PDF into the common report schema.
+"""Read a Turnitin report downloaded as PDF into the common report schema.
 
-Two layouts are recognised (``labels.yaml``):
+Three layouts are recognised (``labels.yaml``):
 
 - **Feedback Studio**: the paper, then an "ORIGINALITY REPORT" page with the similarity
   index, the per-database breakdown, the primary sources and the exclusions.
 - **Enhanced Similarity Report**: a Cover Page, an Integrity Overview (overall similarity,
   filters, match groups, database breakdown, integrity flags, top sources) and the paper.
+- **AI Writing Report** (:mod:`.ai`), on its own or after an enhanced Similarity Report in
+  the same PDF, which is then read as a combined report.
 
-Neither layout exposes the matched passages as text (they are coloured highlights), so the
-report carries sources but no matches, and the auditor uses its approximate method
-(ADR 005). Following ADR 004, the adapter records what the report says, never invents a
-value it could not read, adds a warning instead, and drops the author name and file name
-shown on the report.
+Neither Similarity Report layout exposes the matched passages as text (they are coloured
+highlights), so the report carries sources but no matches, and the auditor uses its
+approximate method (ADR 005). Following ADR 004, the adapter records what the report says,
+never invents a value it could not read, adds a warning instead, and drops the author name
+and file name shown on the report.
 """
 
 import re
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import UTC, datetime, timedelta, timezone
 from functools import cache
@@ -26,6 +29,7 @@ import yaml
 from draftwitness import __version__
 from draftwitness.adapters.base import AdapterError
 from draftwitness.adapters.pdftext import open_pdf, pdf_lines
+from draftwitness.adapters.turnitin.ai import AiParsed, has_overview, parse_ai
 from draftwitness.core.report_schema import (
     Provenance,
     Report,
@@ -44,6 +48,7 @@ ADAPTER_NAME: Final = "turnitin-pdf"
 ADAPTER_VERSION: Final = "0.1"
 FEEDBACK_STUDIO: Final = "feedback_studio"
 ENHANCED: Final = "enhanced"
+AI_WRITING: Final = "ai_writing"
 _PERCENT = re.compile(r"^(<\s*)?(\d+(?:[.,]\d+)?)\s*%$")
 _RANK_ROW = re.compile(r"^(\d+)\s+(<\s*)?(\d+(?:[.,]\d+)?)\s*%$")
 _MONTHS: Final = {
@@ -80,7 +85,8 @@ def _languages(layout: str) -> dict[str, dict[str, Any]]:
 
 
 def detect_layout(lines: list[str]) -> tuple[str, str] | None:
-    """``(layout, language)`` of the first label set that matches, or ``None``."""
+    """``(layout, language)`` of the first label set that matches, or ``None``. A PDF with
+    a Similarity Report and an AI Writing Report is detected as its Similarity Report."""
     present = set(lines)
     for language, fs in _languages(FEEDBACK_STUDIO).items():
         if {fs["report_heading"], fs["overall"], fs["sources_heading"]} <= present:
@@ -89,6 +95,27 @@ def detect_layout(lines: list[str]) -> tuple[str, str] | None:
         overall = any(line == en["overall"] or line.endswith(f" {en['overall']}") for line in lines)
         if overall and en["integrity_overview"] in {section for section, _ in _footers(lines, en)}:
             return ENHANCED, language
+    ai_language = _ai_language(lines)
+    return (AI_WRITING, ai_language) if ai_language else None
+
+
+def _ai_words(language: str) -> dict[str, Any]:
+    """The AI Writing Report's labels in ``language``, with the footer labels and cover
+    section it shares with the enhanced Similarity Report."""
+    shared = _languages(ENHANCED)[language]
+    return {**_languages(AI_WRITING)[language], "skip_sections": [shared["cover_page"]]}
+
+
+def _ai_footers(language: str) -> Callable[[list[str]], list[tuple[str, int]]]:
+    words = _languages(ENHANCED)[language]
+    return lambda lines: _footers(lines, words)
+
+
+def _ai_language(lines: list[str]) -> str | None:
+    """The language of the AI Writing Overview in ``lines``, if there is one."""
+    for language in _languages(AI_WRITING).keys() & _languages(ENHANCED).keys():
+        if has_overview(lines, _ai_words(language), _ai_footers(language)):
+            return language
     return None
 
 
@@ -590,6 +617,34 @@ def _check(parsed: _Parsed) -> None:
             )
 
 
+def _ai_cover(lines: list[str], language: str) -> _Parsed:
+    """The submission details of an AI Writing Report downloaded on its own: its cover page
+    has the same labels as the enhanced Similarity Report's."""
+    parsed = _Parsed(product="AI Writing Report")
+    words = _languages(ENHANCED)[language]
+    footers = _footers(lines, words)
+    _enhanced_cover(_without_footers(lines, words), words, parsed)
+    if parsed.submission.submission_id is None and (
+        found := _SUBMISSION_ID.search(" ".join(lines))
+    ):
+        parsed.submission = parsed.submission.model_copy(update={"submission_id": found.group(0)})
+    parsed.extensions["sections"] = list(dict.fromkeys(section for section, _ in footers))
+    return parsed
+
+
+def _read_ai(data: bytes, lines: list[str], language: str) -> AiParsed:
+    colour = tuple(float(c) for c in labels()[AI_WRITING]["ai_generated_colour"])
+    return parse_ai(open_pdf(data), lines, _ai_words(language), _ai_footers(language), colour)
+
+
+def _kind(parsed: _Parsed | None, ai: AiParsed | None) -> tuple[ReportKind, str]:
+    if parsed is None:
+        return ReportKind.AI_WRITING, "AI Writing Report"
+    if ai is None:
+        return ReportKind.SIMILARITY, parsed.product
+    return ReportKind.COMBINED, f"{parsed.product} + AI Writing Report"
+
+
 def parse_pdf(
     data: bytes,
     filename: str,
@@ -607,27 +662,42 @@ def parse_pdf(
             t("adapters.not_turnitin", languages=", ".join(sorted(_languages(ENHANCED))))
         )
     layout, language = detected
-    words = _languages(layout)[language]
-    parse = _feedback_studio if layout == FEEDBACK_STUDIO else _enhanced
-    parsed = parse(lines, words)
-    if parsed.overall is None:
-        raise AdapterError("the overall similarity percentage could not be read")
-    _check(parsed)
-    parsed.warnings.append(
-        "Turnitin PDF reports show matched passages only as coloured highlights, so the "
-        "report has sources but no matched text; the audit uses its approximate method."
-    )
-    if not parsed.sources and not any("source list" in w for w in parsed.warnings):
-        parsed.warnings.append("No source list was read from the report.")
-    pages = parsed.extensions.get("report_pages")
-    if isinstance(pages, int) and pages > len(open_pdf(data).pages):
-        parsed.warnings.append(
-            f"The report has {pages} pages but this PDF has {len(open_pdf(data).pages)}: it is an "
+    similarity: _Parsed | None = None
+    if layout == AI_WRITING:
+        details = _ai_cover(lines, language)
+        ai_language: str | None = language
+    else:
+        parse = _feedback_studio if layout == FEEDBACK_STUDIO else _enhanced
+        similarity = details = parse(lines, _languages(layout)[language])
+        if similarity.overall is None:
+            raise AdapterError("the overall similarity percentage could not be read")
+        _check(similarity)
+        similarity.warnings.append(
+            "Turnitin PDF reports show matched passages only as coloured highlights, so the "
+            "report has sources but no matched text; the audit uses its approximate method."
+        )
+        if not similarity.sources and not any("source list" in w for w in similarity.warnings):
+            similarity.warnings.append("No source list was read from the report.")
+        ai_language = _ai_language(lines) if layout == ENHANCED else None
+    ai = _read_ai(data, lines, ai_language) if ai_language else None
+    warnings = [*details.warnings, *(ai.warnings if ai else [])]
+    page_totals = [
+        pages
+        for pages in (details.extensions.get("report_pages"), ai and ai.extensions["report_pages"])
+        if isinstance(pages, int)
+    ]
+    pdf_pages = len(open_pdf(data).pages)
+    if page_totals and sum(page_totals) > pdf_pages:
+        warnings.append(
+            f"The report has {sum(page_totals)} pages but this PDF has {pdf_pages}: it is an "
             "extract, so some of the report may be missing."
         )
-    turnitin: dict[str, Any] = {"layout": layout, "language": language, **parsed.extensions}
+    turnitin: dict[str, Any] = {"layout": layout, "language": language, **details.extensions}
+    if ai is not None:
+        turnitin["ai_writing"] = {"language": ai_language, **ai.extensions}
+    kind, product = _kind(similarity, ai)
     return Report(
-        tool=Tool(name="turnitin", product=parsed.product, report_kind=ReportKind.SIMILARITY),
+        tool=Tool(name="turnitin", product=product, report_kind=kind),
         provenance=Provenance(
             adapter=ADAPTER_NAME,
             adapter_version=ADAPTER_VERSION,
@@ -640,10 +710,17 @@ def parse_pdf(
                 size_bytes=len(data),
             ),
         ),
-        submission=parsed.submission,
-        similarity=Similarity(
-            overall_percent=parsed.overall, filters=parsed.filters, sources=parsed.sources
+        submission=details.submission,
+        similarity=(
+            Similarity(
+                overall_percent=similarity.overall,
+                filters=similarity.filters,
+                sources=similarity.sources,
+            )
+            if similarity is not None and similarity.overall is not None
+            else None
         ),
-        warnings=parsed.warnings,
+        ai_writing=ai.ai_writing if ai else None,
+        warnings=warnings,
         extensions={"turnitin": turnitin},
     )

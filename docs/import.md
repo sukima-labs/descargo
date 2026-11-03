@@ -18,12 +18,13 @@ refers to the same file. **Not legal advice.**
 
 Turnitin's guide
 ([Downloading and sharing the Similarity Report](https://guides.turnitin.com/hc/en-us/articles/27881575386125))
-describes the PDF downloads. DraftWitness reads two of them:
+describes the PDF downloads. DraftWitness reads three of them:
 
 | Layout | How to recognise it | What is read |
 |---|---|---|
 | Feedback Studio ("Current View"), in English | the paper, then a page headed "ORIGINALITY REPORT" | similarity index; Internet, publication and student-paper figures; the primary sources with their percentages; "Exclude quotes / bibliography / matches"; submission date, ID, word and character counts |
 | Enhanced Similarity Report, in English and Spanish | a Cover Page ("Portada"), then an "Integrity Overview" ("Descripción general de integridad") | overall similarity; filters; exclusions; the four match groups (English only); database figures; integrity flags and what the report says about each, such as hidden text; the top sources; submission ID, date, pages, words and characters; the sections the PDF contains |
+| AI Writing Report, in English and Spanish, on its own or after the Similarity Report in the same PDF | an "AI Writing Overview" ("Descripción general de la escritura con IA") opening with "23% detected as AI" ("detectado como IA") | the share of text attributed to AI, or "*%" when it is under Turnitin's 20 % threshold; the two detection groups (English only); the passages highlighted in cyan, page by page; the same submission details as the Similarity Report |
 
 Not kept: the author name and the file name shown on the report. On the enhanced cover
 page, the title is kept only when it is the file name (Turnitin's default), because the
@@ -49,10 +50,29 @@ The enhanced layout was checked in October 2026 against five real reports read o
 maintainer's machine only ([ADR 009](adr/009-first-three-detectors.md)): one in English and
 four in Spanish (one full, three extracts, one of them reprinted through Word).
 
-**Known gap.** Turnitin's AI writing report ("detected as AI", "detectado como IA") and the
-Spanish Feedback Studio layout ("Fecha de entrega", "Identificador de la entrega") are not
-read yet ([ADR 009](adr/009-first-three-detectors.md)). Scanned or image-only copies of a
-report have no text to read.
+The AI Writing Report was checked in November 2026 against three real reports read on the
+maintainer's machine only: two in English (23 % and 0 %) and one in Spanish, after its
+Similarity Report, with a score under the threshold. On the English 23 % report, the
+highlighted passages make 6 runs and 473 words, about 17 % of all the words on the paper's
+pages; Turnitin's 23 % is a share of the text its model qualifies, which leaves out tables,
+lists and references. About the AI Writing Report:
+
+- **The result is the tool's.** The import records it as Turnitin states it and the audit
+  does not recompute it ([ADR 009](adr/009-first-three-detectors.md)).
+- **"\*%"** means the score is under 20 %: Turnitin then gives no figure and highlights
+  nothing, because, as the report says, such scores are more likely to be false positives.
+  The import keeps "\*%" as the label shown.
+- **Passages are read by the highlight behind them,** a piece of text at a time, so a
+  passage that starts or ends inside a line may gain or lose a few words there.
+- **Paraphrased text is not read yet.** Turnitin highlights text that was also
+  AI-paraphrased in purple, a colour no real report has shown so far; when that group is
+  above 0 %, the import says those passages are missing.
+- **In a PDF with both reports,** only the AI Writing Report's own pages are searched for
+  highlights, told apart by the page total in their footers.
+
+**Known gap.** The Spanish Feedback Studio layout ("Fecha de entrega", "Identificador de la
+entrega") is not read yet ([ADR 009](adr/009-first-three-detectors.md)). Scanned or
+image-only copies of a report have no text to read.
 
 ### Facts from Turnitin's documentation worth knowing
 

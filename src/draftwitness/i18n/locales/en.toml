@@ -59,11 +59,12 @@ review = "Review the letter, remove the note at the top, and send it yourself. D
 
 [adapters]
 unreadable_pdf = "cannot read PDF: {error}"
-not_turnitin = "not a Turnitin Similarity Report that DraftWitness can read (Feedback Studio or the enhanced Similarity Report, in: {languages})."
-unknown_pdf = "not a report DraftWitness can read. It reads Turnitin Similarity Reports (Feedback Studio in English; enhanced, in English and Spanish) and Compilatio analysis reports and certificates (Magister and Magister+, in Spanish). Other detectors and languages are not supported yet."
+not_turnitin = "not a Turnitin report that DraftWitness can read (the Feedback Studio or enhanced Similarity Report, or the AI Writing Report, in: {languages})."
+unknown_pdf = "not a report DraftWitness can read. It reads Turnitin Similarity Reports (Feedback Studio in English; enhanced, in English and Spanish), Turnitin AI Writing Reports (in English and Spanish) and Compilatio analysis reports and certificates (Magister and Magister+, in Spanish). Other detectors and languages are not supported yet."
 
 [import]
 summary = "{tool}: overall similarity {percent}%, {sources} sources."
+summary_ai = "{tool}: {percent} of the text attributed to AI, {passages} passages read."
 warning = "Note: {text}"
 
 [audit]

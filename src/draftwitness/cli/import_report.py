@@ -9,7 +9,8 @@ import typer
 from draftwitness.adapters import AdapterError, import_report
 from draftwitness.cli.common import check_targets, fail
 from draftwitness.core.report_schema import dump_report
-from draftwitness.i18n import t
+from draftwitness.i18n import get_locale, t
+from draftwitness.modules.post.audit.render import format_percent
 
 
 def import_report_command(
@@ -17,8 +18,8 @@ def import_report_command(
         Path,
         typer.Argument(
             metavar="REPORT",
-            help="The report you downloaded: a Turnitin Similarity Report or a Compilatio "
-            "analysis report, as PDF.",
+            help="The report you downloaded, as PDF: a Turnitin Similarity Report or AI "
+            "Writing Report, or a Compilatio analysis report.",
             exists=True,
             dir_okay=False,
         ),
@@ -55,6 +56,20 @@ def import_report_command(
                 tool=report.tool.product or report.tool.name,
                 percent=f"{similarity.overall_percent:g}",
                 sources=len(similarity.sources),
+            ),
+            err=out is None,
+        )
+    ai = report.ai_writing
+    if ai is not None:
+        shown = ai.label or ""
+        if ai.overall_percent is not None:
+            shown = format_percent(ai.overall_percent, get_locale())
+        typer.echo(
+            t(
+                "import.summary_ai",
+                tool=report.tool.product or report.tool.name,
+                percent=shown,
+                passages=len(ai.segments),
             ),
             err=out is None,
         )

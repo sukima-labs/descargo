@@ -138,3 +138,33 @@ enhanced:
     source_kinds:
       "Internet": internet
       "Publicación": publication
+
+ai_writing:
+  # The AI Writing Report: a Cover Page, an AI Writing Overview and the paper, with the
+  # passages it attributes to AI highlighted. Downloaded on its own, or in one PDF after the
+  # Similarity Report.
+  checked: 2026-11-03
+  verification: verified
+  source: >-
+    pypdf text and drawing operators of real reports, read on the maintainer's machine only:
+    two in English of February 2025 (23 % and 0 %, both without their cover page) and one in
+    Spanish of November 2025 (cover and overview only, after a Similarity Report, with a score
+    under the threshold, "*%"). The English cover labels are taken from the Similarity
+    Report's, which the Spanish AI cover shares; no English AI cover has been seen.
+  # Fill colour of the highlight behind the text Turnitin attributes to AI ("highlighted in
+  # cyan", as the report says). Seen in the English reports as rg 0.3203 0.7773 0.8555.
+  # Text that was also AI-paraphrased is highlighted purple, a colour no real report has
+  # shown yet, so it is not read.
+  ai_generated_colour: [0.3203, 0.7773, 0.8555]
+  en:
+    overview: "AI Writing Overview"
+    # "23% detected as AI", or "*% detected as AI" under the threshold.
+    detected: "detected as AI"
+    groups:
+      "AI-generated only": ai_generated
+      "AI-generated text that was AI-paraphrased": ai_paraphrased
+  es:
+    overview: "Descripción general de la escritura con IA"
+    detected: "detectado como IA"
+    # No Spanish report with its detection groups has been seen yet.
+    groups: {}
