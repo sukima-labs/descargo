@@ -9,7 +9,7 @@
 
 feedback_studio:
   # Feedback Studio "Current View" download: the paper, then an "ORIGINALITY REPORT" page.
-  checked: 2026-11-04
+  checked: 2026-11-03
   verification: verified
   source: >-
     pypdf text of a Turnitin report published by a journal; layout described in
