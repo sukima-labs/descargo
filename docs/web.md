@@ -10,7 +10,7 @@ It offers three of the CLI's commands, in English and Spanish:
 | Tab | Same as |
 |---|---|
 | Before you submit | `draftwitness inspect` |
-| Check a similarity report | `draftwitness audit` (and `import-report`: download the report as JSON) |
+| Check a detector report | `draftwitness audit` (and `import-report`: download the report as JSON) |
 | Ask for the report | `draftwitness access-request`, with a form instead of the YAML file; "not listed" options per country draft the generic letter (`--institution`) |
 | Send feedback | no CLI equivalent: a short form that prepares a message for the student to copy or open in their own e-mail |
 
