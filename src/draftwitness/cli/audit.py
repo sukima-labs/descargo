@@ -14,7 +14,7 @@ from draftwitness.core.documents import DocumentError, TextDocument, extract_tex
 from draftwitness.core.profiles import Profile, ProfileError, UnknownNodeError, find_profile
 from draftwitness.core.render.pdf import PdfMetadata, render_pdf
 from draftwitness.core.report_schema import Report
-from draftwitness.i18n import Locale, get_locale, t, tr
+from draftwitness.i18n import Locale, get_locale, t
 from draftwitness.modules.post.audit import (
     AuditError,
     Declarations,
@@ -24,7 +24,7 @@ from draftwitness.modules.post.audit import (
     load_declarations,
     render_markdown,
 )
-from draftwitness.modules.post.audit.render import format_percent
+from draftwitness.modules.post.audit.render import render_summary, render_title
 
 
 def _sha256(path: Path) -> str:
@@ -56,8 +56,8 @@ def audit_command(
         Path,
         typer.Argument(
             metavar="REPORT",
-            help="The detector report: a Turnitin Similarity Report or Compilatio analysis "
-            "report PDF, or DraftWitness JSON.",
+            help="The detector report: a Turnitin Similarity Report or AI Writing Report, or "
+            "a Compilatio analysis report, as PDF; or DraftWitness JSON.",
             exists=True,
             dir_okay=False,
         ),
@@ -164,7 +164,7 @@ def audit_command(
     out.parent.mkdir(parents=True, exist_ok=True)
     if output_format == "pdf":
         meta = PdfMetadata(
-            title=tr(lang, "audit.title"),
+            title=render_title(result, lang),
             language=lang,
             created=datetime(today.year, today.month, today.day, tzinfo=UTC),
             subject=result.submission_title,
@@ -173,11 +173,4 @@ def audit_command(
     else:
         out.write_text(content, encoding="utf-8")
     typer.echo(t("common.written", path=out))
-    typer.echo(
-        t(
-            "audit.summary",
-            original=format_percent(result.overall_percent, get_locale()),
-            adjusted=format_percent(result.adjusted_percent, get_locale()),
-            method=t(f"audit.method_name_{result.method.value}"),
-        )
-    )
+    typer.echo(render_summary(result, get_locale()))

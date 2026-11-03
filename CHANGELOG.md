@@ -35,7 +35,8 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
   work, explains every discount, and compares the result with the institution's published
   threshold. Reads `.docx`, `.odt`, `.pdf`, `.txt` and `.md` documents. When the report has
   an AI-writing result, the audit states it as the tool's, with the flagged passages,
-  without recomputing it.
+  without recomputing it; a report with only an AI-writing result gets that statement
+  alone, titled "AI writing result".
 - `draftwitness inspect`: lists invisible or unusual characters, metadata, tracked changes,
   comments and hidden text in `.docx`, `.odt`, `.pdf`, `.txt` and `.md` files, with what
   each item usually means. It never changes the file and gives no score.

@@ -100,8 +100,11 @@ def _finding_lines(finding: Finding, language: str) -> list[str]:
 def _threshold_line(check: ThresholdCheck, result: AuditResult, language: str) -> str:
     flag = _flag(check.verification, language)
     applies = f" ({check.applies_to})" if check.applies_to else ""
+    original, adjusted = result.overall_percent, result.adjusted_percent
     if check.kind is ThresholdKind.NONE_PUBLISHED or check.percent is None:
         text = tr(language, "audit.threshold_none", flag=flag)
+    elif original is None or adjusted is None:
+        return ""
     else:
 
         def side(exceeds: bool | None) -> str:
@@ -112,9 +115,9 @@ def _threshold_line(check: ThresholdCheck, result: AuditResult, language: str) -
             f"audit.threshold_{check.kind.value}",
             percent=format_percent(check.percent, language),
             applies=applies,
-            original=format_percent(result.overall_percent, language),
+            original=format_percent(original, language),
             original_side=side(check.original_exceeds),
-            adjusted=format_percent(result.adjusted_percent, language),
+            adjusted=format_percent(adjusted, language),
             adjusted_side=side(check.adjusted_exceeds),
             flag=flag,
         )
@@ -154,9 +157,9 @@ def _header(result: AuditResult, language: str) -> list[str]:
         tool = f"{tool} ({result.tool_product})"
     title = result.submission_title or tr(language, "audit.untitled")
     lines = [
-        f"# {tr(language, 'audit.title')}",
+        f"# {render_title(result, language)}",
         "",
-        f"> {tr(language, 'audit.intro')}",
+        f"> {tr(language, 'audit.intro_ai' if result.method is None else 'audit.intro')}",
         "",
         tr(
             language,
@@ -165,6 +168,10 @@ def _header(result: AuditResult, language: str) -> list[str]:
             title=title,
             date=format_date(result.generated_on, language),
         ),
+    ]
+    if result.overall_percent is None or result.adjusted_percent is None or result.method is None:
+        return lines
+    lines += [
         "",
         f"## {tr(language, 'audit.result')}",
         "",
@@ -294,8 +301,47 @@ def _inputs(result: AuditResult, language: str) -> list[str]:
     return lines
 
 
+def render_title(result: AuditResult, language: str) -> str:
+    """The audit's title: an AI writing result alone is not a similarity audit."""
+    return tr(language, "audit.title_ai" if result.method is None else "audit.title")
+
+
+def render_summary(result: AuditResult, language: str) -> str:
+    """One line with the audit's outcome, for the terminal or the web page."""
+    if result.overall_percent is None or result.adjusted_percent is None or result.method is None:
+        ai = result.ai_writing
+        shown = ""
+        if ai is not None:
+            shown = ai.label or ""
+            if ai.overall_percent is not None:
+                shown = format_percent(ai.overall_percent, language)
+        return tr(language, "audit.summary_ai", percent=shown)
+    return tr(
+        language,
+        "audit.summary",
+        original=format_percent(result.overall_percent, language),
+        adjusted=format_percent(result.adjusted_percent, language),
+        method=tr(language, f"audit.method_name_{result.method.value}"),
+    )
+
+
+def _ai_only_markdown(result: AuditResult, language: str) -> str:
+    sections = [_header(result, language), _ai(result, language)]
+    sections.append(
+        [f"## {tr(language, 'audit.notes')}", ""]
+        + ["- " + tr(language, f"audit.note_{n.code}", **n.params) for n in result.notes]
+    )
+    if result.inputs:
+        sections.append(_inputs(result, language))
+    sections.append(["---", "", tr(language, "documents.footer", version=__version__)])
+    return "\n\n".join("\n".join(section) for section in sections) + "\n"
+
+
 def render_markdown(result: AuditResult, language: str) -> str:
-    """The audit as Markdown, ending with the "not legal advice" footer."""
+    """The audit as Markdown, ending with the "not legal advice" footer. Without a
+    similarity result, only the AI result and the notes are shown."""
+    if result.method is None:
+        return _ai_only_markdown(result, language)
     sections = [
         _header(result, language),
         *([section] if (section := _ai(result, language)) else []),

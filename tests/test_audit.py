@@ -7,6 +7,7 @@ import pytest
 from draftwitness.core.documents import extract_text, text_document
 from draftwitness.core.profiles import Profile, find_profile
 from draftwitness.core.report_schema import Report, load_report
+from draftwitness.i18n import tr
 from draftwitness.modules.post.access_request import NOT_LEGAL_ADVICE_MARKERS
 from draftwitness.modules.post.audit import (
     AuditError,
@@ -22,7 +23,7 @@ from draftwitness.modules.post.audit import (
     load_declarations,
     render_markdown,
 )
-from draftwitness.modules.post.audit.render import format_percent
+from draftwitness.modules.post.audit.render import format_percent, render_summary
 from tests.conftest import FIXTURES, REPO_ROOT
 
 AUDIT = FIXTURES / "audit"
@@ -225,10 +226,42 @@ def test_filter_mismatch_notes(report: Report) -> None:
     assert "bibliography_filter_mismatch" in codes
 
 
-def test_ai_writing_only_report_cannot_be_audited() -> None:
+@pytest.mark.parametrize("language", ["en", "es"])
+def test_ai_writing_only_report_states_the_ai_result(language: str) -> None:
     report = load_report(FIXTURES / "reports" / "ai_writing_label_only.json")
-    with pytest.raises(AuditError, match="no similarity section"):
-        audit(report, today=TODAY)
+    result = audit(report, today=TODAY)
+    assert (result.overall_percent, result.adjusted_percent, result.method) == (None, None, None)
+    assert result.filters is None
+    assert (result.discounts, result.findings, result.sources) == ([], [], [])
+    assert [note.code for note in result.notes] == ["ai_only"]
+    assert result.ai_writing is not None
+    assert result.ai_writing.label == "SYNTHETIC: mixed"
+    markdown = render_markdown(result, language)
+    assert "SYNTHETIC: mixed" in markdown
+    assert "This sentence is synthetic test data." in markdown
+    assert tr(language, "audit.note_ai_only") in markdown
+    assert markdown.startswith(f"# {tr(language, 'audit.title_ai')}\n")
+    assert tr(language, "audit.intro_ai") in markdown
+    assert tr(language, "audit.intro") not in markdown
+    assert tr(language, "audit.result") not in markdown.split("\n## ")[1:]
+    assert NOT_LEGAL_ADVICE_MARKERS[language] in markdown.lower()
+    assert render_summary(result, language) == tr(
+        language, "audit.summary_ai", percent="SYNTHETIC: mixed"
+    )
+
+
+def test_ai_writing_only_report_with_a_percentage() -> None:
+    report = load_report(FIXTURES / "reports" / "ai_writing_label_only.json")
+    assert report.ai_writing is not None
+    ai = report.ai_writing.model_copy(update={"overall_percent": 23.0, "label": None})
+    result = audit(report.model_copy(update={"ai_writing": ai}), today=TODAY)
+    assert render_summary(result, "es") == tr("es", "audit.summary_ai", percent="23 %")
+
+
+def test_report_without_any_result_cannot_be_audited() -> None:
+    report = load_report(FIXTURES / "reports" / "ai_writing_label_only.json")
+    with pytest.raises(AuditError, match="neither a similarity nor an AI writing result"):
+        audit(report.model_copy(update={"ai_writing": None}), today=TODAY)
 
 
 def _combined(ai_writing: dict[str, Any]) -> Report:

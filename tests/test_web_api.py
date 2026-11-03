@@ -15,6 +15,10 @@ from draftwitness.i18n import DEFAULT_LOCALE, set_locale
 from draftwitness.web import api
 from draftwitness.web.api import _paths
 from tests.conftest import FIXTURES
+from tests.test_turnitin_ai_adapter import COVER as AI_COVER
+from tests.test_turnitin_ai_adapter import OVERVIEW as AI_OVERVIEW
+from tests.test_turnitin_ai_adapter import PAPER as AI_PAPER
+from tests.test_turnitin_ai_adapter import _pdf as ai_pdf
 
 AUDIT = FIXTURES / "audit"
 DAY = "2026-10-27"
@@ -101,6 +105,22 @@ def test_audit_matches_the_cli_figures() -> None:
     assert json.loads(result["report_json"])["tool"]["name"] == "turnitin"
     assert result["report_stem"] == "report-report"
     assert result["stem"] == f"audit-{DAY}"
+
+
+def test_audit_of_a_turnitin_ai_writing_report(tmp_path: Path) -> None:
+    pdf = tmp_path / "ai.pdf"
+    pdf.write_bytes(ai_pdf(AI_COVER, AI_OVERVIEW, AI_PAPER))
+    result = _load(web.audit(str(pdf), language="es", on=DAY))
+    assert result["ok"] is True, result.get("error")
+    assert result["title"] == "Resultado de escritura con IA"
+    assert result["summary"] == [
+        "Auditoría de un resultado de escritura con IA: la herramienta dice 23 %. No hay nada "
+        "que descontar."
+    ]
+    assert "This sentence is highlighted as AI, and so is its second line." in result["markdown"]
+    audit = json.loads(result["json"])
+    assert (audit["overall_percent"], audit["method"]) == (None, None)
+    assert json.loads(result["report_json"])["tool"]["report_kind"] == "ai_writing"
 
 
 def test_audit_reports_problems_instead_of_raising(tmp_path: Path) -> None:

@@ -144,5 +144,7 @@ def test_input_errors(tmp_path: Path) -> None:
 
     ai_only = str(FIXTURES / "reports" / "ai_writing_label_only.json")
     code, output = _run(ai_only)
-    assert code == 1
-    assert "no similarity section" in output
+    assert code == 0
+    assert "SYNTHETIC: mixed" in output
+    assert "# AI writing result" in output
+    assert "nothing to discount or recompute" in output

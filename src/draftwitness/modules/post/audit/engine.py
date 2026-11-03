@@ -178,15 +178,16 @@ class AuditResult(_Out):
     tool: str
     tool_product: str | None
     submission_title: str | None
-    overall_percent: float
-    adjusted_percent: float
-    method: Method
+    overall_percent: float | None
+    """``None`` when the report has no similarity part, as an AI Writing Report alone."""
+    adjusted_percent: float | None
+    method: Method | None
     denominator_words: int | None
     document_words: int | None
     report_words: int | None
     located_percent: float | None
     """Overall figure recomputed from the passages DraftWitness located, before discounts."""
-    filters: SimilarityFilters
+    filters: SimilarityFilters | None
     discounts: list[Discount]
     findings: list[Finding]
     sources: list[SourceSummary]
@@ -556,6 +557,33 @@ def _threshold_checks(
     return checks
 
 
+def _ai_only(report: Report, *, today: date, inputs: list[InputFile] | None) -> AuditResult:
+    """The audit of a report that has only an AI result: there is nothing to discount, so it
+    states that result as the tool's (ADR 009)."""
+    if report.ai_writing is None:
+        raise AuditError("the report has neither a similarity nor an AI writing result")
+    return AuditResult(
+        generated_on=today,
+        tool=report.tool.name,
+        tool_product=report.tool.product,
+        submission_title=report.submission.title,
+        overall_percent=None,
+        adjusted_percent=None,
+        method=None,
+        denominator_words=None,
+        document_words=None,
+        report_words=report.submission.word_count,
+        located_percent=None,
+        filters=None,
+        discounts=[],
+        findings=[],
+        sources=[],
+        notes=[Note(code="ai_only")],
+        inputs=inputs or [],
+        ai_writing=_ai_statement(report),
+    )
+
+
 def audit(
     report: Report,
     *,
@@ -567,7 +595,10 @@ def audit(
     rules: AuditRules | None = None,
     inputs: list[InputFile] | None = None,
 ) -> AuditResult:
-    """Audit ``report``. Pure function: it reads its arguments and writes nothing."""
+    """Audit ``report``. Pure function: it reads its arguments and writes nothing. A report
+    with no similarity part (an AI writing report) only has its AI result stated."""
+    if report.similarity is None:
+        return _ai_only(report, today=today, inputs=inputs)
     auditor = _Auditor(report, document, declarations or Declarations(), rules or load_rules())
     auditor.declare_sources()
     auditor.examine_matches()

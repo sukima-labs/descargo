@@ -46,7 +46,7 @@ from draftwitness.modules.post.audit import (
 )
 from draftwitness.modules.post.audit import audit as run_audit
 from draftwitness.modules.post.audit import render_markdown as audit_markdown
-from draftwitness.modules.post.audit.render import format_percent
+from draftwitness.modules.post.audit.render import render_summary, render_title
 from draftwitness.modules.pre.inspect import Level, inspect_file
 from draftwitness.modules.pre.inspect import render_markdown as inspect_markdown
 
@@ -237,15 +237,9 @@ def audit(
         AuditError,
     ) as exc:
         return _error(str(exc))
-    summary = tr(
-        lang,
-        "audit.summary",
-        original=format_percent(result.overall_percent, lang),
-        adjusted=format_percent(result.adjusted_percent, lang),
-        method=tr(lang, f"audit.method_name_{result.method.value}"),
-    )
+    summary = render_summary(result, lang)
     return _document(
-        title=tr(lang, "audit.title"),
+        title=render_title(result, lang),
         markdown=audit_markdown(result, lang),
         stem=f"audit-{today.isoformat()}",
         language=lang,
