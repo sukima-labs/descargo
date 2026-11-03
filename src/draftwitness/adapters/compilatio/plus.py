@@ -41,6 +41,7 @@ from draftwitness.core.report_schema import (
     Source,
     SourceKind,
 )
+from draftwitness.i18n import t
 
 _INDICATORS: Final = ("similarity", "ai", "unrecognised_languages", "quoted")
 _ROW_REACH: Final = 16.0
@@ -270,12 +271,10 @@ def _source(row: _Row, words: Words, parsed: _Parsed) -> None:
     percent = re.fullmatch(NUMBER, "".join(p.text for p in _read_order(row.percent)).strip())
     source_id = f"{row.group[0]}{row.number}"
     if source_id in parsed.groups:
-        parsed.warnings.append(
-            f"Source {row.number} appears twice in one table; the second was ignored."
-        )
+        parsed.warnings.append(t("adapters.warn_duplicate_source", source=row.number))
         return
     if percent is None:
-        parsed.warnings.append(f"The percentage of source {row.number} could not be read.")
+        parsed.warnings.append(t("adapters.warn_source_percent", source=row.number))
     kind = SourceKind.UNKNOWN
     if origin is not None or label.startswith(words["other_user_document"]):
         kind = SourceKind.STUDENT_PAPER
@@ -307,7 +306,7 @@ def _tables(drawings: list[_Drawing], words: Words) -> tuple[_Parsed, int | None
     start = _find(pieces, words["sources_section"])
     end = _find(pieces, words["points_of_interest"])
     if start is None:
-        parsed.warnings.append("No source table was found on the report.")
+        parsed.warnings.append(t("adapters.warn_no_source_table"))
         return parsed, end
     for row in _rows(pieces[start : end if end is not None else len(pieces)], words):
         if row.group == "mentioned":
@@ -367,15 +366,13 @@ def parse(
         raise AdapterError("the overall similarity percentage could not be read")
     overall, overall_bound = results["similarity"]
     if overall_bound:
-        warnings.append(
-            f"The report shows the overall similarity as “<{overall:g}%”; {overall:g}% is used."
-        )
+        warnings.append(t("adapters.warn_overall_bound", percent=f"{overall:g}"))
 
     drawings = _drawings(reader)
     parsed, body_at = _tables(drawings, words)
     warnings += parsed.warnings
     if "suspicious" in results and not results["suspicious"][1]:
-        warnings += overlap_warnings(parsed.sources, results["suspicious"][0], "suspicious-text")
+        warnings += overlap_warnings(parsed.sources, results["suspicious"][0], "suspicious")
 
     certificate = words["certificate"] in lines[:3]
     ai_writing = None
@@ -384,26 +381,15 @@ def parse(
         segments = _ai_segments(drawings, pieces[body_at]) if body_at is not None else []
         ai_writing = AiWriting(overall_percent=results["ai"][0], segments=segments)
         if certificate:
-            warnings.append(
-                "This is a Compilatio analysis certificate, which has no copy of the document, "
-                "so the passages flagged as AI cannot be read; the full analysis report has them."
-            )
+            warnings.append(t("adapters.warn_certificate"))
         elif results["ai"][0] > 0 and not segments:
-            warnings.append(
-                "The report gives an AI percentage, but no passage underlined in Compilatio's AI "
-                "colour was found; the flagged passages could not be read."
-            )
+            warnings.append(t("adapters.warn_compilatio_ai_no_underline"))
         elif segments:
-            warnings.append(
-                "The passages Compilatio attributes to AI were read from their underline in the "
-                "PDF; check them against the report."
-            )
+            warnings.append(t("adapters.warn_compilatio_ai_underline"))
         if details["included_in_suspicious"].get("ai") is False:
-            warnings.append(
-                "The report says its AI result is not included in its suspicious-text percentage."
-            )
+            warnings.append(t("adapters.warn_ai_not_in_suspicious"))
     else:
-        warnings.append("The AI percentage could not be read.")
+        warnings.append(t("adapters.warn_no_ai_percent"))
 
     months = words["months"]
     extensions: dict[str, Any] = {

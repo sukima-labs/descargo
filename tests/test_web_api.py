@@ -121,6 +121,8 @@ def test_audit_of_a_turnitin_ai_writing_report(tmp_path: Path) -> None:
     audit = json.loads(result["json"])
     assert (audit["overall_percent"], audit["method"]) == (None, None)
     assert json.loads(result["report_json"])["tool"]["report_kind"] == "ai_writing"
+    assert any("parafraseado con IA" in warning for warning in result["warnings"])
+    assert not any("could not" in warning for warning in result["warnings"])
 
 
 def test_audit_reports_problems_instead_of_raising(tmp_path: Path) -> None:

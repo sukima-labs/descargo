@@ -38,6 +38,7 @@ from draftwitness.core.report_schema import (
     Source,
     SourceKind,
 )
+from draftwitness.i18n import t
 
 _URL = re.compile(r"https?://")
 _RESULTS = ("suspicious", "similarity", "quoted", "cited", "unrecognised_languages", "ai")
@@ -77,7 +78,7 @@ def _source_row(text: str, group: str, words: Words, parsed: _Parsed) -> None:
     """One row of a source table, without its "identical words" ending."""
     row = re.match(rf"^(\d+)\s+(.*?)\s*(?:\d+\s+{words['similar_sources']}\s*)?{NUMBER}\s*$", text)
     if row is None:
-        parsed.warnings.append(f"A row of the source table was not understood: “{text}”.")
+        parsed.warnings.append(t("adapters.warn_unknown_row", text=text))
         return
     rank, body = int(row.group(1)), row.group(2)
     percent, bound = value(row, 3)
@@ -93,7 +94,7 @@ def _source_row(text: str, group: str, words: Words, parsed: _Parsed) -> None:
         kind = SourceKind.INTERNET
     source_id = f"{group[0]}{rank}"
     if source_id in parsed.groups:
-        parsed.warnings.append(f"Source {rank} appears twice in one table; the second was ignored.")
+        parsed.warnings.append(t("adapters.warn_duplicate_source", source=rank))
         return
     parsed.groups[source_id] = group
     parsed.sources.append(
@@ -125,9 +126,7 @@ def _table(lines: list[str], group: str, words: Words, parsed: _Parsed) -> None:
             )
         start = match.end()
     if text[start:].strip():
-        parsed.warnings.append(
-            "Some text after the source table was not recognised as a source and was ignored."
-        )
+        parsed.warnings.append(t("adapters.warn_text_after_table"))
 
 
 def _tables(lines: list[str], words: Words) -> _Parsed:
@@ -154,7 +153,7 @@ def _tables(lines: list[str], words: Words) -> _Parsed:
                     break
                 parsed.mentioned.append(cited.group(1))
     if starts["main"] is None and starts["incidental"] is None:
-        parsed.warnings.append("No source table was found on the report.")
+        parsed.warnings.append(t("adapters.warn_no_source_table"))
     return parsed
 
 
@@ -213,14 +212,12 @@ def parse(
         raise AdapterError("the overall similarity percentage could not be read")
     overall, overall_bound = results["similarity"]
     if overall_bound:
-        warnings.append(
-            f"The report shows the overall similarity as “<{overall:g}%”; {overall:g}% is used."
-        )
+        warnings.append(t("adapters.warn_overall_bound", percent=f"{overall:g}"))
 
     parsed = _tables(head, words)
     warnings += parsed.warnings
     if "suspicious" in results and not results["suspicious"][1]:
-        warnings += overlap_warnings(parsed.sources, results["suspicious"][0], "suspicious-text")
+        warnings += overlap_warnings(parsed.sources, results["suspicious"][0], "suspicious")
     elif not overall_bound:
         warnings += overlap_warnings(parsed.sources, overall, "overall")
 
@@ -229,19 +226,13 @@ def parse(
         segments = _ai_segments(reader)
         ai_writing = AiWriting(overall_percent=results["ai"][0], segments=segments)
         if results["ai"][0] > 0 and not segments:
-            warnings.append(
-                "The report gives an AI percentage, but no passage drawn in Compilatio's AI "
-                "colour was found; the flagged passages could not be read."
-            )
+            warnings.append(t("adapters.warn_compilatio_ai_no_colour"))
         elif segments:
-            warnings.append(
-                "The passages Compilatio attributes to AI were read from their colour in the "
-                "PDF; check them against the report."
-            )
+            warnings.append(t("adapters.warn_compilatio_ai_colour"))
         if "ai" in ignored:
-            warnings.append("The report marks its AI result “(ignorado)”.")
+            warnings.append(t("adapters.warn_ai_ignored"))
     else:
-        warnings.append("The AI percentage could not be read.")
+        warnings.append(t("adapters.warn_no_ai_percent"))
 
     product = head[head.index(words["heading"]) + 1] if words["heading"] in head[:-1] else None
     extensions: dict[str, Any] = {

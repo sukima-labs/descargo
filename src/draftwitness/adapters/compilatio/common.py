@@ -22,6 +22,7 @@ from draftwitness.core.report_schema import (
     Submission,
     Tool,
 )
+from draftwitness.i18n import t
 
 ADAPTER_NAME: Final = "compilatio-pdf"
 ADAPTER_VERSION: Final = "0.2"
@@ -121,10 +122,15 @@ def joined_runs(runs: list[list[tuple[float, str]]]) -> list[str]:
 
 
 def overlap_warnings(sources: list[Source], ceiling: float, label: str) -> list[str]:
-    """A source can match no more of the document than the report's ``ceiling``."""
+    """A source can match no more of the document than the report's ``ceiling``; ``label``
+    names it: "overall" or "suspicious"."""
     return [
-        f"Source {source.label} is shown with {source.percent:g}%, more than the {label} "
-        f"{ceiling:g}%: the report may have been misread or edited."
+        t(
+            "adapters.warn_source_above",
+            source=source.label,
+            percent=f"{source.percent:g}",
+            ceiling=t(f"adapters.ceiling_{label}", percent=f"{ceiling:g}"),
+        )
         for source in sources
         if source.percent is not None and source.percent > ceiling
     ]
@@ -158,10 +164,7 @@ def build_report(
     warnings: list[str],
     extensions: dict[str, Any],
 ) -> Report:
-    warnings.append(
-        "Compilatio PDF reports show matched passages only as highlights, so the report has "
-        "sources but no matched text; the audit uses its approximate method."
-    )
+    warnings.append(t("adapters.warn_compilatio_highlights"))
     return Report(
         tool=Tool(name="compilatio", product=product, report_kind=ReportKind.COMBINED),
         provenance=Provenance(

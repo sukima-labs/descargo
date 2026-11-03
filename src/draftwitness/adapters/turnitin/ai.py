@@ -250,24 +250,13 @@ def parse_ai(
         },
     )
     if below:
-        parsed.warnings.append(
-            "Turnitin shows “*%”: its score is under the 20 % threshold, so the report gives "
-            "no figure and highlights no text. The report itself says such scores are more "
-            "likely to be false positives."
-        )
+        parsed.warnings.append(t("adapters.warn_ai_below_threshold"))
     if groups.get("ai_paraphrased"):
         parsed.warnings.append(
-            f"Turnitin says {groups['ai_paraphrased']:g}% is AI-generated text that was then "
-            "AI-paraphrased. It highlights that text in purple, which DraftWitness does not "
-            "read yet, so those passages are missing here."
+            t("adapters.warn_ai_paraphrased", percent=f"{groups['ai_paraphrased']:g}")
         )
     if percent and not segments:
         parsed.warnings.append(
-            "The passages Turnitin attributes to AI could not be read: "
-            + (
-                "this PDF has none of the report's pages with the paper."
-                if paper_pages == 0
-                else "no highlighted text was found on the report's pages with the paper."
-            )
+            t("adapters.warn_ai_no_paper" if paper_pages == 0 else "adapters.warn_ai_no_highlights")
         )
     return parsed

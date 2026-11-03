@@ -265,7 +265,7 @@ def _fs_submission(lines: list[str], words: dict[str, Any], parsed: _Parsed) -> 
     date_text = _after_prefix(head, words["submission_date"])
     submitted = parse_classic_date(date_text, words.get("months")) if date_text else None
     if date_text and submitted is None:
-        parsed.warnings.append("The submission date could not be read.")
+        parsed.warnings.append(t("adapters.warn_date"))
     word_count = _after_prefix(head, words["word_count"])
     characters = _after_prefix(head, words["character_count"])
     parsed.submission = Submission(
@@ -336,16 +336,14 @@ def _fs_names(
             if buffer:
                 names.append((" ".join(buffer), SourceKind(kinds[line])))
             else:
-                parsed.warnings.append("A source in the list has no name.")
+                parsed.warnings.append(t("adapters.warn_source_no_name"))
             buffer = []
         elif line in skip or _RANK_ROW.match(line) or _PERCENT.match(line):
             continue
         elif not line.startswith(excludes):
             buffer.append(line)
     if buffer and buffer != [parsed.submission.title]:
-        parsed.warnings.append(
-            "Some text after the source list was not recognised as a source and was ignored."
-        )
+        parsed.warnings.append(t("adapters.warn_text_after_sources"))
     return names
 
 
@@ -377,8 +375,7 @@ def _feedback_studio(lines: list[str], words: dict[str, Any]) -> _Parsed:
     names = _fs_names(report, words, parsed)
     if len(names) != len(ranks):
         parsed.warnings.append(
-            f"The report lists {len(ranks)} source percentages but {len(names)} source names; "
-            "they were paired in order and may be misaligned."
+            t("adapters.warn_misaligned", percentages=len(ranks), names=len(names))
         )
     for rank, (label, kind) in enumerate(names, start=1):
         parsed.sources.append(_source(rank, label, kind, ranks.get(rank)))
@@ -459,7 +456,7 @@ def _enhanced_cover(lines: list[str], words: dict[str, Any], parsed: _Parsed) ->
     try:
         details = lines.index(words["document_details"])
     except ValueError:
-        parsed.warnings.append("The cover page was not found.")
+        parsed.warnings.append(t("adapters.warn_no_cover"))
         return
     cover = lines[details : details + 30]
     file_name = next(
@@ -467,14 +464,11 @@ def _enhanced_cover(lines: list[str], words: dict[str, Any], parsed: _Parsed) ->
     )
     title = _cover_title(lines[max(0, details - 6) : details], file_name)
     if title is None:
-        parsed.warnings.append(
-            "The submission title could not be told apart from the author name on the cover "
-            "page, so neither was kept."
-        )
+        parsed.warnings.append(t("adapters.warn_title_dropped"))
     date_text = _next_value(cover, words["submission_date"])
     submitted = parse_enhanced_date(date_text, words["months"]) if date_text else None
     if date_text and submitted is None:
-        parsed.warnings.append("The submission date could not be read.")
+        parsed.warnings.append(t("adapters.warn_date"))
     parsed.submission = Submission(
         title=title,
         submission_id=_next_value(cover, words["submission_id"]),
@@ -513,13 +507,10 @@ def _enhanced_filters(lines: list[str], words: dict[str, Any], parsed: _Parsed) 
                 if key == "small_matches" and bound:
                     min_words = int(bound.group(1))
                 if label in words["filters_needing_verification"]:
-                    parsed.warnings.append(
-                        f"The filter label “{label}” has not yet been checked against a real "
-                        "report; check the filters shown on yours."
-                    )
+                    parsed.warnings.append(t("adapters.warn_unchecked_filter", label=label))
                 break
         else:
-            parsed.warnings.append(f"Unrecognised filter on the report: “{item}”.")
+            parsed.warnings.append(t("adapters.warn_unknown_filter", item=item))
     parsed.filters = SimilarityFilters(
         quotes_excluded=found.get("quotes", False),
         bibliography_excluded=found.get("bibliography", False),
@@ -547,10 +538,7 @@ def _integrity_flags(lines: list[str], words: dict[str, Any], parsed: _Parsed) -
             notes.append(line)
     parsed.extensions["integrity_flag_notes"] = notes
     if notes:
-        parsed.warnings.append(
-            "The report raises integrity flags: " + " ".join(notes) + " Check them with "
-            "`draftwitness inspect` on your own file."
-        )
+        parsed.warnings.append(t("adapters.warn_integrity_flags", notes=" ".join(notes)))
 
 
 def _enhanced_overview(lines: list[str], words: dict[str, Any], parsed: _Parsed) -> None:
@@ -606,7 +594,7 @@ def _enhanced_sources(lines: list[str], words: dict[str, Any], parsed: _Parsed) 
         kind_label, name_lines, value = row
         if kind_label not in kinds:
             parsed.warnings.append(
-                f"Source {lines[index]} has a type the adapter does not know: “{kind_label}”."
+                t("adapters.warn_unknown_source_kind", source=lines[index], kind=kind_label)
             )
         name = " ".join(name_lines)
         truncated = truncated or name.endswith(("...", "…"))
@@ -614,16 +602,11 @@ def _enhanced_sources(lines: list[str], words: dict[str, Any], parsed: _Parsed) 
         parsed.sources.append(_source(len(parsed.sources) + 1, name or kind_label, kind, value))
         index += 2 + len(name_lines) + 1
     if truncated:
-        parsed.warnings.append("The report shortens long source names; they end in “...”.")
+        parsed.warnings.append(t("adapters.warn_shortened_names"))
     if index < len(lines) and lines[index].isdigit() and _source_row(lines, index):
-        parsed.warnings.append(
-            "The source list is not numbered 1, 2, 3…; the rows after the gap were not read."
-        )
+        parsed.warnings.append(t("adapters.warn_rank_gap"))
     if not parsed.sources:
-        parsed.warnings.append(
-            "The report's source list could not be read. If this PDF was saved again through "
-            "another program, such as Word, use the PDF downloaded from Turnitin instead."
-        )
+        parsed.warnings.append(t("adapters.warn_unreadable_source_list"))
 
 
 def _enhanced(lines: list[str], words: dict[str, Any]) -> _Parsed:
@@ -651,8 +634,12 @@ def _check(parsed: _Parsed) -> None:
     for source in parsed.sources:
         if source.percent is not None and source.percent > parsed.overall:
             parsed.warnings.append(
-                f"Source {source.rank} is shown with {source.percent:g}%, more than the overall "
-                f"{parsed.overall:g}%: the report may have been misread or edited."
+                t(
+                    "adapters.warn_source_above",
+                    source=source.rank,
+                    percent=f"{source.percent:g}",
+                    ceiling=t("adapters.ceiling_overall", percent=f"{parsed.overall:g}"),
+                )
             )
 
 
@@ -711,12 +698,10 @@ def parse_pdf(
         if similarity.overall is None:
             raise AdapterError("the overall similarity percentage could not be read")
         _check(similarity)
-        similarity.warnings.append(
-            "Turnitin PDF reports show matched passages only as coloured highlights, so the "
-            "report has sources but no matched text; the audit uses its approximate method."
-        )
-        if not similarity.sources and not any("source list" in w for w in similarity.warnings):
-            similarity.warnings.append("No source list was read from the report.")
+        similarity.warnings.append(t("adapters.warn_turnitin_highlights"))
+        unreadable = t("adapters.warn_unreadable_source_list")
+        if not similarity.sources and unreadable not in similarity.warnings:
+            similarity.warnings.append(t("adapters.warn_no_source_list"))
         ai_language = _ai_language(lines) if layout == ENHANCED else None
     ai = _read_ai(data, lines, ai_language) if ai_language else None
     warnings = [*details.warnings, *(ai.warnings if ai else [])]
@@ -727,10 +712,7 @@ def parse_pdf(
     ]
     pdf_pages = len(open_pdf(data).pages)
     if page_totals and sum(page_totals) > pdf_pages:
-        warnings.append(
-            f"The report has {sum(page_totals)} pages but this PDF has {pdf_pages}: it is an "
-            "extract, so some of the report may be missing."
-        )
+        warnings.append(t("adapters.warn_extract", report=sum(page_totals), pdf=pdf_pages))
     turnitin: dict[str, Any] = {"layout": layout, "language": language, **details.extensions}
     if ai is not None:
         turnitin["ai_writing"] = {"language": ai_language, **ai.extensions}
