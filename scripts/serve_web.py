@@ -9,6 +9,7 @@ worker load only files from this site, keeps no access log, and does not list fo
 
 import argparse
 import functools
+import sys
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from os import PathLike
 from pathlib import Path
@@ -68,6 +69,18 @@ class Handler(SimpleHTTPRequestHandler):
         """Keep no access log: who opened the page, and when, is nobody's business."""
 
 
+class Server(ThreadingHTTPServer):
+    def handle_error(self, request: object, client_address: tuple[str, int]) -> None:
+        """Ignore visitors who close the tab mid-download; report anything else.
+
+        The base class prints a traceback with the client's address for every request that
+        fails, so each closed tab would leave an access-log line after all.
+        """
+        if isinstance(sys.exc_info()[1], ConnectionError):
+            return
+        super().handle_error(request, client_address)  # type: ignore[arg-type]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0] if __doc__ else None)
     parser.add_argument("--host", default="127.0.0.1")
@@ -77,7 +90,7 @@ def main() -> None:
     if not (args.dir / "index.html").is_file():
         raise SystemExit(f"{args.dir} has no index.html: run scripts/build_web.py first")
     handler = functools.partial(Handler, directory=str(args.dir))
-    with ThreadingHTTPServer((args.host, args.port), handler) as server:
+    with Server((args.host, args.port), handler) as server:
         print(f"Serving {args.dir} on http://{args.host}:{args.port}/ (Ctrl+C to stop)")
         server.serve_forever()
 
