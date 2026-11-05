@@ -1,14 +1,14 @@
 # Importing a detector report
 
-`draftwitness import-report` turns the report you downloaded into DraftWitness's
+`descargo import-report` turns the report you downloaded into Descargo's
 [report format](../schemas/report/0.1.json) (JSON), which the other commands read.
-`draftwitness audit` accepts the downloaded PDF directly and runs the same import. The
+`descargo audit` accepts the downloaded PDF directly and runs the same import. The
 design is in [ADR 004](adr/004-report-schema.md).
 
 ```bash
-uv run draftwitness import-report turnitin-report.pdf --out report.json
-uv run draftwitness import-report informe-compilatio.pdf --out report.json
-uv run draftwitness audit turnitin-report.pdf --document my-essay.docx --profile es/uah
+uv run descargo import-report turnitin-report.pdf --out report.json
+uv run descargo import-report informe-compilatio.pdf --out report.json
+uv run descargo audit turnitin-report.pdf --document my-essay.docx --profile es/uah
 ```
 
 The file is only read. The JSON records the report's SHA-256, so anyone can check that it
@@ -18,7 +18,7 @@ refers to the same file. **Not legal advice.**
 
 Turnitin's guide
 ([Downloading and sharing the Similarity Report](https://guides.turnitin.com/hc/en-us/articles/27881575386125))
-describes the PDF downloads. DraftWitness reads three of them:
+describes the PDF downloads. Descargo reads three of them:
 
 | Layout | How to recognise it | What is read |
 |---|---|---|
@@ -94,14 +94,14 @@ Spanish report, reprinted through Word as images, has no text to read.
   For work in Spanish they say nothing about how well it is cited.
 - **Integrity flags** cover hidden text and replaced characters
   ([Integrity Flags](https://guides.turnitin.com/hc/en-us/articles/27397357797517)).
-  `draftwitness inspect` shows both kinds of content in your own file.
+  `descargo inspect` shows both kinds of content in your own file.
 - Turnitin's **Submission Details** show investigators the file's author, "last modified
   by", paper size, software, fonts and a count of American and British spellings
   ([Submission Details and Document Details](https://guides.turnitin.com/hc/en-us/articles/30872471895821)).
 
 ## Compilatio
 
-DraftWitness reads Compilatio's analysis report PDF in Spanish, in its two layouts. Both
+Descargo reads Compilatio's analysis report PDF in Spanish, in its two layouts. Both
 were learned from real reports read on the maintainer's machine only
 ([ADR 009](adr/009-first-three-detectors.md)): three Magister reports of September to
 December 2025, and five Magister+ reports and one certificate of March to July 2026.
@@ -150,8 +150,8 @@ recompute or discount them.
 ## Adding a layout or a language
 
 The labels the adapters look for are in `labels.yaml` next to each adapter
-([Turnitin](../src/draftwitness/adapters/turnitin/labels.yaml),
-[Compilatio](../src/draftwitness/adapters/compilatio/labels.yaml)). To support a report in
+([Turnitin](../src/descargo/adapters/turnitin/labels.yaml),
+[Compilatio](../src/descargo/adapters/compilatio/labels.yaml)). To support a report in
 another language, add its labels under a new language key (for Compilatio, under its
 layout) and a synthetic test in `tests/test_<tool>_adapter.py`. Never commit a real report: check it on your own
 machine and describe in the pull request which labels you saw.

@@ -5,7 +5,7 @@
 
 ## Context
 
-The maintainer wants DraftWitness to work with the three detectors that universities use
+The maintainer wants Descargo to work with the three detectors that universities use
 most. "Work with" means that a student who has the tool's downloaded report can:
 
 1. read it into the common report format (ADR 004), for similarity and, where the tool
@@ -13,7 +13,7 @@ most. "Work with" means that a student who has the tool's downloaded report can:
 2. audit it (ADR 005) or have it explained;
 3. name the tool in an access request (already possible for ten tools).
 
-On 2026-10-27, DraftWitness reads only one kind of report: Turnitin's Similarity Report PDF,
+On 2026-10-27, Descargo reads only one kind of report: Turnitin's Similarity Report PDF,
 in English. There is no adapter for a Turnitin report downloaded in Spanish, for Turnitin's
 AI writing report, or for any other tool.
 
@@ -80,11 +80,11 @@ For each tool, both kinds of report are in scope, in English and Spanish. The or
 
 ### What an AI result means here
 
-Reading an AI writing result into the report format is in scope. How DraftWitness explains
+Reading an AI writing result into the report format is in scope. How Descargo explains
 it is a separate decision for the next ADR (010; the LLM ADR moves to 011). That covers
 what the tool claims and its documented error rates, which passages are flagged, and what a
 flag does not prove. Until that ADR is decided, the audit shows an AI figure as the tool's
-statement, without discounting or recomputing it. ADR 002 still applies: DraftWitness never
+statement, without discounting or recomputing it. ADR 002 still applies: Descargo never
 predicts or lowers a score.
 
 ## Consequences

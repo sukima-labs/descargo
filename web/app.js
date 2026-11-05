@@ -14,7 +14,7 @@ let current = null; // the result on screen, kept only in memory
 
 function rememberLanguage(value) {
   try {
-    localStorage.setItem("draftwitness-language", value);
+    localStorage.setItem("descargo-language", value);
   } catch {
     // Private windows may refuse storage; the choice then lasts until the tab closes.
   }
@@ -22,7 +22,8 @@ function rememberLanguage(value) {
 
 function savedLanguage() {
   try {
-    return localStorage.getItem("draftwitness-language");
+    // The project was called DraftWitness until 2026-11-05; keep the choice testers made then.
+    return localStorage.getItem("descargo-language") ?? localStorage.getItem("draftwitness-language");
   } catch {
     return null;
   }
@@ -364,7 +365,7 @@ function make(tag, text) {
   return inline(document.createElement(tag), text ?? "");
 }
 
-// Draw the blocks that draftwitness.core.render.pdf.markdown_blocks produces.
+// Draw the blocks that descargo.core.render.pdf.markdown_blocks produces.
 function drawBlocks(container, blocks) {
   container.replaceChildren();
   let list = null; // the open <ul>/<ol> and its nested list
@@ -490,11 +491,11 @@ async function start() {
   lang = wanted.toLowerCase().startsWith("es") ? "es" : "en";
   applyLanguage();
   $("#build").textContent = t("build_info", {
-    version: build.draftwitness,
+    version: build.descargo,
     commit: build.commit.slice(0, 7),
     pyodide: build.pyodide,
   });
-  buildInfo = `${build.draftwitness} (${build.commit.slice(0, 7)})`;
+  buildInfo = `${build.descargo} (${build.commit.slice(0, 7)})`;
   updateFeedback();
   setStatus(loaded ? t("ready") : t("loading"), loaded ? "ok" : "");
 }

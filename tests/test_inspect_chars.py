@@ -2,15 +2,15 @@ import struct
 
 import pytest
 
-from draftwitness.modules.pre.inspect import FindingKind, Level, Location
-from draftwitness.modules.pre.inspect.chars import (
+from descargo.modules.pre.inspect import FindingKind, Level, Location
+from descargo.modules.pre.inspect.chars import (
     Segment,
     code_name,
     decode_c2pa,
     scan_characters,
     visible,
 )
-from draftwitness.modules.pre.inspect.models import Finding
+from descargo.modules.pre.inspect.models import Finding
 
 
 def _vs(data: bytes) -> str:

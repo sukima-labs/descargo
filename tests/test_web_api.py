@@ -7,13 +7,13 @@ from typing import Any
 
 import pytest
 
-from draftwitness import web
-from draftwitness.core.data import DataFolder
-from draftwitness.core.data import data_dir as bundled_data_dir
-from draftwitness.core.profiles import load_profile
-from draftwitness.i18n import DEFAULT_LOCALE, set_locale
-from draftwitness.web import api
-from draftwitness.web.api import _paths
+from descargo import web
+from descargo.core.data import DataFolder
+from descargo.core.data import data_dir as bundled_data_dir
+from descargo.core.profiles import load_profile
+from descargo.i18n import DEFAULT_LOCALE, set_locale
+from descargo.web import api
+from descargo.web.api import _paths
 from tests.conftest import FIXTURES
 from tests.test_turnitin_ai_adapter import COVER as AI_COVER
 from tests.test_turnitin_ai_adapter import OVERVIEW as AI_OVERVIEW
@@ -39,7 +39,7 @@ def _load(text: str) -> dict[str, Any]:
 
 
 def test_importing_the_web_api_does_not_import_the_cli() -> None:
-    code = "import sys, draftwitness.web; sys.exit('typer' in sys.modules)"
+    code = "import sys, descargo.web; sys.exit('typer' in sys.modules)"
     assert subprocess.run([sys.executable, "-c", code], check=False).returncode == 0  # noqa: S603
 
 

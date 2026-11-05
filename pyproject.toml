@@ -1,12 +1,12 @@
 [project]
-name = "draftwitness"
+name = "descargo"
 version = "0.1.0.dev0"
 description = "Local-first evidence toolkit for students facing plagiarism and AI-detector false positives."
 readme = "README.md"
 license = "AGPL-3.0-or-later"
 license-files = ["LICENSE"]
 requires-python = ">=3.12"
-authors = [{ name = "DraftWitness contributors" }]
+authors = [{ name = "Descargo contributors" }]
 keywords = ["academic-integrity", "plagiarism", "ai-detection", "false-positive", "students", "gdpr", "ferpa"]
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
@@ -35,7 +35,7 @@ dependencies = [
 ]
 
 [project.scripts]
-draftwitness = "draftwitness.cli.app:main"
+descargo = "descargo.cli.app:main"
 
 [dependency-groups]
 dev = [
@@ -57,7 +57,7 @@ requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/draftwitness"]
+packages = ["src/descargo"]
 
 [tool.hatch.build.targets.sdist]
 include = [
@@ -86,13 +86,13 @@ max-args = 8
 # Tests use typographic quotes and dashes on purpose (RUF001).
 "tests/**" = ["S101", "ANN", "PLR0913", "RUF001"]
 # Typer maps every CLI option to a function parameter.
-"src/draftwitness/cli/**" = ["PLR0913", "PLR0917"]
+"src/descargo/cli/**" = ["PLR0913", "PLR0917"]
 
 [tool.mypy]
 python_version = "3.12"
 strict = true
 mypy_path = "src"
-packages = ["draftwitness"]
+packages = ["descargo"]
 warn_unreachable = true
 plugins = ["pydantic.mypy"]
 
@@ -103,19 +103,19 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 # --disable-socket enforces principle 1 (no network) across the whole suite.
-addopts = "-ra --strict-markers --disable-socket --cov=draftwitness --cov-report=term-missing"
+addopts = "-ra --strict-markers --disable-socket --cov=descargo --cov-report=term-missing"
 testpaths = ["tests"]
 filterwarnings = ["error"]
 
 [tool.coverage.run]
 branch = true
-omit = ["src/draftwitness/__main__.py"]
+omit = ["src/descargo/__main__.py"]
 
 [tool.coverage.report]
 fail_under = 85
 exclude_also = ["if TYPE_CHECKING:", "raise NotImplementedError"]
 
 [tool.hatch.build.targets.wheel.force-include]
-"schemas" = "draftwitness/_data/schemas"
-"profiles" = "draftwitness/_data/profiles"
-"jurisdictions" = "draftwitness/_data/jurisdictions"
+"schemas" = "descargo/_data/schemas"
+"profiles" = "descargo/_data/profiles"
+"jurisdictions" = "descargo/_data/jurisdictions"

@@ -4,9 +4,9 @@ from pathlib import Path
 import pytest
 from typer.testing import CliRunner
 
-from draftwitness.cli.app import app
-from draftwitness.core.report_schema import Report
-from draftwitness.i18n import DEFAULT_LOCALE, set_locale
+from descargo.cli.app import app
+from descargo.core.report_schema import Report
+from descargo.i18n import DEFAULT_LOCALE, set_locale
 from tests.conftest import FIXTURES
 from tests.test_turnitin_adapter import AUTHOR, _classic, _enhanced
 

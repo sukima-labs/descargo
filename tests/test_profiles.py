@@ -8,8 +8,8 @@ import pytest
 import yaml
 from pydantic import ValidationError
 
-from draftwitness.core.data import data_dir
-from draftwitness.core.profiles import (
+from descargo.core.data import data_dir
+from descargo.core.profiles import (
     PROFILE_SCHEMA_VERSION,
     Profile,
     ProfileError,
@@ -21,7 +21,7 @@ from draftwitness.core.profiles import (
     resolve,
     unverified_facts,
 )
-from draftwitness.core.profiles.models import AiStance, ThresholdKind
+from descargo.core.profiles.models import AiStance, ThresholdKind
 from tests.conftest import FIXTURES, REPO_ROOT
 
 SYNTHETIC_ROOT = FIXTURES / "profiles"

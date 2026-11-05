@@ -11,7 +11,7 @@ no profile at all. Students are often the people with the documents a profile ne
 their student regulations, the AI policy of their course, the office that answers access
 requests and how long it took.
 
-DraftWitness is free, and the maintainer wants to use each use of it to ask students for the
+Descargo is free, and the maintainer wants to use each use of it to ask students for the
 missing facts. The constraints are ADR 001 (nothing leaves the device unless the student
 sends it) and the maintainer's rule that **no personal data of students** is collected.
 

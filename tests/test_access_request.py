@@ -6,12 +6,12 @@ import pypdf
 import pytest
 import yaml
 
-from draftwitness.core.data import data_dir
-from draftwitness.core.jurisdictions import pack_ids, resolve_access_request
-from draftwitness.core.profiles import find_profile, load_profile
-from draftwitness.core.profiles.models import TimeUnit
-from draftwitness.core.render.pdf import PdfMetadata, drawable, render_pdf
-from draftwitness.modules.post.access_request import (
+from descargo.core.data import data_dir
+from descargo.core.jurisdictions import pack_ids, resolve_access_request
+from descargo.core.profiles import find_profile, load_profile
+from descargo.core.profiles.models import TimeUnit
+from descargo.core.render.pdf import PdfMetadata, drawable, render_pdf
+from descargo.modules.post.access_request import (
     NOT_LEGAL_ADVICE_MARKERS,
     AccessRequestError,
     AccessRequestInput,

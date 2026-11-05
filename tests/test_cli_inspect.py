@@ -7,9 +7,9 @@ import regex
 from pypdf import PdfReader
 from typer.testing import CliRunner
 
-from draftwitness.cli.app import app
-from draftwitness.i18n import DEFAULT_LOCALE, SUPPORTED_LOCALES, catalog, set_locale
-from draftwitness.modules.pre.inspect import (
+from descargo.cli.app import app
+from descargo.i18n import DEFAULT_LOCALE, SUPPORTED_LOCALES, catalog, set_locale
+from descargo.modules.pre.inspect import (
     CodePoint,
     Finding,
     FindingKind,
@@ -21,7 +21,7 @@ from draftwitness.modules.pre.inspect import (
     Occurrence,
     render_markdown,
 )
-from draftwitness.modules.pre.inspect.render import format_count, location_text
+from descargo.modules.pre.inspect.render import format_count, location_text
 
 runner = CliRunner()
 SAMPLE = "Title\n\nHello\u200bworld, plаgiarism.\nSecret" + "".join(

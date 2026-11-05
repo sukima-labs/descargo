@@ -5,15 +5,15 @@ import jsonschema
 import pytest
 import yaml
 
-from draftwitness.core.data import data_dir
-from draftwitness.core.jurisdictions import (
+from descargo.core.data import data_dir
+from descargo.core.jurisdictions import (
     PACK_SCHEMA_VERSION,
     PackError,
     load_pack,
     pack_ids,
     resolve_access_request,
 )
-from draftwitness.core.jurisdictions.models import localized
+from descargo.core.jurisdictions.models import localized
 from tests.conftest import REPO_ROOT
 
 ROOT = data_dir("jurisdictions")

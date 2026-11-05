@@ -3,8 +3,8 @@ from pathlib import Path
 import pytest
 from typer.testing import CliRunner
 
-from draftwitness.cli.app import app
-from draftwitness.i18n import DEFAULT_LOCALE, set_locale
+from descargo.cli.app import app
+from descargo.i18n import DEFAULT_LOCALE, set_locale
 from tests.conftest import REPO_ROOT
 
 runner = CliRunner()
@@ -29,7 +29,7 @@ def test_writes_markdown_and_pdf(tmp_path: Path) -> None:
     assert code == 0, output
     assert out.with_suffix(".md").read_text().count("no es asesoramiento legal") >= 2
     assert out.with_suffix(".pdf").read_bytes().startswith(b"%PDF")
-    assert "DraftWitness sends nothing" in output
+    assert "Descargo sends nothing" in output
 
 
 def test_lists_unverified_facts(tmp_path: Path) -> None:

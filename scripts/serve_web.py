@@ -44,7 +44,7 @@ HEADERS: Final = {
 
 
 class Handler(SimpleHTTPRequestHandler):
-    server_version = "DraftWitness"
+    server_version = "Descargo"
     sys_version = ""
     extensions_map = {  # noqa: RUF012 - the base class declares it as a plain dict
         **SimpleHTTPRequestHandler.extensions_map,

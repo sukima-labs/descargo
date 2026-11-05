@@ -4,8 +4,8 @@ from pathlib import Path
 import pytest
 from typer.testing import CliRunner
 
-from draftwitness.cli.app import app
-from draftwitness.i18n import DEFAULT_LOCALE, set_locale
+from descargo.cli.app import app
+from descargo.i18n import DEFAULT_LOCALE, set_locale
 from tests.conftest import FIXTURES
 
 runner = CliRunner()

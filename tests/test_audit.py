@@ -4,12 +4,12 @@ from typing import Any
 
 import pytest
 
-from draftwitness.core.documents import extract_text, text_document
-from draftwitness.core.profiles import Profile, find_profile
-from draftwitness.core.report_schema import Report, load_report
-from draftwitness.i18n import tr
-from draftwitness.modules.post.access_request import NOT_LEGAL_ADVICE_MARKERS
-from draftwitness.modules.post.audit import (
+from descargo.core.documents import extract_text, text_document
+from descargo.core.profiles import Profile, find_profile
+from descargo.core.report_schema import Report, load_report
+from descargo.i18n import tr
+from descargo.modules.post.access_request import NOT_LEGAL_ADVICE_MARKERS
+from descargo.modules.post.audit import (
     AuditError,
     Declarations,
     DeclarationsError,
@@ -23,7 +23,7 @@ from draftwitness.modules.post.audit import (
     load_declarations,
     render_markdown,
 )
-from draftwitness.modules.post.audit.render import format_percent, render_summary
+from descargo.modules.post.audit.render import format_percent, render_summary
 from tests.conftest import FIXTURES, REPO_ROOT
 
 AUDIT = FIXTURES / "audit"

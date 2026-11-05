@@ -1,4 +1,4 @@
-// Smoke test of the in-browser build (ADR 007): runs draftwitness.web inside the real
+// Smoke test of the in-browser build (ADR 007): runs descargo.web inside the real
 // Pyodide of a built site, with synthetic fixtures, and with fetch disabled.
 //
 // Usage: node tests/web/smoke.mjs build/web
@@ -18,8 +18,8 @@ globalThis.fetch = async (url) => {
 
 const { loadPyodide } = await import(pathToFileURL(join(site, "pyodide", "pyodide.mjs")).href);
 const pyodide = await loadPyodide({ indexURL: join(site, "pyodide") + "/", stdout: () => {} });
-await pyodide.loadPackage("draftwitness", { messageCallback: () => {}, checkIntegrity: true });
-const api = pyodide.pyimport("draftwitness.web");
+await pyodide.loadPackage("descargo", { messageCallback: () => {}, checkIntegrity: true });
+const api = pyodide.pyimport("descargo.web");
 const call = (name, args = {}) => JSON.parse(api[name].callKwargs(args));
 
 function put(dir, name, data) {
@@ -119,7 +119,7 @@ check("pdf renders, and the inspector reads the PDF back", () => {
   api.discard(dir);
 });
 
-check("a PDF that is not a report DraftWitness reads is refused, not crashed on", () => {
+check("a PDF that is not a report Descargo reads is refused, not crashed on", () => {
   const dir = api.workdir();
   api.pdf.callKwargs({ markdown: "# Hello", out: `${dir}/other.pdf`, title: "x", language: "en" });
   const result = call("audit", { report: `${dir}/other.pdf` });
@@ -133,7 +133,7 @@ check("audit reads a synthetic Compilatio report and states its AI result", () =
   // fpdf2 is in the build: draw the report's first page and one passage in the AI colour.
   pyodide.runPython(`
 from fpdf import FPDF
-from draftwitness.core.render.pdf import _font_path
+from descargo.core.render.pdf import _font_path
 pdf = FPDF()
 pdf.add_font("L", fname=_font_path("LiberationSerif-Regular.ttf"))
 pdf.set_font("L", size=8)

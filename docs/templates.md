@@ -1,12 +1,12 @@
 # Writing document templates
 
-Jurisdiction packs (`jurisdictions/<id>/`) hold Jinja2 templates that DraftWitness renders
+Jurisdiction packs (`jurisdictions/<id>/`) hold Jinja2 templates that Descargo renders
 on the student's device. Templates run in Jinja2's **sandbox** with `StrictUndefined`: a
 misspelt variable is an error, not an empty string.
 
 ## Rules
 
-- Write the **letter only**. DraftWitness adds the note for the student at the top and the
+- Write the **letter only**. Descargo adds the note for the student at the top and the
   "not legal advice" footer at the bottom in code; a template cannot remove them.
 - Keep the tone factual. An access request asks for information; it does not argue the case.
 - Cite only provisions that are listed, with a source, in the pack's `legal_bases`.

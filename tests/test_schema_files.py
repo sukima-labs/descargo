@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from draftwitness.core.schema_export import PUBLISHED, export, render
+from descargo.core.schema_export import PUBLISHED, export, render
 from tests.conftest import REPO_ROOT
 
 
@@ -10,7 +10,7 @@ from tests.conftest import REPO_ROOT
 def test_committed_schema_matches_models(relative: str) -> None:
     committed = (REPO_ROOT / "schemas" / relative).read_text(encoding="utf-8")
     assert committed == render(PUBLISHED[relative]()), (
-        f"schemas/{relative} is stale: run `uv run python -m draftwitness.core.schema_export`"
+        f"schemas/{relative} is stale: run `uv run python -m descargo.core.schema_export`"
     )
 
 

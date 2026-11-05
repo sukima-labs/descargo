@@ -1,4 +1,4 @@
-// Runs Pyodide and DraftWitness off the page's main thread (ADR 007).
+// Runs Pyodide and Descargo off the page's main thread (ADR 007).
 //
 // The page sends {id, action, files, args}. Files arrive as {name, data: ArrayBuffer}; they
 // are written to Pyodide's in-memory file system, in a folder that is deleted as soon as
@@ -14,10 +14,10 @@ const ready = (async () => {
     stdout: () => {},
     stderr: (line) => console.warn(line),
   });
-  // The trimmed lock file lists only the packages DraftWitness needs, each with its
+  // The trimmed lock file lists only the packages Descargo needs, each with its
   // SHA-256, so Pyodide checks every wheel it loads.
-  await pyodide.loadPackage("draftwitness", { messageCallback: () => {}, checkIntegrity: true });
-  const api = pyodide.pyimport("draftwitness.web");
+  await pyodide.loadPackage("descargo", { messageCallback: () => {}, checkIntegrity: true });
+  const api = pyodide.pyimport("descargo.web");
   const functions = Object.fromEntries(
     [...ACTIONS, "workdir", "discard"].map((name) => [name, api[name]]),
   );
