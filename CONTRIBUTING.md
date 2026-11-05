@@ -1,4 +1,4 @@
-# Contributing to DraftWitness
+# Contributing to Descargo
 
 Thank you for helping students defend their own work. Please read this whole file first.
 
@@ -26,7 +26,7 @@ uv run pytest
 ```
 
 CI runs `ruff check`, `ruff format --check`, `mypy --strict` and `pytest` (coverage ≥ 85 %),
-then builds the in-browser version and runs DraftWitness inside its Pyodide
+then builds the in-browser version and runs Descargo inside its Pyodide
 (`tests/web/smoke.mjs`). Runtime dependencies must work under Pyodide: pure Python, or
 shipped by Pyodide (see [ADR 003](docs/adr/003-stack.md) and [ADR 007](docs/adr/007-web-build.md)).
 

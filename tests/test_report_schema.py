@@ -7,7 +7,7 @@ import jsonschema
 import pytest
 from pydantic import ValidationError
 
-from draftwitness.core.report_schema import (
+from descargo.core.report_schema import (
     SCHEMA_VERSION,
     Report,
     ReportKind,

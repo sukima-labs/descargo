@@ -8,7 +8,7 @@
 ADR 001 chose a local CLI plus a static in-browser build: the same Python package, run in
 the student's browser through Pyodide, served as static files that never receive documents
 or results. The first testers (students in Colombia) are not all comfortable with a
-terminal, so the browser build is how most of them will use DraftWitness. This ADR records
+terminal, so the browser build is how most of them will use Descargo. This ADR records
 how that build is made, loaded, hosted and tested.
 
 ## Options
@@ -26,8 +26,8 @@ how that build is made, loaded, hosted and tested.
 
 1. **micropip**, resolving from PyPI at run time: network requests from the student's
    browser, and versions chosen when the page loads, not when it was built.
-2. **A trimmed `pyodide-lock.json`** listing only the packages DraftWitness needs, each with
-   its SHA-256, loaded with `pyodide.loadPackage("draftwitness")`: no resolver, no PyPI, and
+2. **A trimmed `pyodide-lock.json`** listing only the packages Descargo needs, each with
+   its SHA-256, loaded with `pyodide.loadPackage("descargo")`: no resolver, no PyPI, and
    Pyodide checks each file's integrity as it loads it.
 
 ### Where Python runs
@@ -43,11 +43,11 @@ Self-hosted Pyodide, a trimmed lock file, and a Web Worker.
   tarball. Compiled packages (pydantic-core, PyYAML, regex, MarkupSafe, Pillow) and the
   pure packages Pyodide ships come from Pyodide's own build, checked against the hashes in
   its lock file. Pure Python wheels Pyodide does not ship (pypdf, fpdf2, defusedxml) come
-  from PyPI, checked against the hashes in `uv.lock`. The DraftWitness wheel is built from
+  from PyPI, checked against the hashes in `uv.lock`. The Descargo wheel is built from
   the checkout. `scripts/build_web.py` does all of this, and is the only code that uses the
   network; it runs at build time, never in the student's browser.
 - **The CLI layer is not installed.** Typer is left out of the browser build, as ADR 003
-  foresaw. The page calls `draftwitness.web`, a thin module that calls the same functions
+  foresaw. The page calls `descargo.web`, a thin module that calls the same functions
   as the CLI and returns JSON.
 - **Files stay in the tab.** The page reads the chosen files, hands the bytes to the
   worker, which writes them to Pyodide's in-memory file system in a fresh folder and deletes
@@ -66,18 +66,18 @@ Self-hosted Pyodide, a trimmed lock file, and a Web Worker.
   needs. `scripts/serve_web.py` is the reference: standard-library HTTP server, policy and
   other security headers, no access log, no directory listings, listening on 127.0.0.1 behind
   Tailscale Serve or Funnel (or any reverse proxy). Serving the site publishes the
-  DraftWitness wheel, so a public URL is the maintainer's decision while the repository is
+  Descargo wheel, so a public URL is the maintainer's decision while the repository is
   private.
-- **Verifiable:** the build writes `build.json` (DraftWitness version, commit, Pyodide
+- **Verifiable:** the build writes `build.json` (Descargo version, commit, Pyodide
   version), shown in the page footer, and `SHA256SUMS` for every file.
 - **Features:** the inspector, the similarity audit (which also offers the report as
-  DraftWitness JSON, what `import-report` writes) and the access-request letter, in English
+  Descargo JSON, what `import-report` writes) and the access-request letter, in English
   and Spanish, with Markdown, PDF and JSON downloads. Profile validation and listing of
   unverified facts stay in the CLI, for contributors.
 
 ## Testing
 
-- `tests/test_web_api.py` tests `draftwitness.web` under CPython, including that it does not
+- `tests/test_web_api.py` tests `descargo.web` under CPython, including that it does not
   import the CLI.
 - `tests/web/smoke.mjs` loads the built site's own Pyodide in Node, with `fetch` disabled,
   and runs the inspector, the audit, the letter and the PDF renderer on synthetic fixtures.

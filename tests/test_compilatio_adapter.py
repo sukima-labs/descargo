@@ -10,11 +10,11 @@ from pathlib import Path
 import pytest
 from fpdf import FPDF
 
-from draftwitness.adapters import AdapterError, import_report
-from draftwitness.adapters.compilatio import detect_layout, parse_pdf
-from draftwitness.adapters.pdftext import pdf_lines
-from draftwitness.core.render.pdf import _font_path
-from draftwitness.core.report_schema import Report, SourceKind, dump_report
+from descargo.adapters import AdapterError, import_report
+from descargo.adapters.compilatio import detect_layout, parse_pdf
+from descargo.adapters.pdftext import pdf_lines
+from descargo.core.render.pdf import _font_path
+from descargo.core.report_schema import Report, SourceKind, dump_report
 
 NOW = datetime(2026, 10, 27, 12, 0, tzinfo=UTC)
 DARK = (33, 33, 33)

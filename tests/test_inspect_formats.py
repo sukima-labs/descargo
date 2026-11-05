@@ -10,9 +10,9 @@ from fpdf.enums import TextMode
 from pypdf import PageObject, PdfReader, PdfWriter
 from pypdf.errors import DependencyError, PdfReadError
 
-from draftwitness.core.documents import DocumentError
-from draftwitness.core.documents import archive as archive_module
-from draftwitness.modules.pre.inspect import (
+from descargo.core.documents import DocumentError
+from descargo.core.documents import archive as archive_module
+from descargo.modules.pre.inspect import (
     Finding,
     FindingKind,
     Inspection,
@@ -21,9 +21,9 @@ from draftwitness.modules.pre.inspect import (
     inspect_bytes,
     inspect_file,
 )
-from draftwitness.modules.pre.inspect.common import Passages, qualified
-from draftwitness.modules.pre.inspect.odt import duration_minutes
-from draftwitness.modules.pre.inspect.pdf import _TextState
+from descargo.modules.pre.inspect.common import Passages, qualified
+from descargo.modules.pre.inspect.odt import duration_minutes
+from descargo.modules.pre.inspect.pdf import _TextState
 
 TODAY = date(2026, 10, 27)
 CREATED = datetime(2026, 10, 27, tzinfo=UTC)
@@ -646,7 +646,7 @@ def test_pdf_xmp() -> None:
 def test_pdf_xmp_unreadable_and_too_large(monkeypatch: pytest.MonkeyPatch) -> None:
     result = inspect_bytes(_with_xmp("<not xml"), "a.pdf", today=TODAY)
     assert result.notes == ["xmp_unreadable"]
-    monkeypatch.setattr("draftwitness.modules.pre.inspect.pdf.MAX_MEMBER_BYTES", 5)
+    monkeypatch.setattr("descargo.modules.pre.inspect.pdf.MAX_MEMBER_BYTES", 5)
     result = inspect_bytes(_with_xmp(XMP), "a.pdf", today=TODAY)
     assert result.notes == ["xmp_too_large"]
 

@@ -2,7 +2,7 @@ import string
 
 import pytest
 
-from draftwitness.i18n import (
+from descargo.i18n import (
     DEFAULT_LOCALE,
     SUPPORTED_LOCALES,
     catalog,
@@ -32,7 +32,7 @@ def test_placeholders_match_english(locale: str) -> None:
     ("explicit", "env", "expected"),
     [
         ("es", {}, "es"),
-        (None, {"DRAFTWITNESS_LANG": "es"}, "es"),
+        (None, {"DESCARGO_LANG": "es"}, "es"),
         (None, {"LANG": "es_ES.UTF-8"}, "es"),
         (None, {"LANG": "fr_FR.UTF-8"}, "en"),
         (None, {}, "en"),
@@ -42,7 +42,7 @@ def test_placeholders_match_english(locale: str) -> None:
 def test_detect_locale(
     explicit: str | None, env: dict[str, str], expected: str, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    for name in ("DRAFTWITNESS_LANG", "LC_ALL", "LC_MESSAGES", "LANG"):
+    for name in ("DESCARGO_LANG", "LC_ALL", "LC_MESSAGES", "LANG"):
         monkeypatch.delenv(name, raising=False)
     for name, value in env.items():
         monkeypatch.setenv(name, value)
@@ -58,4 +58,4 @@ def test_translate_and_fallback() -> None:
             set_locale("xx")
     finally:
         set_locale(DEFAULT_LOCALE)
-    assert t("common.not_legal_advice") == "DraftWitness is not legal advice."
+    assert t("common.not_legal_advice") == "Descargo is not legal advice."

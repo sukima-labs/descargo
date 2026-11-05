@@ -1,6 +1,6 @@
-# Example input for `draftwitness access-request --student <file>`.
+# Example input for `descargo access-request --student <file>`.
 # SYNTHETIC: replace with your own details in a copy OUTSIDE the repository.
-# DraftWitness only uses this file to fill in the letter on your device.
+# Descargo only uses this file to fill in the letter on your device.
 student:
   name: Alex Example
   email: alex.example@student.example

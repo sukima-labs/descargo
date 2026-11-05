@@ -23,9 +23,9 @@ both fields. Everything else is `needs_verification`, including every "no rule f
 a search can miss a document.
 
 ```bash
-uv run draftwitness profile validate            # schema + file location checks
-uv run draftwitness profile unverified          # what still needs a human
-uv run draftwitness profile show es/uah --path escuela-doctorado
+uv run descargo profile validate            # schema + file location checks
+uv run descargo profile unverified          # what still needs a human
+uv run descargo profile show es/uah --path escuela-doctorado
 ```
 
 | Profile | Institution | Notes |

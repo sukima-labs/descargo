@@ -29,7 +29,7 @@ ADR settles the questions ADR 002 leaves open.
 1. **Score and gate.** A risk score and a non-zero exit when findings exist. Familiar from
    linters, but a score is something to optimise against, which turns the inspector into
    a "clean before submitting" loop (ADR 002, non-goal 2), and pass/fail implies a verdict
-   DraftWitness cannot give.
+   Descargo cannot give.
 2. **Raw dump.** Print every metadata field and code point with no explanation. Honest but
    useless to most students, and silent about what the facts do and do not show.
 3. **Described facts, two levels, no score.** Each finding states what was found, where,
@@ -53,14 +53,14 @@ Option 3.
   credentials manifest is present and gives its size. v0 does not parse or verify the
   manifest. The output does not say how to remove it.
 - **No advice on changing the file.** The report never says "remove" or "replace". It
-  says DraftWitness has not changed the file, and that if the student edits it with their
+  says Descargo has not changed the file, and that if the student edits it with their
   own tools they should keep the original. ADR 002's line holds: showing what a file
   contains is in scope; removing it is not.
 - **Wording about process signals.** RSIDs, editing time and editing cycles are described
   as counters kept by the editing software, with their known blind spots (other editors,
   new files, copying between documents), and never as evidence of how the text was written.
   Following the research's finding 3, they are "consistent with" at most, never "proof".
-- **Reproducibility.** The output records the file's SHA-256, its size, the DraftWitness
+- **Reproducibility.** The output records the file's SHA-256, its size, the Descargo
   version and `unicodedata.unidata_version`, because character categories depend on the
   Unicode version (Python 3.12 and Pyodide may differ).
 

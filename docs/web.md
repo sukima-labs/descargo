@@ -1,6 +1,6 @@
 # The in-browser version
 
-DraftWitness also runs as a web page: the same Python code, in your browser, through
+Descargo also runs as a web page: the same Python code, in your browser, through
 [Pyodide](https://pyodide.org/). There is no server behind it. The page is a set of
 static files; your files and details stay inside the browser tab and are gone when you close
 or reload it. See [ADR 007](adr/007-web-build.md).
@@ -9,12 +9,12 @@ It offers three of the CLI's commands, in English and Spanish:
 
 | Tab | Same as |
 |---|---|
-| Before you submit | `draftwitness inspect` |
-| Check a detector report | `draftwitness audit` (and `import-report`: download the report as JSON) |
-| Ask for the report | `draftwitness access-request`, with a form instead of the YAML file; "not listed" options per country draft the generic letter (`--institution`) |
+| Before you submit | `descargo inspect` |
+| Check a detector report | `descargo audit` (and `import-report`: download the report as JSON) |
+| Ask for the report | `descargo access-request`, with a form instead of the YAML file; "not listed" options per country draft the generic letter (`--institution`) |
 | Send feedback | no CLI equivalent: a short form that prepares a message for the student to copy or open in their own e-mail |
 
-Above the tabs, a short introduction says what DraftWitness is, how to use it, which reports
+Above the tabs, a short introduction says what Descargo is, how to use it, which reports
 it reads today, what it does not do, and that this is a test version.
 
 The feedback form needs no Python, so it works even when the page fails to load. Nothing is
@@ -30,7 +30,7 @@ inspection and audit also as JSON.
 
 ```bash
 uv run python scripts/build_web.py          # writes build/web/ (about 20 MB)
-node tests/web/smoke.mjs build/web          # runs DraftWitness in that Pyodide (Node 18+)
+node tests/web/smoke.mjs build/web          # runs Descargo in that Pyodide (Node 18+)
 ```
 
 The build downloads Pyodide and the wheels the browser needs, checks each file against a
@@ -38,7 +38,7 @@ pinned SHA-256 (Pyodide's release tarball, Pyodide's lock file, and `uv.lock`), 
 the downloads in `.cache/web/`. It is the only step that uses the network; the built site
 requests nothing but its own files.
 
-`build/web/build.json` records the DraftWitness version, the commit and the Pyodide version,
+`build/web/build.json` records the Descargo version, the commit and the Pyodide version,
 and the page shows them in its footer. `build/web/SHA256SUMS` lists every file's hash, so
 anyone can check that a deployed copy matches a build.
 

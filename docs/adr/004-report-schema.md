@@ -10,7 +10,7 @@ Modules such as the similarity auditor and the multi-detector comparison must no
 any of them. Adapters translate each tool's report into one intermediate format, and the
 modules only read that format.
 
-The format must be readable by third parties without DraftWitness, so it is published as a
+The format must be readable by third parties without Descargo, so it is published as a
 JSON Schema.
 
 ## Options
@@ -21,7 +21,7 @@ JSON Schema.
 
 ## Decision
 
-Option 2. pydantic models in `draftwitness.core.report_schema` are the single source of
+Option 2. pydantic models in `descargo.core.report_schema` are the single source of
 truth. The generated schema is committed as `schemas/report/<version>.json`, and a test fails
 if the committed file and the models drift apart. Option 1 makes the Python side awkward and
 adds a code generator; option 3 gives third parties nothing to validate against.
@@ -32,7 +32,7 @@ adds a code generator; option 3 gives third parties nothing to validate against.
 Report
 ├─ schema_version   "0.1"
 ├─ tool             name, product, version, report_kind (similarity | ai_writing | combined)
-├─ provenance       adapter name and version, draftwitness version, parsed_at,
+├─ provenance       adapter name and version, descargo version, parsed_at,
 │                   sha256 + file name + media type of the downloaded report
 ├─ submission       title, submission_id, submitted_at, word_count, character_count, page_count
 ├─ similarity?      overall_percent, filters the tool reports as applied
@@ -62,7 +62,7 @@ text and are optional, because many downloaded reports do not expose them.
 ### Versioning
 
 `schema_version` is `MAJOR.MINOR`. While the major version is 0, a minor bump may break
-compatibility, and DraftWitness ships a migration for every older version it can read. From
+compatibility, and Descargo ships a migration for every older version it can read. From
 1.0 on, a minor version only adds optional fields. The schema's `$id` is a URN
 (`urn:draftwitness:schema:report:0.1`), so validating against it needs no network.
 
@@ -82,7 +82,7 @@ These apply the decision to the first adapter without changing it:
   enhanced Similarity Report (Cover Page, Integrity Overview, Submission). Anything else is
   refused with an error rather than half-read.
 - **Labels in data.** The labels it looks for live in
-  `src/draftwitness/adapters/turnitin/labels.yaml`, per layout and language, with where
+  `src/descargo/adapters/turnitin/labels.yaml`, per layout and language, with where
   each was checked. A label not yet seen in a real report is marked and produces a warning
   when it is used.
 - **No match text.** Both layouts show matched passages only as coloured highlights, so the

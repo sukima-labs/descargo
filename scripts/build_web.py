@@ -1,4 +1,4 @@
-"""Build the static in-browser version of DraftWitness into ``build/web/`` (ADR 007).
+"""Build the static in-browser version of Descargo into ``build/web/`` (ADR 007).
 
 Usage: ``uv run python scripts/build_web.py [--out build/web]``
 
@@ -10,10 +10,10 @@ only; the site it builds requests nothing but its own files. Downloads are cache
 What goes into the site:
 
 * Pyodide's core files, from the release tarball pinned below.
-* For each runtime dependency of DraftWitness (except the CLI-only ones), and their
+* For each runtime dependency of Descargo (except the CLI-only ones), and their
   dependencies: Pyodide's own build when Pyodide ships the package, otherwise the pure
   Python wheel pinned in ``uv.lock``.
-* The DraftWitness wheel, built from this checkout with ``uv build``.
+* The Descargo wheel, built from this checkout with ``uv build``.
 * A trimmed ``pyodide-lock.json`` that lists only those packages, with their SHA-256, so
   Pyodide checks each one as it loads it and cannot fetch anything else.
 """
@@ -142,19 +142,19 @@ def lock_entry(
 def web_strings() -> dict[str, dict[str, str]]:
     """The ``[web]`` table of every UI catalog, for the page to read before Python loads."""
     strings = {}
-    for catalog in sorted((ROOT / "src/draftwitness/i18n/locales").glob("*.toml")):
+    for catalog in sorted((ROOT / "src/descargo/i18n/locales").glob("*.toml")):
         strings[catalog.stem] = tomllib.loads(catalog.read_text("utf-8"))["web"]
     return strings
 
 
 def build_wheel() -> Path:
-    out = Path(tempfile.mkdtemp(prefix="draftwitness-wheel-"))
+    out = Path(tempfile.mkdtemp(prefix="descargo-wheel-"))
     subprocess.run(  # noqa: S603 - fixed arguments
         ["uv", "build", "--wheel", "--out-dir", str(out), str(ROOT)],  # noqa: S607
         check=True,
         capture_output=True,
     )
-    (wheel,) = out.glob("draftwitness-*.whl")
+    (wheel,) = out.glob("descargo-*.whl")
     return wheel
 
 
@@ -207,7 +207,7 @@ def build(out: Path) -> None:
             normalize(entry["name"]), entry["version"], file_name, digest, depends
         )
 
-    print("  draftwitness (this checkout)")
+    print("  descargo (this checkout)")
     wheel = build_wheel()
     shutil.copy2(wheel, target / wheel.name)
     shutil.rmtree(wheel.parent)
@@ -216,10 +216,10 @@ def build(out: Path) -> None:
         for r in pyproject["project"]["dependencies"]
         if requirement_name(r) not in CLI_ONLY
     )
-    packages["draftwitness"] = lock_entry(
-        "draftwitness", version, wheel.name, sha256((target / wheel.name).read_bytes()), top_level
+    packages["descargo"] = lock_entry(
+        "descargo", version, wheel.name, sha256((target / wheel.name).read_bytes()), top_level
     )
-    packages["draftwitness"]["imports"] = ["draftwitness"]
+    packages["descargo"]["imports"] = ["descargo"]
     lock = {"info": full_lock["info"], "packages": dict(sorted(packages.items()))}
     (target / "pyodide-lock.json").write_text(json.dumps(lock, indent=1) + "\n", "utf-8")
 
@@ -230,9 +230,7 @@ def build(out: Path) -> None:
         json.dumps(web_strings(), ensure_ascii=False, indent=1) + "\n", "utf-8"
     )
     (out / "build.json").write_text(
-        json.dumps(
-            {"draftwitness": version, "commit": commit(), "pyodide": PYODIDE_VERSION}, indent=1
-        )
+        json.dumps({"descargo": version, "commit": commit(), "pyodide": PYODIDE_VERSION}, indent=1)
         + "\n",
         "utf-8",
     )

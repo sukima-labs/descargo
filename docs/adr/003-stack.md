@@ -51,12 +51,12 @@ gettext later if translators ask for it.
 
 ### Layout
 
-A single Python distribution, `draftwitness`. Splitting it into a uv workspace with several
+A single Python distribution, `descargo`. Splitting it into a uv workspace with several
 packages adds release overhead and buys nothing until other projects want to depend on
 `core` alone.
 
 ```text
-src/draftwitness/{core,adapters,modules/pre,modules/post,cli}   code
+src/descargo/{core,adapters,modules/pre,modules/post,cli}   code
 profiles/  jurisdictions/  schemas/                              data, at the repo root
 ```
 

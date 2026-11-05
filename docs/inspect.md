@@ -1,6 +1,6 @@
 # Pre-submission inspection
 
-`draftwitness inspect` lists what a file contains besides its visible text: invisible or
+`descargo inspect` lists what a file contains besides its visible text: invisible or
 unusual characters, metadata, tracked changes, comments, hidden text and other content that
 a reader or a tool may notice. It explains what each item usually means and what it does
 not show. The design is in [ADR 006](adr/006-pre-submission-inspector.md).
@@ -12,8 +12,8 @@ the file with your own tools, keep a copy of the original.
 **Not legal advice.**
 
 ```bash
-uv run draftwitness inspect my-essay.docx
-uv run draftwitness --lang es inspect my-essay.odt --format pdf --out inspection.pdf
+uv run descargo inspect my-essay.docx
+uv run descargo --lang es inspect my-essay.odt --format pdf --out inspection.pdf
 ```
 
 | Option | What it does |

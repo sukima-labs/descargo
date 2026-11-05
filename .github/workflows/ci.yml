@@ -41,7 +41,7 @@ jobs:
 
   web:
     # The static in-browser build (ADR 007): download Pyodide and the wheels (each checked
-    # against a pinned SHA-256), build the site, and run DraftWitness inside that Pyodide.
+    # against a pinned SHA-256), build the site, and run Descargo inside that Pyodide.
     name: in-browser build
     runs-on: ubuntu-latest
     steps:

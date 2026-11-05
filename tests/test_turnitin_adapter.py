@@ -11,13 +11,13 @@ import pytest
 from fpdf import FPDF
 from pypdf import PdfReader, PdfWriter
 
-from draftwitness.adapters import AdapterError, import_report
-from draftwitness.adapters.pdftext import normalized_lines
-from draftwitness.adapters.turnitin import detect_layout, parse_pdf
-from draftwitness.adapters.turnitin import pdf as turnitin_pdf
-from draftwitness.adapters.turnitin.pdf import labels, parse_classic_date, parse_enhanced_date
-from draftwitness.core.render.pdf import _font_path
-from draftwitness.core.report_schema import Report, SourceKind, dump_report
+from descargo.adapters import AdapterError, import_report
+from descargo.adapters.pdftext import normalized_lines
+from descargo.adapters.turnitin import detect_layout, parse_pdf
+from descargo.adapters.turnitin import pdf as turnitin_pdf
+from descargo.adapters.turnitin.pdf import labels, parse_classic_date, parse_enhanced_date
+from descargo.core.render.pdf import _font_path
+from descargo.core.report_schema import Report, SourceKind, dump_report
 
 NOW = datetime(2026, 10, 27, 12, 0, tzinfo=UTC)
 AUTHOR = "Synthetic Student Name"
@@ -493,7 +493,7 @@ def test_import_report_dispatches_by_suffix(tmp_path: Path, fixtures_dir: Path) 
     assert report.provenance.adapter == "manual"
     bad = tmp_path / "bad.json"
     bad.write_text("{}", encoding="utf-8")
-    with pytest.raises(AdapterError, match="not a valid DraftWitness report"):
+    with pytest.raises(AdapterError, match="not a valid Descargo report"):
         import_report(bad, parsed_at=NOW)
     html = tmp_path / "report.html"
     html.write_text("<p>report</p>", encoding="utf-8")

@@ -10,12 +10,12 @@ import pytest
 from fpdf import FPDF
 from pypdf import PdfReader
 
-from draftwitness.adapters import AdapterError
-from draftwitness.adapters.turnitin import detect_layout, parse_pdf
-from draftwitness.adapters.turnitin.ai import parse_ai
-from draftwitness.adapters.turnitin.pdf import _ai_footers, _ai_words, labels
-from draftwitness.core.render.pdf import _font_path
-from draftwitness.core.report_schema import Report, ReportKind, dump_report
+from descargo.adapters import AdapterError
+from descargo.adapters.turnitin import detect_layout, parse_pdf
+from descargo.adapters.turnitin.ai import parse_ai
+from descargo.adapters.turnitin.pdf import _ai_footers, _ai_words, labels
+from descargo.core.render.pdf import _font_path
+from descargo.core.report_schema import Report, ReportKind, dump_report
 from tests.test_turnitin_adapter import (
     AUTHOR,
     ENHANCED_COVER,

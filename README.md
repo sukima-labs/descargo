@@ -1,13 +1,13 @@
-# DraftWitness
+# Descargo
 
-**A witness for your drafts.** DraftWitness is an open-source, local-first toolkit that helps
+**A witness for your drafts.** Descargo is an open-source, local-first toolkit that helps
 university students defend themselves against **false positives** from plagiarism and
 AI-writing detectors (Turnitin, SafeAssign, StrikePlagiarism, Compilatio, Copyleaks, GPTZero,
 Originality.ai, Pangram, …). It covers coursework, essays, reports, bachelor's and master's
 theses, and doctoral dissertations, in any country.
 
 > [!IMPORTANT]
-> **DraftWitness is not legal advice.** It helps you organise evidence and exercise rights
+> **Descargo is not legal advice.** It helps you organise evidence and exercise rights
 > you may already have. Laws, university regulations and deadlines change and differ by
 > country, institution and case. Check the sources it cites and, when the stakes are high,
 > talk to your student ombudsperson, student union or a lawyer.
@@ -29,7 +29,7 @@ theses, and doctoral dissertations, in any country.
 
 ## What it will never do
 
-DraftWitness provides evidence. It does **not** rewrite, paraphrase or "humanise" text, does
+Descargo provides evidence. It does **not** rewrite, paraphrase or "humanise" text, does
 not predict or lower detector scores, and does not remove watermarks. See
 [ADR 002](docs/adr/002-non-goals.md).
 
@@ -50,7 +50,7 @@ Pre-alpha, phase 1. Not yet usable by students. The roadmap and design decisions
 ## Repository layout
 
 ```text
-src/draftwitness/
+src/descargo/
   core/report_schema/   common report format (versioned JSON Schema + pydantic)
   core/evidence/        writing-process evidence packages (phase 2)
   core/stylometry/      personal style baseline (phase 2)
@@ -72,25 +72,25 @@ tests/fixtures/         synthetic fixtures only
 ## Usage (so far)
 
 ```bash
-uv run draftwitness profile list
-uv run draftwitness profile show es/uah --path escuela-doctorado
-uv run draftwitness profile unverified          # facts a human still has to check
+uv run descargo profile list
+uv run descargo profile show es/uah --path escuela-doctorado
+uv run descargo profile unverified          # facts a human still has to check
 
 # Draft a request for access to the detector report (Markdown + PDF, on your device)
 cp examples/student.example.yaml ~/my-details.yaml   # edit it OUTSIDE the repository
-uv run draftwitness access-request --profile es/uah --student ~/my-details.yaml
+uv run descargo access-request --profile es/uah --student ~/my-details.yaml
 # No profile for your institution: a generic letter from the country's pack (co, es, eu, uk, us)
-uv run draftwitness access-request --institution "Universidad Ejemplo" --jurisdiction co \
+uv run descargo access-request --institution "Universidad Ejemplo" --jurisdiction co \
     --student ~/my-details.yaml
 
 # Before you submit: list invisible characters, metadata, tracked changes, hidden text…
-uv run draftwitness inspect my-essay.docx
+uv run descargo inspect my-essay.docx
 
-# Read a downloaded Turnitin or Compilatio report (PDF) into DraftWitness JSON
-uv run draftwitness import-report turnitin-report.pdf --out report.json
+# Read a downloaded Turnitin or Compilatio report (PDF) into Descargo JSON
+uv run descargo import-report turnitin-report.pdf --out report.json
 
-# Audit a similarity report: the Turnitin PDF itself, or DraftWitness JSON
-uv run draftwitness audit turnitin-report.pdf --document my-essay.docx \
+# Audit a similarity report: the Turnitin PDF itself, or Descargo JSON
+uv run descargo audit turnitin-report.pdf --document my-essay.docx \
     --declarations ~/my-declarations.yaml --profile es/uah --format pdf --out audit.pdf
 ```
 
@@ -117,7 +117,7 @@ anything). See [`docs/web.md`](docs/web.md) and [ADR 007](docs/adr/007-web-build
 uv run python scripts/build_web.py && uv run python scripts/serve_web.py
 ```
 
-Messages and reports are in English and Spanish (`--lang es`, or `DRAFTWITNESS_LANG=es`);
+Messages and reports are in English and Spanish (`--lang es`, or `DESCARGO_LANG=es`);
 help texts are in English. No command overwrites the files it reads. Options common to every
 command, and the exit status, are in [`docs/cli.md`](docs/cli.md).
 
@@ -130,7 +130,7 @@ uv sync
 uv run pre-commit install
 uv run pytest            # runs with network sockets disabled
 uv run ruff check . && uv run ruff format --check . && uv run mypy src tests scripts
-uv run draftwitness --help
+uv run descargo --help
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.

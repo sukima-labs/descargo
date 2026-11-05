@@ -7,7 +7,7 @@ import pytest
 from fpdf import FPDF
 from pypdf import PdfReader, PdfWriter
 
-from draftwitness.core.documents import (
+from descargo.core.documents import (
     DocumentError,
     archive,
     count_words,

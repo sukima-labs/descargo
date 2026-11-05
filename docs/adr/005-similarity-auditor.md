@@ -110,7 +110,7 @@ These refine the recommendation without changing it:
   checked with `difflib` (ratio ≥ 0.85). Fuzzy and ambiguous locations are reported.
 - **Citation markers** include DOCX and ODT note references and superscript runs that
   contain only digits or note symbols, as well as the text patterns in
-  `src/draftwitness/modules/post/audit/rules.yaml`.
+  `src/descargo/modules/post/audit/rules.yaml`.
 - **Provenance.** The CLI records the SHA-256 of every input file (report, document,
   declarations) in the output, because forged and edited reports exist
   (`docs/research/2026-10-prior-art.md`).

@@ -12,12 +12,12 @@ students whose style is simply plain. A defense tool is legitimate and needed.
 A tool that also helps text slip past detectors is a different thing. It would help
 misconduct, it would expose users and maintainers to legal risk in jurisdictions that
 regulate contract-cheating services, and above all it would destroy the credibility of the
-evidence DraftWitness produces: a panel cannot trust a report from a tool that also sells
+evidence Descargo produces: a panel cannot trust a report from a tool that also sells
 the disguise.
 
 ## Decision
 
-DraftWitness provides **evidence**. It never modifies the student's work. Out of scope,
+Descargo provides **evidence**. It never modifies the student's work. Out of scope,
 permanently:
 
 1. Rewriting, paraphrasing, "humanising", or otherwise transforming text, including
@@ -47,4 +47,4 @@ submitted file.
 - Pull requests implementing anything in the out-of-scope list are closed, however they are
   framed.
 - Some students will want an evasion feature and go elsewhere. That is accepted.
-- Every generated document can state truthfully that DraftWitness does not alter text.
+- Every generated document can state truthfully that Descargo does not alter text.

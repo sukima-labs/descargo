@@ -768,7 +768,7 @@
       }
     }
   ],
-  "description": "A detector report in DraftWitness's common format.",
+  "description": "A detector report in Descargo's common format.",
   "properties": {
     "ai_writing": {
       "anyOf": [
@@ -848,6 +848,6 @@
     "tool",
     "provenance"
   ],
-  "title": "DraftWitness report",
+  "title": "Descargo report",
   "type": "object"
 }

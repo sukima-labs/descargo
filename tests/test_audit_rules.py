@@ -3,9 +3,9 @@ from pathlib import Path
 import pytest
 import yaml
 
-from draftwitness.core.documents import TextDocument, text_document
-from draftwitness.modules.post.audit.locate import LocateMethod, locate, normalize
-from draftwitness.modules.post.audit.rules import (
+from descargo.core.documents import TextDocument, text_document
+from descargo.modules.post.audit.locate import LocateMethod, locate, normalize
+from descargo.modules.post.audit.rules import (
     bibliography_section,
     citation_near,
     enclosing_quotation,
@@ -63,7 +63,7 @@ def test_vancouver_parenthetical_needs_a_preceding_quote_or_stop() -> None:
 
 
 def test_every_bundled_example_matches_its_pattern() -> None:
-    path = Path(__file__).resolve().parent.parent / "src/draftwitness/modules/post/audit/rules.yaml"
+    path = Path(__file__).resolve().parent.parent / "src/descargo/modules/post/audit/rules.yaml"
     data = yaml.safe_load(path.read_text("utf-8"))
     for spec, compiled in zip(data["citations"], RULES.citations, strict=True):
         first = spec["example"].split(" · ")[0].split(" (typed")[0]

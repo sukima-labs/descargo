@@ -7,7 +7,7 @@ import socket
 import pytest
 from pytest_socket import SocketBlockedError
 
-import draftwitness
+import descargo
 
 
 @pytest.mark.filterwarnings("ignore:A test tried to use socket:UserWarning")
@@ -17,7 +17,7 @@ def test_sockets_are_blocked() -> None:
 
 
 def test_importing_every_module_opens_no_socket() -> None:
-    for module in pkgutil.walk_packages(draftwitness.__path__, prefix="draftwitness."):
-        if module.name == "draftwitness.__main__":
+    for module in pkgutil.walk_packages(descargo.__path__, prefix="descargo."):
+        if module.name == "descargo.__main__":
             continue
         importlib.import_module(module.name)

@@ -5,7 +5,7 @@
 
 ## Context
 
-DraftWitness handles some of the most sensitive material a student has: unpublished work,
+Descargo handles some of the most sensitive material a student has: unpublished work,
 detector reports that may accuse them of misconduct, and letters to their university. Its
 value as a defense tool depends on two things: students trusting it with that material, and
 third parties (instructors, appeal panels, ombudspersons) trusting the evidence it produces.
@@ -43,7 +43,7 @@ Option 3.
   `docs/network.md` (purpose, endpoint, data sent). Foreseen uses: RFC 3161 or
   OpenTimestamps time-stamping of evidence hashes (only the hash is sent), and downloading
   public regulations or profile updates (nothing about the student is sent).
-- **Nothing is sent to the institution.** DraftWitness prepares documents; the student
+- **Nothing is sent to the institution.** Descargo prepares documents; the student
   decides whether and how to send them.
 
 ## Enforcement
