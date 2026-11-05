@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- ADR 007: the page may load only its own files. The server sends the same policy as
        a header, which also covers the worker. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self'; form-action 'none'; base-uri 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self'; style-src 'self'; img-src 'self'; form-action 'none'; base-uri 'none'">
   <meta name="referrer" content="no-referrer">
   <title>Descargo</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">

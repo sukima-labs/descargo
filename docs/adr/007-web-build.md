@@ -57,17 +57,21 @@ Self-hosted Pyodide, a trimmed lock file, and a Web Worker.
   renderer uses (`markdown_blocks`), and the page draws them with `textContent`. Nothing
   from a student's file, a report or a profile can inject markup.
 - **Content Security Policy:** `default-src 'none'; script-src 'self' 'wasm-unsafe-eval';
-  worker-src 'self'; connect-src 'self'; style-src 'self'; img-src 'self'; form-action
-  'none'; base-uri 'none'`, plus `frame-ancestors 'none'` in the header. Pyodide needs only
-  `'wasm-unsafe-eval'`, not `'unsafe-eval'` (checked in Chromium with the policy as a
-  header). The page carries the policy in a `<meta>` tag, but a `<meta>` policy does not
-  cover the worker, so the host must also send it as an HTTP header.
-- **Hosting:** any static host that can send that header and keeps no more logs than it
-  needs. `scripts/serve_web.py` is the reference: standard-library HTTP server, policy and
-  other security headers, no access log, no directory listings, listening on 127.0.0.1 behind
-  Tailscale Serve or Funnel (or any reverse proxy). Serving the site publishes the
-  Descargo wheel, so a public URL is the maintainer's decision while the repository is
-  private.
+  worker-src 'self' blob:; connect-src 'self'; style-src 'self'; img-src 'self';
+  form-action 'none'; base-uri 'none'`, plus `frame-ancestors 'none'` in the header. Pyodide
+  needs only `'wasm-unsafe-eval'`, not `'unsafe-eval'` (checked in Chromium with the policy
+  as a header). The page carries the policy in a `<meta>` tag. A worker loaded from its own
+  URL takes its policy only from that response's headers, so a `<meta>` policy would not
+  cover it. The worker therefore starts from a `blob:` URL that only imports `worker.js`:
+  a `blob:` worker inherits the page's policy, `<meta>` included (amended 2026-11-05).
+- **Hosting:** any static host. The public page is on GitHub Pages
+  (`https://sukima-labs.github.io/descargo/`, `.github/workflows/pages.yml`), which cannot
+  send headers: the `<meta>` policy and the `blob:` worker are what confine the page there.
+  `scripts/serve_web.py` remains the reference for self-hosting: standard-library HTTP
+  server, the policy and the other security headers, no access log, no directory listings,
+  listening on 127.0.0.1 behind Tailscale Serve or Funnel (or any reverse proxy). GitHub
+  keeps its own server logs for Pages; the page itself sends nothing anywhere (amended
+  2026-11-05).
 - **Verifiable:** the build writes `build.json` (Descargo version, commit, Pyodide
   version), shown in the page footer, and `SHA256SUMS` for every file.
 - **Features:** the inspector, the similarity audit (which also offers the report as
@@ -82,6 +86,11 @@ Self-hosted Pyodide, a trimmed lock file, and a Web Worker.
 - `tests/web/smoke.mjs` loads the built site's own Pyodide in Node, with `fetch` disabled,
   and runs the inspector, the audit, the letter and the PDF renderer on synthetic fixtures.
   CI builds the site and runs it on every push (job `web`).
+- Negative control for the worker's policy (2026-11-05, Chrome 153 on browserhub): with no
+  headers at all, as on GitHub Pages, a `fetch` to another site from inside the worker is
+  blocked (`connect-src` violation) and one to the site itself is allowed. A worker loaded
+  from its own URL instead let the same `fetch` through. Re-run it on the published page
+  after any change to how the worker starts.
 - Before a release, a person opens the page in a real browser and checks that the console
   shows no policy violations and that the network panel shows requests to the site only.
 

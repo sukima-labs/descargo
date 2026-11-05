@@ -48,10 +48,12 @@ anyone can check that a deployed copy matches a build.
 uv run python scripts/serve_web.py          # http://127.0.0.1:8040/
 ```
 
-The development server sends the headers the site needs and keeps no access log. Any other
-static host works if it sends the same `Content-Security-Policy` header (copy it from
-`scripts/serve_web.py`): the page also carries the policy in a `<meta>` tag, but that tag does
-not cover the Web Worker where Python runs. Opening `index.html` from disk does not work,
+The development server sends the security headers and keeps no access log. Any static host
+works, including those that cannot send headers, such as GitHub Pages, where the public page
+lives (`https://sukima-labs.github.io/descargo/`). The page carries its
+`Content-Security-Policy` in a `<meta>` tag, and the Web Worker where Python runs starts from
+a `blob:` URL, which inherits that policy, so a file can reach only the site it came from.
+Opening `index.html` from disk does not work,
 because browsers do not start module workers from `file://` URLs.
 
 ## Limits
