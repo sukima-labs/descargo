@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +7,7 @@
        so it inherits this policy even where the host sends no header (GitHub Pages). -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self'; style-src 'self'; img-src 'self'; form-action 'none'; base-uri 'none'">
   <meta name="referrer" content="no-referrer">
+  <meta name="description" content="Descargo te ayuda a defenderte de un falso positivo de Turnitin, Compilatio u otro detector de plagio o de IA. Todo ocurre en tu navegador: tus archivos no salen de tu dispositivo.">
   <title>Descargo</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
@@ -16,18 +17,18 @@
   <header class="top">
     <div>
       <h1>Descargo</h1>
-      <p class="tagline" data-i18n="tagline">A witness for your drafts.</p>
+      <p class="tagline" data-i18n="tagline">Prueba de autoría.</p>
     </div>
-    <div class="languages" role="group" aria-label="Language">
-      <button type="button" data-lang="en" lang="en">English</button>
+    <div class="languages" role="group" aria-label="Idioma">
       <button type="button" data-lang="es" lang="es">Español</button>
+      <button type="button" data-lang="en" lang="en">English</button>
     </div>
   </header>
 
   <main>
     <section class="notice">
-      <p data-i18n="local_notice">Everything runs in this browser tab. Your files and details never leave your device.</p>
-      <p data-i18n="not_legal_advice">Descargo is not legal advice.</p>
+      <p data-i18n="local_notice">Todo se ejecuta dentro de esta pestaña del navegador. Tus archivos y datos no se suben, no se guardan y no se envían a ninguna parte: al cerrar o recargar la pestaña, desaparecen.</p>
+      <p data-i18n="not_legal_advice">Descargo no es asesoramiento legal. Comprueba las fuentes que cita y, si te juegas mucho, habla con la defensoría universitaria, el consejo de estudiantes o un abogado.</p>
     </section>
 
     <section class="about" aria-labelledby="about-title">
@@ -61,13 +62,13 @@
       <p class="beta" data-i18n="about_beta"></p>
     </section>
 
-    <p id="status" class="status" role="status" aria-live="polite" data-i18n="loading">Loading…</p>
+    <p id="status" class="status" role="status" aria-live="polite" data-i18n="loading">Cargando Descargo en tu navegador (unos 20 MB la primera vez)…</p>
 
     <nav class="tabs" role="tablist">
-      <button type="button" role="tab" id="tab-inspect" aria-controls="panel-inspect" aria-selected="true" data-i18n="tab_inspect">Before you submit</button>
-      <button type="button" role="tab" id="tab-audit" aria-controls="panel-audit" aria-selected="false" data-i18n="tab_audit">Check a detector report</button>
-      <button type="button" role="tab" id="tab-access" aria-controls="panel-access" aria-selected="false" data-i18n="tab_access">Ask for the report</button>
-      <button type="button" role="tab" id="tab-feedback" aria-controls="panel-feedback" aria-selected="false" data-i18n="tab_feedback">Send feedback</button>
+      <button type="button" role="tab" id="tab-inspect" aria-controls="panel-inspect" aria-selected="true" data-i18n="tab_inspect">Antes de entregar</button>
+      <button type="button" role="tab" id="tab-audit" aria-controls="panel-audit" aria-selected="false" data-i18n="tab_audit">Revisar un informe del detector</button>
+      <button type="button" role="tab" id="tab-access" aria-controls="panel-access" aria-selected="false" data-i18n="tab_access">Pedir el informe</button>
+      <button type="button" role="tab" id="tab-feedback" aria-controls="panel-feedback" aria-selected="false" data-i18n="tab_feedback">Enviar comentarios</button>
     </nav>
 
     <section id="panel-inspect" class="panel" role="tabpanel" aria-labelledby="tab-inspect">
@@ -76,7 +77,7 @@
         <label><span data-i18n="inspect_file"></span>
           <input type="file" name="file" accept=".docx,.docm,.odt,.pdf,.txt,.text,.md,.markdown" required>
         </label>
-        <button type="submit" disabled data-i18n="inspect_run">Inspect</button>
+        <button type="submit" disabled data-i18n="inspect_run">Inspeccionar</button>
       </form>
     </section>
 
@@ -106,7 +107,7 @@
             <small data-i18n="audit_declarations_hint"></small>
           </label>
         </details>
-        <button type="submit" disabled data-i18n="audit_run">Audit</button>
+        <button type="submit" disabled data-i18n="audit_run">Auditar</button>
       </form>
     </section>
 
@@ -169,7 +170,7 @@
             <small data-i18n="extra_items_hint"></small>
           </label>
         </fieldset>
-        <button type="submit" disabled data-i18n="access_run">Draft the letter</button>
+        <button type="submit" disabled data-i18n="access_run">Redactar la carta</button>
       </form>
     </section>
 

@@ -362,7 +362,7 @@ why_invisible_text = "Text drawn in invisible mode: it is not shown but text ext
 
 # The in-browser build (web/, ADR 007). The page reads this table before Python loads.
 [web]
-tagline = "A witness for your drafts."
+tagline = "Proof of authorship."
 local_notice = "Everything runs inside this browser tab. Your files and details are not uploaded, stored or sent anywhere: when you close or reload the tab, they are gone."
 not_legal_advice = "Descargo is not legal advice. Check the sources it cites and, when the stakes are high, talk to your student ombudsperson, student union or a lawyer."
 loading = "Loading Descargo in your browser (about 20 MB the first time)…"
