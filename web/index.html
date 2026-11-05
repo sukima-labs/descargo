@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- ADR 007: the page may load only its own files. The server sends the same policy as
-       a header, which also covers the worker. -->
+  <!-- ADR 007: the page may load only its own files. The worker starts from a blob: URL,
+       so it inherits this policy even where the host sends no header (GitHub Pages). -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'wasm-unsafe-eval'; worker-src 'self' blob:; connect-src 'self'; style-src 'self'; img-src 'self'; form-action 'none'; base-uri 'none'">
   <meta name="referrer" content="no-referrer">
   <title>Descargo</title>
