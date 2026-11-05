@@ -54,6 +54,12 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
   unreadable inputs, 2 for usage errors. See [`docs/cli.md`](docs/cli.md).
 - Architecture decision records 001 to 007 in [`docs/adr/`](docs/adr/).
 
+### Fixed
+
+- The web page no longer shows empty headings when its texts fail to load, for example
+  on a first visit while GitHub Pages is publishing. It checks the answer, tries once more
+  and, if that fails too, says so in Spanish and English.
+
 ### Changed
 
 - The web page can be served by hosts that cannot send headers, such as GitHub Pages. Its
