@@ -56,6 +56,10 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Changed
 
+- The web page can be served by hosts that cannot send headers, such as GitHub Pages. Its
+  worker now starts from a `blob:` URL, so the page's `<meta>` Content-Security-Policy
+  covers Pyodide too, and a file can reach only the site it came from. A workflow publishes
+  the page at https://sukima-labs.github.io/descargo/.
 - Spanish first: the web page opens in Spanish unless you chose English or your browser
   asks for it, and the README is in Spanish (`README.en.md` keeps the English one). The
   tagline is now «Prueba de autoría» (*Proof of authorship*).

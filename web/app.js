@@ -46,7 +46,14 @@ function applyLanguage() {
 
 // --- The worker -----------------------------------------------------------------------
 
-const worker = new Worker(new URL("./worker.js", import.meta.url), { type: "module" });
+// The worker starts from a blob: URL that only imports worker.js. A worker loaded from a
+// blob: URL inherits this page's Content-Security-Policy, including the <meta> one, so the
+// policy also confines Pyodide and every file it reads, even on hosts that cannot send
+// the policy as a header (GitHub Pages). A worker loaded from its own URL would take its
+// policy from that response's headers only, and without one it could connect anywhere.
+const workerURL = new URL("./worker.js", import.meta.url).href;
+const workerStart = new Blob([`import ${JSON.stringify(workerURL)};`], { type: "text/javascript" });
+const worker = new Worker(URL.createObjectURL(workerStart), { type: "module" });
 const pending = new Map();
 let nextId = 1;
 let loaded = false;

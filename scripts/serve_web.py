@@ -23,7 +23,7 @@ CSP: Final = "; ".join(
     [
         "default-src 'none'",
         "script-src 'self' 'wasm-unsafe-eval'",
-        "worker-src 'self'",
+        "worker-src 'self' blob:",
         "connect-src 'self'",
         "style-src 'self'",
         "img-src 'self'",
