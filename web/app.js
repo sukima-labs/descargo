@@ -94,7 +94,11 @@ async function onReady() {
   for (const button of $$("form button[type=submit]")) button.disabled = false;
 }
 
+// Set when the page's own texts could not load; the visible error then stays on screen.
+let startupError = null;
+
 function setStatus(text, kind = "") {
+  if (startupError) return;
   const status = $("#status");
   status.textContent = text;
   status.dataset.kind = kind;
@@ -488,24 +492,54 @@ function show(result) {
 
 // --- Start ----------------------------------------------------------------------------
 
+// Fetch one of the site's own JSON files. A host in the middle of publishing (GitHub Pages)
+// can answer with an HTML error page instead, so check the answer and try once more,
+// bypassing the cache, before giving up.
+async function siteJSON(name) {
+  let problem = "";
+  for (const cache of ["default", "reload"]) {
+    try {
+      const response = await fetch(name, { cache });
+      const type = response.headers.get("Content-Type") ?? "";
+      if (response.ok && type.includes("json")) return await response.json();
+      problem = `${response.status} ${type}`;
+    } catch (error) {
+      problem = String(error);
+    }
+  }
+  throw new Error(`${name}: ${problem}`);
+}
+
+// Without its texts the page would show empty headings; say so in both languages instead.
+function startFailed(error) {
+  console.error(error);
+  setStatus(
+    "No se pudo cargar la página: recárgala. · The page could not load: please reload it.",
+    "error",
+  );
+  startupError = error;
+}
+
 async function start() {
   const [loadedStrings, build] = await Promise.all([
-    fetch("strings.json").then((response) => response.json()),
-    fetch("build.json").then((response) => response.json()),
+    siteJSON("strings.json"),
+    siteJSON("build.json").catch(() => null),
   ]);
   strings = loadedStrings;
   // Spanish first: English only when it was chosen, or the browser asks for it.
   const wanted = savedLanguage() ?? navigator.language ?? "es";
   lang = wanted.toLowerCase().startsWith("en") ? "en" : "es";
   applyLanguage();
-  $("#build").textContent = t("build_info", {
-    version: build.descargo,
-    commit: build.commit.slice(0, 7),
-    pyodide: build.pyodide,
-  });
-  buildInfo = `${build.descargo} (${build.commit.slice(0, 7)})`;
+  if (build) {
+    $("#build").textContent = t("build_info", {
+      version: build.descargo,
+      commit: build.commit.slice(0, 7),
+      pyodide: build.pyodide,
+    });
+    buildInfo = `${build.descargo} (${build.commit.slice(0, 7)})`;
+  }
   updateFeedback();
   setStatus(loaded ? t("ready") : t("loading"), loaded ? "ok" : "");
 }
 
-void start();
+start().catch(startFailed);
