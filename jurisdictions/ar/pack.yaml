@@ -1,0 +1,178 @@
+# yaml-language-server: $schema=../../schemas/jurisdiction/0.1.json
+# Argentina. Not legal advice. Texts checked on www.argentina.gob.ar/normativa (InfoLEG's
+# official mirror) because servicios.infoleg.gob.ar refused automated connections (HTTP 403)
+# on 2026-11-05. The official register lists no law replacing Ley 25.326 as of that date;
+# the AAIP's reform of the law is still a draft (proyecto).
+schema_version: "0.1"
+id: ar
+name: Argentina
+access_request:
+  recipient_roles: [data_protection_officer, records_office]
+  legal_bases:
+    - value:
+        citation: Constitución Nacional, art. 43, tercer párrafo (hábeas data)
+        summary:
+          en: >-
+            Habeas data: anyone can go to court to learn what data about them is held in
+            public databases, or in private ones meant to provide reports, and what it is
+            used for, and to demand that false or discriminatory data be corrected or deleted.
+          es: >-
+            Hábeas data: toda persona puede acudir a la justicia para conocer los datos que
+            sobre ella constan en bancos de datos públicos, o en los privados destinados a
+            dar informes, y para qué se usan, y exigir que se corrijan o eliminen si son
+            falsos o discriminatorios.
+      source_url: https://www.argentina.gob.ar/normativa/nacional/ley-24430-804/texto
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "para tomar conocimiento de los datos a ella referidos y de su finalidad"
+    - value:
+        citation: Ley 25.326, art. 14, inc. 1 (derecho de acceso)
+        summary:
+          en: >-
+            After proving your identity, you have the right to request and obtain
+            information about your personal data held in public databases, or in private
+            ones meant to provide reports.
+          es: >-
+            Tras acreditar tu identidad, tienes derecho a solicitar y obtener información
+            sobre tus datos personales incluidos en bancos de datos públicos, o en los
+            privados destinados a dar informes.
+      source_url: https://www.argentina.gob.ar/normativa/nacional/ley-25326-64790/actualizacion
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "tiene derecho a solicitar y obtener información de sus datos personales"
+    - value:
+        citation: Decreto 1558/2001, anexo I, art. 1
+        summary:
+          en: >-
+            The regulation reads "private databases meant to provide reports" broadly: it
+            covers any database that goes beyond purely personal use. This is why the right
+            of access also reaches private universities.
+          es: >-
+            El reglamento interpreta en sentido amplio los «bancos de datos privados
+            destinados a dar informes»: incluye todos los que exceden el uso exclusivamente
+            personal. Por eso el derecho de acceso alcanza también a las universidades
+            privadas.
+      source_url: https://www.argentina.gob.ar/normativa/nacional/decreto-1558-2001-70368/actualizacion
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "aquellos que exceden el uso exclusivamente personal"
+    - value:
+        citation: Ley 25.326, art. 14, inc. 3 (gratuidad)
+        summary:
+          en: >-
+            Access is free if you use it no more often than once every six months, unless
+            you show a legitimate interest for asking sooner.
+          es: >-
+            El acceso es gratuito si lo ejerces con intervalos de al menos seis meses, salvo
+            que acredites un interés legítimo para pedirlo antes.
+      source_url: https://www.argentina.gob.ar/normativa/nacional/ley-25326-64790/actualizacion
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "en forma gratuita a intervalos no inferiores a seis meses"
+    - value:
+        citation: Ley 25.326, art. 15, inc. 2 (contenido de la información)
+        summary:
+          en: >-
+            The answer must be complete and cover your whole record, even if you only ask
+            about one part of it. It may not reveal other people's data.
+          es: >-
+            La respuesta debe ser amplia y abarcar todo tu registro, aunque solo preguntes
+            por una parte. No puede revelar datos de otras personas.
+      source_url: https://www.argentina.gob.ar/normativa/nacional/ley-25326-64790/actualizacion
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "versar sobre la totalidad del registro perteneciente al titular"
+    - value:
+        citation: Ley 25.326, art. 15, inc. 3; Decreto 1558/2001, anexo I, art. 15
+        summary:
+          en: >-
+            You choose how to receive the information: in writing, by electronic means or
+            another suitable channel. The letter asks for the answer by email.
+          es: >-
+            Tú eliges cómo recibir la información: por escrito, por medios electrónicos u
+            otro medio idóneo. El escrito pide la respuesta por correo electrónico.
+      source_url: https://www.argentina.gob.ar/normativa/nacional/ley-25326-64790/actualizacion
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "a opción del titular, podrá suministrarse por escrito, por medios electrónicos"
+    - value:
+        citation: Decreto 1558/2001, anexo I, art. 14
+        summary:
+          en: >-
+            The request needs no special wording as long as it identifies you. Access lets
+            you know all the data about you, where and how it was obtained, why it was
+            collected and where it is meant to go. Send it in writing with proof of receipt.
+          es: >-
+            La solicitud no necesita fórmulas especiales, siempre que te identifique. El
+            acceso te permite conocer todos tus datos, de qué fuentes y por qué medios se
+            obtuvieron, para qué se recabaron y a dónde está previsto que vayan. Envíala por
+            escrito y guarda constancia de recepción.
+      source_url: https://www.argentina.gob.ar/normativa/nacional/decreto-1558-2001-70368/actualizacion
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "solicitar información sobre las fuentes y los medios a través de los cuales se obtuvieron sus datos"
+    - value:
+        citation: Ley 25.326, art. 20 (impugnación de valoraciones personales)
+        summary:
+          en: >-
+            Court decisions and administrative acts that assess a person's conduct may not
+            rest solely on the automated processing of personal data that defines that
+            person's profile or personality. Whether a detector score counts as such, and
+            whether it binds private universities, has not been settled. Context for an
+            appeal; not a basis for access.
+          es: >-
+            Las decisiones judiciales y los actos administrativos que valoran la conducta de
+            una persona no pueden basarse únicamente en un tratamiento informatizado de
+            datos que defina su perfil o personalidad. No está claro si un porcentaje de un
+            detector entra en ese supuesto ni si obliga a las universidades privadas. Es
+            contexto para una reclamación, no una base del derecho de acceso.
+      source_url: https://www.argentina.gob.ar/normativa/nacional/ley-25326-64790/actualizacion
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "no podrán tener como único fundamento el resultado del tratamiento informatizado de datos personales"
+  response_deadline:
+    value:
+      amount: 10
+      unit: calendar_days
+      from_event:
+        en: formal notice of the request (with proof of receipt)
+        es: la intimación fehaciente (con constancia de recepción)
+    source_url: https://www.argentina.gob.ar/normativa/nacional/ley-25326-64790/actualizacion
+    checked_on: 2026-11-05
+    verification: verified
+    quote: "dentro de los diez días corridos de haber sido intimado fehacientemente"
+    note: >-
+      Ley 25.326 art. 14, inc. 2. The law says "días corridos" (calendar days); the law
+      provides no extension.
+  authority:
+    value:
+      name: Agencia de Acceso a la Información Pública (AAIP)
+      url: https://www.argentina.gob.ar/aaip
+    source_url: https://www.argentina.gob.ar/normativa/nacional/decreto-1558-2001-70368/actualizacion
+    checked_on: 2026-11-05
+    verification: verified
+    quote: "es el órgano de control de la Ley Nº 25.326"
+    note: >-
+      Decreto 1558/2001, anexo I, art. 29, as replaced by Decreto 899/2017; Ley 27.275 art. 19
+      also makes the AAIP the enforcement authority of Ley 25.326.
+  prerequisites:
+    - value:
+        en: >-
+          Once the 10 calendar days pass without an answer, or if the answer is
+          insufficient, you can bring a habeas data action in court and report the
+          university to the AAIP (Ley 25.326, art. 14, inc. 2; Decreto 1558/2001, anexo I,
+          art. 14). Keep proof that the university received your request.
+        es: >-
+          Si pasan los 10 días corridos sin respuesta, o la respuesta es insuficiente,
+          puedes iniciar la acción judicial de hábeas data y denunciar el hecho ante la AAIP
+          (Ley 25.326, art. 14, inc. 2; Decreto 1558/2001, anexo I, art. 14). Guarda la
+          constancia de que la universidad recibió tu solicitud.
+      source_url: https://www.argentina.gob.ar/normativa/nacional/ley-25326-64790/actualizacion
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "quedará expedita la acción de protección de los datos personales o de hábeas data"
+      note: >-
+        The decree's art. 14 names the Dirección Nacional de Protección de Datos Personales,
+        whose role as control body passed to the AAIP (decree art. 29 as replaced in 2017).
+  templates:
+    es: access_request.es.md.j2

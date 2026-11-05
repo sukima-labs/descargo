@@ -52,7 +52,7 @@ def test_choices_lists_profiles_paths_and_tools() -> None:
     assert {"path": "escuela-doctorado", "label": "Escuela de Doctorado"} in uah["paths"]
     assert choices["tools"]["turnitin"] == "Turnitin"
     countries = {c["id"]: c for c in choices["countries"]}
-    assert set(countries) == {"co", "es", "eu", "uk", "us"}
+    assert set(countries) == {"ar", "cl", "co", "es", "eu", "mx", "pe", "uk", "us"}
     assert countries["co"] == {"id": "co", "name": "Colombia", "languages": ["es"]}
 
 

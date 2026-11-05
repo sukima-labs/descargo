@@ -1,157 +1,174 @@
-# Importing a detector report
+# Importar un informe de detector
 
-`descargo import-report` turns the report you downloaded into Descargo's
-[report format](../schemas/report/0.1.json) (JSON), which the other commands read.
-`descargo audit` accepts the downloaded PDF directly and runs the same import. The
-design is in [ADR 004](adr/004-report-schema.md).
+*Español · [English](en/import.md)*
+
+`descargo import-report` convierte el informe que descargaste al
+[formato de informe](../schemas/report/0.1.json) de Descargo (JSON), que es el que leen los
+demás comandos. `descargo audit` acepta directamente el PDF descargado y hace la misma
+importación. El diseño está en el [ADR 004](adr/004-report-schema.md).
 
 ```bash
-uv run descargo import-report turnitin-report.pdf --out report.json
-uv run descargo import-report informe-compilatio.pdf --out report.json
-uv run descargo audit turnitin-report.pdf --document my-essay.docx --profile es/uah
+uv run descargo import-report informe-turnitin.pdf --out informe.json
+uv run descargo import-report informe-compilatio.pdf --out informe.json
+uv run descargo audit informe-turnitin.pdf --document mi-ensayo.docx --profile es/uah --language es
 ```
 
-The file is only read. The JSON records the report's SHA-256, so anyone can check that it
-refers to the same file. **Not legal advice.**
+El archivo solo se lee. El JSON registra la huella SHA-256 del informe, para que cualquiera
+pueda comprobar que se refiere al mismo archivo. **No es asesoramiento legal.**
 
 ## Turnitin
 
-Turnitin's guide
+La guía de Turnitin
 ([Downloading and sharing the Similarity Report](https://guides.turnitin.com/hc/en-us/articles/27881575386125))
-describes the PDF downloads. Descargo reads three of them:
+describe los PDF que se pueden descargar. Descargo lee tres de ellos:
 
-| Layout | How to recognise it | What is read |
+| Formato | Cómo reconocerlo | Qué se lee |
 |---|---|---|
-| Feedback Studio ("Current View"), in English and Spanish | the paper, then a page headed "ORIGINALITY REPORT" ("INFORME DE ORIGINALIDAD") | similarity index; Internet, publication and student-paper figures; the primary sources with their percentages; "Exclude quotes / bibliography / matches"; submission date, ID, word and character counts |
-| Enhanced Similarity Report, in English and Spanish | a Cover Page ("Portada"), then an "Integrity Overview" ("Descripción general de integridad") | overall similarity; filters; exclusions; the four match groups (English only); database figures; integrity flags and what the report says about each, such as hidden text; the top sources; submission ID, date, pages, words and characters; the sections the PDF contains |
-| AI Writing Report, in English and Spanish, on its own or after the Similarity Report in the same PDF | an "AI Writing Overview" ("Descripción general de la escritura con IA") opening with "23% detected as AI" ("detectado como IA") | the share of text attributed to AI, or "*%" when it is under Turnitin's 20 % threshold; the two detection groups (English only); the passages highlighted in cyan, page by page; the same submission details as the Similarity Report |
+| Feedback Studio ("Current View"), en inglés y en español | el trabajo y después una página con el encabezado "ORIGINALITY REPORT" ("INFORME DE ORIGINALIDAD") | índice de similitud; cifras de Internet, de publicaciones y de trabajos de estudiantes; las fuentes principales con sus porcentajes; "Exclude quotes / bibliography / matches"; fecha de entrega, ID, número de palabras y de caracteres |
+| Enhanced Similarity Report, en inglés y en español | una Cover Page ("Portada") y después un "Integrity Overview" ("Descripción general de integridad") | similitud general; filtros; exclusiones; los cuatro grupos de coincidencias (solo en inglés); cifras por base de datos; las alertas de integridad y lo que dice el informe de cada una, como el texto oculto; las fuentes principales; ID de la entrega, fecha, páginas, palabras y caracteres; las secciones que contiene el PDF |
+| AI Writing Report, en inglés y en español, solo o después del Similarity Report en el mismo PDF | un "AI Writing Overview" ("Descripción general de la escritura con IA") que empieza con "23% detected as AI" ("detectado como IA") | la parte del texto atribuida a la IA, o "*%" cuando está por debajo del umbral del 20 % de Turnitin; los dos grupos de detección (solo en inglés); los pasajes resaltados en cian, página por página; los mismos datos de la entrega que en el Similarity Report |
 
-Not kept: the author name and the file name shown on the report. On the enhanced cover
-page, the title is kept only when it is the file name (Turnitin's default), because the
-title and the author name appear in an order that varies.
+No se guardan: el nombre del autor ni el nombre del archivo que aparecen en el informe. En
+la portada del informe nuevo (enhanced), el título solo se guarda cuando es el nombre del
+archivo (lo que Turnitin pone por defecto), porque el título y el nombre del autor aparecen
+en un orden que varía.
 
-Every import says what it could not read. In particular:
+Cada importación dice lo que no ha podido leer. En particular:
 
-- **No matched text.** Turnitin PDFs show matched passages as coloured highlights, which
-  cannot be extracted reliably, so the audit uses its approximate method
-  ([ADR 005](adr/005-similarity-auditor.md)).
-- **Shortened names.** The enhanced report cuts long source names, ending them in "...".
-- **Unchecked labels.** Filter names that have not yet been seen in a real report produce
-  a warning when they appear.
+- **Sin texto coincidente.** Los PDF de Turnitin muestran los pasajes coincidentes como
+  resaltados de color, que no se pueden extraer de forma fiable, así que la auditoría usa
+  su método aproximado ([ADR 005](adr/005-similarity-auditor.md)).
+- **Nombres recortados.** El informe nuevo corta los nombres largos de las fuentes y los
+  termina en "...".
+- **Etiquetas sin comprobar.** Los nombres de filtros que aún no se han visto en un informe
+  real producen un aviso cuando aparecen.
 
-- **Extracts.** When the PDF has fewer pages than the report's footers say ("Page 2 of
-  13"), the import says it is an extract and that parts may be missing.
-- **Reprints.** A report saved again through another program, such as Word, may lose the
-  numbers of its source list; the import says so. Use the PDF downloaded from Turnitin.
-- **Spanish reports print no counts** for excluded matches and integrity flags
-  ("N.º de coincidencias excluidas"), so those counts stay empty.
+- **Extractos.** Cuando el PDF tiene menos páginas de las que indican los pies de página del
+  informe ("Page 2 of 13"), la importación dice que es un extracto y que pueden faltar
+  partes.
+- **Reimpresiones.** Un informe que se volvió a guardar con otro programa, como Word, puede
+  perder los números de su lista de fuentes; la importación lo dice. Usa el PDF descargado
+  de Turnitin.
+- **Los informes en español no imprimen los recuentos** de coincidencias excluidas ni de
+  alertas de integridad ("N.º de coincidencias excluidas"), así que esos recuentos quedan
+  vacíos.
 
-The enhanced layout was checked in October 2026 against five real reports read on the
-maintainer's machine only ([ADR 009](adr/009-first-three-detectors.md)): one in English and
-four in Spanish (one full, three extracts, one of them reprinted through Word).
+El formato nuevo (enhanced) se comprobó en octubre de 2026 con cinco informes reales leídos
+solo en el equipo del responsable del proyecto ([ADR 009](adr/009-first-three-detectors.md)):
+uno en inglés y cuatro en español (uno completo y tres extractos, uno de ellos reimpreso con
+Word).
 
-The AI Writing Report was checked in November 2026 against three real reports read on the
-maintainer's machine only: two in English (23 % and 0 %) and one in Spanish, after its
-Similarity Report, with a score under the threshold. On the English 23 % report, the
-highlighted passages make 6 runs and 473 words, about 17 % of all the words on the paper's
-pages; Turnitin's 23 % is a share of the text its model qualifies, which leaves out tables,
-lists and references. About the AI Writing Report:
+El AI Writing Report se comprobó en noviembre de 2026 con tres informes reales leídos solo
+en el equipo del responsable del proyecto: dos en inglés (23 % y 0 %) y uno en español,
+después de su Similarity Report, con una puntuación por debajo del umbral. En el informe en
+inglés del 23 %, los pasajes resaltados forman 6 tramos y 473 palabras, cerca del 17 % de
+todas las palabras de las páginas del trabajo; el 23 % de Turnitin es una parte del texto
+que su modelo considera apto para el análisis, que deja fuera tablas, listas y referencias. Sobre el AI
+Writing Report:
 
-- **The result is the tool's.** The import records it as Turnitin states it and the audit
-  does not recompute it ([ADR 009](adr/009-first-three-detectors.md)).
-- **"\*%"** means the score is under 20 %: Turnitin then gives no figure and highlights
-  nothing, because, as the report says, such scores are more likely to be false positives.
-  The import keeps "\*%" as the label shown.
-- **Passages are read by the highlight behind them,** a piece of text at a time, so a
-  passage that starts or ends inside a line may gain or lose a few words there.
-- **Paraphrased text is not read yet.** Turnitin highlights text that was also
-  AI-paraphrased in purple, a colour no real report has shown so far; when that group is
-  above 0 %, the import says those passages are missing.
-- **In a PDF with both reports,** only the AI Writing Report's own pages are searched for
-  highlights, told apart by the page total in their footers.
+- **El resultado es de la herramienta.** La importación lo registra tal como lo da Turnitin
+  y la auditoría no lo recalcula ([ADR 009](adr/009-first-three-detectors.md)).
+- **"\*%"** significa que la puntuación está por debajo del 20 %: en ese caso Turnitin no da
+  ninguna cifra ni resalta nada porque, como dice el informe, es más probable que esas
+  puntuaciones sean falsos positivos. La importación guarda "\*%" como la etiqueta mostrada.
+- **Los pasajes se leen por el resaltado que tienen detrás,** un trozo de texto cada vez,
+  así que un pasaje que empieza o termina a mitad de línea puede ganar o perder ahí unas
+  pocas palabras.
+- **El texto parafraseado aún no se lee.** Turnitin resalta en morado el texto que además
+  se parafraseó con IA, un color que ningún informe real ha mostrado hasta ahora; cuando
+  ese grupo está por encima del 0 %, la importación dice que faltan esos pasajes.
+- **En un PDF con los dos informes,** solo se buscan resaltados en las páginas propias del
+  AI Writing Report, que se distinguen por el total de páginas de sus pies de página.
 
-The Spanish Feedback Studio layout was checked in November 2026 against three real reports of
-May, June and August 2026, read on the maintainer's machine only. All three read with
-every source paired with its percentage (2, 50 and 61 sources). The reports wrap the
-title over two lines and print the author further down ("por …"); the title is kept as
-Turnitin prints it again on one line above "INFORME DE ORIGINALIDAD", and the author is
-dropped. Some print two switches on one line ("Excluir citas Apagado Excluir coincidencias
-Apagado"), and "TRABAJOS DEL ESTUDIANTE" on one line or two; both are read. A fourth
-Spanish report, reprinted through Word as images, has no text to read.
+El formato de Feedback Studio en español se comprobó en noviembre de 2026 con tres informes
+reales de mayo, junio y agosto de 2026, leídos solo en el equipo del responsable del
+proyecto. Los tres se leen con cada fuente emparejada con su porcentaje (2, 50 y 61
+fuentes). Los informes parten el título en dos líneas e imprimen el autor más abajo
+("por …"); el título se guarda tal como Turnitin lo vuelve a imprimir en una sola línea
+encima de "INFORME DE ORIGINALIDAD", y el autor se descarta. Algunos imprimen dos
+interruptores en una misma línea ("Excluir citas Apagado Excluir coincidencias Apagado"), y
+"TRABAJOS DEL ESTUDIANTE" en una línea o en dos; ambos casos se leen. Un cuarto informe en
+español, reimpreso con Word como imágenes, no tiene texto que leer.
 
-**Known gap.** Scanned or image-only copies of a report have no text to read.
+**Pendiente.** Las copias escaneadas o solo de imagen de un informe no tienen texto que
+leer.
 
-### Facts from Turnitin's documentation worth knowing
+### Datos útiles de la documentación de Turnitin
 
-- When the same words match several sources, the report shows **one top source** for them,
-  preferring Internet, then Publications, then Submitted Works
+- Cuando las mismas palabras coinciden con varias fuentes, el informe muestra **una sola
+  fuente principal** para ellas, y prefiere Internet, después Publications y después
+  Submitted Works
   ([Navigating the new, enhanced Similarity Report](https://guides.turnitin.com/hc/en-us/articles/27395528629517)).
-  The approximate audit relies on this.
-- **Match groups** ("Cited and Quoted", "Missing Citation"…) are produced by models trained
-  on English, are available only for submissions in English, and recognise APA, MLA,
-  Turabian and IEEE citations
+  La auditoría aproximada se basa en esto.
+- Los **grupos de coincidencias** ("Cited and Quoted", "Missing Citation"…) los producen
+  modelos entrenados en inglés, solo están disponibles para trabajos en inglés y reconocen
+  citas APA, MLA, Turabian e IEEE
   ([How do the Match Groups work](https://guides.turnitin.com/hc/en-us/articles/28057483210637)).
-  For work in Spanish they say nothing about how well it is cited.
-- **Integrity flags** cover hidden text and replaced characters
+  En trabajos en español no dicen nada sobre si las citas están bien hechas.
+- Las **alertas de integridad** abarcan el texto oculto y los caracteres sustituidos
   ([Integrity Flags](https://guides.turnitin.com/hc/en-us/articles/27397357797517)).
-  `descargo inspect` shows both kinds of content in your own file.
-- Turnitin's **Submission Details** show investigators the file's author, "last modified
-  by", paper size, software, fonts and a count of American and British spellings
+  `descargo inspect` muestra ambos tipos de contenido en tu propio archivo.
+- Los **Submission Details** de Turnitin muestran a quien investiga el autor del archivo,
+  «modificado por última vez por», el tamaño del papel, el software, las fuentes
+  tipográficas y un recuento de grafías estadounidenses y británicas
   ([Submission Details and Document Details](https://guides.turnitin.com/hc/en-us/articles/30872471895821)).
 
 ## Compilatio
 
-Descargo reads Compilatio's analysis report PDF in Spanish, in its two layouts. Both
-were learned from real reports read on the maintainer's machine only
-([ADR 009](adr/009-first-three-detectors.md)): three Magister reports of September to
-December 2025, and five Magister+ reports and one certificate of March to July 2026.
+Descargo lee el PDF del informe de análisis de Compilatio en español, en sus dos formatos.
+Ambos se aprendieron con informes reales leídos solo en el equipo del responsable del
+proyecto ([ADR 009](adr/009-first-three-detectors.md)): tres informes de Magister de
+septiembre a diciembre de 2025, y cinco informes y un certificado de Magister+ de marzo a
+julio de 2026.
 
-### Magister (until 2025, "INFORME DE ANÁLISIS")
+### Magister (hasta 2025, "INFORME DE ANÁLISIS")
 
-| Part of the report | What is read |
+| Parte del informe | Qué se lee |
 |---|---|
-| Results on the first page | similarity (the overall figure); "Textos potencialmente generados por la IA"; also, kept as extensions, suspicious text, similarity in quotes, similarity with cited sources and unrecognised languages. A result marked "(ignorado)" is listed in `marked_ignored` |
-| Document details | document name (as the title, without its extension), word and character counts, deposit and analysis dates |
-| "Fuentes principales detectadas" and "Fuentes con similitudes fortuitas" | each source with its label, URL (when not shortened), percentage and identical words; which table it came from |
-| "Fuentes mencionadas" | the URLs the document cites without any similarity |
-| The document pages | the passages drawn in the colour Compilatio uses for AI, with their page |
+| Resultados de la primera página | similitud (la cifra general); "Textos potencialmente generados por la IA"; además, guardados como extensiones, texto sospechoso, similitud entre comillas, similitud con fuentes citadas e idiomas no reconocidos. Un resultado marcado "(ignorado)" se incluye en `marked_ignored` |
+| Datos del documento | nombre del documento (como título, sin su extensión), número de palabras y de caracteres, fechas de depósito y de análisis |
+| "Fuentes principales detectadas" y "Fuentes con similitudes fortuitas" | cada fuente con su etiqueta, su URL (cuando no está recortada), su porcentaje y sus palabras idénticas; de qué tabla viene |
+| "Fuentes mencionadas" | las URL que cita el documento sin ninguna similitud |
+| Las páginas del documento | los pasajes dibujados en el color que Compilatio usa para la IA, con su página |
 
-### Magister+ (from 2026, "Informe de análisis" and "Certificado de análisis")
+### Magister+ (desde 2026, "Informe de análisis" y "Certificado de análisis")
 
-| Part of the report | What is read |
+| Parte del informe | Qué se lee |
 |---|---|
-| Section 1, the summary | suspicious text; similarity, with its "Sintáctica" and "Semántica" split; "Detección de IA"; unrecognised languages; text in quotes; and, for each, whether the report counts it in the suspicious-text percentage ("Incluido" or "No incluido") |
-| Document details | file name (as the title, without its extension), word and character counts, deposit and analysis dates |
-| Section 2, the sources | each source with its label, URL (as shown, without "https://", when not shortened) and percentage; which table it came from ("Fuente principal detectada" or "Fuente con similitudes fortuitas"); whether it is another user's document or one of the account's library, and whether it was found by semantic detection |
-| "Fuente mencionada (sin similitudes detectadas)" | the URLs the document cites without any similarity |
-| Section 3, the document (full report only) | the passages underlined in the colour Compilatio uses for AI, with their page |
+| Sección 1, el resumen | texto sospechoso; similitud, con su división en "Sintáctica" y "Semántica"; "Detección de IA"; idiomas no reconocidos; texto entre comillas; y, para cada uno, si el informe lo cuenta en el porcentaje de texto sospechoso ("Incluido" o "No incluido") |
+| Datos del documento | nombre del archivo (como título, sin su extensión), número de palabras y de caracteres, fechas de depósito y de análisis |
+| Sección 2, las fuentes | cada fuente con su etiqueta, su URL (tal como aparece, sin "https://", cuando no está recortada) y su porcentaje; de qué tabla viene ("Fuente principal detectada" o "Fuente con similitudes fortuitas"); si es un documento de otro usuario o de la biblioteca de la cuenta, y si se encontró por detección semántica |
+| "Fuente mencionada (sin similitudes detectadas)" | las URL que cita el documento sin ninguna similitud |
+| Sección 3, el documento (solo en el informe completo) | los pasajes subrayados en el color que Compilatio usa para la IA, con su página |
 
-The certificate has sections 1 and 2 only, so it has no AI passages; the import says so.
-The source tables come out of the PDF a column at a time, so each row is put back together
-from where its pieces are drawn.
+El certificado solo tiene las secciones 1 y 2, así que no tiene pasajes de IA; la
+importación lo dice. Las tablas de fuentes salen del PDF columna a columna, así que cada
+fila se reconstruye a partir de dónde están dibujadas sus piezas.
 
-Not kept, in either layout: the depositor's name, the document ID, the original file size
-and the upload type.
+No se guardan, en ninguno de los dos formatos: el nombre de quien depositó el trabajo, el
+ID del documento, el tamaño del archivo original ni el tipo de carga.
 
-What it cannot read:
+Lo que no puede leer:
 
-- **No matched text.** Matched passages are highlighted behind the text, which the PDF's text
-  does not expose, so the audit uses its approximate method, as with Turnitin.
-- **AI passages come from a colour or an underline.** Check them against the report; the
-  import says so. In the real reports, the words in the passages read came within one
-  percentage point of the AI figure Compilatio gives.
-- **Bounds.** "< 1 %" is kept as 1 % with the upper-bound flag.
-- **Reports copied into another document.** A certificate pasted into a thesis PDF is not
-  read; use the PDF downloaded from Compilatio.
+- **Sin texto coincidente.** Los pasajes coincidentes están resaltados detrás del texto, y
+  el texto del PDF no lo deja ver, así que la auditoría usa su método aproximado, como con
+  Turnitin.
+- **Los pasajes de IA salen de un color o de un subrayado.** Compruébalos con el informe;
+  la importación lo dice. En los informes reales, las palabras de los pasajes leídos
+  quedaron a menos de un punto porcentual de la cifra de IA que da Compilatio.
+- **Cotas.** "< 1 %" se guarda como 1 % con la marca de cota superior.
+- **Informes copiados dentro de otro documento.** Un certificado pegado dentro del PDF de
+  una tesis no se lee; usa el PDF descargado de Compilatio.
 
-The audit shows the AI figure and the passages as the tool's statement. It does not
-recompute or discount them.
+La auditoría muestra la cifra de IA y los pasajes como lo que afirma la herramienta. No los
+recalcula ni los descuenta.
 
-## Adding a layout or a language
+## Añadir un formato o un idioma
 
-The labels the adapters look for are in `labels.yaml` next to each adapter
+Las etiquetas que buscan los adaptadores están en `labels.yaml`, junto a cada adaptador
 ([Turnitin](../src/descargo/adapters/turnitin/labels.yaml),
-[Compilatio](../src/descargo/adapters/compilatio/labels.yaml)). To support a report in
-another language, add its labels under a new language key (for Compilatio, under its
-layout) and a synthetic test in `tests/test_<tool>_adapter.py`. Never commit a real report: check it on your own
-machine and describe in the pull request which labels you saw.
+[Compilatio](../src/descargo/adapters/compilatio/labels.yaml)). Para que lea un informe en
+otro idioma, añade sus etiquetas bajo una nueva clave de idioma (en Compilatio, dentro de su
+formato) y una prueba con datos inventados en `tests/test_<tool>_adapter.py`. Nunca subas
+un informe real al repositorio: compruébalo en tu propio equipo y describe en la pull
+request qué etiquetas viste.

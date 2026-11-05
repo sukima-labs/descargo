@@ -1,76 +1,82 @@
-# Similarity audit
+# Auditoría de similitud
 
-`descargo audit` recomputes a similarity percentage after discounting matches that are
-not plagiarism, and explains every discount. It applies rules and shows its evidence. It
-never decides whether something is or is not plagiarism, and it never hides the report's
-own figure. The design is in [ADR 005](adr/005-similarity-auditor.md).
+*Español · [English](en/audit.md)*
 
-**Not legal advice.**
+`descargo audit` recalcula un porcentaje de similitud después de descontar las coincidencias
+que no son plagio, y explica cada descuento. Aplica reglas y muestra sus pruebas. Nunca
+decide si algo es plagio o no, y nunca oculta la cifra que da el propio informe. El diseño
+está en el [ADR 005](adr/005-similarity-auditor.md).
 
-## Inputs
+**No es asesoramiento legal.**
 
-| Input | Required | What it is for |
+## Entradas
+
+| Entrada | Obligatoria | Para qué sirve |
 |---|---|---|
-| `REPORT` | yes | The detector report: a Turnitin Similarity Report or AI Writing Report, or a Compilatio analysis report, as the PDF downloaded (see [`import.md`](import.md)); or Descargo JSON ([report schema](../schemas/report/0.1.json)). |
-| `--document` | no | Your submitted work (`.docx`, `.odt`, `.pdf`, `.txt`, `.md`). It is used to find each matched passage in context. Without it, only declaration-based rules apply. |
-| `--declarations` | no | Your statements: your own earlier work and institution template text. See [`examples/declarations.example.yaml`](../examples/declarations.example.yaml). |
-| `--profile`, `--path` | no | Institution profile used for the threshold comparison and the rule on reusing your own work. |
+| `REPORT` | sí | El informe del detector: un Similarity Report o un AI Writing Report de Turnitin, o un informe de análisis de Compilatio, en el PDF tal como lo descargaste (ver [`import.md`](import.md)); o JSON de Descargo ([esquema del informe](../schemas/report/0.1.json)). |
+| `--document` | no | El trabajo que entregaste (`.docx`, `.odt`, `.pdf`, `.txt`, `.md`). Sirve para encontrar cada pasaje coincidente en su contexto. Sin él, solo se aplican las reglas basadas en declaraciones. |
+| `--declarations` | no | Tus declaraciones: tus trabajos anteriores y el texto de las plantillas de la institución. Ver [`examples/declarations.example.yaml`](../examples/declarations.example.yaml). |
+| `--profile`, `--path` | no | Perfil de institución que se usa para comparar con el umbral y para la regla sobre reutilizar tu propio trabajo. |
 
-A report with an AI writing result has it stated as the tool gives it, with the passages
-it flags, and never recomputed ([ADR 009](adr/009-first-three-detectors.md)). A report with
-**only** an AI writing result, such as Turnitin's AI Writing Report on its own, has nothing
-to discount: the output is titled "AI writing result", states that result and says so, and
-its JSON has no similarity figures (`overall_percent`, `adjusted_percent`, `method` and
-`filters` are `null`).
+Si un informe trae un resultado de escritura con IA, este se muestra tal como lo da la
+herramienta, con los pasajes que marca, y nunca se recalcula
+([ADR 009](adr/009-first-three-detectors.md)). Un informe que **solo** trae un resultado de
+escritura con IA, como el AI Writing Report de Turnitin por sí solo, no tiene nada que
+descontar: el resultado se titula «Resultado de escritura con IA», muestra ese resultado y
+lo dice, y su JSON no tiene cifras de similitud (`overall_percent`, `adjusted_percent`,
+`method` y `filters` son `null`).
 
-Files are only read. The output (`--format md|json|pdf`, `--out FILE`) records the SHA-256
-of every input, so anyone can check that the audit refers to the same files.
+Los archivos solo se leen. El resultado (`--format md|json|pdf`, `--out FILE`) registra la
+huella SHA-256 de cada entrada, para que cualquiera pueda comprobar que la auditoría se
+refiere a los mismos archivos.
 
-## Rules
+## Reglas
 
-| Rule | Discounted | Evidence shown |
+| Regla | Se descuenta | Prueba que se muestra |
 |---|---|---|
-| Quoted **and** cited: inside quotation marks (“ ”, « », " ", „ “, ‘ ’) or a block quotation, with a citation nearby | yes | the marks and the citation found |
-| Reference list: after the last references heading in the body, up to an appendix heading | yes | the heading |
-| Institution template: part of text you declared | yes | your template description |
-| Your own earlier work: a source you declared | yes, with a caveat citing your institution's rule when the profile has one | your declaration, verbatim |
-| Quoted but no citation found | **no**, reported | the passage |
-| Citation found but no quotation marks | **no**, reported | the passage and the citation |
+| Entre comillas **y** con cita: dentro de comillas (“ ”, « », " ", „ “, ‘ ’) o de una cita en bloque, con una cita bibliográfica cerca | sí | las comillas y la cita encontradas |
+| Bibliografía: después del último encabezado de referencias del cuerpo, hasta un encabezado de anexo | sí | el encabezado |
+| Plantilla de la institución: parte de un texto que declaraste | sí | tu descripción de la plantilla |
+| Tu trabajo anterior: una fuente que declaraste | sí, con una advertencia que cita la norma de tu institución cuando el perfil la tiene | tu declaración, literal |
+| Entre comillas pero sin cita encontrada | **no**, se informa | el pasaje |
+| Con cita pero sin comillas | **no**, se informa | el pasaje y la cita |
 
-Citation styles recognised:
+Estilos de cita que reconoce:
 
-- author–date (APA, Harvard, Chicago), including Spanish "y", "s. f." and "pág.";
-- narrative citations such as `Smith (2020)`;
+- autor-fecha (APA, Harvard, Chicago), incluidos «y», «s. f.» y «pág.» en español;
+- citas narrativas como `Smith (2020)`;
 - MLA;
-- IEEE `[n]` and Vancouver `(n)`;
-- superscript digits;
-- Ibid., Ibíd. and op. cit.;
-- DOIs;
-- DOCX and ODT footnote and endnote references.
+- IEEE `[n]` y Vancouver `(n)`;
+- números en superíndice;
+- Ibid., Ibíd. y op. cit.;
+- DOI;
+- llamadas a notas al pie y notas finales en DOCX y ODT.
 
-The patterns live in
-[`rules.yaml`](../src/descargo/modules/post/audit/rules.yaml). To add a language or a
-style, add a pattern there and an example to `tests/test_audit_rules.py`.
+Los patrones están en
+[`rules.yaml`](../src/descargo/modules/post/audit/rules.yaml). Para añadir un idioma o un
+estilo, añade ahí un patrón y un ejemplo en `tests/test_audit_rules.py`.
 
-## Exact and approximate figures
+## Cifras exactas y aproximadas
 
-- **Exact:** every match listed in the report was found in your document, and together they
-  add up to the report's figure (within 2 points). Discounts are then measured in words.
-- **Approximate:** some matches are missing from the report, or no document was given.
-  - Whole sources subtract their reported percentage.
-  - Passages subtract their share of the report's word count, capped at their source's
-    percentage.
-  - Sources shown as `<1%` are not subtracted.
+- **Exacta:** cada coincidencia que lista el informe se encontró en tu documento, y juntas
+  suman la cifra del informe (con un margen de 2 puntos). Entonces los descuentos se miden
+  en palabras.
+- **Aproximada:** faltan coincidencias en el informe, o no se dio ningún documento.
+  - Las fuentes enteras restan el porcentaje que da el informe.
+  - Los pasajes restan su parte del número de palabras del informe, con el porcentaje de su
+    fuente como máximo.
+  - Las fuentes que aparecen como `<1%` no se restan.
 
-When in doubt, the auditor discounts less, never more.
+En caso de duda, el auditor descuenta menos, nunca más.
 
-## Known limits
+## Límites conocidos
 
-- Quotation and citation detection are heuristics. They miss unusual layouts and can pair a
-  quotation with a neighbouring citation. Each discount shows its evidence so that a person
-  can check it.
-- Block quotations are recognised from a paragraph style (Quote, Cita, Quotations) or a
-  Markdown `>` prefix, not from indentation.
-- PDFs give no paragraph styles, so block quotations in PDFs are not recognised.
-- Word counts differ slightly between tools. The exact method subtracts discounted points
-  from the report's own figure for that reason.
+- La detección de comillas y de citas es heurística. Se le escapan las maquetaciones poco
+  habituales y puede emparejar una cita textual con una cita bibliográfica vecina. Cada
+  descuento muestra su prueba para que una persona pueda comprobarlo.
+- Las citas en bloque se reconocen por un estilo de párrafo (Quote, Cita, Quotations) o por
+  el prefijo `>` de Markdown, no por la sangría.
+- Los PDF no tienen estilos de párrafo, así que en ellos no se reconocen las citas en
+  bloque.
+- El número de palabras varía un poco de una herramienta a otra. Por eso el método exacto
+  resta los puntos descontados de la cifra del propio informe.

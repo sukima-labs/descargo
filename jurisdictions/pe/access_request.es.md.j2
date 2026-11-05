@@ -1,0 +1,36 @@
+{#- Perú: solicitud de acceso a datos personales (Ley 29733, art. 19, y su Reglamento aprobado
+    por Decreto Supremo 016-2024-JUS). Tono factual: es una solicitud, no una acusación. -#}
+{{ student.name }}{% if student.identity_document %}, identificado/a con DNI n.º {{ student.identity_document }}{% endif %}\
+{% if student.postal_address %}{{ student.postal_address }}\
+{% endif %}
+{{ student.email }}
+
+{% if recipient %}Señores: {{ recipient_block }}
+{% else %}Señores: [Oficial de datos personales o área responsable del tratamiento de datos personales], {{ institution }}
+{% endif %}
+
+{{ date }}
+
+# Solicitud de acceso a datos personales
+
+Asunto: ejercicio del derecho de acceso (artículo 19 de la Ley 29733, Ley de Protección de Datos Personales, y artículos 69, 75, 77 y 78 de su Reglamento, aprobado por Decreto Supremo 016-2024-JUS).
+
+Señores:
+
+Soy estudiante de {{ institution }}{% if student.programme %}, de la carrera de {{ student.programme }}{% endif %}{% if student.student_id %} (código de estudiante {{ student.student_id }}){% endif %}. En ejercicio del derecho citado, solicito acceder a la información sobre mí que la institución, o cualquier encargado que actúe por su cuenta, ha tratado con motivo de la revisión de mi trabajo{% if request.submission_title %} «{{ request.submission_title }}»{% endif %}{% if request.course %} del curso {{ request.course }}{% endif %}{% if submission_date %}, entregado el {{ submission_date }}{% endif %}{% if tools %}, incluidas las verificaciones realizadas con {{ tools | join(", ") }}{% endif %}.
+
+En concreto, solicito:
+
+1. Copia completa de cada informe de similitud y de cada informe de detección de escritura con inteligencia artificial generados sobre este trabajo, en la versión completa a la que accede el personal docente, con las fuentes coincidentes, los fragmentos coincidentes y la configuración aplicada (por ejemplo, si se excluyeron las citas, la bibliografía o las coincidencias pequeñas).
+2. Cualquier nota, valoración, comunicación o decisión sobre mí que se apoye en esos informes, y constancia de quién los revisó.
+3. La forma en que se recopilaron estos datos, las razones de su recopilación y a pedido de quién se realizó; y, si mi trabajo se ha almacenado en el repositorio de trabajos del proveedor de la herramienta, durante cuánto tiempo se conservará y con qué finalidad.
+4. Las transferencias realizadas o previstas de estos datos, incluido el proveedor de cada herramienta, y si se transfieren fuera del Perú.
+{% for item in request.extra_items %}
+{{ loop.index + 4 }}. {{ item }}
+{% endfor %}
+
+Conforme al artículo 69.2 del Reglamento, esta solicitud debe atenderse en un plazo máximo de {{ duration(deadline) }} contados desde el día siguiente de su presentación. De acuerdo con el artículo 78, la respuesta debe comprender toda la información indicada en el artículo 75, en lenguaje claro y sencillo. En aplicación del artículo 77, solicito que la información se me remita por transmisión electrónica al correo electrónico indicado. Según el artículo 67, el ejercicio de este derecho ante un banco de datos de administración privada es gratuito y, ante una entidad pública, no puede suponer un costo excesivo.
+
+Atentamente,
+
+{{ student.name }}

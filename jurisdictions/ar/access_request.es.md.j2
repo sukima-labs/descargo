@@ -1,0 +1,36 @@
+{#- Argentina: solicitud de acceso a datos personales (Ley 25.326, art. 14, y Decreto
+    1558/2001). Tono factual: es una solicitud de información, no una acusación. -#}
+{{ student.name }}{% if student.identity_document %}, DNI n.º {{ student.identity_document }}{% endif %}\
+{% if student.postal_address %}{{ student.postal_address }}\
+{% endif %}
+{{ student.email }}
+
+{% if recipient %}Señores: {{ recipient_block }}
+{% else %}Señores: [Área responsable de la protección de datos personales], {{ institution }}
+{% endif %}
+
+{{ date }}
+
+# Solicitud de acceso a datos personales
+
+Asunto: ejercicio del derecho de acceso a datos personales (artículo 43 de la Constitución Nacional, artículos 14 y 15 de la Ley 25.326 y artículos 14 y 15 del anexo I del Decreto 1558/2001).
+
+De mi mayor consideración:
+
+Soy estudiante de {{ institution }}{% if student.programme %}, de la carrera {{ student.programme }}{% endif %}{% if student.student_id %} (legajo {{ student.student_id }}){% endif %}. En ejercicio de los derechos citados, solicito información sobre los datos personales que me conciernen y que la institución, o cualquier tercero que actúe por su cuenta, ha tratado con motivo de la revisión de mi trabajo{% if request.submission_title %} «{{ request.submission_title }}»{% endif %}{% if request.course %} de la asignatura {{ request.course }}{% endif %}{% if submission_date %}, entregado el {{ submission_date }}{% endif %}{% if tools %}, incluidas las verificaciones realizadas con {{ tools | join(", ") }}{% endif %}.
+
+En concreto, solicito:
+
+1. Copia completa de cada informe de similitud y de cada informe de detección de escritura con inteligencia artificial generados sobre este trabajo, en la versión completa a la que accede el cuerpo docente, con las fuentes coincidentes, los fragmentos coincidentes y la configuración aplicada (por ejemplo, si se excluyeron las citas, la bibliografía o las coincidencias pequeñas).
+2. Cualquier nota, valoración, comunicación o decisión sobre mí que se apoye en esos informes, y constancia de quién los revisó.
+3. Si mi trabajo se ha almacenado en el repositorio de trabajos del proveedor de la herramienta, durante cuánto tiempo se conservará y con qué finalidad.
+4. Las fuentes y los medios por los que se obtuvieron mis datos, la finalidad con la que se recabaron y su destino previsto, incluido el proveedor de cada herramienta, y si se transfieren fuera de la Argentina.
+{% for item in request.extra_items %}
+{{ loop.index + 4 }}. {{ item }}
+{% endfor %}
+
+Conforme al artículo 15, inciso 2, de la Ley 25.326, solicito que la información verse sobre la totalidad del registro que me concierne. {% if deadline %}Conforme al artículo 14, inciso 2, de la misma ley, esta solicitud debe responderse dentro de los {{ deadline.amount }} días corridos de su recepción. {% endif %}De acuerdo con el artículo 14, inciso 3, el acceso es gratuito cuando se ejerce a intervalos no inferiores a seis meses. Conforme al artículo 15, inciso 3, de la Ley 25.326, elijo recibir la respuesta por correo electrónico en la dirección indicada.
+
+Atentamente,
+
+{{ student.name }}

@@ -1,0 +1,198 @@
+# yaml-language-server: $schema=../../schemas/jurisdiction/0.1.json
+# Mexico. Not legal advice. Two regimes, both new laws published in the DOF on 20 March 2025
+# (in force the next day) that replaced the 2010 and 2017 laws and dissolved the INAI:
+#   - public universities (sujetos obligados): Ley General de Protección de Datos Personales
+#     en Posesión de Sujetos Obligados (LGPDPPSO);
+#   - private universities (particulares): Ley Federal de Protección de Datos Personales en
+#     Posesión de los Particulares (LFPDPPP).
+# Texts checked on the Cámara de Diputados consolidated PDFs (última reforma DOF 14-11-2025).
+schema_version: "0.1"
+id: mx
+name: México
+access_request:
+  recipient_roles: [data_protection_officer, records_office]
+  legal_bases:
+    - value:
+        citation: Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados, arts. 37, 38 y 46
+        summary:
+          en: >-
+            Public universities: you have the right to access the personal data the
+            university holds about you and to know how it is processed (derechos ARCO). The
+            request goes to the university's Unidad de Transparencia.
+          es: >-
+            Universidades públicas: tienes derecho a acceder a los datos personales que la
+            universidad tiene sobre ti y a conocer cómo los trata (derechos ARCO). La
+            solicitud se presenta ante la Unidad de Transparencia de la universidad.
+      source_url: https://www.diputados.gob.mx/LeyesBiblio/pdf/LGPDPPSO.pdf
+      checked_on: 2026-11-05
+      effective_date: 2025-03-21
+      verification: verified
+      quote: "La persona titular tendrá derecho de acceder a sus datos personales que obren en posesión del responsable"
+    - value:
+        citation: Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados, art. 45
+        summary:
+          en: >-
+            Public universities must answer within 20 business days from the day after they
+            receive the request. They may extend this once, by up to 10 business days, if
+            they tell you before the first term ends. If access is granted, they must give it
+            within 15 business days of notifying the answer.
+          es: >-
+            Las universidades públicas deben responder en un máximo de 20 días hábiles
+            contados desde el día siguiente a la recepción de tu solicitud. Pueden ampliarlo
+            una sola vez hasta 10 días hábiles si te lo notifican dentro del plazo. Si el
+            acceso procede, deben hacerlo efectivo en un máximo de 15 días hábiles desde que
+            te notifican la respuesta.
+      source_url: https://www.diputados.gob.mx/LeyesBiblio/pdf/LGPDPPSO.pdf
+      checked_on: 2026-11-05
+      effective_date: 2025-03-21
+      verification: verified
+      quote: "cuando así lo justifiquen las circunstancias, siempre y cuando se le notifique a la persona titular dentro del plazo de respuesta"
+      note: The law defines "Días" as "Días hábiles" (art. 3, fracción XII).
+    - value:
+        citation: Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados, art. 44
+        summary:
+          en: >-
+            Exercising ARCO rights is free. Only reproduction, certification or shipping
+            costs may be charged, and up to 20 plain pages must be delivered free of charge.
+            Nothing may be charged just for filing the request.
+          es: >-
+            Ejercer los derechos ARCO es gratuito. Solo pueden cobrarse los costos de
+            reproducción, certificación o envío, y hasta 20 hojas simples deben entregarse
+            sin costo. No pueden cobrarte nada por presentar la solicitud.
+      source_url: https://www.diputados.gob.mx/LeyesBiblio/pdf/LGPDPPSO.pdf
+      checked_on: 2026-11-05
+      effective_date: 2025-03-21
+      verification: verified
+      quote: "La información deberá ser entregada sin costo, cuando implique la entrega de no más de veinte hojas simples."
+    - value:
+        citation: Ley Federal de Protección de Datos Personales en Posesión de los Particulares, arts. 22, 27 y 29
+        summary:
+          en: >-
+            Private universities: you have the right to access the personal data the
+            university holds about you and the conditions of its processing. Each private
+            university must designate a person or a personal data department to handle these
+            requests.
+          es: >-
+            Universidades privadas: tienes derecho a acceder a los datos personales que la
+            universidad tiene sobre ti y a conocer las condiciones de su tratamiento. Cada
+            universidad privada debe designar a una persona o un departamento de datos
+            personales que atienda estas solicitudes.
+      source_url: https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf
+      checked_on: 2026-11-05
+      effective_date: 2025-03-21
+      verification: verified
+      quote: "La persona titular tendrá derecho a acceder a sus datos personales que obren en posesión del responsable"
+    - value:
+        citation: Ley Federal de Protección de Datos Personales en Posesión de los Particulares, art. 31
+        summary:
+          en: >-
+            Private universities must tell you their decision within 20 business days of
+            receiving the request, and give access within 15 business days after that. Both
+            terms may be extended once by an equal period if the circumstances justify it.
+          es: >-
+            Las universidades privadas deben comunicarte su decisión en un máximo de 20 días
+            hábiles desde que reciben la solicitud, y darte el acceso dentro de los 15 días
+            hábiles siguientes. Ambos plazos pueden ampliarse una sola vez por un periodo
+            igual si las circunstancias lo justifican.
+      source_url: https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf
+      checked_on: 2026-11-05
+      effective_date: 2025-03-21
+      verification: verified
+      quote: "en un plazo máximo de veinte días, contados desde la fecha en que se recibió la solicitud para el ejercicio de los derechos ARCO"
+      note: >-
+        The law defines "Días" as "Días hábiles" (art. 2, fracción VIII). Extension text:
+        "podrán ser ampliados una sola vez por un periodo igual".
+    - value:
+        citation: Ley Federal de Protección de Datos Personales en Posesión de los Particulares, art. 34
+        summary:
+          en: >-
+            Exercising ARCO rights is free. Only reproduction, copying or shipping costs may
+            be charged, and nothing if you provide the electronic medium for the copy.
+          es: >-
+            Ejercer los derechos ARCO es gratuito. Solo pueden cobrarse los costos de
+            reproducción, copias o envío, y nada si tú entregas el medio electrónico para la
+            copia.
+      source_url: https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf
+      checked_on: 2026-11-05
+      effective_date: 2025-03-21
+      verification: verified
+      quote: "El ejercicio de los derechos ARCO es gratuito, solo podrán realizarse cobros para recuperar los costos de reproducción, copias o envío."
+  response_deadline:
+    value:
+      amount: 20
+      unit: business_days
+      from_event: {en: receipt of the request, es: la recepción de la solicitud}
+      extension_amount: 10
+      extension_unit: business_days
+      extension_condition:
+        en: >-
+          if it is a public university, only once and it must tell you before the first term
+          ends; a private university may instead extend once by an equal period (20 business
+          days) if the circumstances justify it
+        es: >-
+          si es una universidad pública, solo una vez y debe avisarte dentro del primer plazo;
+          una universidad privada puede, en cambio, ampliarlo una vez por un periodo igual
+          (20 días hábiles) si las circunstancias lo justifican
+    source_url: https://www.diputados.gob.mx/LeyesBiblio/pdf/LGPDPPSO.pdf
+    checked_on: 2026-11-05
+    effective_date: 2025-03-21
+    verification: verified
+    quote: "no deberá exceder de veinte días contados a partir del día siguiente a la recepción de la solicitud"
+    note: >-
+      Both regimes give 20 días hábiles (LGPDPPSO art. 45, counted from the day after receipt;
+      LFPDPPP art. 31, counted from receipt). The extension shown is the public-sector one
+      (LGPDPPSO art. 45, up to 10 days); LFPDPPP art. 31 allows one extension by an equal
+      period.
+  authority:
+    value:
+      name:
+        en: Secretaría Anticorrupción y Buen Gobierno (Mexico's data protection authority since INAI was dissolved)
+        es: Secretaría Anticorrupción y Buen Gobierno
+      url: https://www.gob.mx/buengobierno
+    source_url: https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf
+    checked_on: 2026-11-05
+    effective_date: 2025-03-21
+    verification: verified
+    quote: "XV. Secretaría: Secretaría Anticorrupción y Buen Gobierno"
+    note: >-
+      LFPDPPP art. 2, fracción XV, and arts. 38-40: the Secretaría supervises private
+      universities and hears the "solicitud de protección de datos". For public universities
+      the LGPDPPSO (art. 3, fracciones II and XXVI, and arts. 81 and 86) splits the
+      recurso de revisión between the same Secretaría and "Autoridades garantes" (internal
+      control bodies and state bodies); which one is competent depends on the university and
+      is not spelled out for universities in the law. Check the university's aviso de
+      privacidad. The URL was reachable on 2026-11-05.
+  prerequisites:
+    - value:
+        en: >-
+          Private university: you can go to the Secretaría within 15 business days after the
+          university's answer, or once the response term has expired with no answer, by
+          attaching proof of the date you filed the request (LFPDPPP, art. 40).
+        es: >-
+          Universidad privada: puedes acudir a la Secretaría dentro de los 15 días hábiles
+          siguientes a la respuesta de la universidad o, si no responde, una vez vencido el
+          plazo, adjuntando la prueba de la fecha en que presentaste la solicitud (LFPDPPP,
+          art. 40).
+      source_url: https://www.diputados.gob.mx/LeyesBiblio/pdf/LFPDPPP.pdf
+      checked_on: 2026-11-05
+      effective_date: 2025-03-21
+      verification: verified
+      quote: "La solicitud de protección de datos deberá presentarse ante la Secretaría dentro de los quince días siguientes"
+    - value:
+        en: >-
+          Public university: you can file a recurso de revisión within 15 business days of
+          the answer, or of the date the response term expired without one (LGPDPPSO,
+          arts. 86 and 95). It can also be filed with the university's Unidad de
+          Transparencia.
+        es: >-
+          Universidad pública: puedes interponer un recurso de revisión dentro de los 15 días
+          hábiles siguientes a la respuesta o, si no responden, al vencimiento del plazo
+          (LGPDPPSO, arts. 86 y 95). También puedes presentarlo ante la Unidad de
+          Transparencia de la universidad.
+      source_url: https://www.diputados.gob.mx/LeyesBiblio/pdf/LGPDPPSO.pdf
+      checked_on: 2026-11-05
+      effective_date: 2025-03-21
+      verification: verified
+      quote: "podrá interponer el recurso de revisión dentro de los quince días siguientes a aquel en que haya vencido el plazo para dar respuesta"
+  templates:
+    es: access_request.es.md.j2

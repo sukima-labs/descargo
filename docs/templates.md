@@ -1,44 +1,49 @@
-# Writing document templates
+# Escribir plantillas de documentos
 
-Jurisdiction packs (`jurisdictions/<id>/`) hold Jinja2 templates that Descargo renders
-on the student's device. Templates run in Jinja2's **sandbox** with `StrictUndefined`: a
-misspelt variable is an error, not an empty string.
+*Español · [English](en/templates.md)*
 
-## Rules
+Los paquetes de jurisdicción (`jurisdictions/<id>/`) contienen plantillas Jinja2 que
+Descargo genera en el dispositivo del estudiante. Las plantillas se ejecutan en el
+**entorno aislado** (sandbox) de Jinja2 con `StrictUndefined`: una variable mal escrita es
+un error, no una cadena vacía.
 
-- Write the **letter only**. Descargo adds the note for the student at the top and the
-  "not legal advice" footer at the bottom in code; a template cannot remove them.
-- Keep the tone factual. An access request asks for information; it does not argue the case.
-- Cite only provisions that are listed, with a source, in the pack's `legal_bases`.
-- Use the Markdown subset the PDF renderer understands: `#` headings, paragraphs, `1.` and
-  `-` lists, `**bold**`, and a trailing `\` for a line break.
-- One template per language (`access_request.<lang>.md.j2`). A pack that extends another
-  inherits the parent's templates for languages it does not define.
+## Reglas
 
-## Variables for `access_request`
+- Escribe **solo la carta**. Descargo añade desde el código la nota para el estudiante al
+  principio y el pie de «no es asesoramiento legal» al final; una plantilla no puede
+  quitarlos.
+- Mantén un tono objetivo. Una solicitud de acceso pide información; no defiende el caso.
+- Cita solo disposiciones que estén listadas, con su fuente, en los `legal_bases` del
+  paquete.
+- Usa el subconjunto de Markdown que entiende el generador de PDF: encabezados con `#`,
+  párrafos, listas con `1.` y `-`, `**negrita**` y una `\` al final para un salto de línea.
+- Una plantilla por idioma (`access_request.<lang>.md.j2`). Un paquete que extiende otro
+  hereda las plantillas del paquete padre para los idiomas que no define.
 
-| Variable | Type | Notes |
+## Variables para `access_request`
+
+| Variable | Tipo | Notas |
 |---|---|---|
-| `student.name`, `student.email` | str | always present |
-| `student.student_id`, `student.identity_document`, `student.postal_address`, `student.programme` | str or none | optional |
-| `request.submission_title`, `request.course` | str or none | optional |
-| `request.extra_items` | list of str | number them after the standard items |
-| `submission_date` | str or none | already formatted for the letter's language |
-| `tools` | list of str | display names, e.g. `Turnitin`; defaults to the profile's tools |
-| `institution` | str | institution name from the profile |
-| `recipient` | contact or none | chosen from the profile by the pack's `recipient_roles` |
-| `recipient_block` | str or none | name, address and email joined with line breaks |
-| `date` | str | letter date, formatted for the language |
-| `deadline` | object or none | the pack's response deadline |
-| `duration(deadline)` | function | e.g. "one month", "10 días hábiles" |
-| `localized(text)` | function | picks the letter's language from a localized pack text |
+| `student.name`, `student.email` | str | siempre presentes |
+| `student.student_id`, `student.identity_document`, `student.postal_address`, `student.programme` | str o none | opcionales |
+| `request.submission_title`, `request.course` | str o none | opcionales |
+| `request.extra_items` | lista de str | numéralos después de los puntos estándar |
+| `submission_date` | str o none | ya formateada para el idioma de la carta |
+| `tools` | lista de str | nombres para mostrar, p. ej. `Turnitin`; por defecto, las herramientas del perfil |
+| `institution` | str | nombre de la institución según el perfil |
+| `recipient` | contacto o none | se elige del perfil según los `recipient_roles` del paquete |
+| `recipient_block` | str o none | nombre, dirección y correo unidos con saltos de línea |
+| `date` | str | fecha de la carta, formateada para el idioma |
+| `deadline` | objeto o none | el plazo de respuesta del paquete |
+| `duration(deadline)` | función | p. ej. "one month", "10 días hábiles" |
+| `localized(text)` | función | elige el idioma de la carta en un texto traducido del paquete |
 
-## Adding a jurisdiction
+## Añadir una jurisdicción
 
-1. Create `jurisdictions/<id>/pack.yaml` (schema: `schemas/jurisdiction/0.1.json`), using
-   `extends` if a more general pack exists.
-2. Every legal basis, deadline and authority is a fact: `source_url` to an **official**
-   text, a short verbatim `quote`, and `verification: needs_verification` unless you
-   checked the quote against the source yourself (then add `checked_on`).
-3. Add one template per language and run `uv run pytest`: every template is rendered with
-   full and minimal student data, and the output must carry the disclaimer.
+1. Crea `jurisdictions/<id>/pack.yaml` (esquema: `schemas/jurisdiction/0.1.json`), con
+   `extends` si existe un paquete más general.
+2. Cada base legal, plazo y autoridad es un dato: `source_url` a un texto **oficial**, una
+   `quote` breve y literal, y `verification: needs_verification`, salvo que tú hayas
+   comprobado la cita con la fuente (en ese caso, añade `checked_on`).
+3. Añade una plantilla por idioma y ejecuta `uv run pytest`: cada plantilla se genera con
+   datos del estudiante completos y mínimos, y el resultado debe llevar el aviso legal.

@@ -1,65 +1,72 @@
-# The in-browser version
+# La versión para el navegador
 
-Descargo also runs as a web page: the same Python code, in your browser, through
-[Pyodide](https://pyodide.org/). There is no server behind it. The page is a set of
-static files; your files and details stay inside the browser tab and are gone when you close
-or reload it. See [ADR 007](adr/007-web-build.md).
+*Español · [English](en/web.md)*
 
-It offers three of the CLI's commands, in English and Spanish:
+Descargo también funciona como página web: el mismo código Python, en tu navegador, a
+través de [Pyodide](https://pyodide.org/). No hay ningún servidor detrás. La página es un
+conjunto de archivos estáticos; tus archivos y tus datos se quedan dentro de la pestaña del
+navegador y desaparecen al cerrarla o recargarla. Ver el [ADR 007](adr/007-web-build.md).
 
-| Tab | Same as |
+Ofrece tres de los comandos de la CLI, en inglés y en español:
+
+| Pestaña | Equivale a |
 |---|---|
-| Before you submit | `descargo inspect` |
-| Check a detector report | `descargo audit` (and `import-report`: download the report as JSON) |
-| Ask for the report | `descargo access-request`, with a form instead of the YAML file; "not listed" options per country draft the generic letter (`--institution`) |
-| Send feedback | no CLI equivalent: a short form that prepares a message for the student to copy or open in their own e-mail |
+| «Antes de entregar» | `descargo inspect` |
+| «Revisar un informe del detector» | `descargo audit` (e `import-report`: descargar el informe en JSON) |
+| «Pedir el informe» | `descargo access-request`, con un formulario en lugar del archivo YAML; las opciones «No está en la lista: carta genérica» de cada país redactan la carta genérica (`--institution`) |
+| «Enviar comentarios» | sin equivalente en la CLI: un formulario breve que prepara un mensaje para que el estudiante lo copie o lo abra en su propio correo |
 
-Above the tabs, a short introduction says what Descargo is, how to use it, which reports
-it reads today, what it does not do, and that this is a test version.
+Encima de las pestañas, una breve introducción explica qué es Descargo, cómo usarlo, qué
+informes lee hoy, qué no hace y que se trata de una versión de prueba.
 
-The feedback form needs no Python, so it works even when the page fails to load. Nothing is
-sent: the student sees the whole message, which carries only what they wrote, the page's
-version and language, and, if they tick the box, the page's last status message. With no
-address set, the page asks them to send it to whoever shared the page; set `FEEDBACK_EMAIL`
-in `web/app.js` to offer an "Open in my e-mail" link (`mailto:`) as well.
+El formulario de comentarios no necesita Python, así que funciona aunque la página no
+consiga cargar. No se envía nada: el estudiante ve el mensaje completo, que solo lleva lo
+que escribió, la versión y el idioma de la página y, si marca la casilla, el último mensaje
+de estado de la página. Si no hay ninguna dirección configurada, la página le pide que lo
+envíe a quien le pasó la página; configura `FEEDBACK_EMAIL` en `web/app.js` para ofrecer
+además un enlace «Abrir en mi correo» (`mailto:`).
 
-Every result can be downloaded as Markdown and PDF (the same PDF the CLI writes), and the
-inspection and audit also as JSON.
+Cada resultado se puede descargar en Markdown y en PDF (el mismo PDF que escribe la CLI), y
+la inspección y la auditoría también en JSON.
 
-## Build it
+## Compilarla
 
 ```bash
-uv run python scripts/build_web.py          # writes build/web/ (about 20 MB)
-node tests/web/smoke.mjs build/web          # runs Descargo in that Pyodide (Node 18+)
+uv run python scripts/build_web.py          # escribe build/web/ (unos 20 MB)
+node tests/web/smoke.mjs build/web          # ejecuta Descargo en ese Pyodide (Node 18+)
 ```
 
-The build downloads Pyodide and the wheels the browser needs, checks each file against a
-pinned SHA-256 (Pyodide's release tarball, Pyodide's lock file, and `uv.lock`), and caches
-the downloads in `.cache/web/`. It is the only step that uses the network; the built site
-requests nothing but its own files.
+La compilación descarga Pyodide y los paquetes wheel que necesita el navegador, comprueba
+cada archivo con una huella SHA-256 fijada de antemano (el archivo tar de la versión de
+Pyodide, el archivo de bloqueo de Pyodide y `uv.lock`) y guarda las descargas en caché en
+`.cache/web/`. Es el único paso que usa la red; el sitio compilado no pide nada salvo sus
+propios archivos.
 
-`build/web/build.json` records the Descargo version, the commit and the Pyodide version,
-and the page shows them in its footer. `build/web/SHA256SUMS` lists every file's hash, so
-anyone can check that a deployed copy matches a build.
+`build/web/build.json` registra la versión de Descargo, el commit y la versión de Pyodide,
+y la página los muestra en su pie. `build/web/SHA256SUMS` lista la huella de cada archivo,
+para que cualquiera pueda comprobar que una copia publicada coincide con una compilación.
 
-## Serve it
+## Servirla
 
 ```bash
 uv run python scripts/serve_web.py          # http://127.0.0.1:8040/
 ```
 
-The development server sends the security headers and keeps no access log. Any static host
-works, including those that cannot send headers, such as GitHub Pages, where the public page
-lives (`https://sukima-labs.github.io/descargo/`). The page carries its
-`Content-Security-Policy` in a `<meta>` tag, and the Web Worker where Python runs starts from
-a `blob:` URL, which inherits that policy, so a file can reach only the site it came from.
-Opening `index.html` from disk does not work,
-because browsers do not start module workers from `file://` URLs.
+El servidor de desarrollo envía las cabeceras de seguridad y no guarda ningún registro de
+accesos. Sirve cualquier alojamiento estático, incluidos los que no pueden enviar
+cabeceras, como GitHub Pages, donde está la página pública
+(`https://sukima-labs.github.io/descargo/`). La página lleva su
+`Content-Security-Policy` en una etiqueta `<meta>`, y el Web Worker donde se ejecuta Python
+arranca desde una URL `blob:`, que hereda esa política, así que un archivo solo puede
+llegar al sitio del que vino. Abrir `index.html` desde el disco no funciona, porque los
+navegadores no arrancan workers de módulo desde URL `file://`.
 
-## Limits
+## Límites
 
-- The first visit downloads about 20 MB; later visits use the browser's cache.
-- In a declarations file, give each template's text inline (`text:`) or name the report
-  source (`source:`): the page cannot open a second file that `file:` points to.
-- Only the bundled institution profiles are available; `--profiles-dir` has no equivalent.
-- Profile validation and the list of unverified facts stay in the CLI.
+- La primera visita descarga unos 20 MB; las siguientes usan la caché del navegador.
+- En un archivo de declaraciones, da el texto de cada plantilla directamente (`text:`) o
+  indica la fuente del informe (`source:`): la página no puede abrir un segundo archivo al
+  que apunte `file:`.
+- Solo están disponibles los perfiles de instituciones incluidos; `--profiles-dir` no tiene
+  equivalente.
+- La validación de perfiles y la lista de datos sin verificar se quedan en la CLI.

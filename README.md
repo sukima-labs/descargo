@@ -85,7 +85,7 @@ uv run descargo profile unverified          # datos que una persona aún tiene q
 # Redactar la solicitud de acceso al informe del detector (Markdown + PDF, en tu equipo)
 cp examples/student.example.yaml ~/mis-datos.yaml   # edítalo FUERA del repositorio
 uv run descargo access-request --profile es/uah --student ~/mis-datos.yaml --language es
-# Si tu institución no tiene perfil: carta genérica del paquete del país (co, es, eu, uk, us)
+# Si tu institución no tiene perfil: carta genérica del paquete del país (ar, cl, co, es, eu, mx, pe, uk, us)
 uv run descargo access-request --institution "Universidad Ejemplo" --jurisdiction co \
     --student ~/mis-datos.yaml --language es
 
