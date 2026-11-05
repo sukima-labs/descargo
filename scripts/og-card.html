@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- Source of web/og.jpg, the picture shown when someone shares the page link (WhatsApp,
+     Telegram, social networks). Render it at 1200×630 as a JPEG under ~300 KB, for example
+     with the browserless /chrome/screenshot endpoint (viewport 1200×630, type jpeg,
+     quality 85), and commit the result as web/og.jpg. Everything is inline: no fonts or
+     images are fetched. -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Descargo · tarjeta para enlaces</title>
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; }
+  body {
+    background: #fbfaf7; color: #1d1f23;
+    font-family: "Inter", "Helvetica Neue", Arial, "Liberation Sans", "DejaVu Sans", sans-serif;
+    display: flex; overflow: hidden;
+  }
+  .bar { width: 28px; background: #1f5f8b; }
+  main { flex: 1; padding: 70px 90px 60px 82px; display: flex; flex-direction: column; }
+  .brand { display: flex; align-items: center; gap: 34px; }
+  .brand svg { width: 132px; height: 132px; flex: none; }
+  h1 { font-size: 118px; line-height: 1; margin: 0; letter-spacing: -2px; }
+  .tagline { font-size: 46px; color: #1f5f8b; margin: 16px 0 0; font-weight: 600; }
+  p.what { font-size: 37px; line-height: 1.32; margin: 54px 0 0; max-width: 980px; color: #2b2e33; }
+  .foot { margin-top: auto; display: flex; justify-content: space-between; font-size: 28px; color: #5b616b; }
+</style>
+</head>
+<body>
+  <div class="bar"></div>
+  <main>
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#1f5f8b"/><path d="M8 7h10l6 6v12H8z" fill="#fff"/><path d="M18 7v6h6" fill="none" stroke="#1f5f8b" stroke-width="1.5"/><path d="M11 19l3 3 6-7" fill="none" stroke="#1f5f8b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div>
+        <h1>Descargo</h1>
+        <div class="tagline">Prueba de autoría</div>
+      </div>
+    </div>
+    <p class="what">Defiéndete de un falso positivo de Turnitin, Compilatio u otro detector de plagio o de IA. Todo ocurre en tu navegador: tus archivos no salen de tu dispositivo.</p>
+    <div class="foot"><span>sukima-labs.github.io/descargo</span><span>Software libre · gratis</span></div>
+  </main>
+</body>
+</html>

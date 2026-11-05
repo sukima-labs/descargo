@@ -53,7 +53,7 @@ PYODIDE_CORE_FILES: Final = (
 #: Runtime dependencies the browser does not need: the CLI layer (ADR 003).
 CLI_ONLY: Final = frozenset({"typer"})
 #: Static files copied from ``web/``.
-WEB_SUFFIXES: Final = frozenset({".html", ".js", ".css", ".svg"})
+WEB_SUFFIXES: Final = frozenset({".html", ".js", ".css", ".svg", ".jpg"})
 
 
 def normalize(name: str) -> str:

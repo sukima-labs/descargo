@@ -12,6 +12,8 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Link previews: the web page has Open Graph and Twitter card tags and a 1200×630 picture
+  (`web/og.jpg`, rendered from `scripts/og-card.html`), so shared links show a card.
 - Jurisdiction packs for Argentina (`ar`: Ley 25.326 and Decreto 1558/2001), Chile (`cl`:
   Ley 19.628 until 30-11-2026 and its text rewritten by Ley 21.719 from 01-12-2026), Mexico
   (`mx`: the 2025 LGPDPPSO for public institutions and LFPDPPP for private ones) and Peru
