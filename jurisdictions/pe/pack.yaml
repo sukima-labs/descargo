@@ -1,0 +1,145 @@
+# yaml-language-server: $schema=../../schemas/jurisdiction/0.1.json
+# Perú. Not legal advice. Texts checked on the copies the Autoridad Nacional de Protección de
+# Datos Personales publishes on gob.pe. The Reglamento in force is the one approved by
+# Decreto Supremo 016-2024-JUS (El Peruano, 30 Nov 2024), which repealed DS 003-2013-JUS.
+# The Ley de Transparencia (TUO, Ley 27806) is left out on purpose: it covers public
+# information held by public bodies, not access to your own personal data.
+schema_version: "0.1"
+id: pe
+name: Perú
+access_request:
+  recipient_roles: [data_protection_officer, records_office]
+  legal_bases:
+    - value:
+        citation: Ley 29733 de Protección de Datos Personales, art. 19
+        summary:
+          en: >-
+            Right of access: you can obtain the information about you that is processed in
+            public or private databases, how and why it was collected, at whose request,
+            and to whom it has been or will be transferred.
+          es: >-
+            Derecho de acceso: puedes obtener la información sobre ti que se trata en bancos
+            de datos públicos o privados, cómo y por qué se recopiló, a pedido de quién, y a
+            quién se ha transferido o se prevé transferir.
+      source_url: https://cdn.www.gob.pe/uploads/document/file/2011398/Ley%20N%C2%BA%2029733%20-%20Ley%20de%20protecci%C3%B3n%20de%20datos%20personales.pdf.pdf?v=1683928275
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "tiene derecho a obtener la información que sobre sí mismo sea objeto de tratamiento"
+      note: >-
+        Consolidated text published by the ANPD on gob.pe; art. 19 was not changed by
+        Decreto Legislativo 1353.
+    - value:
+        citation: Reglamento de la Ley 29733 (Decreto Supremo 016-2024-JUS), arts. 75 y 78
+        summary:
+          en: >-
+            The answer must cover everything listed in the right of access, even if you only
+            ask about part of it, in clear and simple language. It may not reveal data about
+            other people. Access only covers those listed items, so the letter asks for your
+            data, not for internal documents in general.
+          es: >-
+            La respuesta debe cubrir todo lo que incluye el derecho de acceso, aunque solo
+            preguntes por una parte, en lenguaje claro y sencillo. No puede revelar datos de
+            otras personas. El acceso solo cubre esos puntos; por eso el escrito pide tus
+            datos y no documentos internos en general.
+      source_url: https://cdn.www.gob.pe/uploads/document/file/7756037/6554453-reglamento-de-la-ley-n-29733.pdf?v=1743779969
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "debe ser amplia y comprender lo indicado en el artículo 75"
+    - value:
+        citation: Reglamento de la Ley 29733 (Decreto Supremo 016-2024-JUS), art. 69.2
+        summary:
+          en: >-
+            An access request must be answered within 20 business days, counted from the day
+            after you submit it. If there is no answer in time, you can treat the request as
+            refused (art. 88.2).
+          es: >-
+            Una solicitud de acceso debe responderse en un máximo de 20 días hábiles,
+            contados desde el día siguiente a su presentación. Si no responden a tiempo,
+            puedes considerar denegada tu solicitud (art. 88.2).
+      source_url: https://cdn.www.gob.pe/uploads/document/file/7756037/6554453-reglamento-de-la-ley-n-29733.pdf?v=1743779969
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "derecho de acceso es de veinte (20) días contados desde el día siguiente de la presentación de la solicitud"
+      note: Art. III.8 of the same Reglamento defines "Días" as "Días hábiles".
+    - value:
+        citation: Reglamento de la Ley 29733 (Decreto Supremo 016-2024-JUS), art. 67
+        summary:
+          en: >-
+            Exercising your rights before a private university is free. A public university
+            may only charge the fee set under the general administrative procedure law
+            (Ley 29733, art. 26), never an excessive cost.
+          es: >-
+            Ejercer tus derechos ante una universidad privada es gratuito. Una universidad
+            pública solo puede cobrar la tasa prevista conforme a la ley de procedimiento
+            administrativo general (Ley 29733, art. 26), nunca un costo excesivo.
+      source_url: https://cdn.www.gob.pe/uploads/document/file/7756037/6554453-reglamento-de-la-ley-n-29733.pdf?v=1743779969
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "de administración privada es de carácter gratuito"
+    - value:
+        citation: Reglamento de la Ley 29733 (Decreto Supremo 016-2024-JUS), art. 77
+        summary:
+          en: >-
+            You choose how to receive the information: in writing, as a copy, or by
+            electronic transmission, among other means.
+          es: >-
+            Tú eliges cómo recibir la información: por escrito, en copia o por transmisión
+            electrónica, entre otros medios.
+      source_url: https://cdn.www.gob.pe/uploads/document/file/7756037/6554453-reglamento-de-la-ley-n-29733.pdf?v=1743779969
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "Transmisión electrónica de la respuesta"
+  response_deadline:
+    value:
+      amount: 20
+      unit: business_days
+      from_event:
+        en: the day after the request is submitted
+        es: el día siguiente a la presentación de la solicitud
+      extension_amount: 20
+      extension_unit: business_days
+      extension_condition:
+        en: >-
+          only once, when the circumstances justify it, and the university must tell you why
+          before the first term ends (Reglamento, art. 71)
+        es: >-
+          una sola vez, si las circunstancias lo justifican, y la universidad debe explicarte
+          el motivo antes de que venza el primer plazo (Reglamento, art. 71)
+    source_url: https://cdn.www.gob.pe/uploads/document/file/7756037/6554453-reglamento-de-la-ley-n-29733.pdf?v=1743779969
+    checked_on: 2026-11-05
+    verification: verified
+    quote: "pueden ser ampliados una sola vez, y por un plazo igual"
+    note: >-
+      Arts. 69.2, 71 and III.8 of the Reglamento approved by DS 016-2024-JUS, which entered
+      into force 120 calendar days after its publication on 30 Nov 2024 and repealed DS
+      003-2013-JUS ("Se deroga el Decreto Supremo N.º 003-2013-JUS"). If the university asks
+      for more information (art. 70), the term stops until you provide it.
+  authority:
+    value:
+      name: Autoridad Nacional de Protección de Datos Personales (ANPD), Ministerio de Justicia y Derechos Humanos
+      url: https://www.gob.pe/anpd
+    source_url: https://cdn.www.gob.pe/uploads/document/file/7756037/6554453-reglamento-de-la-ley-n-29733.pdf?v=1743779969
+    checked_on: 2026-11-05
+    verification: verified
+    quote: "el Ministerio de Justicia y Derechos Humanos ejerce la Autoridad Nacional de Protección de Datos Personales"
+    note: >-
+      Recital of DS 016-2024-JUS citing Ley 29733 art. 32. Complaints (reclamaciones) are
+      handled by its Dirección de Protección de Datos Personales.
+  prerequisites:
+    - value:
+        en: >-
+          Before complaining to the ANPD you must first send your request to the university.
+          A refusal, an unsatisfactory answer or no answer in time lets you start the
+          complaint; attach the stamped copy of your request and any answer (Reglamento,
+          arts. 88 and 89).
+        es: >-
+          Antes de reclamar ante la ANPD debes enviar primero tu solicitud a la universidad.
+          Una denegatoria, una respuesta insatisfactoria o la falta de respuesta en plazo te
+          permiten iniciar la reclamación; adjunta el cargo de tu solicitud y la respuesta, si
+          la hubo (Reglamento, arts. 88 y 89).
+      source_url: https://cdn.www.gob.pe/uploads/document/file/7756037/6554453-reglamento-de-la-ley-n-29733.pdf?v=1743779969
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "La denegatoria o la respuesta insatisfactoria habilitan al solicitante a iniciar el procedimiento administrativo ante la Dirección de Protección de Datos Personales"
+  templates:
+    es: access_request.es.md.j2

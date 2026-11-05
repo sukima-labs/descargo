@@ -1,14 +1,17 @@
-# Network calls
+# Conexiones a la red
 
-Descargo makes **no network calls** unless you pass an explicit flag for a specific
-purpose ([ADR 001](adr/001-local-first.md)). This file lists every such call.
+*Español · [English](en/network.md)*
 
-| Feature | Flag | Endpoint | Data sent |
+Descargo **no hace ninguna conexión a la red** salvo que pases una opción explícita para un
+fin concreto ([ADR 001](adr/001-local-first.md)). Este archivo lista todas esas conexiones.
+
+| Función | Opción | Destino | Datos enviados |
 |---|---|---|---|
-| *(none in this version)* | | | |
+| *(ninguna en esta versión)* | | | |
 
-The in-browser version requests only its own files from the site that serves it; its
-Content Security Policy forbids any other request ([ADR 007](adr/007-web-build.md)).
-Building that version (`scripts/build_web.py`) downloads Pyodide from GitHub and jsDelivr
-and three wheels from PyPI, each checked against a pinned SHA-256. That happens on the
-developer's machine at build time, never on the student's device.
+La versión para el navegador solo pide sus propios archivos al sitio que la sirve; su
+política de seguridad de contenido (Content Security Policy) prohíbe cualquier otra
+petición ([ADR 007](adr/007-web-build.md)). Al compilar esa versión
+(`scripts/build_web.py`) se descarga Pyodide desde GitHub y jsDelivr, y tres paquetes wheel
+desde PyPI, cada uno comprobado con una huella SHA-256 fijada de antemano. Eso ocurre en el
+equipo de quien desarrolla, al compilar, nunca en el dispositivo del estudiante.

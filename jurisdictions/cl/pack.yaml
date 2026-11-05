@@ -1,0 +1,232 @@
+# yaml-language-server: $schema=../../schemas/jurisdiction/0.1.json
+# Chile. Not legal advice. Texts checked on LeyChile (Biblioteca del Congreso Nacional) on
+# 2026-11-05, read through a browser because bcn.cl refuses automated clients (HTTP 401).
+#
+# Two regimes. Until 30-NOV-2026 the original Ley 19.628 applies (access: art. 12; court
+# action after 2 business days: art. 16). From 01-DIC-2026 the text rewritten by Ley 21.719
+# applies (access: art. 5; 30 calendar days: art. 11; complaint to the new Agencia: art. 41).
+# The facts that only apply from that date carry `effective_date: 2026-12-01`.
+# RECHECK BEFORE 2026-12-01: bill Boletín 18.623-07, which would move the date to
+# 01-DIC-2027, passed the Senate on 2026-10-28 and is in the Chamber of Deputies under
+# "discusión inmediata" (Senate tracking page, 2026-11-05). If it becomes law, update
+# every effective_date below, the template and the summaries.
+schema_version: "0.1"
+id: cl
+name: Chile
+access_request:
+  recipient_roles: [data_protection_officer, records_office]
+  legal_bases:
+    - value:
+        citation: Ley 19.628, art. 12 (texto vigente hasta el 30 de noviembre de 2026)
+        summary:
+          en: >-
+            Until 30 November 2026: you have the right to ask whoever holds your data for
+            the data about you, where it came from, who received it and why it is stored.
+            The information is free of charge.
+          es: >-
+            Hasta el 30 de noviembre de 2026: tienes derecho a pedir a quien guarda tus datos
+            la información sobre los datos que te conciernen, su origen, a quién se
+            comunicaron y para qué se guardan. La información es gratuita.
+      source_url: https://www.bcn.cl/leychile/navegar?idNorma=141599
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "información sobre los datos relativos a su persona, su procedencia y destinatario"
+      note: >-
+        Same article: "la información, modificación o eliminación de los datos serán
+        absolutamente gratuitas". LeyChile labels this version "de 09-MAY-2023 a 30-NOV-2026".
+    - value:
+        citation: Ley 19.628, art. 16 (texto vigente hasta el 30 de noviembre de 2026)
+        summary:
+          en: >-
+            Until 30 November 2026: if the university does not answer within 2 business
+            days, or refuses, you can take the matter to the civil court of the university's
+            domicile (habeas data action).
+          es: >-
+            Hasta el 30 de noviembre de 2026: si la universidad no se pronuncia dentro de 2
+            días hábiles, o te lo niega, puedes acudir al juzgado de letras en lo civil del
+            domicilio de la universidad (acción de habeas data).
+      source_url: https://www.bcn.cl/leychile/navegar?idNorma=141599
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "no se pronunciare sobre la solicitud del requirente dentro de dos días hábiles"
+    - value:
+        citation: Ley 21.719, disposiciones transitorias, art. primero
+        summary:
+          en: >-
+            The new data protection rules (Ley 19.628 as rewritten by Ley 21.719, published
+            on 13 December 2024) apply from 1 December 2026. A bill to postpone them to 1
+            December 2027 was still going through Congress on 5 November 2026.
+          es: >-
+            Las nuevas reglas de protección de datos (la Ley 19.628 reescrita por la Ley
+            21.719, publicada el 13 de diciembre de 2024) rigen desde el 1 de diciembre de
+            2026. Al 5 de noviembre de 2026 seguía en el Congreso un proyecto para
+            postergarlas al 1 de diciembre de 2027.
+      source_url: https://www.bcn.cl/leychile/navegar?idNorma=1209272
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "entrarán en vigencia el día primero del mes vigésimo cuarto posterior a la publicación de esta ley en el Diario Oficial"
+      effective_date: 2026-12-01
+      note: >-
+        LeyChile shows "Publicación: 13-DIC-2024" and "Entra en vigencia el 01-DIC-2026";
+        last modification 05-FEB-2026 (Ley 21.806), which did not change the date. Bill
+        Boletín 18.623-07 (move to 01-DIC-2027): approved by the Senate 2026-10-28, in the
+        Chamber of Deputies since 2026-11-02, per
+        https://tramitacion.senado.cl/appsenado/templates/tramitacion/index.php?boletin_ini=18623-07
+    - value:
+        citation: Ley 19.628, art. 5 (texto de la Ley 21.719, desde el 1 de diciembre de 2026)
+        summary:
+          en: >-
+            From 1 December 2026: you can confirm whether your data is processed and get the
+            data, its origin, the purposes, the recipients and how long it will be kept. If
+            a decision about you was automated, you can also get meaningful information
+            about the logic involved.
+          es: >-
+            Desde el 1 de diciembre de 2026: puedes confirmar si se tratan tus datos y
+            obtener los datos, su origen, las finalidades, los destinatarios y el tiempo que
+            se conservarán. Si una decisión sobre ti fue automatizada, también puedes
+            obtener información significativa sobre la lógica aplicada.
+      source_url: https://www.bcn.cl/leychile/navegar?idNorma=1209272
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "acceder a dichos datos y a la siguiente información"
+      effective_date: 2026-12-01
+      note: >-
+        Letter f) of the same article: "La información significativa sobre la lógica
+        aplicada" for processing under art. 8° bis (automated individual decisions).
+    - value:
+        citation: Ley 19.628, art. 10 (texto de la Ley 21.719, desde el 1 de diciembre de 2026)
+        summary:
+          en: >-
+            From 1 December 2026: access is free at least once every three months.
+          es: >-
+            Desde el 1 de diciembre de 2026: el acceso es gratuito al menos una vez cada tres
+            meses.
+      source_url: https://www.bcn.cl/leychile/navegar?idNorma=1209272
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "El derecho de acceso también se ejercerá en forma gratuita, al menos trimestralmente."
+      effective_date: 2026-12-01
+    - value:
+        citation: Ley 19.628, art. 11 (texto de la Ley 21.719, desde el 1 de diciembre de 2026)
+        summary:
+          en: >-
+            From 1 December 2026: the university must acknowledge your request and answer
+            within 30 calendar days of receiving it, extendable once by up to 30 calendar
+            days. A refusal must give reasons.
+          es: >-
+            Desde el 1 de diciembre de 2026: la universidad debe acusar recibo de tu
+            solicitud y responder dentro de 30 días corridos desde su ingreso, prorrogables
+            una sola vez hasta por 30 días corridos. Si la rechaza, debe fundamentarlo.
+      source_url: https://www.bcn.cl/leychile/navegar?idNorma=1209272
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "pronunciarse a más tardar dentro de los treinta días corridos siguientes a la fecha de ingreso de la solicitud"
+      effective_date: 2026-12-01
+    - value:
+        citation: Ley 21.094 sobre Universidades del Estado, art. 1
+        summary:
+          en: >-
+            State universities are part of the State Administration. This is why the
+            transparency law (Ley 20.285) can also apply to them. Private universities are
+            not covered by it.
+          es: >-
+            Las universidades del Estado forman parte de la Administración del Estado. Por
+            eso también puede aplicarse a ellas la ley de transparencia (Ley 20.285). Las
+            universidades privadas no están cubiertas por ella.
+      source_url: https://www.bcn.cl/leychile/navegar?idNorma=1119253
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "que forman parte de la Administración del Estado"
+      note: >-
+        Ley 20.285 art. 2 applies to "los órganos y servicios públicos creados para el
+        cumplimiento de la función administrativa". Reading the two together is our
+        inference; no text naming universities was found in Ley 20.285.
+    - value:
+        citation: Ley 20.285 sobre Acceso a la Información Pública, art. 14
+        summary:
+          en: >-
+            State universities only: a request for public information must be answered
+            within 20 business days, extendable once by 10 business days with notice and
+            reasons. The letter does not rely on it: your own data is requested under Ley
+            19.628.
+          es: >-
+            Solo universidades del Estado: una solicitud de información pública debe
+            responderse en un máximo de 20 días hábiles, prorrogables una vez por 10 días
+            hábiles, avisándote del motivo. El escrito no se basa en ella: tus datos se piden
+            conforme a la Ley 19.628.
+      source_url: https://www.bcn.cl/leychile/navegar?idNorma=276363
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "en un plazo máximo de veinte días hábiles, contado desde la recepción de la solicitud"
+      note: >-
+        Until 30-NOV-2026, art. 33 m) also gives the Consejo para la Transparencia the duty
+        to oversee compliance with Ley 19.628 by State bodies; Ley 21.719 art. segundo
+        removes that letter from 01-DIC-2026.
+  response_deadline:
+    value:
+      amount: 2
+      unit: business_days
+      from_event: {en: receipt of the request, es: la recepción de tu solicitud}
+    source_url: https://www.bcn.cl/leychile/navegar?idNorma=141599
+    checked_on: 2026-11-05
+    verification: verified
+    quote: "no se pronunciare sobre la solicitud del requirente dentro de dos días hábiles"
+    note: >-
+      Ley 19.628 art. 16, valid only for requests received up to 30-NOV-2026; the article
+      sets the point after which the court action is available rather than a stated reply
+      period. From 01-DIC-2026 (art. 11 as rewritten by Ley 21.719) the period is 30
+      calendar days from receipt, extendable once by up to 30 calendar days. The schema
+      holds one deadline, so the letter states both rules; replace this with
+      30 calendar_days (extension 30 calendar_days) once 01-DIC-2026 has passed.
+  authority:
+    value:
+      name:
+        en: >-
+          from 1 December 2026, the Agencia de Protección de Datos Personales; until 30
+          November 2026, a habeas data action before the civil court (juzgado de letras en
+          lo civil) of the university's domicile, Poder Judicial
+        es: >-
+          desde el 1 de diciembre de 2026, la Agencia de Protección de Datos Personales;
+          hasta el 30 de noviembre de 2026, una acción de habeas data ante el juzgado de
+          letras en lo civil del domicilio de la universidad, Poder Judicial
+      url: https://www.pjud.cl/
+    source_url: https://www.bcn.cl/leychile/navegar?idNorma=141599
+    checked_on: 2026-11-05
+    verification: verified
+    quote: "tendrá derecho a recurrir al juez de letras en lo civil del domicilio del responsable"
+    note: >-
+      Ley 19.628 art. 16 (current text). The Agencia is created by art. 30 of the text
+      rewritten by Ley 21.719 ("Créase la Agencia de Protección de Datos Personales",
+      https://www.bcn.cl/leychile/navegar?idNorma=1209272); no official website for it was
+      confirmed on 2026-11-05, so the URL points to the Judiciary. Add the Agencia's site
+      once it exists. For State universities, until 30-NOV-2026 the Consejo para la
+      Transparencia also oversees Ley 19.628 (Ley 20.285 art. 33 m).
+  prerequisites:
+    - value:
+        en: >-
+          Until 30 November 2026: you can go to court only after asking the university
+          and getting no answer within 2 business days, or a refusal (Ley 19.628, art. 16).
+        es: >-
+          Hasta el 30 de noviembre de 2026: solo puedes acudir al juzgado después de
+          pedírselo a la universidad y no recibir respuesta en 2 días hábiles, o recibir una
+          negativa (Ley 19.628, art. 16).
+      source_url: https://www.bcn.cl/leychile/navegar?idNorma=141599
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "o la denegare por una causa distinta de la seguridad de la Nación o el interés nacional"
+    - value:
+        en: >-
+          From 1 December 2026: you can complain to the Agencia only after the university
+          refused your request or did not answer in time, and within 30 business days of
+          that (Ley 19.628, art. 41, as rewritten by Ley 21.719).
+        es: >-
+          Desde el 1 de diciembre de 2026: solo puedes reclamar ante la Agencia después de
+          que la universidad rechace tu solicitud o no responda a tiempo, y dentro de los 30
+          días hábiles siguientes (Ley 19.628, art. 41, texto de la Ley 21.719).
+      source_url: https://www.bcn.cl/leychile/navegar?idNorma=1209272
+      checked_on: 2026-11-05
+      verification: verified
+      quote: "El titular de datos podrá reclamar ante la Agencia cuando el responsable le haya denegado una solicitud realizada de conformidad al artículo 11"
+      effective_date: 2026-12-01
+  templates:
+    es: access_request.es.md.j2

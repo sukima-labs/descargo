@@ -81,7 +81,7 @@ uv run descargo profile unverified          # facts a human still has to check
 # Draft a request for access to the detector report (Markdown + PDF, on your device)
 cp examples/student.example.yaml ~/my-details.yaml   # edit it OUTSIDE the repository
 uv run descargo access-request --profile es/uah --student ~/my-details.yaml
-# No profile for your institution: a generic letter from the country's pack (co, es, eu, uk, us)
+# No profile for your institution: a generic letter from the country's pack (ar, cl, co, es, eu, mx, pe, uk, us)
 uv run descargo access-request --institution "Universidad Ejemplo" --jurisdiction co \
     --student ~/my-details.yaml
 
@@ -98,22 +98,22 @@ uv run descargo audit turnitin-report.pdf --document my-essay.docx \
 
 The inspector reports what your file contains besides its visible text and what each item
 usually means; it never changes the file and gives no score. See
-[`docs/inspect.md`](docs/inspect.md) and [ADR 006](docs/adr/006-pre-submission-inspector.md).
+[`docs/en/inspect.md`](docs/en/inspect.md) and [ADR 006](docs/adr/006-pre-submission-inspector.md).
 
 The adapters read Turnitin's Similarity Report PDF, classic (Feedback Studio) and
 enhanced, and its AI Writing Report PDF, all in English and Spanish, with the passages
 Turnitin attributes to AI; and Compilatio's analysis report and certificate
 PDFs (Magister until 2025 and Magister+ from 2026), in Spanish, including the passages
 Compilatio attributes to AI. They drop the author or depositor name shown on the report.
-See [`docs/import.md`](docs/import.md) and [ADR 009](docs/adr/009-first-three-detectors.md).
+See [`docs/en/import.md`](docs/en/import.md) and [ADR 009](docs/adr/009-first-three-detectors.md).
 **Known gap:** Copyleaks is not read yet.
 
 The audit discounts quoted and cited passages, the reference list, institution template
 text and your declared own earlier work, and explains each discount. See
-[`docs/audit.md`](docs/audit.md) and [ADR 005](docs/adr/005-similarity-auditor.md).
+[`docs/en/audit.md`](docs/en/audit.md) and [ADR 005](docs/adr/005-similarity-auditor.md).
 
 The same tools also run as a web page, entirely in your browser (no server receives
-anything). See [`docs/web.md`](docs/web.md) and [ADR 007](docs/adr/007-web-build.md):
+anything). See [`docs/en/web.md`](docs/en/web.md) and [ADR 007](docs/adr/007-web-build.md):
 
 ```bash
 uv run python scripts/build_web.py && uv run python scripts/serve_web.py
@@ -121,7 +121,7 @@ uv run python scripts/build_web.py && uv run python scripts/serve_web.py
 
 Messages and reports are in English and Spanish (`--lang es`, or `DESCARGO_LANG=es`);
 help texts are in English. No command overwrites the files it reads. Options common to every
-command, and the exit status, are in [`docs/cli.md`](docs/cli.md).
+command, and the exit status, are in [`docs/en/cli.md`](docs/en/cli.md).
 
 ## Development
 

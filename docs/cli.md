@@ -1,57 +1,61 @@
-# Command-line interface
+# Interfaz de línea de comandos
 
-Every command reads files on your device and writes only the output you ask for. None of
-them uses the network. `descargo COMMAND --help` lists every option.
+*Español · [English](en/cli.md)*
 
-**Not legal advice.**
+Todos los comandos leen archivos de tu dispositivo y solo escriben el resultado que pides.
+Ninguno usa la red. `descargo COMMAND --help` lista todas las opciones.
 
-| Command | What it does | Details |
+**No es asesoramiento legal.**
+
+| Comando | Qué hace | Detalles |
 |---|---|---|
-| `profile list`, `profile show`, `profile validate`, `profile unverified` | List, check and show institution profiles, and the facts a human still has to verify | [Contributing](../CONTRIBUTING.md#adding-or-updating-data) |
-| `access-request` | Draft a request for access to the detector report under the law that applies to you | [README](../README.md#usage-so-far); pack authors: [templates](templates.md) |
-| `import-report` | Read a downloaded detector report into Descargo JSON | [Import](import.md) |
-| `audit` | Recompute a similarity percentage after discounting quotations, references, templates and your declared own work | [Audit](audit.md) |
-| `inspect` | List what a file contains besides its visible text, before you submit it | [Inspect](inspect.md) |
+| `profile list`, `profile show`, `profile validate`, `profile unverified` | Lista, comprueba y muestra perfiles de instituciones, y los datos que una persona aún tiene que verificar | [Contribuir](../CONTRIBUTING.md#adding-or-updating-data) (en inglés) |
+| `access-request` | Redacta una solicitud de acceso al informe del detector según la ley que te ampara | [README](../README.md#uso-por-ahora); para quien escribe paquetes: [plantillas](templates.md) |
+| `import-report` | Lee un informe de detector descargado y lo pasa a JSON de Descargo | [Importar](import.md) |
+| `audit` | Recalcula un porcentaje de similitud después de descontar citas, bibliografía, plantillas y tu trabajo anterior declarado | [Auditoría](audit.md) |
+| `inspect` | Lista lo que contiene un archivo además del texto visible, antes de entregarlo | [Inspección](inspect.md) |
 
-## Language
+## Idioma
 
-- `descargo --lang en|es COMMAND …` sets the interface language: messages, and the
-  default language of the reports that `audit` and `inspect` write. Without it,
-  Descargo uses `DESCARGO_LANG`, then `LC_ALL`, `LC_MESSAGES` and `LANG`, then
-  English.
-- `audit --language` and `inspect --language` set the report language alone.
-  `access-request --language` sets the letter language, which needs a template in that
-  language in the jurisdiction pack; by default it is the institution's language.
-- `access-request --institution NAME --jurisdiction PACK` drafts a generic letter for an
-  institution with no profile, from the pack alone. `--office` and `--office-email`
-  address it to an office the student found; that recipient is reported as unverified.
-- Help texts and usage errors (an unknown option, a missing file) are in English for now.
+- `descargo --lang en|es COMMAND …` fija el idioma de la interfaz: los mensajes y el
+  idioma por defecto de los informes que escriben `audit` e `inspect`. Sin esta opción,
+  Descargo usa `DESCARGO_LANG`, después `LC_ALL`, `LC_MESSAGES` y `LANG`, y si no, inglés.
+- `audit --language` e `inspect --language` fijan solo el idioma del informe.
+  `access-request --language` fija el idioma de la carta, que necesita una plantilla en ese
+  idioma en el paquete de jurisdicción; por defecto es el idioma de la institución.
+- `access-request --institution NAME --jurisdiction PACK` redacta una carta genérica para
+  una institución sin perfil, solo a partir del paquete. `--office` y `--office-email` la
+  dirigen a una oficina que encontró el estudiante; ese destinatario se marca como no
+  verificado.
+- Los textos de ayuda y los errores de uso (una opción desconocida, un archivo que falta)
+  están en inglés por ahora.
 
-## Output files
+## Archivos de salida
 
-- `--out FILE` writes to a file instead of the terminal. PDF output needs `--out`.
-  `access-request --out` takes a path without extension and adds `.md` and `.pdf`.
-- An existing file is never overwritten unless you pass `--force`.
-- An input file is never overwritten, even with `--force`: `--out` must not be the report,
-  document, declarations or details file the command reads.
-- When `import-report` prints JSON to the terminal, its summary and notes go to standard
-  error, so the JSON can be piped or redirected on its own.
+- `--out FILE` escribe en un archivo en lugar de en la terminal. La salida en PDF necesita
+  `--out`. `access-request --out` recibe una ruta sin extensión y añade `.md` y `.pdf`.
+- Un archivo que ya existe nunca se sobrescribe, salvo que pases `--force`.
+- Un archivo de entrada nunca se sobrescribe, ni siquiera con `--force`: `--out` no puede
+  ser el informe, el documento, las declaraciones ni el archivo de datos que lee el comando.
+- Cuando `import-report` muestra el JSON en la terminal, su resumen y sus notas van a la
+  salida de error estándar, para que el JSON se pueda pasar por una tubería o redirigir
+  por separado.
 
-## Dates
+## Fechas
 
-`--date YYYY-MM-DD` sets the date printed on a letter, audit or inspection report, so that
-the same inputs give the same output. It defaults to today.
+`--date YYYY-MM-DD` fija la fecha que aparece en una carta, una auditoría o un informe de
+inspección, para que las mismas entradas den el mismo resultado. Por defecto es la de hoy.
 
-## Exit status
+## Código de salida
 
-| Status | Meaning |
+| Código | Significado |
 |---|---|
-| 0 | Done. For `inspect`, this holds whatever the file contains: findings are not failures ([ADR 006](adr/006-pre-submission-inspector.md)). |
-| 1 | Descargo could not or would not do it: an unreadable file, an unknown profile, an output that would overwrite a file, an invalid profile in `profile validate`. The message says why. |
-| 2 | Usage error: an unknown option or option value, or a file that does not exist. |
+| 0 | Hecho. En `inspect`, vale para cualquier contenido del archivo: los hallazgos no son fallos ([ADR 006](adr/006-pre-submission-inspector.md)). |
+| 1 | Descargo no pudo o no quiso hacerlo: un archivo ilegible, un perfil desconocido, una salida que sobrescribiría un archivo, un perfil no válido en `profile validate`. El mensaje dice por qué. |
+| 2 | Error de uso: una opción o un valor de opción desconocidos, o un archivo que no existe. |
 
-## Data folders
+## Carpetas de datos
 
-`--profiles-dir` and `--jurisdictions-dir` point at your own copies of the
-[`profiles/`](../profiles/) and [`jurisdictions/`](../jurisdictions/) folders, for example
-to try a profile before contributing it. By default the bundled ones are used.
+`--profiles-dir` y `--jurisdictions-dir` apuntan a tus propias copias de las carpetas
+[`profiles/`](../profiles/) y [`jurisdictions/`](../jurisdictions/), por ejemplo para probar
+un perfil antes de contribuirlo. Por defecto se usan las que vienen incluidas.

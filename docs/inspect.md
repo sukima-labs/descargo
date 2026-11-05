@@ -1,103 +1,111 @@
-# Pre-submission inspection
+# Inspección antes de entregar
 
-`descargo inspect` lists what a file contains besides its visible text: invisible or
-unusual characters, metadata, tracked changes, comments, hidden text and other content that
-a reader or a tool may notice. It explains what each item usually means and what it does
-not show. The design is in [ADR 006](adr/006-pre-submission-inspector.md).
+*Español · [English](en/inspect.md)*
 
-It **reports and never changes your file**. It does not tell you what to change, gives no
-score and no pass/fail, and exits with status 0 whenever it could read the file. If you edit
-the file with your own tools, keep a copy of the original.
+`descargo inspect` lista lo que contiene un archivo además del texto visible: caracteres
+invisibles o poco habituales, metadatos, control de cambios, comentarios, texto oculto y
+otros contenidos que una persona o una herramienta pueden notar. Explica qué suele
+significar cada cosa y qué no demuestra. El diseño está en el
+[ADR 006](adr/006-pre-submission-inspector.md).
 
-**Not legal advice.**
+**Informa y nunca cambia tu archivo.** No te dice qué cambiar, no da ninguna puntuación ni
+ningún aprobado o suspenso, y termina con el código 0 siempre que haya podido leer el
+archivo. Si editas el archivo con tus propias herramientas, guarda una copia del original.
+
+**No es asesoramiento legal.**
 
 ```bash
-uv run descargo inspect my-essay.docx
-uv run descargo --lang es inspect my-essay.odt --format pdf --out inspection.pdf
+uv run descargo inspect mi-ensayo.docx --language es
+uv run descargo --lang es inspect mi-ensayo.odt --format pdf --out inspeccion.pdf
 ```
 
-| Option | What it does |
+| Opción | Qué hace |
 |---|---|
-| `--format md\|json\|pdf` | Output format (Markdown by default). |
-| `--out FILE` | Write to a file instead of the terminal (required for PDF). |
-| `--language en\|es` | Report language; defaults to the interface language. |
-| `--date YYYY-MM-DD` | Date printed on the report; defaults to today. |
-| `--force` | Overwrite an existing output file. The inspected file is never overwritten. |
+| `--format md\|json\|pdf` | Formato de salida (Markdown por defecto). |
+| `--out FILE` | Escribe en un archivo en lugar de en la terminal (obligatorio para PDF). |
+| `--language en\|es` | Idioma del informe; por defecto, el de la interfaz. |
+| `--date YYYY-MM-DD` | Fecha que aparece en el informe; por defecto, la de hoy. |
+| `--force` | Sobrescribe un archivo de salida que ya existe. El archivo inspeccionado nunca se sobrescribe. |
 
-Supported files: `.docx` (and `.docm`), `.odt`, `.pdf`, and UTF-8 `.txt` or `.md`.
+Archivos admitidos: `.docx` (y `.docm`), `.odt`, `.pdf`, y `.txt` o `.md` en UTF-8.
 
-## Levels
+## Niveles
 
-- **Worth reviewing**: a reader or a tool is likely to notice it. It does not mean anything
-  is wrong.
-- **For information**: common and usually innocent.
+- **Para revisar**: es probable que una persona o una herramienta lo note. No significa que
+  haya algo mal.
+- **Para tu información**: es habitual y suele ser inocente.
 
-## What is checked
+## Qué se revisa
 
-### Characters (every format)
+### Caracteres (en todos los formatos)
 
-| Finding | Level | Notes |
+| Hallazgo | Nivel | Notas |
 |---|---|---|
-| Zero-width and other invisible format characters | review | U+200B, U+2060, U+FEFF inside text, invisible operators… |
-| Zero-width joiners and non-joiners | info | Normal in Persian, Arabic, Indic scripts and emoji |
-| Soft hyphens | info | Inserted by hyphenation |
-| Text-direction marks and controls | info | Normal in right-to-left text |
-| Text-direction overrides (U+202D, U+202E) | review | |
-| Unbalanced text-direction controls | review | Checked per paragraph ("Trojan Source", CVE-2021-42574) |
-| Tag characters (U+E0000–E007F) | review | The ASCII text they spell is shown |
-| Emoji flags built from tag characters | info | England, Scotland, Wales… |
-| Variation selectors | info | A single one after a character |
-| Data hidden in variation selectors | review | Runs of selectors, decoded to bytes (and to text when readable) |
-| Content credentials (C2PA manifest) | review | The C2PA 2.4 text wrapper: presence and size only |
-| Control characters | review | Other than tab and line breaks |
-| Private-use characters | info | Symbol fonts such as Wingdings |
-| Unassigned code points | review | Depends on the Unicode version, which the report records |
-| Unusual spaces | review | En, em, thin, ideographic… |
-| Non-breaking spaces | info | U+00A0 and U+202F |
-| Characters that look blank | review | Hangul fillers, blank Braille pattern |
-| Unicode line and paragraph separators | info | |
-| Words mixing alphabets | review | Latin with Cyrillic, or with Greek letters that look Latin. Other Greek letters (μm, β-cells) are not reported |
-| Byte-order mark at the start of a text file | info | |
+| Caracteres de ancho cero y otros caracteres de formato invisibles | revisar | U+200B, U+2060, U+FEFF dentro del texto, operadores invisibles… |
+| Caracteres de unión y de no unión de ancho cero | información | Normales en persa, árabe, escrituras índicas y emojis |
+| Guiones blandos | información | Los inserta la división en sílabas |
+| Marcas y controles de dirección del texto | información | Normales en texto de derecha a izquierda |
+| Forzado de la dirección del texto (U+202D, U+202E) | revisar | |
+| Controles de dirección del texto sin cerrar | revisar | Se comprueba por párrafo ("Trojan Source", CVE-2021-42574) |
+| Caracteres de etiqueta (U+E0000–E007F) | revisar | Se muestra el texto ASCII que forman |
+| Banderas emoji formadas con caracteres de etiqueta | información | Inglaterra, Escocia, Gales… |
+| Selectores de variación | información | Uno solo después de un carácter |
+| Datos ocultos en selectores de variación | revisar | Series de selectores, decodificadas a bytes (y a texto cuando se puede leer) |
+| Credenciales de contenido (manifiesto C2PA) | revisar | El envoltorio de texto de C2PA 2.4: solo presencia y tamaño |
+| Caracteres de control | revisar | Distintos del tabulador y los saltos de línea |
+| Caracteres de uso privado | información | Fuentes de símbolos como Wingdings |
+| Puntos de código sin asignar | revisar | Depende de la versión de Unicode, que el informe registra |
+| Espacios poco habituales | revisar | Espacio de media eme, de eme, fino, ideográfico… |
+| Espacios de no separación | información | U+00A0 y U+202F |
+| Caracteres que parecen en blanco | revisar | Rellenos hangul, patrón braille en blanco |
+| Separadores Unicode de línea y de párrafo | información | |
+| Palabras que mezclan alfabetos | revisar | Latino con cirílico, o con letras griegas que parecen latinas. Las demás letras griegas (μm, células β) no se informan |
+| Marca de orden de bytes al principio de un archivo de texto | información | |
 
-In DOCX files, characters are checked in the body, headers, footers, footnotes, endnotes
-and comments, including deleted text that tracked changes keep. In ODT files they are
-checked in `content.xml` and `styles.xml` (headers and footers). In PDFs they are checked in
-the text that pypdf extracts.
+En los archivos DOCX, los caracteres se revisan en el cuerpo, los encabezados, los pies de
+página, las notas al pie, las notas finales y los comentarios, incluido el texto eliminado
+que conserva el control de cambios. En los ODT se revisan en `content.xml` y `styles.xml`
+(encabezados y pies de página). En los PDF se revisan en el texto que extrae pypdf.
 
-### Documents
+### Documentos
 
-| Finding | DOCX | ODT | PDF |
+| Hallazgo | DOCX | ODT | PDF |
 |---|---|---|---|
-| Metadata | `core.xml`, `app.xml`, `custom.xml` | `meta.xml` | Info dictionary, XMP |
-| Editing time | `TotalTime` | `editing-duration` | |
-| Editing cycles | | `editing-cycles` | |
-| Save-session identifiers (RSIDs) | count, sessions used by the body text, largest share | | |
-| Tracked changes, with names and dates | yes | yes | |
-| Comments, with names | yes | yes | |
-| Hidden, white and tiny (< 2 pt) text, including through styles | yes | yes | invisible render modes, white fill |
-| Fields by type (citation managers included) | yes | | |
-| Imported content parts (`altChunk`) | yes | | |
-| Embedded objects, macros | yes | yes | |
-| Attached template | yes | | |
-| Incremental updates, encryption, attachments | | | yes |
+| Metadatos | `core.xml`, `app.xml`, `custom.xml` | `meta.xml` | Diccionario Info, XMP |
+| Tiempo de edición | `TotalTime` | `editing-duration` | |
+| Ciclos de edición | | `editing-cycles` | |
+| Identificadores de sesión de guardado (RSID) | número, sesiones que usa el texto del cuerpo, mayor proporción | | |
+| Control de cambios, con nombres y fechas | sí | sí | |
+| Comentarios, con nombres | sí | sí | |
+| Texto oculto, blanco y diminuto (< 2 pt), incluso a través de estilos | sí | sí | modos de representación invisibles, relleno blanco |
+| Campos por tipo (incluidos los de gestores de referencias) | sí | | |
+| Partes de contenido importado (`altChunk`) | sí | | |
+| Objetos incrustados, macros | sí | sí | |
+| Plantilla adjunta | sí | | |
+| Actualizaciones incrementales, cifrado, archivos adjuntos | | | sí |
 
-## Reading the results
+## Cómo leer los resultados
 
-- **Metadata can mislead.** Tools copy properties from their templates. For example, a DOCX
-  produced by pandoc carries the application name, editing time and template of pandoc's
-  reference document, not of your own work.
-- **RSIDs, editing time and editing cycles** are counters kept by the editing software. They
-  depend on the editor, start again in a new file, and do not show how the text was written.
-  A writing-process record is stronger evidence.
-- **Scanned PDFs with text recognition (OCR)** normally contain a layer of invisible text
-  over each page image.
+- **Los metadatos pueden engañar.** Las herramientas copian propiedades de sus plantillas.
+  Por ejemplo, un DOCX generado con pandoc lleva el nombre de la aplicación, el tiempo de
+  edición y la plantilla del documento de referencia de pandoc, no los de tu propio trabajo.
+- **Los RSID, el tiempo de edición y los ciclos de edición** son contadores que lleva el
+  programa de edición. Dependen del editor, vuelven a empezar en un archivo nuevo y no
+  muestran cómo se escribió el texto. Un registro del proceso de escritura es una prueba más
+  sólida.
+- **Los PDF escaneados con reconocimiento de texto (OCR)** suelen contener una capa de texto
+  invisible sobre la imagen de cada página.
 
-## Known limits
+## Límites conocidos
 
-- Look-alike letters within a single alphabet, garbled text from wrong encodings, text in
-  images and the content of C2PA manifests are not checked yet.
-- PDF invisible-text detection follows pypdf's text extraction, which works in chunks: text
-  next to invisible or white text in the same chunk may be included.
-- Style inheritance is followed for hidden, white and tiny text, but not every way a word
-  processor can hide text (for example, text behind images or outside the page).
-- Characters a PDF report's font cannot draw are written as `[U+XXXX]`.
+- Todavía no se revisan las letras parecidas dentro de un mismo alfabeto, el texto
+  estropeado por codificaciones incorrectas, el texto dentro de imágenes ni el contenido de
+  los manifiestos C2PA.
+- La detección de texto invisible en PDF sigue la extracción de texto de pypdf, que trabaja
+  por fragmentos: puede incluir texto que está junto a texto invisible o blanco en el mismo
+  fragmento.
+- Para el texto oculto, blanco y diminuto se sigue la herencia de estilos, pero no todas las
+  formas en que un procesador de textos puede ocultar texto (por ejemplo, texto detrás de
+  imágenes o fuera de la página).
+- Los caracteres que la fuente de un informe en PDF no puede dibujar se escriben como
+  `[U+XXXX]`.

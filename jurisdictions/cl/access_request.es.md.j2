@@ -1,0 +1,37 @@
+{#- Chile: solicitud de acceso a datos personales (Ley 19.628, sobre Protección de la Vida
+    Privada). Sirve antes y después del 1 de diciembre de 2026, cuando rige el texto fijado por
+    la Ley 21.719; por eso cita ambos textos. Tono factual: es una solicitud, no una acusación. -#}
+{{ student.name }}{% if student.identity_document %}, cédula de identidad (RUN) n.º {{ student.identity_document }}{% endif %}\
+{% if student.postal_address %}{{ student.postal_address }}\
+{% endif %}
+{{ student.email }}
+
+{% if recipient %}A: {{ recipient_block }}
+{% else %}A: [Responsable del tratamiento de datos personales], {{ institution }}
+{% endif %}
+
+{{ date }}
+
+# Solicitud de acceso a datos personales
+
+Materia: ejercicio del derecho de acceso a mis datos personales conforme a la Ley N° 19.628, sobre Protección de la Vida Privada (artículo 12 en el texto vigente hasta el 30 de noviembre de 2026; artículo 5 en el texto fijado por la Ley N° 21.719, vigente desde el 1 de diciembre de 2026).
+
+De mi consideración:
+
+Soy estudiante de {{ institution }}{% if student.programme %}, de la carrera o programa {{ student.programme }}{% endif %}{% if student.student_id %} (número de matrícula {{ student.student_id }}){% endif %}. En ejercicio del derecho citado, solicito información sobre los datos personales que me conciernen y acceso a ellos, en relación con el tratamiento que la institución, o cualquier tercero que actúe por su cuenta, ha realizado con motivo de la revisión de mi trabajo{% if request.submission_title %} «{{ request.submission_title }}»{% endif %}{% if request.course %} de la asignatura {{ request.course }}{% endif %}{% if submission_date %}, entregado el {{ submission_date }}{% endif %}{% if tools %}, incluidas las verificaciones realizadas con {{ tools | join(", ") }}{% endif %}.
+
+En concreto, solicito:
+
+1. Copia completa de cada informe de similitud y de cada informe de detección de escritura con inteligencia artificial generados sobre este trabajo, en la versión completa a la que accede el cuerpo docente, con las fuentes coincidentes, los fragmentos coincidentes y la configuración aplicada (por ejemplo, si se excluyeron las citas, la bibliografía o las coincidencias pequeñas).
+2. Cualquier nota, evaluación, comunicación o decisión sobre mí que se apoye en esos informes, y constancia de quién los revisó.
+3. Si mi trabajo se ha almacenado en el repositorio de trabajos del proveedor de la herramienta, durante cuánto tiempo se conservará y con qué finalidad.
+4. El origen de mis datos, la finalidad del tratamiento, las personas u organismos a los que se han comunicado, incluido el proveedor de cada herramienta, y si se transfieren fuera de Chile; y, si se adoptó una decisión basada en un tratamiento automatizado de mis datos, información significativa sobre la lógica aplicada (artículo 5, letra f, en el texto fijado por la Ley N° 21.719).
+{% for item in request.extra_items %}
+{{ loop.index + 4 }}. {{ item }}
+{% endfor %}
+
+Si esta solicitud se recibe hasta el 30 de noviembre de 2026, el artículo 16 de la Ley N° 19.628 prevé que el responsable se pronuncie sobre ella dentro de {{ duration(deadline) }}, y según su artículo 12 la información es gratuita. Si se recibe desde el 1 de diciembre de 2026, conforme al artículo 11 de la misma ley, en el texto fijado por la Ley N° 21.719, el responsable debe acusar recibo y pronunciarse dentro de los treinta días corridos siguientes a su ingreso, plazo prorrogable por una sola vez hasta por treinta días corridos, y según su artículo 10 el acceso es gratuito al menos una vez por trimestre. Solicito que la respuesta se envíe al correo electrónico indicado.
+
+Atentamente,
+
+{{ student.name }}

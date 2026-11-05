@@ -1,0 +1,39 @@
+{#- México: solicitud de acceso (derechos ARCO). Universidades públicas: Ley General de
+    Protección de Datos Personales en Posesión de Sujetos Obligados (LGPDPPSO); universidades
+    privadas: Ley Federal de Protección de Datos Personales en Posesión de los Particulares
+    (LFPDPPP), ambas publicadas en el DOF el 20 de marzo de 2025. Tono factual: es una
+    solicitud de información, no una acusación. -#}
+{{ student.name }}{% if student.identity_document %}, con identificación n.º {{ student.identity_document }}{% endif %}\
+{% if student.postal_address %}{{ student.postal_address }}\
+{% endif %}
+{{ student.email }}
+
+{% if recipient %}A la atención de: {{ recipient_block }}
+{% else %}A la atención de: [Unidad de Transparencia (universidad pública) o departamento de datos personales (universidad privada)], {{ institution }}
+{% endif %}
+
+{{ date }}
+
+# Solicitud de acceso a datos personales (derechos ARCO)
+
+Asunto: solicitud de acceso a datos personales en ejercicio de los derechos ARCO, con fundamento en los artículos 37, 38 y 46 de la Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados, si la institución es un sujeto obligado, o en los artículos 22, 27 y 29 de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, si es una institución particular.
+
+A quien corresponda:
+
+Soy estudiante de {{ institution }}{% if student.programme %}, del programa {{ student.programme }}{% endif %}{% if student.student_id %} (matrícula {{ student.student_id }}){% endif %}. En ejercicio de mi derecho de acceso, solicito acceder a los datos personales que me conciernen y que la institución, o cualquier encargado que actúe por su cuenta, ha tratado con motivo de la revisión de mi trabajo{% if request.submission_title %} «{{ request.submission_title }}»{% endif %}{% if request.course %} de la asignatura {{ request.course }}{% endif %}{% if submission_date %}, entregado el {{ submission_date }}{% endif %}{% if tools %}, incluidas las verificaciones realizadas con {{ tools | join(", ") }}{% endif %}, así como conocer las condiciones y generalidades de su tratamiento.
+
+En concreto, solicito:
+
+1. Copia completa de cada informe de similitud y de cada informe de detección de escritura con inteligencia artificial generados sobre este trabajo, en la versión completa a la que accede el profesorado, con las fuentes coincidentes, los fragmentos coincidentes y la configuración aplicada (por ejemplo, si se excluyeron las citas, la bibliografía o las coincidencias pequeñas).
+2. Cualquier nota, valoración, comunicación o decisión sobre mí que se apoye en esos informes, y constancia de quién los revisó.
+3. Si mi trabajo se ha almacenado en el repositorio de trabajos del proveedor de la herramienta, durante cuánto tiempo se conservará y con qué finalidad.
+4. La finalidad del tratamiento, los encargados y destinatarios de mis datos, incluido el proveedor de cada herramienta, y si se transfieren fuera de México.
+{% for item in request.extra_items %}
+{{ loop.index + 4 }}. {{ item }}
+{% endfor %}
+
+Si la institución es un sujeto obligado, conforme al artículo 45 de la Ley General citada, la respuesta no debe exceder de {{ duration(deadline) }} contados a partir del día siguiente a la recepción de esta solicitud. Si es una institución particular, conforme al artículo 31 de la Ley Federal citada, el plazo para comunicarme la determinación adoptada es el mismo, contado desde la fecha de recepción. De acuerdo con el artículo 44 de la Ley General y con el artículo 34 de la Ley Federal, el ejercicio de los derechos ARCO es gratuito. Solicito que la respuesta y los documentos se entreguen en formato electrónico al correo indicado, y que se me indique si es necesario acreditar mi identidad por algún medio adicional para la entrega.
+
+Atentamente,
+
+{{ student.name }}
