@@ -362,7 +362,7 @@ why_invisible_text = "Texto dibujado en modo invisible: no se ve, pero lo leen l
 
 # La versión en el navegador (web/, ADR 007). La página lee esta tabla antes de cargar Python.
 [web]
-tagline = "El testigo de tus borradores."
+tagline = "Prueba de autoría."
 local_notice = "Todo se ejecuta dentro de esta pestaña del navegador. Tus archivos y datos no se suben, no se guardan y no se envían a ninguna parte: al cerrar o recargar la pestaña, desaparecen."
 not_legal_advice = "Descargo no es asesoramiento legal. Comprueba las fuentes que cita y, si te juegas mucho, habla con la defensoría universitaria, el consejo de estudiantes o un abogado."
 loading = "Cargando Descargo en tu navegador (unos 20 MB la primera vez)…"

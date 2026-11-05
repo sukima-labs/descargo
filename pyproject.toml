@@ -61,7 +61,7 @@ packages = ["src/descargo"]
 
 [tool.hatch.build.targets.sdist]
 include = [
-    "src", "tests", "profiles", "jurisdictions", "schemas", "docs", "LICENSE", "README.md",
+    "src", "tests", "profiles", "jurisdictions", "schemas", "docs", "LICENSE", "README.md", "README.en.md",
     "CHANGELOG.md",
 ]
 

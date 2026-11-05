@@ -7,7 +7,7 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
 let strings = {};
-let lang = "en";
+let lang = "es";
 let choices = { profiles: [], countries: [], tools: {} };
 const UNLISTED = "other:"; // value prefix of the "not listed" options, followed by a pack id
 let current = null; // the result on screen, kept only in memory
@@ -30,7 +30,7 @@ function savedLanguage() {
 }
 
 function t(key, values = {}) {
-  const text = strings[lang]?.[key] ?? strings.en?.[key] ?? key;
+  const text = strings[lang]?.[key] ?? strings.es?.[key] ?? key;
   return text.replace(/\{(\w+)\}/g, (match, name) => (name in values ? values[name] : match));
 }
 
@@ -97,7 +97,7 @@ function setStatus(text, kind = "") {
 
 function countryName(country) {
   const key = `country_${country.id}`;
-  return strings[lang]?.[key] ?? strings.en?.[key] ?? country.name;
+  return strings[lang]?.[key] ?? strings.es?.[key] ?? country.name;
 }
 
 // The access form also offers a generic letter per country, for institutions with no profile.
@@ -487,8 +487,9 @@ async function start() {
     fetch("build.json").then((response) => response.json()),
   ]);
   strings = loadedStrings;
-  const wanted = savedLanguage() ?? navigator.language ?? "en";
-  lang = wanted.toLowerCase().startsWith("es") ? "es" : "en";
+  // Spanish first: English only when it was chosen, or the browser asks for it.
+  const wanted = savedLanguage() ?? navigator.language ?? "es";
+  lang = wanted.toLowerCase().startsWith("en") ? "en" : "es";
   applyLanguage();
   $("#build").textContent = t("build_info", {
     version: build.descargo,
