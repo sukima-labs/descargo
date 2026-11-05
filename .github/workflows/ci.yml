@@ -19,7 +19,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Students use all three; keep the matrix small while the repo is private.
+        # Students use all three operating systems; only Linux is tested so far. The repo is
+        # public, so adding macOS and Windows costs no Actions minutes.
         os: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v7

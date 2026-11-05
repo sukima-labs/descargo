@@ -13,10 +13,10 @@ security issues:
 
 ## Reporting a vulnerability
 
-Please **do not** open a public issue. While the repository is private, report privately to
-the maintainers through GitHub (a direct message to the repository owner). A dedicated
-security contact and GitHub private vulnerability reporting will be enabled before the first
-public release.
+Please **do not** open a public issue: the repository is public. Report it privately through
+GitHub's private vulnerability reporting: the **Report a vulnerability** button in the
+repository's **Security** tab (https://github.com/sukima-labs/descargo/security/advisories/new).
+Only the maintainers see the report.
 
 Include the version (`descargo --version`), your OS, and a **synthetic** reproducer.
 Never send us a real student's document or report.
