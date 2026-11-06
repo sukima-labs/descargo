@@ -120,3 +120,10 @@ La auditoría descuenta los pasajes citados y referenciados, la bibliografía, e
 las plantillas de la institución y tus trabajos anteriores declarados, y explica cada
 descuento. Ver [`docs/audit.md`](docs/audit.md) y el
 [ADR 005](docs/adr/005-similarity-auditor.md).
+
+## Licencia
+
+Copyright © 2026 nyakojiru. Código bajo [AGPL-3.0-or-later](LICENSE): puedes usarlo, estudiarlo,
+cambiarlo y compartirlo, y si ofreces a otras personas una versión modificada, también por
+internet, tienes que darles su código fuente. Antes de mandar un cambio, lee
+[CONTRIBUTING.md](CONTRIBUTING.md) (en inglés).
