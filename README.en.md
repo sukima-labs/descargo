@@ -139,5 +139,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 
 ## License
 
-[AGPL-3.0-or-later](LICENSE). If you run a modified version for others, including over a
+Copyright © 2026 nyakojiru. [AGPL-3.0-or-later](LICENSE). If you run a modified version for others, including over a
 network, you must offer them its source code.
