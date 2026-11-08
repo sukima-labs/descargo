@@ -4,8 +4,9 @@
 
 Esta guía explica, con su fuente, **qué fases tiene el procedimiento formal** cuando una
 universidad te acusa de plagio o de fraude académico a partir de un detector, y **dónde
-encaja Descargo** en cada una. Cubre España y Colombia; los demás países llegan en guías
-aparte, cada una con sus fuentes.
+encaja Descargo** en cada una. Cubre España y Colombia. México está en
+[`procedimientos-mx.md`](procedimientos-mx.md); los demás países llegan en guías aparte,
+cada una con sus fuentes.
 
 **No es asesoramiento legal.** Es información pública ordenada. Cada dato lleva su fuente
 y la fecha en que la comprobó una persona leyendo el texto oficial. Lo que no se ha podido

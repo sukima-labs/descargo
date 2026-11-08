@@ -124,7 +124,8 @@ descuento. Ver [`docs/audit.md`](docs/audit.md) y el
 ### Qué fases tiene el procedimiento
 
 Cómo es el procedimiento formal en España y en Colombia, con sus plazos y su fuente, y en
-qué fase ayuda cada comando: [`docs/procedimientos.md`](docs/procedimientos.md).
+qué fase ayuda cada comando: [`docs/procedimientos.md`](docs/procedimientos.md). México, con el
+ejemplo de la UNAM: [`docs/procedimientos-mx.md`](docs/procedimientos-mx.md).
 
 ## Licencia
 
