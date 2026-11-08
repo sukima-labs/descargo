@@ -12,6 +12,15 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Procedures guide for Peru (`docs/procedimientos-pe.md`, English in
+  `docs/en/procedures-pe.md`). Unlike the other countries, the Ley Universitaria sets a
+  national minimum: disciplinary proceedings, three possible sanctions, and a Tribunal de
+  Honor (Ley 30220 arts. 75, 99, 101; Constitution art. 18). For public universities, the
+  sanctioning chapter of Ley 27444 (TUO arts. I, 247, 248, 252, 255). PUCP is the worked
+  example: plagiarism is defined and is a serious offence, and the guide covers the stages,
+  deadlines and appeals (Reglamento Unificado arts. 6, 31, 33, 46, 47, 57-76, Annex 2).
+  Amparo: Constitution art. 200.2 and Ley 31307 arts. 7, 43 and 45. Each quote checked in
+  the official text on 2026-11-08.
 - Procedures guide for Chile (`docs/procedimientos-cl.md`, English in
   `docs/en/procedures-cl.md`). Constitution art. 19 no. 3 (legal defence, a rational and
   fair procedure). The Universidad de Chile is the worked example: the student duty to

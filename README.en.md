@@ -127,7 +127,8 @@ What the formal procedure looks like in Spain and Colombia, with deadlines and s
 which command helps at which stage: [`docs/en/procedures.md`](docs/en/procedures.md). Mexico,
 with UNAM as the worked example: [`docs/en/procedures-mx.md`](docs/en/procedures-mx.md).
 Argentina, with UBA: [`docs/en/procedures-ar.md`](docs/en/procedures-ar.md). Chile, with the
-Universidad de Chile: [`docs/en/procedures-cl.md`](docs/en/procedures-cl.md).
+Universidad de Chile: [`docs/en/procedures-cl.md`](docs/en/procedures-cl.md). Peru, with the Ley
+Universitaria and PUCP: [`docs/en/procedures-pe.md`](docs/en/procedures-pe.md).
 
 ## Development
 
