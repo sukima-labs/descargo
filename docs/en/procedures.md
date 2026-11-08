@@ -4,8 +4,9 @@
 
 This guide explains, with sources, **what stages the formal procedure has** when a
 university accuses you of plagiarism or academic fraud on the strength of a detector, and
-**where Descargo fits** in each. It covers Spain and Colombia; other countries will get
-their own guides, each with its sources.
+**where Descargo fits** in each. It covers Spain and Colombia. Mexico is in
+[`procedures-mx.md`](procedures-mx.md); other countries will get their own guides, each
+with its sources.
 
 **This is not legal advice.** It is public information put in order. Every fact carries
 its source and the date a person checked it by reading the official text. What could not
