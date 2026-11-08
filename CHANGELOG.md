@@ -90,6 +90,9 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Fixed
 
+- Chile pack: the bill that would postpone Ley 21.719 (Boletín 18.623-07) now moves it to
+  15 October 2027, not 1 December 2027 (the Senate's text of 2026-10-28, checked
+  2026-11-08). It is still in the Chamber of Deputies, so the 1 December 2026 date stands.
 - The web page no longer shows empty headings when its texts fail to load, for example
   on a first visit while GitHub Pages is publishing. It checks the answer, tries once more
   and, if that fails too, says so in Spanish and English.
