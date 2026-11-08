@@ -7,8 +7,9 @@
 # applies (access: art. 5; 30 calendar days: art. 11; complaint to the new Agencia: art. 41).
 # The facts that only apply from that date carry `effective_date: 2026-12-01`.
 # RECHECK BEFORE 2026-12-01: bill Boletín 18.623-07, which would move the date to
-# 01-DIC-2027, passed the Senate on 2026-10-28 and is in the Chamber of Deputies under
-# "discusión inmediata" (Senate tracking page, 2026-11-05). If it becomes law, update
+# 15-OCT-2027 (the text the Senate passed on 2026-10-28),
+# is in the Chamber of Deputies under "discusión inmediata" (Senate tracking page
+# and the Senate's oficio to the Chamber, checked 2026-11-08). If it becomes law, update
 # every effective_date below, the template and the summaries.
 schema_version: "0.1"
 id: cl
@@ -54,13 +55,13 @@ access_request:
         summary:
           en: >-
             The new data protection rules (Ley 19.628 as rewritten by Ley 21.719, published
-            on 13 December 2024) apply from 1 December 2026. A bill to postpone them to 1
-            December 2027 was still going through Congress on 5 November 2026.
+            on 13 December 2024) apply from 1 December 2026. A bill to postpone them to 15
+            October 2027 was still going through Congress on 8 November 2026.
           es: >-
             Las nuevas reglas de protección de datos (la Ley 19.628 reescrita por la Ley
             21.719, publicada el 13 de diciembre de 2024) rigen desde el 1 de diciembre de
-            2026. Al 5 de noviembre de 2026 seguía en el Congreso un proyecto para
-            postergarlas al 1 de diciembre de 2027.
+            2026. Al 8 de noviembre de 2026 seguía en el Congreso un proyecto para
+            postergarlas al 15 de octubre de 2027.
       source_url: https://www.bcn.cl/leychile/navegar?idNorma=1209272
       checked_on: 2026-11-05
       verification: verified
@@ -69,8 +70,9 @@ access_request:
       note: >-
         LeyChile shows "Publicación: 13-DIC-2024" and "Entra en vigencia el 01-DIC-2026";
         last modification 05-FEB-2026 (Ley 21.806), which did not change the date. Bill
-        Boletín 18.623-07 (move to 01-DIC-2027): approved by the Senate 2026-10-28, in the
-        Chamber of Deputies since 2026-11-02, per
+        Boletín 18.623-07: the Senate's text (oficio of 2026-10-28, checked 2026-11-08)
+        replaces the date with «15 de octubre de 2027». Approved by the Senate 2026-10-28,
+        in the Chamber of Deputies since 2026-11-02, per
         https://tramitacion.senado.cl/appsenado/templates/tramitacion/index.php?boletin_ini=18623-07
     - value:
         citation: Ley 19.628, art. 5 (texto de la Ley 21.719, desde el 1 de diciembre de 2026)
