@@ -6,7 +6,8 @@ This guide explains, with sources, **what stages the formal procedure has** when
 university accuses you of plagiarism or academic fraud on the strength of a detector, and
 **where Descargo fits** in each. Spain and Colombia are in
 [`procedures.md`](procedures.md), and Argentina in
-[`procedures-ar.md`](procedures-ar.md).
+[`procedures-ar.md`](procedures-ar.md), and Chile in
+[`procedures-cl.md`](procedures-cl.md).
 
 **This is not legal advice.** It is public information put in order. Every fact carries
 its source and the date a person checked it by reading the official text. What could not

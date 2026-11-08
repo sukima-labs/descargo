@@ -126,7 +126,8 @@ descuento. Ver [`docs/audit.md`](docs/audit.md) y el
 Cómo es el procedimiento formal en España y en Colombia, con sus plazos y su fuente, y en
 qué fase ayuda cada comando: [`docs/procedimientos.md`](docs/procedimientos.md). México, con el
 ejemplo de la UNAM: [`docs/procedimientos-mx.md`](docs/procedimientos-mx.md). Argentina, con el
-de la UBA: [`docs/procedimientos-ar.md`](docs/procedimientos-ar.md).
+de la UBA: [`docs/procedimientos-ar.md`](docs/procedimientos-ar.md). Chile, con el de la
+Universidad de Chile: [`docs/procedimientos-cl.md`](docs/procedimientos-cl.md).
 
 ## Licencia
 
