@@ -121,6 +121,11 @@ las plantillas de la institución y tus trabajos anteriores declarados, y explic
 descuento. Ver [`docs/audit.md`](docs/audit.md) y el
 [ADR 005](docs/adr/005-similarity-auditor.md).
 
+### Qué fases tiene el procedimiento
+
+Cómo es el procedimiento formal en España y en Colombia, con sus plazos y su fuente, y en
+qué fase ayuda cada comando: [`docs/procedimientos.md`](docs/procedimientos.md).
+
 ## Licencia
 
 Copyright © 2026 nyakojiru. Código bajo [AGPL-3.0-or-later](LICENSE): puedes usarlo, estudiarlo,

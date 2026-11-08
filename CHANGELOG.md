@@ -12,6 +12,12 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Procedures guide (`docs/procedimientos.md`, English in `docs/en/procedures.md`): the
+  stages and deadlines of the disciplinary procedure in Spain (Ley 3/2022 arts. 11, 12, 14,
+  17-19; Ley 39/2015; Estatuto del Estudiante, arts. 7, 25, 46) and the seven minimum
+  due-process guarantees in Colombia (Constitutional Court rulings T-087/20 and T-290/23),
+  each quote checked in the official text on 2026-11-08. It notes that the 1954 discipline
+  regulation has been repealed since 2022-02-26.
 - Sukima Labs brand (marca v1.1), kept minimal: the favicon is the Sukima isotype, the
   page header carries the isotype and a link to https://sukima-labs.github.io/, the footer
   says it is a Sukima Labs project, and `web/style.css` has the brand colour tokens.

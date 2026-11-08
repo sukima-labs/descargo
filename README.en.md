@@ -123,6 +123,9 @@ Messages and reports are in English and Spanish (`--lang es`, or `DESCARGO_LANG=
 help texts are in English. No command overwrites the files it reads. Options common to every
 command, and the exit status, are in [`docs/en/cli.md`](docs/en/cli.md).
 
+What the formal procedure looks like in Spain and Colombia, with deadlines and sources, and
+which command helps at which stage: [`docs/en/procedures.md`](docs/en/procedures.md).
+
 ## Development
 
 Requires [uv](https://docs.astral.sh/uv/) and Python 3.12+.
