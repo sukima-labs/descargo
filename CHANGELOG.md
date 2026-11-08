@@ -12,6 +12,14 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Copyleaks adapter (`copyleaks-pdf` 0.1). It reads the English PDF report Copyleaks
+  exported in 2023 ("Plagiarism and AI Content Detector Report" or "Plagiarism report"):
+  overall similarity split by match type, sources with their shares, alerts, the AI and
+  human shares, and the passages drawn on the darkest step of Copyleaks' AI scale. It also
+  reads the 2022 export, which has no AI result. It never keeps who submitted the scan or
+  the scan id. Learned from four real reports, three of them recovered from the Internet
+  Archive; the tests use synthetic PDFs only. The code that reads text on highlight
+  rectangles moved from the Turnitin AI adapter to `adapters/highlights.py`, shared by both.
 - Procedures guide for Peru (`docs/procedimientos-pe.md`, English in
   `docs/en/procedures-pe.md`). Unlike the other countries, the Ley Universitaria sets a
   national minimum: disciplinary proceedings, three possible sanctions, and a Tribunal de

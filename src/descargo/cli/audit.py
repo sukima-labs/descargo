@@ -56,8 +56,8 @@ def audit_command(
         Path,
         typer.Argument(
             metavar="REPORT",
-            help="The detector report: a Turnitin Similarity Report or AI Writing Report, or "
-            "a Compilatio analysis report, as PDF; or Descargo JSON.",
+            help="The detector report: a Turnitin Similarity Report or AI Writing Report, a "
+            "Compilatio analysis report or a Copyleaks report, as PDF; or Descargo JSON.",
             exists=True,
             dir_okay=False,
         ),

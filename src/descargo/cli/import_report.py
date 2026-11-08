@@ -19,7 +19,7 @@ def import_report_command(
         typer.Argument(
             metavar="REPORT",
             help="The report you downloaded, as PDF: a Turnitin Similarity Report or AI "
-            "Writing Report, or a Compilatio analysis report.",
+            "Writing Report, a Compilatio analysis report or a Copyleaks report.",
             exists=True,
             dir_okay=False,
         ),

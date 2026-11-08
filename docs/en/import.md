@@ -149,11 +149,53 @@ What it cannot read:
 The audit shows the AI figure and the passages as the tool's statement. It does not
 recompute or discount them.
 
+## Copyleaks
+
+Descargo reads the PDF Copyleaks exports, in English, in two layouts. They were learned
+from four real reports read only on the project maintainer's machine
+([ADR 009](../adr/009-first-three-detectors.md)): the sample Copyleaks published in October
+2022, two samples from its website of April and June 2023, and a report a blog published in
+May 2023. The three from 2023 were recovered from the Internet Archive.
+
+### 2023 ("Plagiarism and AI Content Detector Report" or "Plagiarism report")
+
+| Part of the report | What is read |
+|---|---|
+| "Scan details" | document title, page and word counts; the scan date, as an extension |
+| "Plagiarism Detection" | the overall similarity and its split into identical, minor changes, paraphrased and omitted words, with their percentage and words |
+| "AI Content Detection" | the percentage and words of AI text and of human text. If the report shows "N/A", it has no AI result, and the import says so |
+| "Alerts" | each alert's title and severity ("2/5 Severity") |
+| "Plagiarism Results" | each source with its title, URL and percentage. When the report splits a source's percentage by match type, that split is kept and the percentage is its sum: the report's overall similarity is likewise the sum of its types (checked on the three real reports). Sources from the "Copyleaks Internal Database" are marked `other` |
+| "Scanned AI content" | the passages drawn on the darkest step of Copyleaks' AI scale, with their page. On the sample with 100 % AI, their words match the count Copyleaks gives |
+
+### 2022
+
+The earlier layout has the overall similarity, the words by match type, the sources and
+the scan date, with no AI result. It prints the source percentages in a column apart from
+the names: they are paired in order, and the import warns if the counts differ.
+
+Neither layout keeps who submitted the scan ("Submitted by") or the scan id ("Scan id").
+
+What it cannot read:
+
+- **No matched text.** Matched passages are highlighted by type, but the highlight does not
+  say which source they match, so the audit uses its approximate method.
+- **Lighter shades of the AI scale.** Copyleaks colours AI passages on a scale from 20 % to
+  99 %, and only the 99 % shade has been seen in a real report. If the passages read do not
+  add up to the percentage Copyleaks gives, the import warns that lighter-shaded passages
+  may be missing.
+- **Other languages and the current layout.** Only English reports up to 2023 have been
+  seen.
+
+The audit shows the AI figure and passages as what the tool claims. It does not recompute
+or discount them.
+
 ## Adding a layout or a language
 
 The labels the adapters look for are in `labels.yaml` next to each adapter
 ([Turnitin](../../src/descargo/adapters/turnitin/labels.yaml),
-[Compilatio](../../src/descargo/adapters/compilatio/labels.yaml)). To support a report in
+[Compilatio](../../src/descargo/adapters/compilatio/labels.yaml),
+[Copyleaks](../../src/descargo/adapters/copyleaks/labels.yaml)). To support a report in
 another language, add its labels under a new language key (for Compilatio, under its
 layout) and a synthetic test in `tests/test_<tool>_adapter.py`. Never commit a real report: check it on your own
 machine and describe in the pull request which labels you saw.

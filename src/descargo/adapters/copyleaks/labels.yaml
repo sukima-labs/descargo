@@ -1,0 +1,60 @@
+# Labels of the Copyleaks report PDF, by layout and language. Read on the maintainer's
+# machine only (ADR 009). Add a language only from a real report in it.
+#
+# report_2023: the "Plagiarism and AI Content Detector Report" (or "Plagiarism report")
+# exported from Copyleaks in 2023, learned from two vendor samples on copyleaks.com
+# (April and June 2023) and one report published on a blog (May 2023), all found through
+# the Internet Archive on 2026-11-09. The heading is letter-spaced in the PDF text
+# ("P l a g i a r i s m r e p o r t"), so headings are compared with the spaces removed.
+report_2023:
+  en:
+    headings: [PlagiarismandAIContentDetectorReport, Plagiarismreport]
+    scan_details: Scan details
+    submitted_by: "Submitted by:"
+    scan_time: "Scan time:"
+    total_pages: "Total Pages:"
+    total_words: "Total Words:"
+    plagiarism_detection: Plagiarism Detection
+    ai_detection: AI Content Detection
+    ai_text: AI text
+    human_text: Human text
+    not_available: N/A
+    alerts: "Alerts:"
+    severity: Severity
+    results: "Plagiarism Results:"
+    report_content: [Plagiarism report content, Plagiarism Report Content]
+    ai_content: Scanned AI content
+    scan_id: "Scan id:"
+    internal_database: Copyleaks Internal Database
+    types:
+      Identical: identical
+      Minor Changes: minor_changes
+      Paraphrased: paraphrased
+      Omitted Words: omitted
+    furniture:
+      - Results
+      - help.copyleaks.com
+      - copyleaks.com
+      - CertifiedbyAboutthisreport
+      - Disclamer
+      - Learnmore
+    end_of_results: [Plagiarism match types, Identical Minor Changes Paraphrased Omitted Words]
+
+# report_2022: the earlier export, learned from Copyleaks' own sample of October 2022
+# (sample-report.pdf). It has no AI result, and it prints the source percentages in a
+# column apart from the source names.
+report_2022:
+  en:
+    scanned_on: "Scanned on:"
+    overall: Overall Similarity Score
+    results_found: Results Found
+    total_words: Total Words in Text
+    identical_words: Identical Words
+    minor_changes_words: Words with Minor Changes
+    paraphrased_words: Paraphrased Words
+    omitted_words: Omitted Words
+    sources_intro: Sources that matched your submitted document.
+    scanned_text: Scanned Text
+    furniture:
+      - Website | Education | Businesses
+      - .

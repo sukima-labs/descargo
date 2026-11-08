@@ -7,7 +7,7 @@ from typing import Final
 
 from pydantic import ValidationError
 
-from descargo.adapters import compilatio, turnitin
+from descargo.adapters import compilatio, copyleaks, turnitin
 from descargo.adapters.base import AdapterError
 from descargo.adapters.pdftext import pdf_lines
 from descargo.core.report_schema import Report
@@ -18,8 +18,8 @@ REPORT_SUFFIXES: Final = (".json", ".pdf")
 
 def import_report(path: Path, *, parsed_at: datetime) -> Report:
     """Read ``path``: a report already in Descargo JSON, or a downloaded report that an
-    adapter recognises (a Turnitin Similarity Report or a Compilatio analysis report, as
-    PDF). The file is only read."""
+    adapter recognises (a Turnitin Similarity or AI Writing Report, a Compilatio analysis
+    report or a Copyleaks report, as PDF). The file is only read."""
     data = path.read_bytes()
     suffix = path.suffix.lower()
     if suffix == ".json":
@@ -34,5 +34,7 @@ def import_report(path: Path, *, parsed_at: datetime) -> Report:
             return compilatio.parse_pdf(data, path.name, sha256, parsed_at=parsed_at, lines=lines)
         if turnitin.detect_layout(lines) is not None:
             return turnitin.parse_pdf(data, path.name, sha256, parsed_at=parsed_at, lines=lines)
+        if copyleaks.detect_layout(lines) is not None:
+            return copyleaks.parse_pdf(data, path.name, sha256, parsed_at=parsed_at, lines=lines)
         raise AdapterError(t("adapters.unknown_pdf"))
     raise AdapterError(f"unsupported report type {suffix!r}; use {' or '.join(REPORT_SUFFIXES)}")
