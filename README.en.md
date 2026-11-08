@@ -124,7 +124,8 @@ help texts are in English. No command overwrites the files it reads. Options com
 command, and the exit status, are in [`docs/en/cli.md`](docs/en/cli.md).
 
 What the formal procedure looks like in Spain and Colombia, with deadlines and sources, and
-which command helps at which stage: [`docs/en/procedures.md`](docs/en/procedures.md).
+which command helps at which stage: [`docs/en/procedures.md`](docs/en/procedures.md). Mexico,
+with UNAM as the worked example: [`docs/en/procedures-mx.md`](docs/en/procedures-mx.md).
 
 ## Development
 
