@@ -12,6 +12,13 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Procedures guide for Argentina (`docs/procedimientos-ar.md`, English in
+  `docs/en/procedures-ar.md`). Each university sets its own disciplinary rules
+  (Constitution arts. 18 and 75.19; Ley 24.521 arts. 14 and 29). UBA is the worked example:
+  offences, sanctions and limitation periods, and the stages and deadlines of the
+  disciplinary inquiry (Código UBA arts. 503-519, from Resolución CS 2283/88). Judicial
+  appeal against final decisions of national universities: Ley 24.521 art. 32. Each quote
+  checked in the official text on 2026-11-08.
 - Procedures guide for Mexico (`docs/procedimientos-mx.md`, English in
   `docs/en/procedures-mx.md`). There is no national student-discipline law: each autonomous
   university sets its own (Constitution art. 3.VII; Ley General de Educación Superior
