@@ -12,6 +12,10 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Sukima Labs brand (marca v1.1), kept minimal: the favicon is the Sukima isotype, the
+  page header carries the isotype and a link to https://sukima-labs.github.io/, the footer
+  says it is a Sukima Labs project, and `web/style.css` has the brand colour tokens.
+  Descargo keeps its own name, accent colour and link-preview card.
 - Link previews: the web page has Open Graph and Twitter card tags and a 1200×630 picture
   (`web/og.jpg`, rendered from `scripts/og-card.html`), so shared links show a card.
 - Jurisdiction packs for Argentina (`ar`: Ley 25.326 and Decreto 1558/2001), Chile (`cl`:

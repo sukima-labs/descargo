@@ -127,3 +127,6 @@ Copyright © 2026 nyakojiru. Código bajo [AGPL-3.0-or-later](LICENSE): puedes u
 cambiarlo y compartirlo, y si ofreces a otras personas una versión modificada, también por
 internet, tienes que darles su código fuente. Antes de mandar un cambio, lee
 [CONTRIBUTING.md](CONTRIBUTING.md) (en inglés).
+
+El nombre y el isotipo de Sukima Labs (`web/favicon.svg` y la cabecera de la página) no
+están bajo la AGPL; son de Sukima Labs.
