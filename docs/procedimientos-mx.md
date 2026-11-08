@@ -5,7 +5,8 @@
 Esta guía explica, con su fuente, **qué fases tiene el procedimiento formal** cuando una
 universidad mexicana te acusa de plagio o de fraude académico a partir de un detector, y
 **dónde encaja Descargo** en cada una. España y Colombia están en
-[`procedimientos.md`](procedimientos.md).
+[`procedimientos.md`](procedimientos.md), y Argentina en
+[`procedimientos-ar.md`](procedimientos-ar.md).
 
 **No es asesoramiento legal.** Es información pública ordenada. Cada dato lleva su fuente
 y la fecha en que la comprobó una persona leyendo el texto oficial. Lo que no se ha podido
