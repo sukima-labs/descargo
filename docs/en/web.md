@@ -7,17 +7,25 @@ Descargo also runs as a web page: the same Python code, in your browser, through
 static files; your files and details stay inside the browser tab and are gone when you close
 or reload it. See [ADR 007](../adr/007-web-build.md).
 
-It offers three of the CLI's commands, in English and Spanish:
+It offers three of the CLI's commands and the procedure guides, in English and Spanish:
 
 | Tab | Same as |
 |---|---|
 | Before you submit | `descargo inspect` |
 | Check a detector report | `descargo audit` (and `import-report`: download the report as JSON) |
 | Ask for the report | `descargo access-request`, with a form instead of the YAML file; "not listed" options per country draft the generic letter (`--institution`) |
+| If you are accused | no CLI equivalent: the procedure guides of `docs/` (Spain, Colombia, Mexico, Argentina, Chile and Peru), with a country to choose |
 | Send feedback | no CLI equivalent: a short form that prepares a message for the student to copy or open in their own e-mail |
 
 Above the tabs, a short introduction says what Descargo is, how to use it, which reports
 it reads today, what it does not do, and that this is a test version.
+
+The guides come from `docs/procedimientos*.md` and `docs/en/procedures*.md`: the build turns
+them into `guides.json`, a list of blocks (headings, paragraphs, lists, tables and links)
+that the page draws with DOM calls, never inserting HTML, like every other result. The Spain
+and Colombia guide is split by country. Links to another guide switch the country within the
+page; links to other files of the repository go to GitHub, and a test checks that every link
+to a section exists. They need no Python: they load the first time the tab is opened.
 
 The feedback form needs no Python, so it works even when the page fails to load. Nothing is
 sent: the student sees the whole message, which carries only what they wrote, the page's

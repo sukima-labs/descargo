@@ -87,6 +87,7 @@
       <button type="button" role="tab" id="tab-inspect" aria-controls="panel-inspect" aria-selected="true" data-i18n="tab_inspect">Antes de entregar</button>
       <button type="button" role="tab" id="tab-audit" aria-controls="panel-audit" aria-selected="false" data-i18n="tab_audit">Revisar un informe del detector</button>
       <button type="button" role="tab" id="tab-access" aria-controls="panel-access" aria-selected="false" data-i18n="tab_access">Pedir el informe</button>
+      <button type="button" role="tab" id="tab-guide" aria-controls="panel-guide" aria-selected="false" data-i18n="tab_guide">Si te acusan</button>
       <button type="button" role="tab" id="tab-feedback" aria-controls="panel-feedback" aria-selected="false" data-i18n="tab_feedback">Enviar comentarios</button>
     </nav>
 
@@ -191,6 +192,15 @@
         </fieldset>
         <button type="submit" disabled data-i18n="access_run">Redactar la carta</button>
       </form>
+    </section>
+
+    <section id="panel-guide" class="panel" role="tabpanel" aria-labelledby="tab-guide" hidden>
+      <p class="intro" data-i18n="guide_intro"></p>
+      <label class="guide-pick"><span data-i18n="guide_country"></span>
+        <select id="guide-country"></select>
+      </label>
+      <p id="guide-status" class="status" hidden></p>
+      <article id="guide-body" class="document guide" aria-live="polite" hidden></article>
     </section>
 
     <section id="panel-feedback" class="panel" role="tabpanel" aria-labelledby="tab-feedback" hidden>

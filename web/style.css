@@ -353,3 +353,60 @@ a.button {
 a.button[hidden] {
   display: none;
 }
+
+/* Procedure guides (guides.json). A wide table scrolls inside its box, never the page. */
+.guide-pick select {
+  max-width: 20rem;
+}
+
+.guide h3 {
+  margin: 1.4rem 0 0.3rem;
+  font-size: 1.15rem;
+}
+
+.guide h4 {
+  margin: 1rem 0 0.2rem;
+  font-size: 1rem;
+}
+
+.guide li {
+  margin: 0.25rem 0;
+}
+
+.guide li > p {
+  margin: 0.2rem 0;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  margin: 0.75rem 0;
+}
+
+.guide table {
+  border-collapse: collapse;
+  font-size: 0.925rem;
+  min-width: 100%;
+}
+
+.guide th,
+.guide td {
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: normal;
+}
+
+.guide th {
+  background: var(--notice);
+}
+
+.guide-source {
+  margin-top: 1.5rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.guide a {
+  color: var(--accent);
+}

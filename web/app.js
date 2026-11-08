@@ -1,7 +1,8 @@
 // The page's main thread: forms, language, and drawing results (ADR 007).
 //
 // Python runs in worker.js. Everything that comes back from it is drawn with textContent,
-// never as HTML, so nothing in a student's file or a report can inject markup.
+// never as HTML, so nothing in a student's file or a report can inject markup. The
+// procedure guides (guides.json, made from docs/ at build time) are drawn the same way.
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -41,6 +42,7 @@ function applyLanguage() {
     button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
   }
   fillChoices();
+  fillGuideCountries();
   updateFeedback();
 }
 
@@ -343,8 +345,148 @@ for (const tab of $$("[role=tab]")) {
       other.setAttribute("aria-selected", String(selected));
       $(`#${other.getAttribute("aria-controls")}`).hidden = !selected;
     }
+    if (tab.id === "tab-guide") loadGuides().catch(() => {});
   });
 }
+
+// --- Procedure guides -----------------------------------------------------------------
+
+const GUIDE_COUNTRIES = ["es", "co", "mx", "ar", "cl", "pe"];
+let guides = null; // guides.json, fetched the first time the tab opens
+let guidesLoading = null;
+
+function loadGuides() {
+  guidesLoading ??= siteJSON("guides.json").then(
+    (loaded) => {
+      guides = loaded;
+      $("#guide-status").hidden = true;
+      drawGuide();
+      return loaded;
+    },
+    (error) => {
+      guidesLoading = null; // let the next try fetch again
+      const status = $("#guide-status");
+      status.textContent = t("guide_failed");
+      status.dataset.kind = "error";
+      status.hidden = false;
+      throw error;
+    },
+  );
+  return guidesLoading;
+}
+
+function fillGuideCountries() {
+  const select = $("#guide-country");
+  const chosen = select.value;
+  select.replaceChildren(new Option(t("guide_choose"), ""));
+  for (const code of GUIDE_COUNTRIES) select.append(new Option(t(`guide_country_${code}`), code));
+  select.value = chosen;
+  drawGuide();
+}
+
+// Runs of a guide's text, with their style and link.
+function guideRuns(element, runs) {
+  for (const run of runs) {
+    let node = document.createTextNode(run.t);
+    if (run.code) node = wrap("code", node);
+    if (run.italic) node = wrap("em", node);
+    if (run.bold) node = wrap("strong", node);
+    if (run.href || run.guide || run.anchor) {
+      const link = wrap("a", node);
+      if (run.href) {
+        link.href = run.href;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+      } else {
+        link.href = "#";
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          if (run.guide && run.guide !== $("#guide-country").value) {
+            $("#guide-country").value = run.guide;
+            drawGuide(run.anchor);
+          } else {
+            scrollToHeading(run.anchor);
+          }
+        });
+      }
+      node = link;
+    }
+    element.append(node);
+  }
+  return element;
+}
+
+function wrap(tag, child) {
+  const element = document.createElement(tag);
+  element.append(child);
+  return element;
+}
+
+function scrollToHeading(id) {
+  const target = id ? document.getElementById(`guide-${id}`) : $("#guide-body");
+  target?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function guideBlocks(container, blocks) {
+  for (const block of blocks) {
+    if (Array.isArray(block)) {
+      guideBlocks(container, block);
+    } else if (/^h[1-3]$/.test(block.type)) {
+      // The guide's own headings sit under the panel's: h2 → h3, h3 → h4.
+      const heading = guideRuns(document.createElement(`h${Number(block.type[1]) + 1}`), block.runs);
+      heading.id = `guide-${block.id}`;
+      container.append(heading);
+    } else if (block.type === "p") {
+      container.append(guideRuns(document.createElement("p"), block.runs));
+    } else if (block.type === "ul" || block.type === "ol") {
+      const list = document.createElement(block.type);
+      for (const item of block.items) guideBlocks(list.appendChild(document.createElement("li")), item);
+      container.append(list);
+    } else if (block.type === "quote") {
+      guideBlocks(container.appendChild(document.createElement("blockquote")), block.blocks);
+    } else if (block.type === "table") {
+      const table = document.createElement("table");
+      const head = table.createTHead().insertRow();
+      for (const cell of block.head) guideRuns(head.appendChild(document.createElement("th")), cell);
+      const body = table.createTBody();
+      for (const row of block.rows) {
+        const line = body.insertRow();
+        for (const cell of row) guideRuns(line.insertCell(), cell);
+      }
+      // A wide table scrolls inside its box, so the page does not on a phone.
+      container.appendChild(document.createElement("div")).append(table);
+      container.lastElementChild.className = "table-scroll";
+    }
+  }
+}
+
+function drawGuide(anchor) {
+  const code = $("#guide-country").value;
+  const body = $("#guide-body");
+  const guide = guides?.[lang]?.[code] ?? guides?.es?.[code];
+  if (!guide) {
+    body.hidden = true;
+    body.replaceChildren();
+    return;
+  }
+  body.replaceChildren(make("h2", t("guide_heading", { country: t(`guide_country_${code}`) })));
+  guideBlocks(body, guide.blocks);
+  const source = document.createElement("p");
+  source.className = "guide-source";
+  const link = wrap("a", document.createTextNode(t("guide_source")));
+  link.href = guide.source;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  source.append(link);
+  body.append(source);
+  body.hidden = false;
+  if (anchor) scrollToHeading(anchor);
+}
+
+$("#guide-country").addEventListener("change", () => {
+  if (guides) drawGuide();
+  else loadGuides().catch(() => {});
+});
 
 for (const button of $$("[data-lang]")) {
   button.addEventListener("click", () => {
