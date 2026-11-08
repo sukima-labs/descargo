@@ -10,6 +10,16 @@
   --error: #a3312a;
   --notice: #f2efe6;
   --quote: #9aa0a8;
+  /* Sukima Labs brand tokens (sukima-labs/marca v1.1, 03_DIGITAL/Web/brand_tokens.css).
+     Only the brand mark uses them: cian on white is under 2:1, too faint for text or
+     buttons, so Descargo keeps its own accent for the interface. */
+  --sukima-grafito: #10131c;
+  --sukima-cian: #14c6d4;
+  --sukima-violeta: #7148f5;
+  --sukima-marfil: #f5f4f0;
+  --sukima-blanco: #ffffff;
+  --brand-frame: var(--sukima-grafito);
+  --brand-panel: var(--sukima-cian);
   color-scheme: light dark;
 }
 
@@ -26,6 +36,9 @@
     --error: #f08a80;
     --notice: #23262b;
     --quote: #6b717a;
+    /* On a dark background the manual's white isotype (isotipo_white.svg). */
+    --brand-frame: var(--sukima-blanco);
+    --brand-panel: var(--sukima-blanco);
   }
 }
 
@@ -55,6 +68,28 @@ header.top {
   align-items: flex-end;
   justify-content: space-between;
   padding-top: 1.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--muted);
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.brand:hover,
+.brand:focus-visible {
+  text-decoration: underline;
+}
+
+.isotype-frame {
+  fill: var(--brand-frame);
+}
+
+.isotype-panel {
+  fill: var(--brand-panel);
 }
 
 h1 {
