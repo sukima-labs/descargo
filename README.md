@@ -92,7 +92,7 @@ uv run descargo access-request --institution "Universidad Ejemplo" --jurisdictio
 # Antes de entregar: caracteres invisibles, metadatos, control de cambios, texto oculto…
 uv run descargo inspect mi-ensayo.docx --language es
 
-# Leer un informe descargado de Turnitin o Compilatio (PDF) y pasarlo a JSON de Descargo
+# Leer un informe descargado de Turnitin, Compilatio o Copyleaks (PDF) y pasarlo a JSON
 uv run descargo import-report informe-turnitin.pdf --out informe.json
 
 # Auditar un informe de similitud: el PDF de Turnitin tal cual, o el JSON de Descargo
@@ -110,11 +110,12 @@ Los adaptadores leen estos informes PDF:
   informe de escritura con IA, en inglés y en español, con los pasajes que Turnitin
   atribuye a la IA;
 - de Compilatio, el informe de análisis y el certificado (Magister hasta 2025 y Magister+
-  desde 2026), en español, con los pasajes que Compilatio atribuye a la IA.
+  desde 2026), en español, con los pasajes que Compilatio atribuye a la IA;
+- de Copyleaks, el informe exportado en 2022 y en 2023, en inglés, con el porcentaje de IA
+  y los pasajes que marca en su tono más oscuro.
 
 Eliminan el nombre del autor o de quien depositó el trabajo que aparece en el informe. Ver
 [`docs/import.md`](docs/import.md) y el [ADR 009](docs/adr/009-first-three-detectors.md).
-**Pendiente:** todavía no lee Copyleaks.
 
 La auditoría descuenta los pasajes citados y referenciados, la bibliografía, el texto de
 las plantillas de la institución y tus trabajos anteriores declarados, y explica cada

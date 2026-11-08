@@ -163,11 +163,54 @@ Lo que no puede leer:
 La auditoría muestra la cifra de IA y los pasajes como lo que afirma la herramienta. No los
 recalcula ni los descuenta.
 
+## Copyleaks
+
+Descargo lee el PDF que exporta Copyleaks, en inglés, en dos formatos. Se aprendieron con
+cuatro informes reales leídos solo en el equipo del responsable del proyecto
+([ADR 009](adr/009-first-three-detectors.md)): la muestra que Copyleaks publicó en octubre
+de 2022, dos muestras de su web de abril y junio de 2023 y un informe que publicó un blog en
+mayo de 2023. Los tres de 2023 se recuperaron del Internet Archive.
+
+### 2023 ("Plagiarism and AI Content Detector Report" o "Plagiarism report")
+
+| Parte del informe | Qué se lee |
+|---|---|
+| "Scan details" | título del documento, número de páginas y de palabras; la fecha del análisis, como extensión |
+| "Plagiarism Detection" | la similitud global y su división en idéntico, cambios menores, parafraseado y palabras omitidas, con su porcentaje y sus palabras |
+| "AI Content Detection" | el porcentaje y las palabras de texto de IA y de texto humano. Si el informe muestra "N/A", no trae resultado de IA, y la importación lo dice |
+| "Alerts" | el título y la gravedad de cada alerta ("2/5 Severity") |
+| "Plagiarism Results" | cada fuente con su título, su URL y su porcentaje. Si el informe divide el porcentaje por tipo de coincidencia, se guarda esa división y el porcentaje es su suma: también la similitud global del informe es la suma de sus tipos (comprobado en los tres informes reales). Las fuentes de "Copyleaks Internal Database" se marcan como `other` |
+| "Scanned AI content" | los pasajes dibujados sobre el tono más oscuro de la escala de IA de Copyleaks, con su página. En la muestra con un 100 % de IA, sus palabras coinciden con las que da Copyleaks |
+
+### 2022
+
+El formato anterior trae la similitud global, las palabras por tipo de coincidencia, las
+fuentes y la fecha del análisis, sin resultado de IA. Imprime los porcentajes de las
+fuentes en una columna aparte de los nombres: se emparejan en orden, y la importación avisa
+si no salen los mismos.
+
+No se guardan, en ninguno de los dos formatos: el nombre de quien envió el análisis ("Submitted
+by") ni el identificador del análisis ("Scan id").
+
+Lo que no puede leer:
+
+- **Sin texto coincidente.** Los pasajes coincidentes están resaltados por tipo, pero el
+  resaltado no dice de qué fuente son, así que la auditoría usa su método aproximado.
+- **Tonos claros de la escala de IA.** Copyleaks colorea los pasajes de IA en una escala del
+  20 % al 99 %, y en un informe real solo se ha visto el tono del 99 %. Si los pasajes leídos
+  no suman el porcentaje que da Copyleaks, la importación avisa de que pueden faltar los de
+  tonos más claros.
+- **Otros idiomas y el formato actual.** Solo se han visto informes en inglés y hasta 2023.
+
+La auditoría muestra la cifra de IA y los pasajes como lo que afirma la herramienta. No los
+recalcula ni los descuenta.
+
 ## Añadir un formato o un idioma
 
 Las etiquetas que buscan los adaptadores están en `labels.yaml`, junto a cada adaptador
 ([Turnitin](../src/descargo/adapters/turnitin/labels.yaml),
-[Compilatio](../src/descargo/adapters/compilatio/labels.yaml)). Para que lea un informe en
+[Compilatio](../src/descargo/adapters/compilatio/labels.yaml),
+[Copyleaks](../src/descargo/adapters/copyleaks/labels.yaml)). Para que lea un informe en
 otro idioma, añade sus etiquetas bajo una nueva clave de idioma (en Compilatio, dentro de su
 formato) y una prueba con datos inventados en `tests/test_<tool>_adapter.py`. Nunca subas
 un informe real al repositorio: compruébalo en tu propio equipo y describe en la pull

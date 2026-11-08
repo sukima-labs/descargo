@@ -88,7 +88,7 @@ uv run descargo access-request --institution "Universidad Ejemplo" --jurisdictio
 # Before you submit: list invisible characters, metadata, tracked changes, hidden text…
 uv run descargo inspect my-essay.docx
 
-# Read a downloaded Turnitin or Compilatio report (PDF) into Descargo JSON
+# Read a downloaded Turnitin, Compilatio or Copyleaks report (PDF) into Descargo JSON
 uv run descargo import-report turnitin-report.pdf --out report.json
 
 # Audit a similarity report: the Turnitin PDF itself, or Descargo JSON
@@ -102,11 +102,12 @@ usually means; it never changes the file and gives no score. See
 
 The adapters read Turnitin's Similarity Report PDF, classic (Feedback Studio) and
 enhanced, and its AI Writing Report PDF, all in English and Spanish, with the passages
-Turnitin attributes to AI; and Compilatio's analysis report and certificate
-PDFs (Magister until 2025 and Magister+ from 2026), in Spanish, including the passages
-Compilatio attributes to AI. They drop the author or depositor name shown on the report.
-See [`docs/en/import.md`](docs/en/import.md) and [ADR 009](docs/adr/009-first-three-detectors.md).
-**Known gap:** Copyleaks is not read yet.
+Turnitin attributes to AI; Compilatio's analysis report and certificate PDFs (Magister
+until 2025 and Magister+ from 2026), in Spanish, including the passages Compilatio
+attributes to AI; and the Copyleaks report PDF exported in 2022 and 2023, in English, with
+the AI percentage and the passages it flags in its darkest shade. They drop the author,
+depositor or submitter name shown on the report. See [`docs/en/import.md`](docs/en/import.md)
+and [ADR 009](docs/adr/009-first-three-detectors.md).
 
 The audit discounts quoted and cited passages, the reference list, institution template
 text and your declared own earlier work, and explains each discount. See
