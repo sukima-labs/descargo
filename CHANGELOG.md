@@ -49,7 +49,11 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
   offences, sanctions and limitation periods, and the stages and deadlines of the
   disciplinary inquiry (Código UBA arts. 503-519, from Resolución CS 2283/88). Judicial
   appeal against final decisions of national universities: Ley 24.521 art. 32. Each quote
-  checked in the official text on 2026-11-08.
+  checked in the official text on 2026-11-08. On 2026-11-10 the guide also says where the
+  Código UBA names plagiarism (guidelines for faculty regimes, Libro I, Título 19,
+  Capítulo E; defined and sanctioned only in two postgraduate programmes of Economic
+  Sciences) and why the way the inquiry's deadlines are counted (working or calendar days)
+  is still open: the Ley 19.549 counts working days but does not name the universities.
 - Procedures guide for Mexico (`docs/procedimientos-mx.md`, English in
   `docs/en/procedures-mx.md`). There is no national student-discipline law: each autonomous
   university sets its own (Constitution art. 3.VII; Ley General de Educación Superior
