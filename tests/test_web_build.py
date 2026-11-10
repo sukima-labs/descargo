@@ -102,6 +102,15 @@ def test_every_string_the_page_uses_exists() -> None:
         assert used <= set(table), (locale, used - set(table))
 
 
+def test_page_names_its_canonical_url() -> None:
+    # One URL serves both languages (chosen in the browser), so one canonical covers them,
+    # and it matches the og:url that link previews use.
+    page = (REPO_ROOT / "web/index.html").read_text("utf-8")
+    url = "https://sukima-labs.github.io/descargo/"
+    assert re.findall(r'<link rel="canonical" href="([^"]+)">', page) == [url]
+    assert f'<meta property="og:url" content="{url}">' in page
+
+
 def _walk(blocks: list[Any]) -> list[dict[str, Any]]:
     """Every block in ``blocks``, nested ones included."""
     found: list[dict[str, Any]] = []
