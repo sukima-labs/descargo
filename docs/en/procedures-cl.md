@@ -133,10 +133,27 @@ it is filed «dentro del plazo fatal de treinta días corridos» (within the str
 of thirty calendar days) from the act or from when the person had «conocimiento cierto»
 (certain knowledge) of it (no. 1).
 
+**What two recent Supreme Court rulings say** (according to press reports, not the text
+of the judgments):
+
+- In Rol 4309-2026 (2026-03-23, a fine on a lecturer at the Universidad de Concepción),
+  the deadline was counted from when the person learned that the **reposición had been
+  rejected**, not from the original sanction: the action, filed three months after that
+  rejection, was declared out of time
+  ([report](https://actualidadjuridica.doe.cl/corte-suprema-confirma-rechazo-de-proteccion-por-extemporaneo-en-sancion-universitaria/)).
+- In Rol 8.270-2026 (a school, not a university), the Court ruled out that a complaint to
+  the Superintendencia de Educación suspended or interrupted the deadline, and counted the
+  thirty days from when the person learned of the sanction
+  ([report](https://www.diarioconstitucional.cl/2026/04/30/corte-suprema-rechaza-proteccion-contra-colegio-por-inhabilitacion-de-apoderado-por-extemporanea/)).
+
+The two rulings do not say the same about an **internal** appeal that is still pending,
+and neither concerns a student sanctioned for plagiarism. As prudent advice, not a rule
+drawn from a norm: do not assume the internal appeal extends the deadline; count the
+thirty calendar days from the first notification, and see a professional as soon as you
+are notified.
+
 **To verify:** which of the rights listed in art. 20 can be invoked against a university
-sanction, and whether it is wise to wait for the internal appeal, because the thirty days
-are **calendar days** and are not suspended. See a professional as soon as you are
-notified.
+sanction.
 
 ## To verify
 
@@ -145,7 +162,8 @@ notified.
 - The regime of **private universities** and of the other state universities: each has
   its own regulation.
 - How the deadline for the *recurso de protección* is counted when an internal appeal is
-  pending.
+  pending: only the press reports of two rulings (above) have been read, not the
+  judgments, and neither concerns a sanctioned student.
 
 ## Where Descargo fits
 
@@ -161,6 +179,8 @@ The Constitución and the *auto acordado* on the *recurso de protección* were r
 LeyChile (the Biblioteca del Congreso Nacional) from a browser, because the site rejects
 automated clients. The Reglamento de Jurisdicción Disciplinaria and the Reglamento de
 Estudiantes were downloaded from the Universidad de Chile's website. All on 2026-11-08;
-Ley 21.091 and Ley 21.369, also on LeyChile, on 2026-11-10.
+Ley 21.091 and Ley 21.369, also on LeyChile, on 2026-11-10. The two Supreme Court
+rulings are known only from the linked press reports (2026-11-10), not from the
+judgments.
 The quotations were searched for in the text. Rules change: check this document's date and
 that the text is still in force before relying on it.
