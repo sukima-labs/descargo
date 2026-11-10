@@ -42,7 +42,10 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
   and the ordinary and simplified disciplinary procedures, sanctions and appeal (D.U.
   0026685 of 2019, arts. 1, 9, 11-19, 21, 29, 30, 32, 35, 39, 43). Recurso de protección:
   Constitution art. 20 and the Supreme Court's Acta 94-2015 (30 calendar days). Each quote
-  checked in the official text on 2026-11-08.
+  checked in the official text on 2026-11-08. On 2026-11-10 the guide also reports, from
+  press notes only, two Supreme Court rulings on how that deadline is counted (Rol
+  4309-2026: from the rejection of an internal reposición; Rol 8.270-2026: an outside
+  complaint does not suspend it) and advises counting from the first notification.
 - Procedures guide for Argentina (`docs/procedimientos-ar.md`, English in
   `docs/en/procedures-ar.md`). Each university sets its own disciplinary rules
   (Constitution arts. 18 and 75.19; Ley 24.521 arts. 14 and 29). UBA is the worked example:

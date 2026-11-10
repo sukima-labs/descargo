@@ -122,9 +122,27 @@ acordado de la Corte Suprema que lo regula
 presenta «dentro del plazo fatal de treinta días corridos» desde el acto o desde que se
 tuvo «conocimiento cierto» de él (n.º 1).
 
+**Qué dicen dos fallos recientes de la Corte Suprema** (según las notas de prensa, no el
+texto de las sentencias):
+
+- En el Rol 4309-2026 (23-03-2026, una multa a un docente de la Universidad de
+  Concepción), el plazo se contó desde que el afectado supo del **rechazo de su recurso
+  de reposición**, y no desde la sanción original: la acción, presentada tres meses
+  después de ese rechazo, se declaró extemporánea
+  ([nota](https://actualidadjuridica.doe.cl/corte-suprema-confirma-rechazo-de-proteccion-por-extemporaneo-en-sancion-universitaria/)).
+- En el Rol 8.270-2026 (un colegio, no una universidad), la Corte descartó que el reclamo
+  ante la Superintendencia de Educación suspendiera o interrumpiera el plazo, y contó los
+  treinta días desde que el afectado conoció la sanción
+  ([nota](https://www.diarioconstitucional.cl/2026/04/30/corte-suprema-rechaza-proteccion-contra-colegio-por-inhabilitacion-de-apoderado-por-extemporanea/)).
+
+Los dos fallos no dicen lo mismo de una apelación **interna** que sigue pendiente, y
+ninguno es de un estudiante sancionado por plagio. Como consejo prudente, no una regla
+sacada de una norma: no des por hecho que la apelación interna alarga el plazo; cuenta
+los treinta días corridos desde la primera notificación, y consulta a un profesional en
+cuanto te notifiquen.
+
 **Por verificar:** qué derechos de la lista del art. 20 se pueden invocar contra una
-sanción universitaria, y si conviene esperar a la apelación interna, porque los treinta
-días son **corridos** y no se suspenden. Consulta a un profesional en cuanto te notifiquen.
+sanción universitaria.
 
 ## Por verificar
 
@@ -133,7 +151,8 @@ días son **corridos** y no se suspenden. Consulta a un profesional en cuanto te
 - El régimen de las **universidades privadas** y de las demás universidades estatales:
   cada una tiene su reglamento.
 - Cómo se cuenta el plazo del recurso de protección cuando hay una apelación interna
-  pendiente.
+  pendiente: solo se han leído las notas de prensa de dos fallos (arriba), no las
+  sentencias, y ninguno es de un estudiante sancionado.
 
 ## Dónde encaja Descargo
 
@@ -149,6 +168,8 @@ La Constitución y el auto acordado del recurso de protección se leyeron en Ley
 (Biblioteca del Congreso Nacional) desde un navegador, porque el sitio rechaza a los
 clientes automáticos. El Reglamento de Jurisdicción Disciplinaria y el Reglamento de
 Estudiantes se descargaron de la web de la Universidad de Chile. Todo, el 08-11-2026; las
-leyes 21.091 y 21.369, también en LeyChile, el 10-11-2026. Las
+leyes 21.091 y 21.369, también en LeyChile, el 10-11-2026. Los dos fallos de la Corte
+Suprema se conocen solo por las notas de prensa enlazadas (10-11-2026), no por las
+sentencias. Las
 citas se buscaron en el texto. Las normas cambian: comprueba la fecha de este documento y
 la vigencia antes de apoyarte en él.
