@@ -1,7 +1,8 @@
 # Prior art and reusable open-source components (October 2026)
 
 - **Date:** 2026-10-27
-- **Scope:** open-source projects that overlap with DraftWitness, and open-source libraries,
+- **Note:** the project was called DraftWitness until 2026-11-05; this document uses the current name.
+- **Scope:** open-source projects that overlap with Descargo, and open-source libraries,
   data and formats we could incorporate. Closed tools are listed only to map the landscape.
 - **Method:** repository pages, the GitHub API and PyPI metadata, checked on the date above.
   Nothing was installed or run. Licences marked ✔ were re-checked by the maintainer after
@@ -31,7 +32,7 @@ Compatibility with AGPL-3.0-or-later uses the usual rules:
    - "Watermark cleaners" and RSID sanitisers are common.
    - Report forgers exist, such as `turnitin-pdf-stamper`.
 
-   The README should say plainly that DraftWitness is not one of these.
+   The README should say plainly that Descargo is not one of these.
 3. **Process evidence can be simulated.**
    - drafttrace-benchmark (MIT code, CC BY data) shows that a typing humanizer falls inside
      the timing range of 151 real writers.
@@ -130,7 +131,7 @@ What the inspector reports, as facts, never fixes:
 | sigstore | Apache-2.0 | no | **AVOID for student evidence**: it puts the signer's identity in a public log. It is fine for signing our own releases. |
 | c2pa-python, rfc3161ng | MIT/Apache, MIT | no | **AVOID.** |
 | [ArgLab/writing_observer](https://github.com/ArgLab/writing_observer) `reconstruct_doc.py` | AGPL-3.0 ✔ | stdlib only | **BORROW or port.** It rebuilds Google Docs text from the changelog JSON that the student exports themselves. Our tool never fetches it. |
-| WriteProof `.writeproof.json`, Obsidian Replay `.replay`, Cursive JSON | MIT, 0BSD, GPL-3.0+ | — | **Import formats.** DraftWitness should be a neutral verifier and packager for these, plus RSIDs and git history, rather than yet another recording editor. |
+| WriteProof `.writeproof.json`, Obsidian Replay `.replay`, Cursive JSON | MIT, 0BSD, GPL-3.0+ | — | **Import formats.** Descargo should be a neutral verifier and packager for these, plus RSIDs and git history, rather than yet another recording editor. |
 | HuManuScript, DraftProof, Writermark and similar | no licence or source-available | — | **Ideas only.** Copy HuManuScript's habit of printing the evidence's own limits on every export. |
 
 ### Stylometry (phase 2)
@@ -198,4 +199,4 @@ Do not cite benchmarks run by humanizer vendors.
   - BagIt and in-toto layout;
   - importers for Google Docs changelogs, `.writeproof.json`, `.replay`, RSIDs and git;
   - wording that states the evidence's limits.
-- **README:** a section on how DraftWitness differs from humanizers and report forgers.
+- **README:** a section on how Descargo differs from humanizers and report forgers.
