@@ -38,13 +38,13 @@ Todo es trabajo por PR en el repositorio y en la web. Salida: se cumplen las cua
 
 | # | Trabajo | Issue | Quién |
 |---|---|---|---|
-| 0.1 | **Camino «me han marcado»**: antes del texto largo, tres botones (según tu caso) que llevan a la acción; resumen de «qué es» plegado | por crear | Claude (PR) |
-| 0.2 | **Demostración sin informe real**: botón «probar con un informe de ejemplo» con un PDF sintético (los de `tests/fixtures/` ya existen) | por crear | Claude (PR) |
-| 0.3 | **Páginas estáticas por país e idioma** (`/guias/<país>/`) generadas en la compilación, con título y descripción propios, sin JavaScript necesario y con la fecha de comprobación visible; se añaden a `sitemap.xml` de la portada | por crear | Claude (PR en descargo y en la portada) |
-| 0.3b | Pedir a `maquina` la indexación de esas URL en Search Console | tras 0.3 | Claude → `maquina` (inglés) |
-| 0.4 | **Buzón de comentarios** (#24): decide Patricio cuál; después se rellena `FEEDBACK_EMAIL` | #24 | Decisión de Patricio; PR de Claude |
+| 0.1 | **Camino «me han marcado»**: antes del texto largo, cuatro tarjetas (según tu caso) que llevan a la acción; resumen de «qué es» plegado | #39 · **hecho** (#47) | Claude (PR) |
+| 0.2 | **Demostración sin informe real**: botón «probar con un informe de ejemplo» con un informe, un trabajo y declaraciones sintéticos (`web/demo/`) | #40 · **hecho** (#49) | Claude (PR) |
+| 0.3 | **Páginas estáticas por país e idioma** (`/guias/<país>/`) generadas en la compilación, con título y descripción propios, sin JavaScript necesario y con la fecha de comprobación visible; se añaden a `sitemap.xml` de la portada | #41 · **hecho** (#46; sitemap de la portada `cc4cdb1`) | Claude (PR en descargo y en la portada) |
+| 0.3b | Pedir a `maquina` la indexación de esas URL en Search Console | **hecho** el 11-11: sitemap reenviado e indexación pedida de las dos listas | Claude → `maquina` (inglés) |
+| 0.4 | **Buzón de comentarios** (#24): decide Patricio cuál; después se rellena `FEEDBACK_EMAIL` | #24 · **pendiente**: alias `descargo@jirulabs.com` propuesto; Patricio debe crearlo en Infomaniak y `maquina` confirmarlo. No se publica la dirección antes | Decisión de Patricio; PR de Claude |
 | 0.5 | **Reglas de contenido legal**: cada guía muestra de forma visible qué partes están por verificar (ya lo hace) y se revisa que ningún texto de promoción dé plazos sin enlace | #21 | Claude |
-| 0.6 | **README de la primera pantalla**: tres líneas, el enlace a la web y el aviso del estado; lo demás, más abajo | por crear | Claude (PR) |
+| 0.6 | **README de la primera pantalla**: tres líneas, el enlace a la web y el aviso del estado; lo demás, más abajo | #42 · **hecho** (#48) | Claude (PR) |
 | 0.7 | **Primera instantánea** de métricas y línea base en [metricas.csv](metricas.csv) | — | Claude (hecho el 11-11) |
 
 **Puertas para pasar a la fase 1** (todas):

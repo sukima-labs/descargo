@@ -6,7 +6,10 @@ borrador de [plantillas/](plantillas/) no cuenta. Sin nombres ni direcciones de 
 
 | Fecha | Canal | Qué | Enlace o referencia | Resultado a los 7 días |
 |---|---|---|---|---|
-| | | | | |
+| 11-11-2026 | Web de Descargo | 14 páginas estáticas de las guías, enlace en el pie, cuatro entradas y botón de ejemplo | PR #46, #47, #49 | — |
+| 11-11-2026 | Sitemap de la portada | Las 14 páginas añadidas | `cc4cdb1` en la portada | — |
+| 11-11-2026 | Search Console (vía `maquina`) | Sitemap reenviado e indexación pedida de `/descargo/guias/` y `/descargo/en/guides/` | Mensaje de `maquina` | Pendiente de impresiones |
+| 11-11-2026 | GitHub (ajustes del repositorio) | Imagen de vista previa social (`web/og.jpg`) | Ajustes → Social preview | — |
 
-*Todavía no se ha publicado nada (11-11-2026): el 11-11 se hizo la investigación, el módulo y
-la línea base de métricas.*
+*Aún no se ha publicado ningún texto de promoción en comunidades, listas ni por correo
+(11-11-2026): solo cambios en la propia web y las gestiones de arriba.*
