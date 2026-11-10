@@ -30,8 +30,11 @@ La **Constitución**, art. 19, n.º 3
 
 Esta guía no ha encontrado una ley nacional que fije el procedimiento disciplinario de los
 estudiantes, así que **las fases, los plazos y las faltas salen de la normativa de tu
-universidad**. Que no exista ninguna es **por verificar**. Lo que sigue es el ejemplo de la
-Universidad de Chile. Úsalo para saber qué buscar en la tuya, no como si fuera la tuya.
+universidad**. Se leyeron la Ley 21.091 (sobre Educación Superior), en cuyo texto no
+se encontró un régimen disciplinario de los estudiantes, y la Ley 21.369, que sí exige procedimientos
+«basados en las normas del debido proceso» (art. 6, letra a), pero solo para el acoso
+sexual, la violencia y la discriminación de género: no para el plagio. Lo que sigue es el
+ejemplo de la Universidad de Chile. Úsalo para saber qué buscar en la tuya, no como si fuera la tuya.
 
 ## Ejemplo: la Universidad de Chile
 
@@ -125,7 +128,8 @@ días son **corridos** y no se suspenden. Consulta a un profesional en cuanto te
 
 ## Por verificar
 
-- Si existe una ley nacional sobre el procedimiento disciplinario de los estudiantes.
+- Si existe otra ley nacional sobre el procedimiento disciplinario de los estudiantes
+  distinta de las dos leídas (21.091 y 21.369).
 - El régimen de las **universidades privadas** y de las demás universidades estatales:
   cada una tiene su reglamento.
 - Cómo se cuenta el plazo del recurso de protección cuando hay una apelación interna
@@ -144,6 +148,7 @@ días son **corridos** y no se suspenden. Consulta a un profesional en cuanto te
 La Constitución y el auto acordado del recurso de protección se leyeron en LeyChile
 (Biblioteca del Congreso Nacional) desde un navegador, porque el sitio rechaza a los
 clientes automáticos. El Reglamento de Jurisdicción Disciplinaria y el Reglamento de
-Estudiantes se descargaron de la web de la Universidad de Chile. Todo, el 08-11-2026. Las
+Estudiantes se descargaron de la web de la Universidad de Chile. Todo, el 08-11-2026; las
+leyes 21.091 y 21.369, también en LeyChile, el 10-11-2026. Las
 citas se buscaron en el texto. Las normas cambian: comprueba la fecha de este documento y
 la vigencia antes de apoyarte en él.
