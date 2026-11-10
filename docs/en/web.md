@@ -27,6 +27,14 @@ and Colombia guide is split by country. Links to another guide switch the countr
 page; links to other files of the repository go to GitHub, and a test checks that every link
 to a section exists. They need no Python: they load the first time the tab is opened.
 
+The same guides also exist as **static pages with their own addresses**, so a search engine
+or a link can reach a country's guide directly: `en/guides/<country>/` in English and
+`guias/<país>/` in Spanish, plus a list at `en/guides/` and `guias/`. The build generates
+them with the same conversion as `guides.json`, so the tab and the pages cannot disagree.
+They carry no JavaScript, only their stylesheet, and each declares its title, description,
+canonical address and its version in the other language. Tests check that every link and
+anchor exists. The addresses are added to the portal's `sitemap.xml`.
+
 The feedback form needs no Python, so it works even when the page fails to load. Nothing is
 sent: the student sees the whole message, which carries only what they wrote, the page's
 version and language, and, if they tick the box, the page's last status message. With no

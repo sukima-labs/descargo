@@ -410,3 +410,31 @@ a.button[hidden] {
 .guide a {
   color: var(--accent);
 }
+
+/* Static guide pages (guias/, en/guides/): no JavaScript, same look as the tab. */
+.cta,
+.others {
+  margin: 1.5rem 0;
+}
+
+.cta a.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--accent-text);
+  text-decoration: none;
+}
+
+.others a,
+footer a {
+  color: var(--accent);
+}
+
+.others ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  padding-left: 0;
+  list-style: none;
+}

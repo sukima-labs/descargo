@@ -12,6 +12,11 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Static pages for the procedure guides, one per country and language (`guias/<país>/`,
+  `en/guides/<country>/`) and a list of each. They have no JavaScript, their own title,
+  description, canonical address and link to the other language, so search engines can find
+  a guide without opening the page. They come from the same conversion as the tab; tests
+  check every link and anchor. The page footer links to them.
 - Web page: a new tab, «Si te acusan» / "If you are accused", shows the procedure guide of
   the chosen country (Spain, Colombia, Mexico, Argentina, Chile, Peru) in Spanish or
   English. The build turns `docs/procedimientos*.md` and `docs/en/procedures*.md` into

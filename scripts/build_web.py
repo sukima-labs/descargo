@@ -22,6 +22,7 @@ What goes into the site:
 
 import argparse
 import hashlib
+import html
 import io
 import json
 import re
@@ -349,6 +350,287 @@ def web_guides() -> dict[str, dict[str, Any]]:
     return guides
 
 
+#: Where the site lives, and the path of each country's static guide page in each language.
+SITE: Final = "https://sukima-labs.github.io/descargo/"
+#: ``country → (name, path part)`` by language. The static pages exist so that search
+#: engines and people can open a guide by its own address; the page (``index.html``) draws
+#: the same guides with JavaScript.
+COUNTRIES: Final = {
+    "es": {
+        "es": ("España", "espana"),
+        "co": ("Colombia", "colombia"),
+        "mx": ("México", "mexico"),
+        "ar": ("Argentina", "argentina"),
+        "cl": ("Chile", "chile"),
+        "pe": ("Perú", "peru"),
+    },
+    "en": {
+        "es": ("Spain", "spain"),
+        "co": ("Colombia", "colombia"),
+        "mx": ("Mexico", "mexico"),
+        "ar": ("Argentina", "argentina"),
+        "cl": ("Chile", "chile"),
+        "pe": ("Peru", "peru"),
+    },
+}
+_FOLDERS: Final = {"es": "guias", "en": "en/guides"}
+#: The static pages ask for nothing but their stylesheet and the share picture.
+_STATIC_CSP: Final = (
+    "default-src 'none'; style-src 'self'; img-src 'self'; form-action 'none'; base-uri 'none'"
+)
+_PAGE_TEXT: Final = {
+    "es": {
+        "lang": "es",
+        "locale": "es_ES",
+        "hub_title": "Guías de procedimientos por país",
+        "hub_description": (
+            "Qué hacer si un detector de plagio o de IA marca tu trabajo: guías de seis países "
+            "con sus fuentes. Gratis y sin subir archivos."
+        ),
+        "hub_lead": (
+            "Una guía por país con los artículos, los plazos y las fuentes que pueden aplicar si "
+            "un detector de plagio o de IA marca tu trabajo. Cada cita indica dónde y cuándo se "
+            "comprobó."
+        ),
+        "description": (
+            "Si un detector marca tu trabajo en {country}: artículos, plazos y fuentes. "
+            "Guía gratuita de Descargo; no es asesoramiento legal."
+        ),
+        "notice": (
+            "Descargo no es asesoramiento legal. Es una versión de prueba: algunas partes de "
+            "esta guía están marcadas «por verificar». Comprueba las fuentes y, si te juegas "
+            "mucho, habla con la defensoría universitaria, la representación estudiantil o un "
+            "abogado."
+        ),
+        "tagline": "Prueba de autoría.",
+        "cta_title": "Prueba la herramienta",
+        "cta": (
+            "Descargo revisa tu archivo y el informe del detector en tu navegador. No sube "
+            "nada, no pide cuenta y no reescribe tu texto."
+        ),
+        "cta_link": "Abrir Descargo",
+        "source": "Texto fuente de esta guía en GitHub",
+        "others": "Otros países",
+        "all": "Todas las guías",
+        "home": "Descargo",
+        "other_language": "English",
+    },
+    "en": {
+        "lang": "en",
+        "locale": "en_GB",
+        "hub_title": "Procedure guides by country",
+        "hub_description": (
+            "What to do if a plagiarism or AI detector flags your work: guides for six countries "
+            "with sources. Free; no files uploaded."
+        ),
+        "hub_lead": (
+            "One guide per country with the articles, deadlines and sources that may apply if a "
+            "plagiarism or AI detector flags your work. Each quote says where and when it was "
+            "checked."
+        ),
+        "description": (
+            "If a detector flags your work in {country}: articles, deadlines and sources. "
+            "A free Descargo guide; not legal advice."
+        ),
+        "notice": (
+            "Descargo is not legal advice. This is a test version: some parts of this guide are "
+            "marked \u201cto verify\u201d. Check the sources and, if the stakes are high, talk to "
+            "your student ombudsman, student union or a lawyer."
+        ),
+        "tagline": "Proof of authorship.",
+        "cta_title": "Try the tool",
+        "cta": (
+            "Descargo checks your file and the detector's report in your browser. It uploads "
+            "nothing, asks for no account and never rewrites your text."
+        ),
+        "cta_link": "Open Descargo",
+        "source": "Source text of this guide on GitHub",
+        "others": "Other countries",
+        "all": "All guides",
+        "home": "Descargo",
+        "other_language": "Español",
+    },
+}
+
+
+def guide_path(language: str, country: str | None = None) -> str:
+    """The path, from the site root, of a static guide page (or of the list of guides)."""
+    if country is None:
+        return f"{_FOLDERS[language]}/"
+    return f"{_FOLDERS[language]}/{COUNTRIES[language][country][1]}/"
+
+
+def _text_html(run: Inline, language: str) -> str:
+    """One run of text as HTML: escaped, styled and, if it is a link, linked."""
+    out = html.escape(run["t"])
+    if run.get("code"):
+        out = f"<code>{out}</code>"
+    if run.get("bold"):
+        out = f"<strong>{out}</strong>"
+    if run.get("italic"):
+        out = f"<em>{out}</em>"
+    if "href" in run:
+        out = f'<a href="{html.escape(run["href"])}">{out}</a>'
+    elif "guide" in run:
+        target = "../" + COUNTRIES[language][run["guide"]][1] + "/"
+        anchor = f"#{html.escape(run['anchor'])}" if "anchor" in run else ""
+        out = f'<a href="{target}{anchor}">{out}</a>'
+    elif "anchor" in run:
+        out = f'<a href="#{html.escape(run["anchor"])}">{out}</a>'
+    return out
+
+
+def _block_html(block: Block, language: str) -> str:
+    """One block of a guide as HTML."""
+    kind = block["type"]
+    if kind in {"p", "h2", "h3", "h4", "h5", "h6"}:
+        inner = "".join(_text_html(run, language) for run in block["runs"])
+        ident = f' id="{html.escape(block["id"])}"' if "id" in block else ""
+        return f"<{kind}{ident}>{inner}</{kind}>"
+    if kind in {"ul", "ol"}:
+        items = "".join(
+            "<li>" + "".join(_block_html(b, language) for b in item) + "</li>"
+            for item in block["items"]
+        )
+        return f"<{kind}>{items}</{kind}>"
+    if kind == "quote":
+        return (
+            "<blockquote>"
+            + "".join(_block_html(b, language) for b in block["blocks"])
+            + "</blockquote>"
+        )
+    if kind == "table":
+
+        def row(cells: list[list[Inline]], tag: str) -> str:
+            inner = "".join(
+                f"<{tag}>" + "".join(_text_html(run, language) for run in cell) + f"</{tag}>"
+                for cell in cells
+            )
+            return f"<tr>{inner}</tr>"
+
+        head = f"<thead>{row(block['head'], 'th')}</thead>"
+        body = "".join(row(cells, "td") for cells in block["rows"])
+        return f'<div class="table-scroll"><table>{head}<tbody>{body}</tbody></table></div>'
+    raise ValueError(f"unsupported block {kind!r}")
+
+
+def _page(language: str, path: str, title: str, description: str, body: str) -> str:
+    """A static page: ``body`` inside the shared header and footer, with the metadata that
+    search engines and link previews read."""
+    text = _PAGE_TEXT[language]
+    other = "en" if language == "es" else "es"
+    depth = path.count("/")
+    root = "../" * depth
+    # The same page in the other language, when there is one (a guide, or the list).
+    parts = path.rstrip("/").split("/")
+    country = next((c for c, (_, part) in COUNTRIES[language].items() if part == parts[-1]), None)
+    twin = root + guide_path(other, country)
+    twin_url = SITE + guide_path(other, country)
+    mine = SITE + path
+    alternates = "".join(
+        f'<link rel="alternate" hreflang="{lang}" href="{href}">'
+        for lang, href in sorted({language: mine, other: twin_url}.items())
+    )
+    hub = "../" if country else ""
+    switch = (
+        f'<a class="brand" href="{html.escape(twin)}" lang="{other}">{text["other_language"]}</a>'
+    )
+    return f"""<!doctype html>
+<html lang="{language}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="{_STATIC_CSP}">
+  <meta name="referrer" content="no-referrer">
+  <title>{html.escape(title)} · Descargo</title>
+  <meta name="description" content="{html.escape(description)}">
+  <link rel="canonical" href="{mine}">
+  {alternates}
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="sukima-labs">
+  <meta property="og:locale" content="{text["locale"]}">
+  <meta property="og:title" content="{html.escape(title)} · Descargo">
+  <meta property="og:description" content="{html.escape(description)}">
+  <meta property="og:url" content="{mine}">
+  <meta property="og:image" content="{SITE}og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="{root}favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="{root}style.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <a class="brand" href="{root}">{text["home"]}</a>
+      <p class="tagline">{text["tagline"]}</p>
+    </div>
+    <div class="languages">{switch}</div>
+  </header>
+  <main>
+    <section class="notice"><p>{html.escape(text["notice"])}</p></section>
+{body}
+  </main>
+  <footer>
+    <p><a href="{root}">{text["home"]}</a> · <a href="{hub}">{text["all"]}</a></p>
+  </footer>
+</body>
+</html>
+"""
+
+
+def static_guides() -> dict[str, str]:
+    """``path → HTML`` of the static pages: one per guide and language, and a list of the
+    guides in each language. Everything comes from :func:`web_guides`, so the pages and the
+    tab can never disagree."""
+    pages: dict[str, str] = {}
+    for language, countries in web_guides().items():
+        text = _PAGE_TEXT[language]
+        links = []
+        for country, guide in countries.items():
+            name = COUNTRIES[language][country][0]
+            # España and Colombia share one document, so they share its title: name the one.
+            title = re.sub(r"(España y Colombia|Spain and Colombia)", name, guide["title"])
+            body = "".join(_block_html(block, language) for block in guide["blocks"])
+            to_app = "../../../" if language == "en" else "../../"
+            others = "".join(
+                f'<li><a href="../{part}/">{html.escape(other)}</a></li>'
+                for code, (other, part) in COUNTRIES[language].items()
+                if code != country
+            )
+            article = f"""    <article class="document guide">
+      <h1>{html.escape(title)}</h1>
+{body}
+      <p class="guide-source"><a href="{html.escape(guide["source"])}">{text["source"]}</a></p>
+    </article>
+    <section class="cta">
+      <h2>{text["cta_title"]}</h2>
+      <p>{text["cta"]}</p>
+      <p><a class="button" href="{to_app}">{text["cta_link"]}</a></p>
+    </section>
+    <nav class="others" aria-label="{text["others"]}">
+      <h2>{text["others"]}</h2>
+      <ul>{others}</ul>
+    </nav>"""
+            pages[guide_path(language, country) + "index.html"] = _page(
+                language,
+                guide_path(language, country),
+                title,
+                text["description"].format(country=name),
+                article,
+            )
+            links.append(
+                f'<li><a href="{COUNTRIES[language][country][1]}/">{html.escape(title)}</a></li>'
+            )
+        hub = f"""    <article class="document guide">
+      <h1>{text["hub_title"]}</h1>
+      <p>{text["hub_lead"]}</p>
+      <ul>{"".join(links)}</ul>
+    </article>"""
+        pages[guide_path(language) + "index.html"] = _page(
+            language, guide_path(language), text["hub_title"], text["hub_description"], hub
+        )
+    return pages
+
+
 def build_wheel() -> Path:
     out = Path(tempfile.mkdtemp(prefix="descargo-wheel-"))
     subprocess.run(  # noqa: S603 - fixed arguments
@@ -434,6 +716,9 @@ def build(out: Path) -> None:
     (out / "guides.json").write_text(
         json.dumps(web_guides(), ensure_ascii=False, separators=(",", ":")) + "\n", "utf-8"
     )
+    for path, page in static_guides().items():
+        (out / path).parent.mkdir(parents=True, exist_ok=True)
+        (out / path).write_text(page, "utf-8")
     (out / "build.json").write_text(
         json.dumps({"descargo": version, "commit": commit(), "pyodide": PYODIDE_VERSION}, indent=1)
         + "\n",

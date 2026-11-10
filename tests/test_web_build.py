@@ -1,6 +1,9 @@
 import importlib.util
+import os
 import re
 import tomllib
+from html.parser import HTMLParser
+from pathlib import PurePosixPath
 from types import ModuleType
 from typing import Any
 
@@ -184,3 +187,109 @@ def test_guide_links() -> None:
     assert build_web.slug("Qué manda (comprobado el 08-11-2026)") == (
         "qué-manda-comprobado-el-08-11-2026"
     )
+
+
+class _Page(HTMLParser):
+    """What a static page declares: its tags, ids, links and head metadata."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.tags: list[str] = []
+        self.ids: set[str] = set()
+        self.hrefs: list[str] = []
+        self.meta: dict[str, str] = {}
+        self.links: dict[str, list[str]] = {}
+        self.title = ""
+        self._in_title = False
+        self.inline_style = False
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        values = {k: v or "" for k, v in attrs}
+        self.tags.append(tag)
+        self.inline_style |= "style" in values
+        if "id" in values:
+            self.ids.add(values["id"])
+        if tag == "a":
+            self.hrefs.append(values["href"])
+        if tag == "meta":
+            key = values.get("name") or values.get("property") or values.get("http-equiv")
+            if key:
+                self.meta[key] = values.get("content", "")
+        if tag == "link":
+            self.links.setdefault(values["rel"], []).append(values["href"])
+        self._in_title = tag == "title"
+
+    def handle_data(self, data: str) -> None:
+        if self._in_title:
+            self.title += data
+
+    def handle_endtag(self, tag: str) -> None:
+        self._in_title = False
+
+
+def _static_pages() -> dict[str, _Page]:
+    pages = {}
+    for path, source in build_web.static_guides().items():
+        page = _Page()
+        page.feed(source)
+        pages[path] = page
+    return pages
+
+
+def test_there_is_a_static_page_for_every_guide_and_a_list_per_language() -> None:
+    paths = set(build_web.static_guides())
+    assert len(paths) == 14
+    for language, countries in build_web.COUNTRIES.items():
+        assert build_web.guide_path(language) + "index.html" in paths
+        for country in countries:
+            assert build_web.guide_path(language, country) + "index.html" in paths
+
+
+def test_static_pages_need_no_script_and_carry_their_metadata() -> None:
+    pages = _static_pages()
+    titles = [page.title for page in pages.values()]
+    assert len(set(titles)) == len(titles)
+    descriptions = [page.meta["description"] for page in pages.values()]
+    assert len(set(descriptions)) == len(descriptions)
+    for path, page in pages.items():
+        assert "script" not in page.tags, path
+        assert "style" not in page.tags, path
+        assert not page.inline_style, path
+        assert "script-src" not in page.meta["Content-Security-Policy"]
+        assert page.links["canonical"] == [build_web.SITE + path.removesuffix("index.html")]
+        assert page.meta["og:url"] == page.links["canonical"][0]
+        assert 20 < len(page.meta["description"]) <= 160, path
+        assert page.title.endswith("· Descargo")
+
+
+def test_every_link_of_a_static_page_resolves() -> None:
+    pages = _static_pages()
+    for path, page in pages.items():
+        folder = PurePosixPath(path).parent
+        for href in page.hrefs:
+            if href.startswith("https://"):
+                continue
+            target, _, anchor = href.partition("#")
+            resolved = os.path.normpath(folder / target) if target else str(folder)
+            if resolved == ".":
+                continue  # the page itself, or the application at the site root
+            if resolved.count("..") or resolved == "":
+                raise AssertionError((path, href))
+            destination = resolved + "/index.html"
+            if resolved.startswith(("guias", "en/guides")):
+                assert destination in pages, (path, href)
+                if anchor:
+                    assert anchor in pages[destination].ids, (path, href)
+
+
+def test_every_static_page_links_its_other_language() -> None:
+    pages = _static_pages()
+    for path, page in pages.items():
+        alternates = {
+            link
+            for link in page.links["alternate"]
+            if link != build_web.SITE + path.removesuffix("index.html")
+        }
+        assert len(alternates) == 1, path
+        (twin,) = alternates
+        assert twin.removeprefix(build_web.SITE) + "index.html" in pages, path

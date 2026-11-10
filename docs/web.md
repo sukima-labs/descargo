@@ -28,6 +28,14 @@ de país dentro de la página; los enlaces a otros archivos del repositorio llev
 un test comprueba que cada enlace a un apartado existe. No necesitan Python: se cargan la
 primera vez que se abre la pestaña.
 
+Las mismas guías existen también como **páginas estáticas con dirección propia**, para que
+un buscador o un enlace lleguen directos a la de un país: `guias/<país>/` en español y
+`en/guides/<country>/` en inglés, más una lista en `guias/` y `en/guides/`. El build las
+genera con la misma conversión que `guides.json`, así que la pestaña y las páginas no pueden
+discrepar. No llevan JavaScript, solo su hoja de estilos, y cada una declara su título, su
+descripción, su dirección canónica y su versión en el otro idioma. Los tests comprueban que
+cada enlace y cada ancla existen. Las direcciones se añaden al `sitemap.xml` de la portada.
+
 El formulario de comentarios no necesita Python, así que funciona aunque la página no
 consiga cargar. No se envía nada: el estudiante ve el mensaje completo, que solo lleva lo
 que escribió, la versión y el idioma de la página y, si marca la casilla, el último mensaje
