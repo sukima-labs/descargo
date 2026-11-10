@@ -75,8 +75,9 @@ articles.
 
 Source: the **Reglamento Unificado de Procedimientos Disciplinarios de la Pontificia
 Universidad Católica del Perú** (Unified Regulation of Disciplinary Procedures), text in
-force with the amendments up to Resolución de Consejo Universitario 110/2021
-([text published by the PUCP](https://s3.amazonaws.com/files.pucp.edu.pe/homepucp/uploads/2021/09/23095628/2020005ReglamentoUnificadoDeProcedimientosDisciplinariosDeLaPontificiaUniversidadCatolicaDelPeru.pdf);
+force with the amendments up to Resolución Rectoral 1346/2021 of 2021-10-18, which only
+changes art. 11 to create a committee for sexual harassment cases
+([text published by the PUCP](https://s3.amazonaws.com/files.pucp.edu.pe/homepucp/uploads/2020/08/19095328/2020006ReglamentoUnificadoDeProcedimientosDisciplinariosDeLaPontificiaUniversidadCatolicaDelPeru.pdf);
 summary on its [microsite](https://regimendisciplinario.pucp.edu.pe/)). Use this example
 to know what to look for in your university's regulation, not as if it were yours.
 
@@ -126,6 +127,34 @@ The deadlines are in **working days**.
    **appeal** to the Tribunal Disciplinario, which is the last instance (art. 71). Filing
    either one **suspends the execution** of the sanction (art. 75).
 
+## Example: the UNMSM, a public university
+
+Source: the **Reglamento de Proceso Disciplinario para Estudiantes de la Universidad
+Nacional Mayor de San Marcos** (Regulation of the Disciplinary Process for Students),
+approved by Resolución Rectoral 03500-R-12 of 2012-07-03
+([text published by the UNMSM](https://viceacademico.unmsm.edu.pe/wp-content/uploads/2024/01/Resolucion-03500-12_UNMSM.pdf), scanned). Resolución Rectoral 006134-2025-R
+added a complementary provision in 2025 and left «vigente todo lo demás» (everything else
+in force) ([text on gob.pe](https://cdn.www.gob.pe/uploads/document/file/8067739/2001237-resolucion-rectoral-006134-2025-r.pdf)). It predates the 2014 Ley Universitaria: how it
+fits with the Tribunal de Honor is **to verify**.
+
+- The offences include «El plagio parcial o total de trabajos de investigación» (partial
+  or total plagiarism of research work, art. 6.e). The sanctions are a verbal warning, a
+  written warning, suspension and expulsion (art. 10).
+- **Opening.** The complaint goes to the Dean of your faculty, who opens the process or
+  not by resolution. The resolution that opens it cannot be appealed (arts. 16 and 17).
+  Before that, the committee may ask the parties for information for the preliminary
+  assessment, within no more than 21 working days (complementary provision of 2025).
+- **Defence.** The Comisión Disciplinaria para Alumnos notifies you within three working
+  days, and you have **five working days** for your written defence, extendable by five
+  more for a justified cause if you ask (art. 16).
+- **Length.** Thirty working days, extendable by thirty more for evidence or the final
+  opinion (art. 19).
+- **Hearing.** The Consejo de Facultad summons you to defend yourself, and you may bring
+  your counsel (art. 20).
+- **Appeals.** An appeal to the Consejo Universitario within **fifteen working days** of
+  being notified of the rector's resolution (art. 20), and then a review by the Asamblea
+  Universitaria (art. 21).
+
 ## If the university does not respect your rights
 
 The **amparo action** lies against the act or omission of «cualquier autoridad,
@@ -148,10 +177,10 @@ resolution.
 
 ## To verify
 
-- How each public university regulates its procedure and its Tribunal de Honor. The
-  UNMSM, for example, approved a new Reglamento del Tribunal de Honor Universitario in
-  2025, but this guide has not been able to read its full text.
-- Whether there are amendments after 2021 to the PUCP's regulation.
+- How each public university regulates its procedure and its Tribunal de Honor. At the
+  UNMSM, what the 2025 Reglamento del Tribunal de Honor Universitario changes
+  ([Resolución Rectoral 000533-2025-R](https://cdn.www.gob.pe/uploads/document/file/7511812/6388808-resolucion-rectoral-000533-2025-r.pdf)): its annex is not published with the
+  resolution, and that resolution orders the student committee's functions to be adapted.
 - Whether the amparo action applies, and in which cases, to an academic sanction.
 
 ## Where Descargo fits
@@ -167,6 +196,9 @@ resolution.
 The Constitución, the Ley Universitaria, the TUO of the Ley 27444 and the Código Procesal
 Constitucional were downloaded from the websites of the Congreso, of the Government of
 Peru (gob.pe) and of the Tribunal Constitucional, and the PUCP's regulation from the
-university's website, on 2026-11-08. The quotations were searched for in the text. Rules
+university's website, on 2026-11-08. On 2026-11-10 the text the PUCP publishes was checked
+to be version 2020-006 (the same as the previous one except art. 11), and the UNMSM's
+regulation (text recognised from the scan and checked against the image) and the two 2025
+resolutions from gob.pe were read. The quotations were searched for in the text. Rules
 change: check this document's date and that the text is still in force before relying on
 it.

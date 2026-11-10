@@ -130,6 +130,12 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Changed
 
+- Procedure guide, Peru: a second example, the UNMSM (a public university), from its
+  student disciplinary regulation of 2012 and the 2025 provision that keeps it in force:
+  plagiarism is an offence, five working days for the defence and fifteen to appeal. The
+  PUCP example now cites the text the PUCP publishes (version 2020-006), whose only change
+  is art. 11. Two "to verify" items are gone; what the UNMSM's 2025 Tribunal de Honor
+  regulation changes stays open, because its annex is not published.
 - Procedure guide, Colombia: it now cites the Ley 30 of 1992 (its current text from the
   Senate and the original from the Ministry of Education, read on 2026-11-10). The law
   sets no disciplinary procedure; it requires every institution to have student
