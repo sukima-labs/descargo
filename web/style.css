@@ -10,9 +10,10 @@
   --error: #a3312a;
   --notice: #f2efe6;
   --quote: #9aa0a8;
-  /* Sukima Labs brand tokens (sukima-labs/marca v1.1, 03_DIGITAL/Web/brand_tokens.css).
-     Only the brand mark uses them: cian on white is under 2:1, too faint for text or
-     buttons, so Descargo keeps its own accent for the interface. */
+  /* Sukima Labs brand tokens, same values as https://sukima-labs.github.io/marca/marca.css
+     (brand v1.1; rules in marca/REGLAS.md). Copied rather than linked so the page stays
+     self-contained under its CSP. Only the brand mark uses them: cian on white is under 2:1,
+     too faint for text or buttons, so Descargo keeps its own accent for the interface. */
   --sukima-grafito: #10131c;
   --sukima-cian: #14c6d4;
   --sukima-violeta: #7148f5;
@@ -70,10 +71,11 @@ header.top {
   padding-top: 1.5rem;
 }
 
+/* The isotype at 32 px, the brand's digital minimum; the 0.5rem gap keeps the 15 % clear space. */
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   color: var(--muted);
   font-size: 0.875rem;
   text-decoration: none;
