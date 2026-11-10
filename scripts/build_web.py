@@ -16,6 +16,8 @@ What goes into the site:
 * The Descargo wheel, built from this checkout with ``uv build``.
 * A trimmed ``pyodide-lock.json`` that lists only those packages, with their SHA-256, so
   Pyodide checks each one as it loads it and cannot fetch anything else.
+* ``strings.json``, the page's texts, and ``guides.json``, the procedure guides of
+  ``docs/`` as blocks the page draws with DOM calls (it never inserts HTML).
 """
 
 import argparse
@@ -31,6 +33,9 @@ import tomllib
 import urllib.request
 from pathlib import Path
 from typing import Any, Final
+
+from markdown_it import MarkdownIt
+from markdown_it.token import Token
 
 ROOT: Final = Path(__file__).resolve().parent.parent
 CACHE: Final = ROOT / ".cache" / "web"
@@ -147,6 +152,203 @@ def web_strings() -> dict[str, dict[str, str]]:
     return strings
 
 
+#: The procedure guides the page shows, by language: ``(country, file, section)``. A guide
+#: that covers two countries is split at its country section (``## España``); its other
+#: sections, which are not about one country, go with each.
+GUIDES: Final = {
+    "es": (
+        ("es", "docs/procedimientos.md", "España"),
+        ("co", "docs/procedimientos.md", "Colombia"),
+        ("mx", "docs/procedimientos-mx.md", None),
+        ("ar", "docs/procedimientos-ar.md", None),
+        ("cl", "docs/procedimientos-cl.md", None),
+        ("pe", "docs/procedimientos-pe.md", None),
+    ),
+    "en": (
+        ("es", "docs/en/procedures.md", "Spain"),
+        ("co", "docs/en/procedures.md", "Colombia"),
+        ("mx", "docs/en/procedures-mx.md", None),
+        ("ar", "docs/en/procedures-ar.md", None),
+        ("cl", "docs/en/procedures-cl.md", None),
+        ("pe", "docs/en/procedures-pe.md", None),
+    ),
+}
+#: Where a link to another file of the repository points on the site.
+REPOSITORY: Final = "https://github.com/sukima-labs/descargo/blob/main/"
+_GUIDE_FILE = re.compile(r"(?:^|/)(?:procedimientos|procedures)(?:-([a-z]{2}))?\.md$")
+
+Inline = dict[str, Any]
+Block = dict[str, Any]
+
+
+def slug(text: str) -> str:
+    """The anchor GitHub gives a heading: lower case, punctuation dropped, spaces as
+    hyphens."""
+    return re.sub(r"[^\w\- ]", "", text.lower()).replace(" ", "-")
+
+
+def _href(href: str, document: str) -> Inline:
+    """What a link in ``document`` becomes on the page: another guide, a heading of this
+    one, a file of the repository, or an outside address."""
+    if href.startswith(("http://", "https://")):
+        return {"href": href}
+    if href.startswith("#"):
+        return {"anchor": href[1:]}
+    path, _, anchor = href.partition("#")
+    guide = _GUIDE_FILE.search(path)
+    if guide:
+        return {"guide": guide.group(1) or "es", **({"anchor": anchor} if anchor else {})}
+    resolved = (ROOT / document).parent.joinpath(path).resolve().relative_to(ROOT)
+    return {"href": REPOSITORY + resolved.as_posix() + (f"#{anchor}" if anchor else "")}
+
+
+def _inlines(token: Token, document: str) -> list[Inline]:
+    """The text of an ``inline`` token, as runs with their style and link."""
+    runs: list[Inline] = []
+    style: dict[str, Any] = {}
+    for child in token.children or []:
+        kind = child.type
+        if kind in {"text", "code_inline", "softbreak", "hardbreak"}:
+            text = " " if kind.endswith("break") else child.content
+            run = {"t": text, **style, **({"code": True} if kind == "code_inline" else {})}
+            if runs and {k: v for k, v in runs[-1].items() if k != "t"} == {
+                k: v for k, v in run.items() if k != "t"
+            }:
+                runs[-1]["t"] += text
+            else:
+                runs.append(run)
+        elif kind in {"strong_open", "em_open"}:
+            style["bold" if kind == "strong_open" else "italic"] = True
+        elif kind in {"strong_close", "em_close"}:
+            style.pop("bold" if kind == "strong_close" else "italic", None)
+        elif kind == "link_open":
+            style.update(_href(str(child.attrs["href"]), document))
+        elif kind == "link_close":
+            for key in ("href", "guide", "anchor"):
+                style.pop(key, None)
+        else:
+            raise ValueError(f"{document}: unsupported markdown {kind!r}")
+    return runs
+
+
+_CONTAINERS: Final = {
+    "bullet_list_open": ("ul", "items"),
+    "ordered_list_open": ("ol", "items"),
+    "blockquote_open": ("quote", "blocks"),
+}
+_CLOSERS: Final = frozenset(
+    {"bullet_list_close", "ordered_list_close", "blockquote_close", "list_item_close"}
+)
+
+
+def _blocks(tokens: list[Token], document: str) -> list[Block]:
+    """``tokens`` as nested blocks: headings, paragraphs, lists, tables and quotes. A list
+    item is a list of blocks; a table has a ``head`` row and ``rows``, each a list of
+    cells, each a list of runs."""
+    root: list[Block] = []
+    stack: list[list[Any]] = [root]
+    pending: Block | None = None  # the heading or paragraph whose text comes next
+    row: list[list[Inline]] | None = None
+    for token in tokens:
+        kind = token.type
+        if kind in {"heading_open", "paragraph_open"}:
+            pending = {"type": token.tag if kind == "heading_open" else "p"}
+            stack[-1].append(pending)
+        elif kind == "inline" and row is not None:
+            row.append(_inlines(token, document))
+        elif kind == "inline":
+            if pending is None:
+                raise ValueError(f"{document}: text outside a block")
+            pending["runs"] = _inlines(token, document)
+            if pending["type"] != "p":
+                pending["id"] = slug("".join(run["t"] for run in pending["runs"]))
+            pending = None
+        elif kind in _CONTAINERS:
+            tag, key = _CONTAINERS[kind]
+            block: Block = {"type": tag, key: []}
+            stack[-1].append(block)
+            stack.append(block[key])
+        elif kind == "list_item_open":
+            item: list[Block] = []
+            stack[-1].append(item)
+            stack.append(item)
+        elif kind in _CLOSERS:
+            stack.pop()
+        elif kind in {"table_open", "tr_open", "tr_close"}:
+            row = _table(kind, stack[-1], row)
+    return root
+
+
+def _table(
+    kind: str, blocks: list[Block], row: list[list[Inline]] | None
+) -> list[list[Inline]] | None:
+    """Follow a table token: start the table, start a row, or file the row as the head
+    (the first) or a body row. Returns the row being read, if any."""
+    if kind == "table_open":
+        blocks.append({"type": "table", "head": [], "rows": []})
+        return None
+    if kind == "tr_open":
+        return []
+    table = blocks[-1]
+    if table["head"]:
+        table["rows"].append(row)
+    else:
+        table["head"] = row
+    return None
+
+
+def _section(blocks: list[Block], country: str | None, others: set[str]) -> list[Block]:
+    """The blocks for one country of a guide: everything but the other countries' ``##``
+    sections."""
+    if country is None:
+        return blocks
+    kept: list[Block] = []
+    skipping = False
+    for block in blocks:
+        if block["type"] == "h2":
+            title = "".join(run["t"] for run in block["runs"])
+            skipping = title in others and title != country
+        if not skipping:
+            kept.append(block)
+    return kept
+
+
+def guide_blocks(document: str, country: str | None, others: set[str]) -> list[Block]:
+    """A guide of ``docs/`` as blocks, without the line that links its other language (a
+    paragraph in italics only)."""
+    text = (ROOT / document).read_text("utf-8")
+    tokens = MarkdownIt("commonmark", {"html": False}).enable("table").parse(text)
+    blocks = [
+        block
+        for block in _blocks(tokens, document)
+        if not (
+            block["type"] == "p"
+            and len(block["runs"]) >= 2
+            and all(run.get("italic") for run in block["runs"])
+        )
+    ]
+    return _section(blocks, country, others)
+
+
+def web_guides() -> dict[str, dict[str, Any]]:
+    """``language → country → {title, source, blocks}`` for every guide in :data:`GUIDES`."""
+    guides: dict[str, dict[str, Any]] = {}
+    for language, entries in GUIDES.items():
+        sections = {section for _, _, section in entries if section}
+        guides[language] = {}
+        for country, document, section in entries:
+            blocks = guide_blocks(document, section, sections)
+            if not blocks or blocks[0]["type"] != "h1":
+                raise ValueError(f"{document}: a guide starts with its title")
+            title = "".join(run["t"] for run in blocks.pop(0)["runs"])
+            guides[language][country] = {
+                "title": title,
+                "source": REPOSITORY + document,
+                "blocks": blocks,
+            }
+    return guides
+
+
 def build_wheel() -> Path:
     out = Path(tempfile.mkdtemp(prefix="descargo-wheel-"))
     subprocess.run(  # noqa: S603 - fixed arguments
@@ -228,6 +430,9 @@ def build(out: Path) -> None:
             shutil.copy2(source, out / source.name)
     (out / "strings.json").write_text(
         json.dumps(web_strings(), ensure_ascii=False, indent=1) + "\n", "utf-8"
+    )
+    (out / "guides.json").write_text(
+        json.dumps(web_guides(), ensure_ascii=False, separators=(",", ":")) + "\n", "utf-8"
     )
     (out / "build.json").write_text(
         json.dumps({"descargo": version, "commit": commit(), "pyodide": PYODIDE_VERSION}, indent=1)

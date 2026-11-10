@@ -40,6 +40,7 @@ descargo = "descargo.cli.app:main"
 [dependency-groups]
 dev = [
     "jsonschema>=4.23",
+    "markdown-it-py>=4.0",
     "mypy>=1.15",
     "pre-commit>=4.0",
     "pytest>=8.3",

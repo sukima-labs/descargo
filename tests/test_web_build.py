@@ -100,3 +100,78 @@ def test_every_string_the_page_uses_exists() -> None:
     assert used
     for locale, table in strings.items():
         assert used <= set(table), (locale, used - set(table))
+
+
+def _walk(blocks: list[Any]) -> list[dict[str, Any]]:
+    """Every block in ``blocks``, nested ones included."""
+    found: list[dict[str, Any]] = []
+    for block in blocks:
+        if isinstance(block, list):
+            found += _walk(block)
+            continue
+        found.append(block)
+        found += _walk(block.get("items", []) + block.get("blocks", []))
+    return found
+
+
+def _runs(block: dict[str, Any]) -> list[dict[str, Any]]:
+    cells = [block["head"], *block["rows"]] if block["type"] == "table" else []
+    runs: list[dict[str, Any]] = block.get("runs", [])
+    return runs + [run for row in cells for cell in row for run in cell]
+
+
+def test_every_guide_converts_and_its_links_resolve() -> None:
+    guides = build_web.web_guides()
+    assert set(guides) == {"es", "en"}
+    for language, countries in guides.items():
+        assert list(countries) == ["es", "co", "mx", "ar", "cl", "pe"]
+        ids = {
+            country: {b["id"] for b in _walk(guide["blocks"]) if "id" in b}
+            for country, guide in countries.items()
+        }
+        for country, guide in countries.items():
+            assert guide["title"]
+            assert guide["source"].startswith(build_web.REPOSITORY)
+            blocks = _walk(guide["blocks"])
+            assert blocks
+            assert not any(b["type"] == "h1" for b in blocks)
+            for run in (run for block in blocks for run in _runs(block)):
+                if "href" in run:
+                    assert run["href"].startswith("https://"), (language, country, run)
+                if "guide" in run:
+                    assert run["guide"] in countries, (language, country, run)
+                if "anchor" in run:
+                    target = run.get("guide", country)
+                    assert run["anchor"] in ids[target], (language, country, run)
+
+
+def test_a_two_country_guide_is_split_by_country() -> None:
+    spain = build_web.web_guides()["es"]["es"]["blocks"]
+    colombia = build_web.web_guides()["es"]["co"]["blocks"]
+    sections = [
+        ["".join(run["t"] for run in b["runs"]) for b in blocks if b["type"] == "h2"]
+        for blocks in (spain, colombia)
+    ]
+    assert sections == [
+        ["Idea común a los dos países", "España", "Cómo se ha comprobado"],
+        ["Idea común a los dos países", "Colombia", "Cómo se ha comprobado"],
+    ]
+    # The line that links the guide's other language is dropped: the page has a switch.
+    assert not any("English" in run["t"] for b in spain if b["type"] == "p" for run in b["runs"])
+
+
+def test_guide_links() -> None:
+    document = "docs/procedimientos-mx.md"
+    assert build_web._href("https://example.org/a", document) == {"href": "https://example.org/a"}
+    assert build_web._href("#plazos", document) == {"anchor": "plazos"}
+    assert build_web._href("procedimientos-ar.md", document) == {"guide": "ar"}
+    assert build_web._href("procedimientos.md#espana", document) == {
+        "guide": "es",
+        "anchor": "espana",
+    }
+    assert build_web._href("../jurisdictions/mx/pack.yaml", document) == {
+        "href": build_web.REPOSITORY + "jurisdictions/mx/pack.yaml"
+    }
+    assert build_web.slug("Qué manda (comprobado el 08-11-2026)") == (
+        "qué-manda-comprobado-el-08-11-2026"
+    )

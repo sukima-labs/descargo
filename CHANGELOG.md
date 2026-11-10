@@ -12,6 +12,12 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Web page: a new tab, «Si te acusan» / "If you are accused", shows the procedure guide of
+  the chosen country (Spain, Colombia, Mexico, Argentina, Chile, Peru) in Spanish or
+  English. The build turns `docs/procedimientos*.md` and `docs/en/procedures*.md` into
+  `guides.json`, blocks the page draws with DOM calls (no HTML is inserted). Links between
+  guides switch the country, links to sections scroll to them, and a test checks every
+  link resolves.
 - Copyleaks adapter (`copyleaks-pdf` 0.1). It reads the English PDF report Copyleaks
   exported in 2023 ("Plagiarism and AI Content Detector Report" or "Plagiarism report"):
   overall similarity split by match type, sources with their shares, alerts, the AI and
