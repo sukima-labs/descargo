@@ -164,13 +164,28 @@ and **subsidiarity**, that is, first exhausting the university's own remedies
 ([T-290 of 2023](https://www.corteconstitucional.gov.co/relatoria/2023/t-290-23.htm), para. 65 and 66).
 That ruling decides two specific cases; only the doctrine is cited here, not the people.
 
+### Is there a University Ombudsperson?
+
+Not a single office, as in Spain: some universities have one, under different names.
+Two examples, so you know what to look for in your regulation or on your university's site:
+
+- The **Ombudsperson** (*Ombudsperson*) of the Universidad de los Andes, appointed since
+  2013. It takes queries from students, staff and faculty, guides people on handling
+  academic, administrative or disciplinary situations, and mediates in conflicts; it says
+  it "neither accuses nor defends anyone" ([Uniandes](https://www.uniandes.edu.co/es/noticias/comunidad/ombudsperson-que-quien-como)).
+- The **Student Ombudsperson's Office** (*Defensoría del Estudiante*) of the Universidad
+  Popular del Cesar, attached to its Institutional Welfare Office ([Unicesar](https://ant.unicesar.edu.co/index.php/es/noticias/academia/4490-defensoriadelestudiante), 19-05-2021).
+
+If your university has one, it can guide you and mediate, but it **does not replace** the
+defence statement or the remedies in the regulation: follow the regular channel.
+
 ### To verify
 
 - The names and deadlines in each university's regulation ("descargos", "disciplinary
   committee", "faculty council"…): they come from **its** regulation, not from a general
   rule, and you need to read yours.
-- Whether there is an office equivalent to the Spanish University Ombudsperson, and what
-  it is called at each institution.
+- Whether any national rule requires Colombian universities to have an office equivalent
+  to the Spanish University Ombudsperson (none has been found).
 
 ### Where Descargo fits
 

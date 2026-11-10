@@ -163,13 +163,28 @@ en procesos disciplinarios universitarios, pero exige legitimación, **inmediate
 ([T-290 de 2023](https://www.corteconstitucional.gov.co/relatoria/2023/t-290-23.htm), párr. 65 y 66).
 Esa sentencia resuelve dos casos concretos; aquí se cita solo la doctrina, no a las personas.
 
+### ¿Hay un Defensor Universitario?
+
+No una figura única, como en España: algunas universidades la tienen y con otro nombre.
+Dos ejemplos, para que sepas qué buscar en tu reglamento o en la web de tu universidad:
+
+- **Ombudsperson** de la Universidad de los Andes, nombrada desde 2013. Atiende consultas
+  de estudiantes, profesores y personal, orienta sobre cómo manejar situaciones
+  académicas, administrativas o disciplinarias y media en conflictos; dice de sí misma que
+  «no acusa ni defiende a nadie» ([Uniandes](https://www.uniandes.edu.co/es/noticias/comunidad/ombudsperson-que-quien-como)).
+- **Defensoría del Estudiante** de la Universidad Popular del Cesar, adscrita a su
+  Oficina de Bienestar Institucional ([Unicesar](https://ant.unicesar.edu.co/index.php/es/noticias/academia/4490-defensoriadelestudiante), 19-05-2021).
+
+Si tu universidad tiene una, puede orientarte y mediar, pero **no sustituye** a los
+descargos ni a los recursos del reglamento: sigue el «conducto regular».
+
 ### Por verificar
 
 - Los nombres y plazos del reglamento de cada universidad («descargos», «comité
   disciplinario», «consejo de facultad»…): salen de **su** reglamento, no de una norma
   general, y hay que leer el de la tuya.
-- Si existe una figura equivalente al Defensor Universitario español y cómo se llama en
-  cada institución.
+- Si alguna norma nacional obliga a las universidades colombianas a tener una figura
+  equivalente al Defensor Universitario español (no se ha encontrado ninguna).
 
 ### Dónde encaja Descargo
 
