@@ -97,15 +97,34 @@ prevé un recurso de apelación directo ante la **Cámara Federal de Apelaciones
 donde la universidad tiene su sede principal (art. 32). En la UBA, la resolución del
 Consejo sobre una apelación de suspensión es definitiva (art. 511).
 
-**Por verificar:** el plazo para presentar ese recurso ante la Cámara, que la ley no
-fija, y si caben otras vías judiciales. Consulta a un profesional en cuanto recibas la
-resolución.
+La ley no fija el plazo de ese recurso, pero una cámara lo ha concretado. La Cámara
+Federal de Apelaciones de General Roca, en su [Acordada 08-S/13](https://unterseccionalroca.org.ar/imagenes/documentos/leg/Ley%2024521-acordada%20Fed%20G%20Roca_0.pdf) (20-11-2013),
+dispone que:
+
+- El recurso se presenta **ante el órgano de la universidad** que dictó el acto, no
+  directamente ante la Cámara (si llega a la Cámara, esta lo remite a la universidad, y el
+  plazo cuenta desde la fecha en que se presentó ante la Cámara).
+- La universidad comprueba que se presentó dentro de **treinta días desde la notificación
+  de la resolución definitiva** que agota la vía administrativa (art. 25, in fine, de la
+  Ley 19.549, aplicable de forma supletoria).
+- Basta con **interponerlo**: los agravios no se expresan en ese escrito (si se expresan,
+  se devuelve).
+- La concesión del recurso **no suspende los efectos** del acto (art. 12 de la Ley 19.549).
+
+Si la universidad no resuelve, la Procuración General sostuvo en un dictamen de 2021
+(causa FCT 7653/2015) que no corre el plazo del art. 25 sino los de prescripción.
+Aun así, **cuenta los treinta días desde que te notifiquen** y consulta a un profesional
+en cuanto recibas la resolución.
+
+**Por verificar:** si esos treinta días son hábiles, si las demás Cámaras Federales aplican
+la misma regla (solo se leyó la de General Roca) y si caben otras vías judiciales.
 
 ## Por verificar
 
 - Cómo regulan el plagio la UBA y cada universidad.
 - Si los plazos del sumario de la UBA se cuentan en días hábiles.
-- El plazo del recurso del art. 32 de la Ley 24.521.
+- Si los treinta días del recurso del art. 32 de la Ley 24.521 son hábiles y si todas las
+  Cámaras Federales aplican la regla de la de General Roca.
 - El régimen de las **universidades privadas y provinciales**: el art. 32 habla solo de
   las nacionales, y su procedimiento sale de su propio estatuto.
 
@@ -124,3 +143,7 @@ ley, que ya incluye los cambios del Decreto 366/2025), y el régimen disciplinar
 UBA, del Código UBA en su web oficial, el 08-11-2026. Las citas se buscaron en el texto.
 Las normas cambian: comprueba la fecha de este documento y la vigencia antes de apoyarte
 en él.
+
+La Acordada 08-S/13 de la Cámara Federal de General Roca (copia que publica la UnTER
+Seccional Roca) y el dictamen de la Procuración General en la causa FCT 7653/2015
+(mpf.gob.ar) se descargaron el 10-11-2026 y las citas se buscaron en el texto.
