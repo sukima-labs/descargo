@@ -110,8 +110,23 @@ En casos graves, el decano puede **suspenderte de forma preventiva** hasta 60 d�
 el sumario. Esa decisión se apela en **cinco días**, también con efecto suspensivo
 (art. 512).
 
-**Por verificar:** si esos días son hábiles o corridos. El régimen no lo dice y la norma
-general que lo decidiría no se ha comprobado.
+**Por verificar:** si esos días son hábiles o corridos. El régimen no lo dice y ninguna
+norma general lo decide con seguridad:
+
+- La Ley 19.549 de procedimiento administrativo cuenta los plazos «por días hábiles
+  administrativos» (art. 1 bis, g, ii). Pero su art. 1 enumera a quién se aplica (la
+  Administración Pública nacional, los otros poderes cuando ejercen actividad
+  administrativa y, de forma supletoria, ciertos entes públicos no estatales) y **no
+  nombra a las universidades**.
+- El Reglamento de Procedimientos Administrativos de la UBA (Código UBA, Libro I,
+  Título 60, Capítulo A, art. 1) aplica el Decreto 1759/72 (T.O. 2017) solo a «los
+  expedientes y actuaciones administrativas electrónicas» y «mientras no colisionen con la
+  Autonomía Universitaria y los procedimientos específicos vigentes en la Universidad».
+  Ese decreto dice, para lo que se carga en su plataforma, que el cómputo de plazos
+  empieza «a partir del primer día hábil siguiente» (art. 30).
+
+Mientras no se aclare, **cuéntalos como corridos** y presenta antes de tiempo. Pregunta por
+escrito a tu facultad cómo los cuenta, y guarda la respuesta.
 
 ## Si la universidad no respeta tus derechos
 
@@ -146,7 +161,8 @@ la misma regla (solo se leyó la de General Roca) y si caben otras vías judicia
 
 - Si cada facultad de la UBA regula el plagio en su régimen académico propio, fuera del
   Código UBA, y cómo lo hacen las demás universidades.
-- Si los plazos del sumario de la UBA se cuentan en días hábiles.
+- Si los plazos del sumario de la UBA se cuentan en días hábiles: depende de si se aplican
+  la Ley 19.549 y el Decreto 1759/72 al régimen disciplinario, y no está comprobado.
 - Si los treinta días del recurso del art. 32 de la Ley 24.521 son hábiles y si todas las
   Cámaras Federales aplican la regla de la de General Roca.
 - El régimen de las **universidades privadas y provinciales**: el art. 32 habla solo de
@@ -166,7 +182,10 @@ La Constitución Nacional y la Ley 24.521 se descargaron de InfoLEG (texto actua
 ley, que ya incluye los cambios del Decreto 366/2025), y el régimen disciplinario de la
 UBA, del Código UBA en su web oficial, el 08-11-2026. Las citas se buscaron en el texto.
 El 10-11-2026 se buscó «plagio» en todo el Código UBA con el buscador de su web (16
-resultados) y se leyeron los capítulos que lo regulan. No se ha leído nada fuera del Código.
+resultados) y se leyeron los capítulos que lo regulan. Sobre el plagio no se ha leído nada fuera del Código.
+Ese día se leyeron también el art. 1 del Reglamento de Procedimientos Administrativos de
+la UBA y, en InfoLEG, la Ley 19.549 y el Decreto 1759/72 (T.O. 2017) en su texto
+actualizado.
 Las normas cambian: comprueba la fecha de este documento y la vigencia antes de apoyarte
 en él.
 

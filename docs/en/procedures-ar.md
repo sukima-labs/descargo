@@ -116,7 +116,21 @@ the inquiry. That decision is appealed within **five days**, also with suspensiv
 (art. 512).
 
 **To verify:** whether those days are working days or calendar days. The regime does not
-say, and the general rule that would settle it has not been checked.
+say, and no general rule settles it with certainty:
+
+- The Ley 19.549 on administrative procedure counts time limits "in administrative working
+  days" (*por días hábiles administrativos*; art. 1 bis, g, ii). But its art. 1 lists whom
+  it applies to (the national public administration, the other branches of government when
+  they carry out administrative activity and, as a supplementary rule, certain non-state
+  public bodies) and **does not name the universities**.
+- The UBA's Administrative Procedure Regulation (Código UBA, Libro I, Título 60, Capítulo A,
+  art. 1) applies Decreto 1759/72 (T.O. 2017) only to "electronic administrative files and
+  proceedings" and "as long as they do not collide with University Autonomy and the specific
+  procedures in force at the University". That decree says, for what is uploaded to its
+  platform, that the count of time limits starts "on the first working day after" (art. 30).
+
+Until this is clarified, **count them as calendar days** and file early. Ask your faculty
+in writing how it counts them, and keep the answer.
 
 ## If the university does not respect your rights
 
@@ -152,7 +166,9 @@ judicial routes are open.
 
 - Whether each UBA faculty regulates plagiarism in its own academic regime, outside the
   Código UBA, and how the other universities do.
-- Whether the UBA's inquiry deadlines are counted in working days.
+- Whether the UBA's inquiry deadlines are counted in working days: it depends on whether
+  the Ley 19.549 and Decreto 1759/72 apply to the disciplinary regime, which is not
+  established.
 - Whether the thirty days for the appeal under art. 32 of the Ley 24.521 are working days,
   and whether every Federal Court of Appeals applies General Roca's rule.
 - The regime of **private and provincial universities**: art. 32 speaks only of the
@@ -173,8 +189,10 @@ text of the law, which already includes the changes made by Decreto 366/2025), a
 UBA's disciplinary regime from the Código UBA on its official website, on 2026-11-08. The
 quotations were searched for in the text. On 2026-11-10 "plagio" was searched for across the
 whole Código UBA with its website's search (16 results) and the chapters that regulate it
-were read. Nothing outside the Código has been read. Rules change: check this document's date and
-that the text is still in force before relying on it.
+were read. On the question of plagiarism, nothing outside the Código has been read. The same
+day the UBA's Administrative Procedure Regulation (art. 1) was read too and, on InfoLEG, the
+updated text of the Ley 19.549 and Decreto 1759/72 (T.O. 2017). Rules change: check this
+document's date and that the text is still in force before relying on it.
 
 Acordada 08-S/13 of the Cámara Federal de General Roca (a copy published by UnTER
 Seccional Roca) and the Procuración General's opinion in case FCT 7653/2015 (mpf.gob.ar)
