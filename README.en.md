@@ -67,6 +67,7 @@ profiles/               institution profiles (YAML), with sources
 jurisdictions/          legal-basis packs and document templates per country/region
 schemas/                generated JSON Schemas
 docs/adr/               architecture decision records
+marketing/              promotion: analysis, plan, messages, channels and rules (documentation only)
 docs/research/          surveys of prior art and reusable components
 tests/fixtures/         synthetic fixtures only
 ```
