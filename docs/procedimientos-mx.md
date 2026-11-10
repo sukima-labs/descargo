@@ -62,10 +62,33 @@ Si la falta no tiene sanción señalada, caben amonestación, suspensión o sepa
 cargos, suspensión de derechos universitarios hasta por un año o expulsión definitiva
 (Estatuto, 98.II).
 
-**El Estatuto General no usa la palabra «plagio».** En qué artículo encaja la UNAM el
-plagio de un trabajo escrito es **por verificar** (puede estar en la normativa de tu
-facultad o de tu programa). Si te imputan una falta, pide que te digan **qué artículo** la
-recoge: es un punto para tu respuesta.
+**El Estatuto General no usa la palabra «plagio»** (comprobado el 10-11-2026 en su texto
+vigente). Qué artículo se te aplicaría depende de qué se te impute, y el Estatuto no lo
+dice. Lo que sí contiene:
+
+| Qué | Artículo |
+|---|---|
+| Quienes forman la Universidad deben observar los principios de su **Código de Ética** | 7 |
+| Antes de titularte firmas la **protesta de integridad y honestidad académica**: aceptas que, si se detecta una falta, «se dejen sin efectos los actos realizados» | 87.V |
+| La Universidad puede declarar la **nulidad absoluta** del certificado, diploma, título o grado si no se cumplen los requisitos de la normativa; quien la sufre puede optar por otra modalidad de titulación | 5 (párr. 2) y 87.VI |
+| Es causa especialmente grave «actos contrarios a la moral, a la ética y al respeto» entre universitarios (artículo modificado el 12-02-2020 y el 31-03-2025) | 95.VII |
+| La falta de integridad y honestidad académica **del profesor** al supervisar tesis y trabajos | 96.III |
+
+Ninguno de esos artículos nombra la copia de un trabajo escrito ni fija su sanción. Para
+el alumnado, las conductas con sanción propia son las de la tabla de arriba: la ayuda
+fraudulenta **en pruebas** (97.II) y **para titularse** (97.III). Cuando la falta no tiene
+sanción señalada, se aplica el 98.II.
+
+**Cuidado con las citas antiguas.** La Facultad de Derecho de la UNAM explica el plagio con
+los arts. 87.I, 95.I y VI y 97.II
+([guía de la Facultad](https://www.derecho.unam.mx/integridad-academica/pdf/enfrentando_el_plagio.pdf)),
+y dice que a los alumnos que lo cometan «podrán ser reprobados» y suspendidos hasta un
+año. Es la lectura de una facultad, no una norma, y su numeración no coincide con la del texto vigente: en
+éste, el 95.VI es portar armas y la fracción de «moral y ética» es la VII.
+
+Si te imputan una falta, pide que te digan **qué artículo y qué hecho** concreto se te
+atribuyen, y qué sanción pretenden aplicar: es un punto para tu respuesta. La normativa de
+tu facultad o programa puede regular además el plagio de un trabajo.
 
 ### Las fases del procedimiento (Reglamento, art. 2)
 
@@ -135,8 +158,8 @@ días.
 
 ## Por verificar
 
-- Cómo encaja el plagio de un trabajo escrito en la normativa de la UNAM y en la de cada
-  universidad.
+- Si la normativa de cada facultad o programa de la UNAM (no el Estatuto) regula el
+  plagio de un trabajo escrito, y cómo lo regula cada universidad.
 - El régimen de las **universidades privadas** (con reconocimiento de validez oficial de
   estudios): su procedimiento sale de su propio reglamento.
 - Las universidades autónomas de cada estado: cada una tiene su ley orgánica y su propia
@@ -156,7 +179,9 @@ días.
 
 La Constitución, la Ley General de Educación Superior y la Ley de Amparo se descargaron de
 la web de la Cámara de Diputados, y el Estatuto General y el Reglamento del Tribunal
-Universitario de la UNAM, de la web de su Oficina de la Abogacía General, el 08-11-2026. Las
+Universitario de la UNAM, de la web de su Oficina de la Abogacía General, el 08-11-2026. El
+10-11-2026 se volvió a leer el Estatuto General en esa web, con la reforma del 31-03-2025
+(arts. 5, 7, 87, 95, 96, 97 y 98), y se buscó en él la palabra «plagio», que no aparece. Las
 citas se buscaron en el texto. Las normas cambian (el Reglamento del Tribunal se reformó en
 noviembre de 2025): comprueba la fecha de este documento y la vigencia antes de apoyarte en
 él.
