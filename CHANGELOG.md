@@ -130,6 +130,9 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Changed
 
+- The web page names its canonical URL (`<link rel="canonical">`), the same as its
+  `og:url`, so search engines index https://sukima-labs.github.io/descargo/. Both
+  languages share that URL.
 - Procedure guide, Peru: a second example, the UNMSM (a public university), from its
   student disciplinary regulation of 2012 and the 2025 provision that keeps it in force:
   plagiarism is an offence, five working days for the defence and fifteen to appeal. The
