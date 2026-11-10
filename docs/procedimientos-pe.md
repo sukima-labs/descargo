@@ -65,8 +65,9 @@ artículos.
 
 Fuente: el **Reglamento Unificado de Procedimientos Disciplinarios de la Pontificia
 Universidad Católica del Perú**, texto vigente con las modificaciones hasta la Resolución
-de Consejo Universitario 110/2021
-([texto publicado por la PUCP](https://s3.amazonaws.com/files.pucp.edu.pe/homepucp/uploads/2021/09/23095628/2020005ReglamentoUnificadoDeProcedimientosDisciplinariosDeLaPontificiaUniversidadCatolicaDelPeru.pdf);
+Rectoral 1346/2021, del 18-10-2021, que solo cambia el art. 11 para crear una comisión
+para los casos de hostigamiento sexual
+([texto publicado por la PUCP](https://s3.amazonaws.com/files.pucp.edu.pe/homepucp/uploads/2020/08/19095328/2020006ReglamentoUnificadoDeProcedimientosDisciplinariosDeLaPontificiaUniversidadCatolicaDelPeru.pdf);
 resumen en su [micrositio](https://regimendisciplinario.pucp.edu.pe/)). Usa este ejemplo
 para saber qué buscar en el reglamento de tu universidad, no como si fuera el tuyo.
 
@@ -113,6 +114,33 @@ Los plazos son de **días hábiles**.
    **apelación** ante el Tribunal Disciplinario, que es la última instancia (art. 71).
    Presentar cualquiera de los dos **suspende la ejecución** de la sanción (art. 75).
 
+## Ejemplo: la UNMSM, una universidad pública
+
+Fuente: el **Reglamento de Proceso Disciplinario para Estudiantes de la Universidad
+Nacional Mayor de San Marcos**, aprobado por la Resolución Rectoral 03500-R-12, del
+03-07-2012 ([texto publicado por la UNMSM](https://viceacademico.unmsm.edu.pe/wp-content/uploads/2024/01/Resolucion-03500-12_UNMSM.pdf), escaneado). La Resolución
+Rectoral 006134-2025-R le añadió en 2025 una disposición complementaria y dejó «vigente
+todo lo demás que esta contiene» ([texto en gob.pe](https://cdn.www.gob.pe/uploads/document/file/8067739/2001237-resolucion-rectoral-006134-2025-r.pdf)). Es anterior a la Ley
+Universitaria de 2014: cómo encaja con el Tribunal de Honor es **por verificar**.
+
+- Entre las faltas está «El plagio parcial o total de trabajos de investigación»
+  (art. 6.e). Las sanciones son amonestación verbal, amonestación escrita, suspensión y
+  separación (art. 10).
+- **Inicio.** La denuncia se presenta ante el Decano de tu facultad, que abre o no el
+  proceso por resolución. La resolución que lo abre no se puede recurrir (arts. 16 y 17).
+  Antes, la Comisión puede pedir información a las partes para la precalificación, en un
+  plazo que no exceda los 21 días hábiles (disposición complementaria de 2025).
+- **Descargos.** La Comisión Disciplinaria para Alumnos te notifica en tres días útiles, y
+  tienes **cinco días útiles** para tus descargos, prorrogables otros cinco con causa
+  justificada y si lo pides (art. 16).
+- **Duración.** Treinta días útiles, prorrogables otros treinta para la prueba o el
+  dictamen (art. 19).
+- **Audiencia.** El Consejo de Facultad te cita para que te defiendas, y puedes ir con tu
+  defensor (art. 20).
+- **Recursos.** Apelación ante el Consejo Universitario en **quince días útiles** desde la
+  notificación de la resolución rectoral (art. 20), y después, revisión ante la Asamblea
+  Universitaria (art. 21).
+
 ## Si la universidad no respeta tus derechos
 
 La **acción de amparo** procede contra el hecho u omisión de «cualquier autoridad,
@@ -132,10 +160,10 @@ cuanto recibas la resolución final.
 
 ## Por verificar
 
-- Cómo regula cada universidad pública su procedimiento y su Tribunal de Honor. La
-  UNMSM, por ejemplo, aprobó en 2025 un nuevo Reglamento del Tribunal de Honor
-  Universitario, pero esta guía no ha podido leer su texto completo.
-- Si hay modificaciones posteriores a 2021 del reglamento de la PUCP.
+- Cómo regula cada universidad pública su procedimiento y su Tribunal de Honor. En la
+  UNMSM, qué cambia el Reglamento del Tribunal de Honor Universitario de 2025
+  ([Resolución Rectoral 000533-2025-R](https://cdn.www.gob.pe/uploads/document/file/7511812/6388808-resolucion-rectoral-000533-2025-r.pdf)): su anexo no se publica con la
+  resolución, y esa resolución ordena adaptar las funciones de la comisión de estudiantes.
 - Si se aplica el amparo, y en qué casos, a una sanción académica.
 
 ## Dónde encaja Descargo
@@ -151,5 +179,8 @@ cuanto recibas la resolución final.
 La Constitución, la Ley Universitaria, el TUO de la Ley 27444 y el Código Procesal
 Constitucional se descargaron de las webs del Congreso, del Gobierno del Perú (gob.pe) y
 del Tribunal Constitucional, y el reglamento de la PUCP, de la web de la universidad, el
-08-11-2026. Las citas se buscaron en el texto. Las normas cambian: comprueba la fecha de
-este documento y la vigencia antes de apoyarte en él.
+08-11-2026. El 10-11-2026 se comprobó que el texto que publica la PUCP es la versión
+2020-006 (igual que la anterior salvo el art. 11), y se leyeron el reglamento de la UNMSM,
+con reconocimiento de texto del escaneo y cotejado con la imagen, y las dos resoluciones
+de 2025, de gob.pe. Las citas se buscaron en el texto. Las normas cambian: comprueba la
+fecha de este documento y la vigencia antes de apoyarte en él.
