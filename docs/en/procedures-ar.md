@@ -59,10 +59,32 @@ Sanctions must be individualised «en forma proporcional a la gravedad de la fal
 cometida» (in proportion to the seriousness of the offence committed) (art. 503).
 Offences lapse after one, five or ten years, depending on their seriousness (art. 519).
 
-**The UBA's disciplinary regime does not mention plagiarism.** Whether the UBA or your
-faculty regulates plagiarism in some other rule, and how, is **to verify**. If they charge
-you with an offence, ask them to tell you **which article** covers it: it is a point for
-your defence.
+**The UBA's disciplinary regime does not mention plagiarism**: it neither defines it nor
+gives it a sanction. The Código UBA names it in two other places:
+
+- **Guidelines for the faculties' academic regimes** (Libro I, Título 19, Capítulo E,
+  arts. 401 to 403; RESCS-2025-2195;
+  [text](https://codigo.rec.uba.ar/codigo_uba/capitulo-e-orientaciones-para-la-elaboracion-de-regimenes-academicos-en-el-ambito-de-las-unidades-academicas/)).
+  They say the faculties "must establish mechanisms to guarantee the authorship of academic
+  work" (*deberán establecer mecanismos para garantizar la autoría de las producciones
+  académicas*), among them "plagiarism-detection tools", and recommend that each academic
+  regime refer to Capítulo F and list, "by way of guidance", the conduct that could be
+  sanctioned ("fraud, plagiarism, impersonation, unauthorised collaboration"). They are
+  guidelines: **they neither define plagiarism nor set its sanction**.
+- **Two postgraduate programmes of the Faculty of Economic Sciences**: the Especialización
+  and the Maestría in Seguridad Informática (Libro IV, Título 8, Capítulo Q, arts. 1741 to
+  1744, and Título 9, Capítulo Z, arts. 2656 to 2659). Their thesis regulations **do**
+  define plagiarism (presenting other people's ideas as your own, paraphrase included, or
+  using their output without crediting the source "however small it is"). Once proved,
+  "whatever its extent", the work is rejected with a zero and the examining panel classes
+  the offence as minor (a new work within six months), serious (a one-year suspension) or
+  very serious (two years). You can ask for reconsideration in writing within five days.
+  This holds only for those programmes, not for undergraduate study. In the rest of the
+  Código, "plagiarism" appears only as the content of a course.
+
+If your own faculty regulates it in its academic regime, outside the Código UBA, that is
+still **to verify**. If they charge you with an offence, ask them to tell you **which
+article** covers it: it is a point for your defence.
 
 ### The stages of the disciplinary inquiry (*sumario*, arts. 505 to 512)
 
@@ -128,7 +150,8 @@ judicial routes are open.
 
 ## To verify
 
-- How the UBA and each university regulate plagiarism.
+- Whether each UBA faculty regulates plagiarism in its own academic regime, outside the
+  Código UBA, and how the other universities do.
 - Whether the UBA's inquiry deadlines are counted in working days.
 - Whether the thirty days for the appeal under art. 32 of the Ley 24.521 are working days,
   and whether every Federal Court of Appeals applies General Roca's rule.
@@ -148,7 +171,9 @@ judicial routes are open.
 The Constitución Nacional and the Ley 24.521 were downloaded from InfoLEG (the updated
 text of the law, which already includes the changes made by Decreto 366/2025), and the
 UBA's disciplinary regime from the Código UBA on its official website, on 2026-11-08. The
-quotations were searched for in the text. Rules change: check this document's date and
+quotations were searched for in the text. On 2026-11-10 "plagio" was searched for across the
+whole Código UBA with its website's search (16 results) and the chapters that regulate it
+were read. Nothing outside the Código has been read. Rules change: check this document's date and
 that the text is still in force before relying on it.
 
 Acordada 08-S/13 of the Cámara Federal de General Roca (a copy published by UnTER
