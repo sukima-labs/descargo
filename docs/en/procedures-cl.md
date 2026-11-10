@@ -31,7 +31,10 @@ The **Constitución**, art. 19, no. 3
 
 This guide has not found a national law that sets the disciplinary procedure for students,
 so **the stages, the deadlines and the offences come from your university's own rules**.
-That none exists is **to verify**. What follows is the example of the Universidad de
+We read Ley 21.091 (on Higher Education), in whose text no disciplinary regime for
+students was found, and Ley 21.369, which does require procedures "based on the rules of due process"
+(art. 6, letter a), but only for sexual harassment, gender-based violence and
+discrimination: not for plagiarism. What follows is the example of the Universidad de
 Chile. Use it to know what to look for in yours, not as if it were yours.
 
 ## Example: the Universidad de Chile
@@ -137,7 +140,8 @@ notified.
 
 ## To verify
 
-- Whether a national law exists on the disciplinary procedure for students.
+- Whether any other national law exists on the disciplinary procedure for students,
+  besides the two read (21.091 and 21.369).
 - The regime of **private universities** and of the other state universities: each has
   its own regulation.
 - How the deadline for the *recurso de protección* is counted when an internal appeal is
@@ -156,6 +160,7 @@ notified.
 The Constitución and the *auto acordado* on the *recurso de protección* were read on
 LeyChile (the Biblioteca del Congreso Nacional) from a browser, because the site rejects
 automated clients. The Reglamento de Jurisdicción Disciplinaria and the Reglamento de
-Estudiantes were downloaded from the Universidad de Chile's website. All on 2026-11-08.
+Estudiantes were downloaded from the Universidad de Chile's website. All on 2026-11-08;
+Ley 21.091 and Ley 21.369, also on LeyChile, on 2026-11-10.
 The quotations were searched for in the text. Rules change: check this document's date and
 that the text is still in force before relying on it.
