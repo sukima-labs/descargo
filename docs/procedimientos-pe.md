@@ -152,11 +152,40 @@ la Ley 32153, de 2024, no modificó estos artículos):
 - Primero hay que agotar las vías previas, como la apelación interna (art. 43).
 - El plazo «prescribe a los sesenta días hábiles de producida la afectación» (art. 45).
 
-**Por verificar:** si una sanción académica concreta puede llevarse a amparo, que
-requiere que los hechos estén referidos «en forma directa al contenido
-constitucionalmente protegido del derecho invocado» (art. 7.1), y la vía
-contencioso-administrativa contra las universidades públicas. Consulta a un profesional en
-cuanto recibas la resolución final.
+- No hace falta agotarla si la resolución, que no sea la última en la vía administrativa,
+  se ejecuta antes de que venza el plazo para que quede consentida, o si agotarla podría
+  hacer irreparable la agresión (art. 43, 1 y 2). El art. 44 protege, entre otros, el
+  derecho a la educación (19) y la tutela procesal efectiva (18).
+- Además, los hechos tienen que estar referidos «en forma directa al contenido
+  constitucionalmente protegido del derecho invocado» (art. 7.1).
+
+**Qué ha dicho el Tribunal Constitucional** (sentencias leídas en tc.gob.pe; son del
+código procesal anterior, la Ley 28237, cuyos arts. 45 y 46, sobre las vías previas y sus
+excepciones, recoge hoy el art. 43):
+
+- **Una sanción disciplinaria sí puede llegar al amparo, por el procedimiento.** En el
+  [Exp. 01981-2011-PA/TC](https://www.tc.gob.pe/jurisprudencia/2011/01981-2011-AA.pdf)
+  (14-10-2011, Sala Segunda), un estudiante fue separado de la Universidad de Piura,
+  privada, por una carta sin hechos ni normas concretas. El Tribunal declaró fundada la
+  demanda por violar el debido proceso, la motivación y la defensa (Constitución,
+  art. 139, 3, 5 y 14), y dijo que el debido proceso rige también entre particulares.
+  Exigió que los cargos se comuniquen antes, por escrito y con plazo para los descargos,
+  ordenó reponer al estudiante y dejó a salvo que la universidad abra un procedimiento
+  nuevo. No valoró la conducta ni la gravedad de la falta. Tampoco exigió la apelación
+  interna, porque la sanción se ejecutó de inmediato.
+- **Una decisión académica reglada, no.** En el
+  [Exp. 00029-2015-PA/TC](https://www.tc.gob.pe/jurisprudencia/2019/00029-2015-AA.pdf)
+  (21-11-2018, Pleno), la separación de un estudiante de Medicina de la Universidad
+  Peruana Cayetano Heredia por desaprobar un curso por segunda vez se declaró infundada:
+  la universidad aplicó su reglamento de evaluación, con la autonomía de la Constitución
+  (art. 18), y el Tribunal no halló irrazonabilidad ni indefensión, porque el estudiante
+  recurrió la decisión por la vía interna.
+
+Ninguna de las dos es de plagio. **Por verificar:** una sentencia del Tribunal
+Constitucional sobre una sanción por plagio a un estudiante (no se ha encontrado), la
+vía contencioso-administrativa contra las universidades públicas, y si la doctrina de
+estos dos fallos, de 2011 y 2018, se mantiene. Consulta a un profesional en cuanto
+recibas la resolución final.
 
 ## Por verificar
 
@@ -164,7 +193,10 @@ cuanto recibas la resolución final.
   UNMSM, qué cambia el Reglamento del Tribunal de Honor Universitario de 2025
   ([Resolución Rectoral 000533-2025-R](https://cdn.www.gob.pe/uploads/document/file/7511812/6388808-resolucion-rectoral-000533-2025-r.pdf)): su anexo no se publica con la
   resolución, y esa resolución ordena adaptar las funciones de la comisión de estudiantes.
-- Si se aplica el amparo, y en qué casos, a una sanción académica.
+- Si el amparo cabe contra una sanción por plagio a un estudiante: el Tribunal
+  Constitucional lo ha admitido contra una separación disciplinaria por defectos del
+  procedimiento (2011) y lo ha rechazado contra una separación académica reglada (2018),
+  pero no se ha encontrado una sentencia sobre plagio.
 
 ## Dónde encaja Descargo
 
@@ -182,5 +214,7 @@ del Tribunal Constitucional, y el reglamento de la PUCP, de la web de la univers
 08-11-2026. El 10-11-2026 se comprobó que el texto que publica la PUCP es la versión
 2020-006 (igual que la anterior salvo el art. 11), y se leyeron el reglamento de la UNMSM,
 con reconocimiento de texto del escaneo y cotejado con la imagen, y las dos resoluciones
-de 2025, de gob.pe. Las citas se buscaron en el texto. Las normas cambian: comprueba la
+de 2025, de gob.pe. El 10-11-2026 se leyeron en la web del Tribunal Constitucional las
+sentencias 01981-2011-PA/TC y 00029-2015-PA/TC, y los arts. 43 y 44 del Código Procesal
+Constitucional. Las citas se buscaron en el texto. Las normas cambian: comprueba la
 fecha de este documento y la vigencia antes de apoyarte en él.
