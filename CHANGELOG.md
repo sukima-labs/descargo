@@ -130,6 +130,11 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Changed
 
+- Procedure guide, Colombia: it now cites the Ley 30 of 1992 (its current text from the
+  Senate and the original from the Ministry of Education, read on 2026-11-10). The law
+  sets no disciplinary procedure; it requires every institution to have student
+  regulations with a disciplinary regime (art. 109), so the procedure comes from the
+  university's own regulations. The "to verify" item on that law is gone.
 - The web page can be served by hosts that cannot send headers, such as GitHub Pages. Its
   worker now starts from a `blob:` URL, so the page's `<meta>` Content-Security-Policy
   covers Pyodide too, and a file can reach only the site it came from. A workflow publishes
