@@ -58,9 +58,32 @@ Las sanciones deben individualizarse «en forma proporcional a la gravedad de la
 cometida» (art. 503). Las faltas prescriben al año, a los cinco años o a los diez años
 según su gravedad (art. 519).
 
-**El régimen disciplinario de la UBA no menciona el plagio.** Si la UBA o tu facultad
-regulan el plagio en otra norma, y cómo, es **por verificar**. Si te imputan una falta,
-pide que te digan **qué artículo** la recoge: es un punto para tu descargo.
+**El régimen disciplinario de la UBA no menciona el plagio**, ni lo define ni le asigna
+una sanción. El Código UBA lo nombra en otros dos sitios:
+
+- **Orientaciones para los regímenes académicos de las facultades** (Libro I, Título 19,
+  Capítulo E, arts. 401 a 403; RESCS-2025-2195;
+  [texto](https://codigo.rec.uba.ar/codigo_uba/capitulo-e-orientaciones-para-la-elaboracion-de-regimenes-academicos-en-el-ambito-de-las-unidades-academicas/)).
+  Dicen que las facultades «deberán establecer mecanismos para garantizar la autoría de las
+  producciones académicas», entre ellos «herramientas de detección de plagio», y
+  recomiendan que cada régimen académico remita al Capítulo F e indique, «de manera
+  orientativa», las conductas que podrían sancionarse («fraude, plagio, suplantación de
+  identidad, colaboración no permitida»). Son orientaciones: **no definen el plagio ni
+  fijan su sanción**.
+- **Dos carreras de posgrado de Ciencias Económicas**: la Especialización y la Maestría en
+  Seguridad Informática (Libro IV, Título 8, Capítulo Q, arts. 1741 a 1744, y Título 9,
+  Capítulo Z, arts. 2656 a 2659). Sus reglamentos de tesis **sí** definen el plagio
+  (copiar ideas de otros como propias, también con paráfrasis, o usar su producción sin
+  acreditar la fuente «por más reducida que sea»). Comprobado «cualquiera sea su
+  extensión», el trabajo se rechaza con cero puntos y el jurado clasifica la falta como
+  leve (obra nueva en seis meses), grave (un año de suspensión) o muy grave (dos años).
+  Se puede pedir reconsideración por escrito en cinco días. Vale solo para esas carreras,
+  no para el grado. En el resto de los capítulos del Código, «plagio» aparece solo como
+  contenido de un curso.
+
+Si la facultad donde estudias lo regula en su propio régimen académico, fuera del Código
+UBA, sigue **por verificar**. Si te imputan una falta, pide que te digan **qué artículo**
+la recoge: es un punto para tu descargo.
 
 ### Las fases del sumario (arts. 505 a 512)
 
@@ -121,7 +144,8 @@ la misma regla (solo se leyó la de General Roca) y si caben otras vías judicia
 
 ## Por verificar
 
-- Cómo regulan el plagio la UBA y cada universidad.
+- Si cada facultad de la UBA regula el plagio en su régimen académico propio, fuera del
+  Código UBA, y cómo lo hacen las demás universidades.
 - Si los plazos del sumario de la UBA se cuentan en días hábiles.
 - Si los treinta días del recurso del art. 32 de la Ley 24.521 son hábiles y si todas las
   Cámaras Federales aplican la regla de la de General Roca.
@@ -141,6 +165,8 @@ la misma regla (solo se leyó la de General Roca) y si caben otras vías judicia
 La Constitución Nacional y la Ley 24.521 se descargaron de InfoLEG (texto actualizado de la
 ley, que ya incluye los cambios del Decreto 366/2025), y el régimen disciplinario de la
 UBA, del Código UBA en su web oficial, el 08-11-2026. Las citas se buscaron en el texto.
+El 10-11-2026 se buscó «plagio» en todo el Código UBA con el buscador de su web (16
+resultados) y se leyeron los capítulos que lo regulan. No se ha leído nada fuera del Código.
 Las normas cambian: comprueba la fecha de este documento y la vigencia antes de apoyarte
 en él.
 
