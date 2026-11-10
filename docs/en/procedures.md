@@ -115,10 +115,16 @@ lies against the final resolution of a disciplinary procedure, and within what t
 
 ### What applies (checked 2026-11-08)
 
-In the rulings cited here, the student disciplinary regime is set by each institution in
-its **student regulations** (*reglamento estudiantil*), within its university autonomy.
-Whether a specific national rule also exists is **to verify**. That autonomy has a limit
-set by the Constitutional Court:
+The [Ley 30 of 1992](https://www.mineducacion.gov.co/1621/articles-86437_Archivo_pdf.pdf)
+does not set the student disciplinary procedure: it requires every higher education
+institution to have **student regulations** (*reglamento estudiantil*) covering, among
+other things, the «régimen disciplinario» (disciplinary regime, art. 109). Within their
+autonomy, universities may «admitir a sus alumnos y adoptar sus correspondientes
+regímenes» (admit their students and adopt the corresponding regimes, art. 28), and
+university institutions and technological schools may «adoptar el régimen de alumnos y
+docentes» (adopt the regime for students and teachers, art. 29, f). So the procedure comes
+from your institution's regulations. That autonomy has a limit set by the Constitutional
+Court:
 
 > "in order to protect the right to education and to prevent university autonomy from
 > turning into arbitrariness, imposing a disciplinary sanction must be preceded by
@@ -165,8 +171,6 @@ That ruling decides two specific cases; only the doctrine is cited here, not the
   rule, and you need to read yours.
 - Whether there is an office equivalent to the Spanish University Ombudsperson, and what
   it is called at each institution.
-- Ley 30 of 1992 (university autonomy): its official text could not be read from this
-  machine, so this guide does not cite it.
 
 ### Where Descargo fits
 
@@ -179,5 +183,7 @@ That ruling decides two specific cases; only the doctrine is cited here, not the
 
 The texts of Ley 3/2022, Real Decreto 1791/2010, Ley 39/2015 and the two rulings were
 downloaded from the official sources (the BOE and the Constitutional Court's reporter) on
-2026-11-08 and the quotations were searched for in the text. Laws change: check this
-document's date and the current text in the BOE or the reporter before relying on it.
+2026-11-08, and the Ley 30 of 1992 on 2026-11-10: the current text from the Colombian
+Senate's General Secretariat and the original from the Ministry of National Education. The
+quotations were searched for in the text. Laws change: check this document's date and the
+current text in the BOE or the reporter before relying on it.

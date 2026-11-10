@@ -115,10 +115,14 @@ a un profesional antes de que se agote.
 
 ### Qué manda (comprobado el 08-11-2026)
 
-En las sentencias que se citan aquí, el régimen disciplinario del estudiante lo fija cada
-institución en su **reglamento estudiantil**, dentro de su autonomía universitaria. Si
-existe además una norma nacional específica es **por verificar**. Esa autonomía tiene un
-límite que fija la Corte Constitucional:
+La [Ley 30 de 1992](https://www.mineducacion.gov.co/1621/articles-86437_Archivo_pdf.pdf)
+no fija el procedimiento disciplinario del estudiante: obliga a cada institución de
+educación superior a tener un **reglamento estudiantil** que regule, entre otros aspectos,
+el «régimen disciplinario» (art. 109). Dentro de su autonomía, las universidades pueden
+«admitir a sus alumnos y adoptar sus correspondientes regímenes» (art. 28), y las
+instituciones universitarias y escuelas tecnológicas, «adoptar el régimen de alumnos y
+docentes» (art. 29, f). El procedimiento sale, por tanto, del reglamento de la tuya. Esa
+autonomía tiene un límite que fija la Corte Constitucional:
 
 > «con el fin de proteger el derecho a la educación y evitar que la autonomía universitaria
 > derive en arbitrariedad, la imposición de una sanción de carácter disciplinario debe estar
@@ -166,8 +170,6 @@ Esa sentencia resuelve dos casos concretos; aquí se cita solo la doctrina, no a
   general, y hay que leer el de la tuya.
 - Si existe una figura equivalente al Defensor Universitario español y cómo se llama en
   cada institución.
-- La Ley 30 de 1992 (autonomía universitaria): no se ha podido leer el texto oficial
-  desde este equipo, así que esta guía no la cita.
 
 ### Dónde encaja Descargo
 
@@ -178,8 +180,9 @@ Esa sentencia resuelve dos casos concretos; aquí se cita solo la doctrina, no a
 
 ## Cómo se ha comprobado
 
-Los textos de la Ley 3/2022, el Real Decreto 1791/2010, la Ley 39/2015 y las dos sentencias
-se descargaron de las fuentes oficiales (BOE y relatoría de la Corte Constitucional) el
-08-11-2026 y las citas se buscaron en el texto. Las leyes pueden cambiar: comprueba la
-fecha de este documento y la vigencia en el BOE o en la relatoría antes de apoyarte en
-ella.
+Los textos de la Ley 3/2022, el Real Decreto 1791/2010, la Ley 39/2015 y las dos
+sentencias se descargaron de las fuentes oficiales (BOE y relatoría de la Corte
+Constitucional) el 08-11-2026, y la Ley 30 de 1992 el 10-11-2026: el texto vigente, de la
+Secretaría General del Senado de Colombia, y el original, del Ministerio de Educación
+Nacional. Las citas se buscaron en el texto. Las leyes pueden cambiar: comprueba la fecha
+de este documento y la vigencia en el BOE o en la relatoría antes de apoyarte en ella.
