@@ -71,6 +71,7 @@ profiles/               perfiles de instituciones (YAML), con fuentes
 jurisdictions/          bases legales y plantillas de documentos por país o región
 schemas/                JSON Schemas generados
 docs/adr/               registro de decisiones de arquitectura
+marketing/              promoción: análisis, plan, mensajes, canales y reglas (solo documentación)
 docs/research/          estudios de proyectos previos y componentes reutilizables
 tests/fixtures/         solo datos de prueba inventados
 ```
