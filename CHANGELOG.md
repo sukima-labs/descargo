@@ -12,6 +12,10 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Web page: four "Where do I start?" cards above the introduction (I haven't submitted yet,
+  I have the detector's report, they won't show me the report, I've been accused), each
+  opening the tab that answers it. The long introduction now sits behind "How it works, what
+  it reads, what it does not do, and your data".
 - Static pages for the procedure guides, one per country and language (`guias/<país>/`,
   `en/guides/<country>/`) and a list of each. They have no JavaScript, their own title,
   description, canonical address and link to the other language, so search engines can find
