@@ -103,15 +103,35 @@ direct appeal before the **Cámara Federal de Apelaciones** of the place where t
 university has its main seat (art. 32). At the UBA, the Consejo's resolution on a
 suspension appeal is final (art. 511).
 
-**To verify:** the deadline to file that appeal before the Cámara, which the law does not
-set, and whether other judicial routes are open. See a professional as soon as you receive
-the resolution.
+The law does not set a deadline for that appeal, but one court has specified it. The Cámara
+Federal de Apelaciones of General Roca, in its [Acordada 08-S/13](https://unterseccionalroca.org.ar/imagenes/documentos/leg/Ley%2024521-acordada%20Fed%20G%20Roca_0.pdf) (20-11-2013),
+provides that:
+
+- The appeal is filed **with the university body** that issued the act, not directly with
+  the Cámara (if it reaches the Cámara, the Cámara forwards it to the university, and the
+  deadline runs to the date it was filed with the Cámara).
+- The university checks that it was filed within **thirty days of notification of the final
+  resolution** that exhausts the administrative route (art. 25, in fine, of Ley 19.549,
+  applied in a supplementary way).
+- It is enough to **file it**: the grounds are not stated in that document (if they are, it
+  is returned).
+- Granting the appeal **does not suspend the effects** of the act (art. 12 of Ley 19.549).
+
+If the university does not decide, the Procuración General argued in a 2021 opinion (case
+FCT 7653/2015) that the art. 25 deadline does not run, but the limitation periods do.
+Even so, **count the thirty days from the moment you are notified**, and see a
+professional as soon as you receive the resolution.
+
+**To verify:** whether those thirty days are working days, whether the other Federal
+Courts of Appeals apply the same rule (only General Roca's was read), and whether other
+judicial routes are open.
 
 ## To verify
 
 - How the UBA and each university regulate plagiarism.
 - Whether the UBA's inquiry deadlines are counted in working days.
-- The deadline for the appeal under art. 32 of the Ley 24.521.
+- Whether the thirty days for the appeal under art. 32 of the Ley 24.521 are working days,
+  and whether every Federal Court of Appeals applies General Roca's rule.
 - The regime of **private and provincial universities**: art. 32 speaks only of the
   national ones, and their procedure comes from their own statute.
 
@@ -130,3 +150,7 @@ text of the law, which already includes the changes made by Decreto 366/2025), a
 UBA's disciplinary regime from the Código UBA on its official website, on 2026-11-08. The
 quotations were searched for in the text. Rules change: check this document's date and
 that the text is still in force before relying on it.
+
+Acordada 08-S/13 of the Cámara Federal de General Roca (a copy published by UnTER
+Seccional Roca) and the Procuración General's opinion in case FCT 7653/2015 (mpf.gob.ar)
+were downloaded on 2026-11-10, and the quotations were searched for in the text.
