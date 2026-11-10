@@ -64,7 +64,9 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
   `docs/en/procedures-mx.md`). There is no national student-discipline law: each autonomous
   university sets its own (Constitution art. 3.VII; Ley General de Educación Superior
   art. 2). UNAM is the worked example: offences and sanctions (Estatuto General
-  arts. 93, 97, 98, 101) and the stages and deadlines before the Tribunal Universitario
+  arts. 93, 97, 98, 101; on 2026-11-10 also the articles that touch academic dishonesty
+  without naming plagiarism: 5, 7, 87.V, 95.VII, 96.III, in the text reformed on
+  2025-03-31) and the stages and deadlines before the Tribunal Universitario
   (Reglamento arts. 2, 3, 14-14 bis, 17-20, 23, 25, 29, 31, 32, as amended on 2025-11-27).
   Amparo: Ley de Amparo arts. 5.II, 17, 18 and 61.XX. Each quote checked in the official
   text on 2026-11-08.

@@ -65,10 +65,35 @@ If the offence has no sanction specified, the options are a reprimand, suspensio
 removal from posts, suspension of university rights for up to one year, or definitive
 expulsion (Estatuto, 98.II).
 
-**The Estatuto General does not use the word «plagio».** Under which article the UNAM
-places plagiarism of a written work is **to verify** (it may be in the rules of your
-faculty or your programme). If they charge you with an offence, ask them to tell you
-**which article** covers it: it is a point for your reply.
+**The Estatuto General does not use the word «plagio»** (checked on 2026-11-10 in its
+current text). Which article would apply to you depends on what you are charged with, and
+the Estatuto does not say. What it does contain:
+
+| What | Article |
+|---|---|
+| Everyone in the University must observe the principles of its **Código de Ética** (code of ethics) | 7 |
+| Before graduating you sign the **protest of academic integrity and honesty**: you accept that, if a breach is detected, «se dejen sin efectos los actos realizados» (the acts done are left without effect) | 87.V |
+| The University may declare the **absolute nullity** of the certificate, diploma, title or degree if the requirements of the rules were not met; the person affected may choose another graduation route | 5 (para. 2) and 87.VI |
+| «Actos contrarios a la moral, a la ética y al respeto» (acts contrary to morals, ethics and respect) among university members is an especially serious cause of liability (article amended on 2020-02-12 and 2025-03-31) | 95.VII |
+| A **teacher's** lack of academic integrity and honesty in supervising theses and papers | 96.III |
+
+None of these articles names copying a written work or sets its sanction. For students,
+the conduct with a sanction of its own is that in the table above: fraudulent help **in
+tests** (97.II) and **for graduating** (97.III). When the offence has no sanction
+specified, 98.II applies.
+
+**Beware of old citations.** The UNAM's Faculty of Law explains plagiarism through arts.
+87.I, 95.I and VI and 97.II
+([the Faculty's guide](https://www.derecho.unam.mx/integridad-academica/pdf/enfrentando_el_plagio.pdf)),
+and says students who commit it «podrán ser reprobados» (may fail the course) and be
+suspended for up to a year. That is one faculty's reading, not a rule, and its numbering
+does not match the current text: there, 95.VI is carrying weapons and the «moral y ética»
+paragraph is VII.
+
+If they charge you with an offence, ask them to tell you **which article and which
+specific fact** you are charged with, and which sanction they intend to apply: it is a
+point for your reply. The rules of your faculty or programme may also regulate plagiarism
+in a written work.
 
 ### The stages of the procedure (Reglamento, art. 2)
 
@@ -143,8 +168,8 @@ that in the case law. See a professional before the fifteen days run out.
 
 ## To verify
 
-- How plagiarism of a written work fits in the UNAM's rules and in those of each
-  university.
+- Whether the rules of each UNAM faculty or programme (not the Estatuto) regulate
+  plagiarism in a written work, and how each university regulates it.
 - The regime of **private universities** (those with *reconocimiento de validez oficial de
   estudios*, official recognition of studies): their procedure comes from their own
   regulation.
@@ -166,6 +191,8 @@ that in the case law. See a professional before the fifteen days run out.
 The Constitution, the Ley General de Educación Superior and the Ley de Amparo were
 downloaded from the website of the Cámara de Diputados, and the UNAM's Estatuto General and
 Reglamento del Tribunal Universitario from the website of its Oficina de la Abogacía
-General, on 2026-11-08. The quotations were searched for in the text. Rules change (the
+General, on 2026-11-08. On 2026-11-10 the Estatuto General was read again on that site,
+with the reform of 2025-03-31 (arts. 5, 7, 87, 95, 96, 97 and 98), and searched for the
+word «plagio», which does not appear. The quotations were searched for in the text. Rules change (the
 Reglamento del Tribunal was amended in November 2025): check this document's date and that
 the text is still in force before relying on it.
