@@ -12,7 +12,7 @@ It offers three of the CLI's commands and the procedure guides, in English and S
 | Tab | Same as |
 |---|---|
 | Before you submit | `descargo inspect` |
-| Check a detector report | `descargo audit` (and `import-report`: download the report as JSON) |
+| Check a detector report | `descargo audit` (and `import-report`: download the report as JSON). The "Try with a sample report" button audits a **made-up** report and essay (`web/demo/`, in Spanish and English) so a visitor can see a result without uploading anything |
 | Ask for the report | `descargo access-request`, with a form instead of the YAML file; "not listed" options per country draft the generic letter (`--institution`) |
 | If you are accused | no CLI equivalent: the procedure guides of `docs/` (Spain, Colombia, Mexico, Argentina, Chile and Peru), with a country to choose |
 | Send feedback | no CLI equivalent: a short form that prepares a message for the student to copy or open in their own e-mail |

@@ -93,7 +93,7 @@ async function onReady() {
   choices = await call("choices");
   fillChoices();
   setStatus(t("ready"), "ok");
-  for (const button of $$("form button[type=submit]")) button.disabled = false;
+  for (const button of $$("form button[type=submit], #audit-demo")) button.disabled = false;
 }
 
 // Set when the page's own texts could not load; the visible error then stays on screen.
@@ -247,6 +247,31 @@ $("#form-audit").addEventListener("submit", (event) => {
       },
     ),
   );
+});
+
+// A made-up report and essay (web/demo/), so a visitor can see a result without a real file.
+async function demoFile(name) {
+  const response = await fetch(`demo/${name}-${lang}.${name === "report" ? "json" : name === "essay" ? "md" : "yaml"}`);
+  if (!response.ok) throw new Error(`demo ${name}: ${response.status}`);
+  return { name: response.url.split("/").pop(), data: await response.arrayBuffer() };
+}
+
+$("#audit-demo").addEventListener("click", async (event) => {
+  const button = event.currentTarget;
+  button.disabled = true;
+  await submit($("#form-audit"), async () =>
+    call(
+      "audit",
+      { profile: null, path: null, language: lang, on: today() },
+      {
+        report: await demoFile("report"),
+        document: await demoFile("essay"),
+        declarations: await demoFile("declarations"),
+      },
+    ),
+  );
+  if ($("#status").dataset.kind === "ok") setStatus(t("audit_demo_done"), "ok");
+  button.disabled = !loaded;
 });
 
 $("#form-access").addEventListener("submit", (event) => {

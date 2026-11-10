@@ -1,0 +1,7 @@
+# Declaraciones SINTÉTICAS para la demostración.
+own_work:
+  - source: "Entregado a Universidad Sintética"
+    description: Mi propio ensayo de HID-100, entregado en marzo de 2026 (ejemplo sintético).
+templates:
+  - description: Enunciado del trabajo publicado por el docente
+    text: "Este trabajo debe entregarse a través del campus virtual antes de la fecha publicada."

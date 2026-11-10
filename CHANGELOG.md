@@ -12,6 +12,10 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Web page: a "Try with a sample report" button in the audit tab runs the audit on a
+  made-up (synthetic) Turnitin report, essay and declarations, in Spanish or English
+  (`web/demo/`), and says so in the status line. A test audits both sets; nothing is
+  uploaded and no real data is involved.
 - Web page: four "Where do I start?" cards above the introduction (I haven't submitted yet,
   I have the detector's report, they won't show me the report, I've been accused), each
   opening the tab that answers it. The long introduction now sits behind "How it works, what
