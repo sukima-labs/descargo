@@ -349,6 +349,16 @@ for (const tab of $$("[role=tab]")) {
   });
 }
 
+// The "where do I start" cards open the tab that answers each situation.
+for (const card of $$("[data-go]")) {
+  card.addEventListener("click", () => {
+    const tab = $(`#${card.dataset.go}`);
+    tab.click();
+    tab.scrollIntoView({ block: "start" });
+    tab.focus();
+  });
+}
+
 // --- Procedure guides -----------------------------------------------------------------
 
 const GUIDE_COUNTRIES = ["es", "co", "mx", "ar", "cl", "pe"];
