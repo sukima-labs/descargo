@@ -2,7 +2,19 @@
 
 *[Español](README.md) · English*
 
-**Proof of authorship.** Descargo is an open-source, local-first toolkit that helps
+**Proof of authorship.** A free, local-first tool for students whose work a plagiarism or AI
+detector has flagged.
+
+- **[Try it in your browser](https://sukima-labs.github.io/descargo/)**: your files are not
+  uploaded anywhere.
+- **[Guides by country](https://sukima-labs.github.io/descargo/en/guides/)** (Spain,
+  Colombia, Mexico, Argentina, Chile and Peru), with articles, deadlines and sources.
+- **Status: pre-alpha.** It is a test version and some guides have points still "to
+  verify". It is not legal advice.
+
+## What it is
+
+Descargo is an open-source, local-first toolkit that helps
 university students defend themselves against **false positives** from plagiarism and
 AI-writing detectors (Turnitin, SafeAssign, StrikePlagiarism, Compilatio, Copyleaks, GPTZero,
 Originality.ai, Pangram, …). It covers coursework, essays, reports, bachelor's and master's
