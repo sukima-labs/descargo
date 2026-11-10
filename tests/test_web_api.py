@@ -217,3 +217,24 @@ def test_discard_leaves_other_folders_alone(tmp_path: Path) -> None:
     web.discard(str(keep))
     assert keep.is_dir()
     shutil.rmtree(keep)
+
+
+@pytest.mark.parametrize("language", ["es", "en"])
+def test_the_web_demo_is_a_synthetic_report_that_audits_cleanly(language: str) -> None:
+    demo = Path(__file__).parent.parent / "web" / "demo"
+    result = _load(
+        web.audit(
+            str(demo / f"report-{language}.json"),
+            document=str(demo / f"essay-{language}.md"),
+            declarations=str(demo / f"declarations-{language}.yaml"),
+            language=language,
+            on=DAY,
+        )
+    )
+    assert result["ok"] is True, result.get("error")
+    audit = json.loads(result["json"])
+    # The report says 47 %; quotes, the reference, the template and the declared earlier work
+    # are discounted, and the rest stays. Both languages must agree.
+    assert audit["overall_percent"] == 47
+    assert 10 <= audit["adjusted_percent"] < 20
+    assert "SYNTHETIC" in (demo / f"essay-{language}.md").read_text("utf-8").upper()

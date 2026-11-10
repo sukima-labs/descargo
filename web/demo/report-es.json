@@ -1,0 +1,107 @@
+{
+  "schema_version": "0.1",
+  "tool": {
+    "name": "turnitin",
+    "product": "Feedback Studio",
+    "report_kind": "similarity"
+  },
+  "provenance": {
+    "adapter": "manual",
+    "adapter_version": "0",
+    "draftwitness_version": "0.1.0.dev0",
+    "parsed_at": "2026-10-27T10:00:00Z"
+  },
+  "submission": {
+    "title": "SINTÉTICO: Balance hídrico en cuencas semiáridas",
+    "word_count": 206
+  },
+  "similarity": {
+    "overall_percent": 47,
+    "filters": {
+      "quotes_excluded": false,
+      "bibliography_excluded": false
+    },
+    "sources": [
+      {
+        "id": "s1",
+        "rank": 1,
+        "label": "www.ejemplo.org",
+        "kind": "internet",
+        "percent": 5
+      },
+      {
+        "id": "s2",
+        "rank": 2,
+        "label": "Entregado a Universidad Sintética",
+        "kind": "student_paper",
+        "percent": 13
+      },
+      {
+        "id": "s3",
+        "rank": 3,
+        "label": "Journal of Synthetic Hydrology",
+        "kind": "publication",
+        "percent": 14
+      },
+      {
+        "id": "s4",
+        "rank": 4,
+        "label": "docs.ejemplo.net",
+        "kind": "internet",
+        "percent": 4
+      },
+      {
+        "id": "s5",
+        "rank": 5,
+        "label": "Página del curso de la Universidad Sintética",
+        "kind": "internet",
+        "percent": 6
+      },
+      {
+        "id": "s6",
+        "rank": 6,
+        "label": "datos.ejemplo.com",
+        "kind": "internet",
+        "percent": 5
+      }
+    ],
+    "matches": [
+      {
+        "id": "m0",
+        "source_id": "s5",
+        "text": "Este trabajo debe entregarse a través del campus virtual antes de la fecha publicada"
+      },
+      {
+        "id": "m1",
+        "source_id": "s1",
+        "text": "la evapotranspiración explica la mayor parte del agua que sale de la cuenca"
+      },
+      {
+        "id": "m3",
+        "source_id": "s4",
+        "text": "la lluvia llega en pocos episodios intensos cada año"
+      },
+      {
+        "id": "m4",
+        "source_id": "s3",
+        "text": "La recarga de acuíferos ocurre sobre todo en años húmedos, cuando los suelos permanecen saturados varias semanas"
+      },
+      {
+        "id": "m5",
+        "source_id": "s2",
+        "text": "En un ensayo anterior describí cómo los pequeños diques de contención frenan la escorrentía y dejan que el agua se infiltre en el lecho del río durante las crecidas breves de finales de verano"
+      },
+      {
+        "id": "m6",
+        "source_id": "s3",
+        "text": "Smith, J. (2020). Groundwater recharge in semi-arid regions. Journal of Synthetic Hydrology, 12(3), 45-67."
+      },
+      {
+        "id": "m7",
+        "source_id": "s6",
+        "text": "registran lluvia, humedad del suelo y nivel del río cada quince minutos"
+      }
+    ]
+  },
+  "warnings": []
+}

@@ -652,6 +652,21 @@ def commit() -> str:
     return result.stdout.strip() or "unknown"
 
 
+def write_site_data(out: Path) -> None:
+    """The files the page reads besides its own code: the demo, the texts, the guides and
+    the static guide pages."""
+    shutil.copytree(ROOT / "web" / "demo", out / "demo")
+    (out / "strings.json").write_text(
+        json.dumps(web_strings(), ensure_ascii=False, indent=1) + "\n", "utf-8"
+    )
+    (out / "guides.json").write_text(
+        json.dumps(web_guides(), ensure_ascii=False, separators=(",", ":")) + "\n", "utf-8"
+    )
+    for path, page in static_guides().items():
+        (out / path).parent.mkdir(parents=True, exist_ok=True)
+        (out / path).write_text(page, "utf-8")
+
+
 def build(out: Path) -> None:
     pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text("utf-8"))
     uv_lock = tomllib.loads((ROOT / "uv.lock").read_text("utf-8"))
@@ -710,15 +725,7 @@ def build(out: Path) -> None:
     for source in sorted((ROOT / "web").iterdir()):
         if source.suffix in WEB_SUFFIXES:
             shutil.copy2(source, out / source.name)
-    (out / "strings.json").write_text(
-        json.dumps(web_strings(), ensure_ascii=False, indent=1) + "\n", "utf-8"
-    )
-    (out / "guides.json").write_text(
-        json.dumps(web_guides(), ensure_ascii=False, separators=(",", ":")) + "\n", "utf-8"
-    )
-    for path, page in static_guides().items():
-        (out / path).parent.mkdir(parents=True, exist_ok=True)
-        (out / path).write_text(page, "utf-8")
+    write_site_data(out)
     (out / "build.json").write_text(
         json.dumps({"descargo": version, "commit": commit(), "pyodide": PYODIDE_VERSION}, indent=1)
         + "\n",

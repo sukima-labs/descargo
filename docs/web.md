@@ -12,7 +12,7 @@ Ofrece tres de los comandos de la CLI y las guías de procedimientos, en inglés
 | Pestaña | Equivale a |
 |---|---|
 | «Antes de entregar» | `descargo inspect` |
-| «Revisar un informe del detector» | `descargo audit` (e `import-report`: descargar el informe en JSON) |
+| «Revisar un informe del detector» | `descargo audit` (e `import-report`: descargar el informe en JSON). El botón «Probar con un informe de ejemplo» audita un informe y un trabajo **inventados** (`web/demo/`, en español y en inglés) para ver el resultado sin subir nada |
 | «Pedir el informe» | `descargo access-request`, con un formulario en lugar del archivo YAML; las opciones «No está en la lista: carta genérica» de cada país redactan la carta genérica (`--institution`) |
 | «Si te acusan» | sin equivalente en la CLI: las guías de procedimientos de `docs/` (España, Colombia, México, Argentina, Chile y Perú), con el país a elegir |
 | «Enviar comentarios» | sin equivalente en la CLI: un formulario breve que prepara un mensaje para que el estudiante lo copie o lo abra en su propio correo |
