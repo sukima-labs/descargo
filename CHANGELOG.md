@@ -34,7 +34,10 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
   example: plagiarism is defined and is a serious offence, and the guide covers the stages,
   deadlines and appeals (Reglamento Unificado arts. 6, 31, 33, 46, 47, 57-76, Annex 2).
   Amparo: Constitution art. 200.2 and Ley 31307 arts. 7, 43 and 45. Each quote checked in
-  the official text on 2026-11-08.
+  the official text on 2026-11-08. On 2026-11-10 the guide also gives two Tribunal
+  Constitucional judgments on amparo against university sanctions (Exp. 01981-2011-PA/TC:
+  expulsion annulled for lack of reasons and defence; Exp. 00029-2015-PA/TC: rule-based
+  academic removal upheld), read in full; none concerns plagiarism.
 - Procedures guide for Chile (`docs/procedimientos-cl.md`, English in
   `docs/en/procedures-cl.md`). Constitution art. 19 no. 3 (legal defence, a rational and
   fair procedure). The Universidad de Chile is the worked example: the student duty to

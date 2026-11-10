@@ -168,11 +168,40 @@ the Ley 32153, of 2024, did not amend these articles):
 - The deadline «prescribe a los sesenta días hábiles de producida la afectación» (lapses
   sixty working days after the infringement occurred) (art. 45).
 
-**To verify:** whether a specific academic sanction can be taken to an amparo action,
-which requires that the facts relate «en forma directa al contenido constitucionalmente
-protegido del derecho invocado» (directly to the constitutionally protected content of
-the right invoked) (art. 7.1), and the contentious-administrative (judicial review)
-route against public universities. See a professional as soon as you receive the final
+- They need not be exhausted if a decision that is not the last in the administrative
+  route is carried out before the time to let it become final has run out, or if
+  exhausting them could make the harm irreparable (art. 43, 1 and 2). Art. 44 protects,
+  among others, the right to education (19) and effective procedural protection (18).
+- The facts must also relate «en forma directa al contenido constitucionalmente protegido
+  del derecho invocado» (directly to the constitutionally protected content of the right
+  invoked) (art. 7.1).
+
+**What the Tribunal Constitucional has said** (judgments read on tc.gob.pe; they apply the
+earlier procedural code, Ley 28237, whose arts. 45 and 46, on prior remedies and their
+exceptions, are now covered by art. 43):
+
+- **A disciplinary sanction can reach an amparo, on procedure.** In
+  [Exp. 01981-2011-PA/TC](https://www.tc.gob.pe/jurisprudencia/2011/01981-2011-AA.pdf)
+  (2011-10-14, Second Chamber), a student was expelled from the (private) Universidad de
+  Piura by a letter with no concrete facts or rules. The Tribunal upheld the claim for
+  breach of due process, the duty to give reasons and the right of defence (Constitución,
+  art. 139, 3, 5 and 14), and said due process also binds private bodies. It required
+  that the charges be notified beforehand, in writing, with time to answer them, ordered
+  the student reinstated and left the university free to open a new procedure. It did not
+  assess the conduct or how serious it was. Nor did it require the internal appeal,
+  because the sanction took effect at once.
+- **A rule-based academic decision, no.** In
+  [Exp. 00029-2015-PA/TC](https://www.tc.gob.pe/jurisprudencia/2019/00029-2015-AA.pdf)
+  (2018-11-21, Full Court), the removal of a medical student from the Universidad
+  Peruana Cayetano Heredia for failing a course a second time was held unfounded: the
+  university applied its assessment rules, within the autonomy of the Constitución
+  (art. 18), and the Tribunal found no unreasonableness or lack of defence, since the
+  student had appealed internally.
+
+Neither concerns plagiarism. **To verify:** a Tribunal Constitucional judgment on a
+plagiarism sanction against a student (none found), the contentious-administrative route
+against public universities, and whether the doctrine of these two rulings, from 2011 and
+2018, still holds. See a professional as soon as you receive the final
 resolution.
 
 ## To verify
@@ -181,7 +210,10 @@ resolution.
   UNMSM, what the 2025 Reglamento del Tribunal de Honor Universitario changes
   ([Resolución Rectoral 000533-2025-R](https://cdn.www.gob.pe/uploads/document/file/7511812/6388808-resolucion-rectoral-000533-2025-r.pdf)): its annex is not published with the
   resolution, and that resolution orders the student committee's functions to be adapted.
-- Whether the amparo action applies, and in which cases, to an academic sanction.
+- Whether the amparo action lies against a plagiarism sanction on a student: the Tribunal
+  Constitucional has accepted it against a disciplinary expulsion for defects in the
+  procedure (2011) and rejected it against a rule-based academic removal (2018), but no
+  judgment on plagiarism has been found.
 
 ## Where Descargo fits
 
@@ -199,6 +231,8 @@ Peru (gob.pe) and of the Tribunal Constitucional, and the PUCP's regulation from
 university's website, on 2026-11-08. On 2026-11-10 the text the PUCP publishes was checked
 to be version 2020-006 (the same as the previous one except art. 11), and the UNMSM's
 regulation (text recognised from the scan and checked against the image) and the two 2025
-resolutions from gob.pe were read. The quotations were searched for in the text. Rules
+resolutions from gob.pe were read. Also on 2026-11-10, judgments 01981-2011-PA/TC and
+00029-2015-PA/TC were read on the Tribunal Constitucional's website, along with arts. 43
+and 44 of the Código Procesal Constitucional. The quotations were searched for in the text. Rules
 change: check this document's date and that the text is still in force before relying on
 it.
