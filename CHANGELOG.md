@@ -12,6 +12,7 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Web page and guides: the footer carries the Sukima Labs identity, with the isotype, "a Sukima Labs project", a link to sukimalabs.com and the institutional addresses hola@ (founders) and info@ (questions, complaints, admin); the READMEs say the same.
 - Web page: a "Try with a sample report" button in the audit tab runs the audit on a
   made-up (synthetic) Turnitin report, essay and declarations, in Spanish or English
   (`web/demo/`), and says so in the status line. A test audits both sets; nothing is

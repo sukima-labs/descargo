@@ -309,6 +309,24 @@ footer {
   padding-bottom: 2rem;
 }
 
+.sukima {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.sukima p {
+  margin: 0.15rem 0;
+}
+
+.sukima-mark {
+  flex: none;
+  line-height: 0;
+}
+
 .demo {
   display: flex;
   flex-wrap: wrap;
