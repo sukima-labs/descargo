@@ -373,6 +373,16 @@ COUNTRIES: Final = {
         "pe": ("Peru", "peru"),
     },
 }
+#: The Sukima Labs isotype (sukima-labs/marca v1.1, 01_LOGO/SVG/isotipo_color.svg), as in the
+#: application's footer; style.css colours it for the light or the dark background.
+_ISOTYPE: Final = (
+    '<svg class="isotype" viewBox="0 0 200 200" width="40" height="40" aria-hidden="true" '
+    'focusable="false">'
+    '<path class="isotype-frame" d="M 18 174 L 18 38 L 180 14 L 180 174 L 160 174 L 160 39 '
+    'L 38 57 L 38 174 Z"/>'
+    '<path class="isotype-frame" d="M 52 170 L 52 80 L 142 59 L 142 79 L 72 96 L 72 170 Z"/>'
+    '<path class="isotype-panel" d="M 96 167 L 96 109 L 143 93 L 143 173 Z"/></svg>'
+)
 _FOLDERS: Final = {"es": "guias", "en": "en/guides"}
 #: The static pages ask for nothing but their stylesheet and the share picture.
 _STATIC_CSP: Final = (
@@ -414,6 +424,9 @@ _PAGE_TEXT: Final = {
         "all": "Todas las guías",
         "home": "Descargo",
         "other_language": "English",
+        "brand": "Un proyecto de Sukima Labs. El espacio donde nacen nuevas posibilidades.",
+        "contact": "Contacto con los fundadores:",
+        "admin": "Preguntas, quejas y administración:",
     },
     "en": {
         "lang": "en",
@@ -449,6 +462,9 @@ _PAGE_TEXT: Final = {
         "all": "All guides",
         "home": "Descargo",
         "other_language": "Español",
+        "brand": "A Sukima Labs project.",
+        "contact": "Contact the founders:",
+        "admin": "Questions, complaints and admin:",
     },
 }
 
@@ -571,6 +587,15 @@ def _page(language: str, path: str, title: str, description: str, body: str) -> 
   </main>
   <footer>
     <p><a href="{root}">{text["home"]}</a> · <a href="{hub}">{text["all"]}</a></p>
+    <div class="sukima">
+      <a class="sukima-mark" href="https://sukimalabs.com/" aria-label="Sukima Labs">{_ISOTYPE}</a>
+      <div>
+        <p>{text["brand"]}</p>
+        <p><a href="https://sukimalabs.com/">sukimalabs.com</a></p>
+        <p>{text["contact"]} <a href="mailto:hola@sukimalabs.com">hola@sukimalabs.com</a></p>
+        <p>{text["admin"]} <a href="mailto:info@sukimalabs.com">info@sukimalabs.com</a></p>
+      </div>
+    </div>
   </footer>
 </body>
 </html>

@@ -267,7 +267,7 @@ def test_every_link_of_a_static_page_resolves() -> None:
     for path, page in pages.items():
         folder = PurePosixPath(path).parent
         for href in page.hrefs:
-            if href.startswith("https://"):
+            if href.startswith(("https://", "mailto:")):
                 continue
             target, _, anchor = href.partition("#")
             resolved = os.path.normpath(folder / target) if target else str(folder)

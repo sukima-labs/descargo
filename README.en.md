@@ -165,3 +165,9 @@ network, you must offer them its source code.
 
 The Sukima Labs name and isotype (`web/favicon.svg` and the page header) are not covered by
 the AGPL; they belong to Sukima Labs.
+
+## A Sukima Labs project
+
+Descargo is a project of [Sukima Labs](https://sukimalabs.com). Contact the founders:
+[hola@sukimalabs.com](mailto:hola@sukimalabs.com). Questions, complaints and admin:
+[info@sukimalabs.com](mailto:info@sukimalabs.com).

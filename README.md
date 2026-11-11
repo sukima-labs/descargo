@@ -153,3 +153,9 @@ internet, tienes que darles su código fuente. Antes de mandar un cambio, lee
 
 El nombre y el isotipo de Sukima Labs (`web/favicon.svg` y la cabecera de la página) no
 están bajo la AGPL; son de Sukima Labs.
+
+## Un proyecto de Sukima Labs
+
+Descargo es un proyecto de [Sukima Labs](https://sukimalabs.com). Contacto con los
+fundadores: [hola@sukimalabs.com](mailto:hola@sukimalabs.com). Preguntas, quejas y
+administración: [info@sukimalabs.com](mailto:info@sukimalabs.com).
