@@ -5,6 +5,14 @@ web pública y de las guías; consultas a un buscador (9 en español, 6 en ingl�
 ver el apéndice); lectura de los estudios citados; métricas públicas de GitHub. Lo que no se
 ha podido comprobar se dice.
 
+> **Actualización del 11-11-2026 (noche).** Este análisis es una fotografía de la mañana. Tres
+> de sus debilidades ya están resueltas en `main` y en la web pública: las guías sin dirección
+> propia (14 páginas estáticas, #41), el valor enterrado bajo el texto largo (cuatro tarjetas
+> «¿Por dónde empiezo?», #39) y la imposibilidad de probar sin un informe real (botón de
+> informe de ejemplo, #40). Siguen vigentes el buzón (#24), la prealfa, los puntos «por
+> verificar» de las guías, la carga de 20 MB, la cobertura desigual y la falta de la fase 2 del
+> producto. El estado de cada punto está en [PLAN.md](PLAN.md).
+
 ## 1. En una página
 
 | | |
