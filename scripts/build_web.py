@@ -351,7 +351,7 @@ def web_guides() -> dict[str, dict[str, Any]]:
 
 
 #: Where the site lives, and the path of each country's static guide page in each language.
-SITE: Final = "https://sukima-labs.github.io/descargo/"
+SITE: Final = "https://sukimalabs.com/descargo/"
 #: ``country → (name, path part)`` by language. The static pages exist so that search
 #: engines and people can open a guide by its own address; the page (``index.html``) draws
 #: the same guides with JavaScript.

@@ -16,7 +16,7 @@ documento oficial usar (sin datos personales).
 
 **¿Qué hago ahora mismo si me han marcado?** Guarda el informe y el mensaje que te enviaron,
 no borres nada, pide el informe completo si no lo tienes y consulta la guía de tu país para
-ver los plazos: https://sukima-labs.github.io/descargo/ (pestaña «Si te acusan»).
+ver los plazos: https://sukimalabs.com/descargo/ (pestaña «Si te acusan»).
 
 **¿Los detectores fallan?** Pueden equivocarse y hay estudios que lo muestran; Turnitin
 misma dice que no hay una puntuación «correcta». No es lo mismo que decir que no funcionen.

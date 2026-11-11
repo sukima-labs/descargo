@@ -6,7 +6,7 @@ Hola, [saludo]:
 
 Me llamo [nombre] y desarrollo Descargo, una herramienta gratuita y de código abierto
 para estudiantes cuyo trabajo ha sido marcado por un detector de plagio o de IA
-(https://sukima-labs.github.io/descargo/). Les escribo por si les resulta útil como recurso
+(https://sukimalabs.com/descargo/). Les escribo por si les resulta útil como recurso
 para quienes les consultan.
 
 Qué ofrece, en pocas líneas:

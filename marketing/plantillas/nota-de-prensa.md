@@ -14,4 +14,4 @@ et al. (*International Journal for Educational Integrity*, 2023), la propia Turn
 
 **Qué no es:** no es asesoramiento legal ni un «humanizador»; está en versión de prueba.
 
-**Contacto:** [buzón del proyecto, #24]. Web: https://sukima-labs.github.io/descargo/
+**Contacto:** [buzón del proyecto, #24]. Web: https://sukimalabs.com/descargo/

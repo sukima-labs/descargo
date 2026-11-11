@@ -65,7 +65,7 @@ Self-hosted Pyodide, a trimmed lock file, and a Web Worker.
   cover it. The worker therefore starts from a `blob:` URL that only imports `worker.js`:
   a `blob:` worker inherits the page's policy, `<meta>` included (amended 2026-11-05).
 - **Hosting:** any static host. The public page is on GitHub Pages
-  (`https://sukima-labs.github.io/descargo/`, `.github/workflows/pages.yml`), which cannot
+  (`https://sukimalabs.com/descargo/`, `.github/workflows/pages.yml`), which cannot
   send headers: the `<meta>` policy and the `blob:` worker are what confine the page there.
   `scripts/serve_web.py` remains the reference for self-hosting: standard-library HTTP
   server, the policy and the other security headers, no access log, no directory listings,

@@ -1,6 +1,6 @@
 # Aviso al grupo de estudiantes y a los testers (borrador; el envío lo hace quien tiene el grupo)
 
-Hola a todos. Hay una versión nueva de Descargo: https://sukima-labs.github.io/descargo/
+Hola a todos. Hay una versión nueva de Descargo: https://sukimalabs.com/descargo/
 
 Novedades: [lista de lo integrado desde el último aviso, sacada del CHANGELOG].
 

@@ -72,7 +72,7 @@ uv run python scripts/serve_web.py          # http://127.0.0.1:8040/
 El servidor de desarrollo envía las cabeceras de seguridad y no guarda ningún registro de
 accesos. Sirve cualquier alojamiento estático, incluidos los que no pueden enviar
 cabeceras, como GitHub Pages, donde está la página pública
-(`https://sukima-labs.github.io/descargo/`). La página lleva su
+(`https://sukimalabs.com/descargo/`). La página lleva su
 `Content-Security-Policy` en una etiqueta `<meta>`, y el Web Worker donde se ejecuta Python
 arranca desde una URL `blob:`, que hereda esa política, así que un archivo solo puede
 llegar al sitio del que vino. Abrir `index.html` desde el disco no funciona, porque los
