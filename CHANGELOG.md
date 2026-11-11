@@ -155,6 +155,10 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Changed
 
+- The project's own address is now https://sukimalabs.com/descargo/ (Sukima Labs has its own
+  domain; GitHub redirects the old `sukima-labs.github.io/descargo/` there). Canonical,
+  `og:url`, `og:image`, `hreflang`, sitemap, share card (`web/og.jpg`), docs and templates
+  follow. Older entries below keep the address they were written with.
 - The web page names its canonical URL (`<link rel="canonical">`), the same as its
   `og:url`, so search engines index https://sukima-labs.github.io/descargo/. Both
   languages share that URL.

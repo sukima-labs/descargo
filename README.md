@@ -5,9 +5,9 @@
 **Prueba de autoría.** Herramienta libre y local para estudiantes cuyo trabajo ha marcado un
 detector de plagio o de IA.
 
-- **[Pruébala en tu navegador](https://sukima-labs.github.io/descargo/)**: tus archivos no
+- **[Pruébala en tu navegador](https://sukimalabs.com/descargo/)**: tus archivos no
   se suben a ningún sitio.
-- **[Guías por país](https://sukima-labs.github.io/descargo/guias/)** (España, Colombia,
+- **[Guías por país](https://sukimalabs.com/descargo/guias/)** (España, Colombia,
   México, Argentina, Chile y Perú), con artículos, plazos y fuentes.
 - **Estado: prealfa.** Es una versión de prueba y algunas guías tienen puntos «por
   verificar». No es asesoramiento legal.

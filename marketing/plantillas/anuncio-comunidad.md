@@ -21,6 +21,6 @@ Lo que hace:
 Lo que **no** hace: no reescribe tu texto, no baja puntuaciones y no es asesoramiento legal.
 Es una versión de prueba y algunas guías tienen puntos marcados «por verificar».
 
-Enlace: https://sukima-labs.github.io/descargo/ · Código: https://github.com/sukima-labs/descargo
+Enlace: https://sukimalabs.com/descargo/ · Código: https://github.com/sukima-labs/descargo
 
 Si algo está mal o falta tu universidad, dímelo aquí o en un issue; es lo que más ayuda.

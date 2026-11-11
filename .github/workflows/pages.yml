@@ -1,6 +1,6 @@
 name: Pages
 
-# Publishes the in-browser build (ADR 007) at https://sukima-labs.github.io/descargo/ on
+# Publishes the in-browser build (ADR 007) at https://sukimalabs.com/descargo/ on
 # every push to main. GitHub Pages cannot send the Content-Security-Policy as a header; the
 # page's <meta> policy covers the worker too because the worker starts from a blob: URL.
 

@@ -68,7 +68,7 @@ uv run python scripts/serve_web.py          # http://127.0.0.1:8040/
 
 The development server sends the security headers and keeps no access log. Any static host
 works, including those that cannot send headers, such as GitHub Pages, where the public page
-lives (`https://sukima-labs.github.io/descargo/`). The page carries its
+lives (`https://sukimalabs.com/descargo/`). The page carries its
 `Content-Security-Policy` in a `<meta>` tag, and the Web Worker where Python runs starts from
 a `blob:` URL, which inherits that policy, so a file can reach only the site it came from.
 Opening `index.html` from disk does not work,

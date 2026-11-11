@@ -17,4 +17,4 @@ scores, or strip watermarks (ADR 002). The point is evidence a panel can trust.
 It's pre-alpha, Spanish-first, AGPL-3.0, and some guides still have unverified points that
 are marked as such. Feedback on the architecture and on the legal guides is welcome.
 
-Web: https://sukima-labs.github.io/descargo/ · Code: https://github.com/sukima-labs/descargo
+Web: https://sukimalabs.com/descargo/ · Code: https://github.com/sukima-labs/descargo
