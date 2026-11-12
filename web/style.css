@@ -50,6 +50,10 @@
   --error: #a3312a;
   --brand-frame: var(--sukima-grafito);
   --brand-panel: var(--sukima-cian);
+  /* Malla de la banda del pie: los colores del manual con transparencia. En claro, el marfil
+     sobre marfil no se vería, así que la rejilla usa el grafito. */
+  --grid-line: rgb(16 19 28 / 5%);
+  --halo: rgb(113 72 245 / 10%);
   color-scheme: light dark;
 }
 
@@ -71,6 +75,8 @@
     /* Sobre fondo oscuro, el isotipo en marfil. */
     --brand-frame: var(--sukima-marfil);
     --brand-panel: var(--sukima-marfil);
+    --grid-line: rgb(20 198 212 / 5%);
+    --halo: rgb(113 72 245 / 18%);
   }
 }
 
@@ -80,6 +86,7 @@
 
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--bg);
   color: var(--text);
   font: 16px/1.55 "Inter", "DejaVu Sans", Verdana, sans-serif;
@@ -354,12 +361,31 @@ footer {
 }
 
 .sukima {
+  position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
   gap: 0.9rem;
   margin-top: 1.25rem;
-  padding-top: 1rem;
+  padding: 1.5rem 0;
+}
+
+/* La banda del pie: a todo el ancho y solo detrás del bloque institucional. Rejilla de 44 px
+   y un halo violeta suave arriba. Sin animación. */
+.sukima::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
   border-top: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse 60% 100% at 50% 0, var(--halo), transparent),
+    linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0 / 44px 44px;
 }
 
 .sukima p {
