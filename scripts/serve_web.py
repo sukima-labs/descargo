@@ -26,6 +26,7 @@ CSP: Final = "; ".join(
         "worker-src 'self' blob:",
         "connect-src 'self'",
         "style-src 'self'",
+        "font-src 'self'",
         "img-src 'self'",
         "form-action 'none'",
         "base-uri 'none'",

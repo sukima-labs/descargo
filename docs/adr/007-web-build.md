@@ -57,7 +57,7 @@ Self-hosted Pyodide, a trimmed lock file, and a Web Worker.
   renderer uses (`markdown_blocks`), and the page draws them with `textContent`. Nothing
   from a student's file, a report or a profile can inject markup.
 - **Content Security Policy:** `default-src 'none'; script-src 'self' 'wasm-unsafe-eval';
-  worker-src 'self' blob:; connect-src 'self'; style-src 'self'; img-src 'self';
+  worker-src 'self' blob:; connect-src 'self'; style-src 'self'; font-src 'self'; img-src 'self';
   form-action 'none'; base-uri 'none'`, plus `frame-ancestors 'none'` in the header. Pyodide
   needs only `'wasm-unsafe-eval'`, not `'unsafe-eval'` (checked in Chromium with the policy
   as a header). The page carries the policy in a `<meta>` tag. A worker loaded from its own

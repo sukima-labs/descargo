@@ -12,6 +12,7 @@ Nothing has been released yet. Phase 1 is in progress; the package version is
 
 ### Added
 
+- Web page and guides: corporate identity from the approved Manual de Identidad Corporativa v1.0 (section 12), with exactly its four colours (graphite #10131C, ivory #F5F4F0, cyan #14C6D4, violet #7148F5) and soft tones only as those colours with transparency; the status colours stay. The typeface is Inter (DejaVu Sans as fallback), bundled in `web/fonts/` under the SIL OFL, with no external host (the policy gains `font-src 'self'`). The share picture `og.jpg` follows the same palette.
 - Web page and guides: the footer carries the Sukima Labs identity, with the isotype, "a Sukima Labs project", a link to sukimalabs.com and the institutional addresses hola@ (founders) and info@ (questions, complaints, admin); the READMEs say the same.
 - Web page: a "Try with a sample report" button in the audit tab runs the audit on a
   made-up (synthetic) Turnitin report, essay and declarations, in Spanish or English

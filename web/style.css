@@ -1,23 +1,53 @@
+/* Tipografía de referencia del Manual de Identidad Corporativa v1.0: Inter, con DejaVu Sans
+   de respaldo. Inter (SIL OFL 1.1, fonts/OFL.txt) va empaquetada: ninguna fuente viene de fuera. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/Inter-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/Inter-SemiBold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/Inter-Bold.woff2") format("woff2");
+}
+
+/* Paleta del Manual de Identidad Corporativa v1.0 (sección 12): exactamente estos cuatro
+   valores. Todo tono suave es uno de ellos con transparencia; no hay tonos propios. Solo los
+   colores de estado (ok, error) quedan aparte, como pide el manual. */
 :root {
-  --bg: #fbfaf7;
-  --surface: #ffffff;
-  --text: #1d1f23;
-  --muted: #5b616b;
-  --border: #d9d6cf;
-  --accent: #1f5f8b;
-  --accent-text: #ffffff;
+  --sukima-grafito: #10131c; /* base institucional: fondo del tema oscuro, texto del claro */
+  --sukima-marfil: #f5f4f0; /* superficie: fondo del tema claro, texto del oscuro */
+  --sukima-cian: #14c6d4; /* señalizar posibilidades: enlaces, acentos, trazos */
+  --sukima-violeta: #7148f5; /* acento secundario; acción principal en el tema claro */
+
+  /* Tema claro: fondo marfil, texto grafito. */
+  --bg: var(--sukima-marfil);
+  --text: var(--sukima-grafito);
+  --muted: rgb(16 19 28 / 72%);
+  --border: rgb(16 19 28 / 22%);
+  --surface: rgb(16 19 28 / 4%);
+  --notice: rgb(16 19 28 / 7%);
+  --quote: rgb(16 19 28 / 40%);
+  /* El cian sobre marfil no llega a 2:1, así que no sirve de texto ni de botón en el claro:
+     ahí el enlace y la acción principal son violeta (4,8:1) y el cian queda como trazo. */
+  --accent: var(--sukima-violeta);
+  --accent-text: var(--sukima-marfil);
+  --signal: var(--sukima-cian);
   --ok: #2d6a3e;
   --error: #a3312a;
-  --notice: #f2efe6;
-  --quote: #9aa0a8;
-  /* Sukima Labs brand tokens (sukima-labs/marca v1.1, 03_DIGITAL/Web/brand_tokens.css).
-     Only the brand mark uses them: cian on white is under 2:1, too faint for text or
-     buttons, so Descargo keeps its own accent for the interface. */
-  --sukima-grafito: #10131c;
-  --sukima-cian: #14c6d4;
-  --sukima-violeta: #7148f5;
-  --sukima-marfil: #f5f4f0;
-  --sukima-blanco: #ffffff;
   --brand-frame: var(--sukima-grafito);
   --brand-panel: var(--sukima-cian);
   color-scheme: light dark;
@@ -25,20 +55,22 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #15171a;
-    --surface: #1d2024;
-    --text: #e7e5e0;
-    --muted: #a3a8b0;
-    --border: #3a3e44;
-    --accent: #7db3db;
-    --accent-text: #0f1215;
+    /* Tema oscuro: fondo grafito, texto marfil, enlaces y acentos en cian. */
+    --bg: var(--sukima-grafito);
+    --text: var(--sukima-marfil);
+    --muted: rgb(245 244 240 / 72%);
+    --border: rgb(245 244 240 / 24%);
+    --surface: rgb(245 244 240 / 6%);
+    --notice: rgb(245 244 240 / 9%);
+    --quote: rgb(245 244 240 / 40%);
+    --accent: var(--sukima-cian);
+    --accent-text: var(--sukima-grafito);
+    --signal: var(--sukima-cian);
     --ok: #7cc68e;
     --error: #f08a80;
-    --notice: #23262b;
-    --quote: #6b717a;
-    /* On a dark background the manual's white isotype (isotipo_white.svg). */
-    --brand-frame: var(--sukima-blanco);
-    --brand-panel: var(--sukima-blanco);
+    /* Sobre fondo oscuro, el isotipo en marfil. */
+    --brand-frame: var(--sukima-marfil);
+    --brand-panel: var(--sukima-marfil);
   }
 }
 
@@ -50,7 +82,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font: 16px/1.55 "Inter", "DejaVu Sans", Verdana, sans-serif;
 }
 
 header.top,
@@ -112,6 +144,17 @@ button {
   padding: 0.4rem 0.8rem;
 }
 
+a {
+  text-decoration-color: var(--signal);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+
 button:disabled {
   cursor: progress;
   opacity: 0.6;
@@ -170,7 +213,8 @@ button[type="submit"] {
 
 .tabs button[aria-selected="true"] {
   border-color: var(--border);
-  background: var(--surface);
+  border-top: 2px solid var(--signal);
+  background: linear-gradient(var(--surface), var(--surface)), var(--bg);
   font-weight: 600;
   margin-bottom: -1px;
 }
@@ -390,7 +434,7 @@ label.inline {
 }
 
 textarea.message {
-  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-family: "DejaVu Sans Mono", ui-monospace, Menlo, Consolas, monospace;
   font-size: 0.875rem;
 }
 

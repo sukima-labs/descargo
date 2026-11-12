@@ -384,9 +384,10 @@ _ISOTYPE: Final = (
     '<path class="isotype-panel" d="M 96 167 L 96 109 L 143 93 L 143 173 Z"/></svg>'
 )
 _FOLDERS: Final = {"es": "guias", "en": "en/guides"}
-#: The static pages ask for nothing but their stylesheet and the share picture.
+#: The static pages ask for nothing but their stylesheet, its fonts and the share picture.
 _STATIC_CSP: Final = (
-    "default-src 'none'; style-src 'self'; img-src 'self'; form-action 'none'; base-uri 'none'"
+    "default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'; "
+    "form-action 'none'; base-uri 'none'"
 )
 _PAGE_TEXT: Final = {
     "es": {
@@ -750,6 +751,8 @@ def build(out: Path) -> None:
     for source in sorted((ROOT / "web").iterdir()):
         if source.suffix in WEB_SUFFIXES:
             shutil.copy2(source, out / source.name)
+    # Inter, the manual's reference typeface, ships with the site (no external font host).
+    shutil.copytree(ROOT / "web" / "fonts", out / "fonts", dirs_exist_ok=True)
     write_site_data(out)
     (out / "build.json").write_text(
         json.dumps({"descargo": version, "commit": commit(), "pyodide": PYODIDE_VERSION}, indent=1)
