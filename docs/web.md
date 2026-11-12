@@ -69,6 +69,15 @@ para que cualquiera pueda comprobar que una copia publicada coincide con una com
 uv run python scripts/serve_web.py          # http://127.0.0.1:8040/
 ```
 
+**Identidad.** La página sigue el Manual de Identidad Corporativa de Sukima Labs v1.0
+(sección 12): solo cuatro colores (grafito `#10131C`, marfil `#F5F4F0`, cian `#14C6D4` y
+violeta `#7148F5`); los tonos suaves son esos mismos colores con transparencia, y solo los
+colores de estado (correcto, error) quedan aparte. El tema claro usa fondo marfil y texto
+grafito; el oscuro, al revés. El cian marca enlaces, trazos y foco en el oscuro; en el claro
+no llega a 2:1 sobre marfil, así que allí el texto de enlaces y el botón principal son violeta
+y el cian queda como subrayado y foco. La tipografía es Inter (con DejaVu Sans de respaldo),
+empaquetada en `web/fonts/` con su licencia SIL OFL, sin fuentes de ningún servidor externo.
+
 El servidor de desarrollo envía las cabeceras de seguridad y no guarda ningún registro de
 accesos. Sirve cualquier alojamiento estático, incluidos los que no pueden enviar
 cabeceras, como GitHub Pages, donde está la página pública
