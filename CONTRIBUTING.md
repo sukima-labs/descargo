@@ -56,8 +56,7 @@ Descargo is licensed under AGPL-3.0-or-later and its copyright holder is nyakoji
 a pull request you agree that:
 
 - your contribution is published under AGPL-3.0-or-later, and
-- you grant the copyright holder, and any successor in title (for example, a company set up
-  by the sukima-labs founders), a perpetual, worldwide, non-exclusive, royalty-free licence to
+- you grant the copyright holder a perpetual, worldwide, non-exclusive, royalty-free licence to
   use, modify, distribute, sublicense and relicense it, including under other terms.
 
 Sign off every commit (`git commit -s`) to certify the
